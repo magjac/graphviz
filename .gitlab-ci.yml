@@ -1,0 +1,17 @@
+stages:
+    - package
+
+portable-source-packaging:
+    stage: package
+    tags:
+        - older-redhat-system
+    script:
+        - ./autogen.sh
+        - make dist
+    artifacts:
+        when: on_success
+        expire_in: 1 week
+        paths:
+            - graphviz-*.tar.gz
+        only:
+            - master
