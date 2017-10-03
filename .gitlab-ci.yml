@@ -13,5 +13,5 @@ portable-source-packaging:
         expire_in: 1 week
         paths:
             - graphviz-*.tar.gz
-        only:
-            - master
+    only:
+        - master
