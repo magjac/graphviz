@@ -22,10 +22,12 @@ if WITH_TCL
 pkgtcl_LTLIBRARIES = libgdtclft.la
 man_MANS = $(man)
 pdf_DATA = $(pdf)
+noinst_LTLIBRARIES = libgdtclft_C.la
 endif
 endif
 
 libgdtclft_la_SOURCES = gdtclft.c
+libgdtclft_C_la_SOURCES = gdtclft.c
 
 libgdtclft_la_LDFLAGS = -no-undefined
 

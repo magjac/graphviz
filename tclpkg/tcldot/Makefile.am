@@ -6,6 +6,9 @@ SUBDIRS = demo
 # tclhandle still needed for gd
 TCLHANDLE_INCLUDES=-I$(top_srcdir)/tclpkg/tclhandle
 TCLHANDLE_LIBS=$(top_builddir)/tclpkg/tclhandle/libtclhandle_C.la
+if WITH_LIBGD
+GDTCLFT_LIBS = $(top_srcdir)/tclpkg/gdtclft/libgdtclft_C.la
+endif
 
 pdfdir = $(pkgdatadir)/doc/pdf
 htmldir = $(pkgdatadir)/doc/html
@@ -37,10 +40,6 @@ pdf_DATA = $(pdf)
 html_DATA = $(html)
 endif
 
-if WITH_LIBGD
-GDTCLFT = $(top_srcdir)/tclpkg/gdtclft/gdtclft.c
-endif
-
 libtcldot_la_SOURCES = \
 	tcldot.c \
 	tcldot-graphcmd.c \
@@ -53,8 +52,8 @@ libtcldot_la_SOURCES = \
 libtcldot_la_CPPFLAGS = $(AM_CPPFLAGS) -DDEMAND_LOADING=1
 libtcldot_la_LDFLAGS = -no-undefined 
 
-libtcldot_la_LIBADD = $(TCLHANDLE_LIBS) \
-	$(top_builddir)/tclpkg/tclstubs/libtclstubs_C.la \
+libtcldot_la_LIBADD = $(TCLHANDLE_LIBS) $(GDTCLFT_LIBS) \
+	$(top_builddir)/tclpkg/tclstubs/libtclstubs_C.la  \
 	$(top_builddir)/lib/cdt/libcdt.la \
 	$(top_builddir)/lib/cgraph/libcgraph.la \
 	$(top_builddir)/lib/pathplan/libpathplan_C.la \
