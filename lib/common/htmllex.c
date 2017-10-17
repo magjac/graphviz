@@ -888,14 +888,59 @@ static void printTok(int tok)
     char *s;
 
     switch (tok) {
-    case T_VR:
-	s = "T_VR";
+    case T_end_br:
+	s = "T_end_br";
 	break;
-    case T_vr:
-	s = "T_vr";
+    case T_end_img:
+	s = "T_end_img";
 	break;
-    case T_end_vr:
-	s = "T_end_vr";
+    case T_row:
+	s = "T_row";
+	break;
+    case T_end_row:
+	s = "T_end_row";
+	break;
+    case T_html:
+	s = "T_html";
+	break;
+    case T_end_html:
+	s = "T_end_html";
+	break;
+    case T_end_table:
+	s = "T_end_table";
+	break;
+    case T_end_cell:
+	s = "T_end_cell";
+	break;
+    case T_end_font:
+	s = "T_end_font";
+	break;
+    case T_string:
+	s = "T_string";
+	break;
+    case T_error:
+	s = "T_error";
+	break;
+    case T_n_italic:
+	s = "T_n_italic";
+	break;
+    case T_n_bold:
+	s = "T_n_bold";
+	break;
+    case T_n_underline:
+	s = "T_n_underline";
+	break;
+    case T_n_overline:
+	s = "T_n_overline";
+	break;
+    case T_n_sup:
+	s = "T_n_sup";
+	break;
+    case T_n_sub:
+	s = "T_n_sub";
+	break;
+    case T_n_s:
+	s = "T_n_s";
 	break;
     case T_HR:
 	s = "T_HR";
@@ -906,38 +951,26 @@ static void printTok(int tok)
     case T_end_hr:
 	s = "T_end_hr";
 	break;
+    case T_VR:
+	s = "T_VR";
+	break;
+    case T_vr:
+	s = "T_vr";
+	break;
+    case T_end_vr:
+	s = "T_end_vr";
+	break;
     case T_BR:
 	s = "T_BR";
 	break;
     case T_br:
 	s = "T_br";
 	break;
-    case T_end_br:
-	s = "T_end_br";
+    case T_IMG:
+	s = "T_IMG";
 	break;
-    case T_end_table:
-	s = "T_end_table";
-	break;
-    case T_row:
-	s = "T_row";
-	break;
-    case T_end_row:
-	s = "T_end_row";
-	break;
-    case T_end_cell:
-	s = "T_end_cell";
-	break;
-    case T_html:
-	s = "T_html";
-	break;
-    case T_end_html:
-	s = "T_end_html";
-	break;
-    case T_string:
-	s = "T_string";
-	break;
-    case T_error:
-	s = "T_error";
+    case T_img:
+	s = "T_img";
 	break;
     case T_table:
 	s = "T_table";
@@ -945,44 +978,29 @@ static void printTok(int tok)
     case T_cell:
 	s = "T_cell";
 	break;
-    case T_img:
-	s = "T_img";
-	break;
-    case T_end_img:
-	s = "T_end_img";
-	break;
-    case T_IMG:
-	s = "T_IMG";
-	break;
-    case T_underline:
-	s = "T_underline";
-	break;
-    case T_n_underline:
-	s = "T_n_underline";
-	break;
-    case T_overline:
-	s = "T_overline";
-	break;
-    case T_n_overline:
-	s = "T_n_overline";
+    case T_font:
+	s = "T_font";
 	break;
     case T_italic:
 	s = "T_italic";
 	break;
-    case T_n_italic:
-	s = "T_n_italic";
-	break;
     case T_bold:
 	s = "T_bold";
 	break;
-    case T_n_bold:
-	s = "T_n_bold";
+    case T_underline:
+	s = "T_underline";
+	break;
+    case T_overline:
+	s = "T_overline";
+	break;
+    case T_sup:
+	s = "T_sup";
+	break;
+    case T_sub:
+	s = "T_sub";
 	break;
     case T_s:
 	s = "T_s";
-	break;
-    case T_n_s:
-	s = "T_n_s";
 	break;
     default:
 	s = "<unknown>";
