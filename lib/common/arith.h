@@ -65,7 +65,7 @@ extern "C" {
 #endif
 
 #ifndef MAXFLOAT
-#define MAXFLOAT	((float)3.40282347e+38F)  // exact value: 0x1.fffffep+127f
+#define MAXFLOAT	((float)3.40282347e+38)  // exact value: 0x1.fffffep+127f
 #endif
 
 #ifdef BETWEEN
