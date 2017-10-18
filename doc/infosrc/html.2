@@ -1,9 +1,18 @@
 </TABLE>
 <P>
+All non-printing characters such as tabs or newlines are ignored.
 Above, a <I>string</I> is any collection of printable characters, including
-all spaces. Note that outside of the body of a &lt;TD&gt; element, 
-whitespace characters are ignored; within a &lt;TD&gt; element, spaces
+spaces. For tables, outside of the body of a &lt;TD&gt; element, 
+whitespace characters are ignored, including spaces; within a &lt;TD&gt; element, spaces
 are preserved but all other white space characters are discarded.
+<B>N.B.</B> For technical reasons, if a table is wrapped in a font element such as  &lt;FONT&gt;
+or  &lt;B&gt;, any space immediately before or after this will cause a syntax error. For example,
+the label
+<PRE>
+&lt; &lt;U&gt;&lt;TABLE&gt;&lt;TR&gt;&lt;TD&gt;a&lt;/TD&gt;&lt;/TR&gt;&lt;/U&gt;&gt;
+</PRE>
+is not legal. Removing either the space or the &lt;U&gt...&lt;/U&gt will fix this.
+<P>
 HTML comments are allowed within an HTML string. They can occur anywhere
 provided that, if they contain part of an HTML element, they must contain
 the entire element.

@@ -518,7 +518,7 @@ Note that, as in HTML, element and attribute names are case-insensitive.
 <TR>
   <TD ALIGN=RIGHT></TD>
   <TD ALIGN=LEFT>|</TD>
-  <TD ALIGN=LEFT><I>table</I></TD>
+  <TD ALIGN=LEFT><I>fonttable</I></TD>
 </TR>
 <TR>
   <TD ALIGN=RIGHT><I>text</I></TD>
@@ -581,9 +581,39 @@ Note that, as in HTML, element and attribute names are case-insensitive.
   <TD ALIGN=LEFT><B>&lt;S&gt;</B> <I>text</I> <B>&lt;/S&gt</B></TD>
 </TR>
 <TR>
+  <TD ALIGN=RIGHT><I>fonttable</I></TD>
+  <TD ALIGN=LEFT>:</TD>
+  <TD ALIGN=LEFT><I>table</I></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>&lt;FONT&gt;</B> <I>table</I> <B>&lt;/FONT&gt;</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>&lt;I&gt;</B> <I>table</I> <B>&lt;/I&gt;</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>&lt;B&gt;</B> <I>table</I> <B>&lt;/B&gt;</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>&lt;U&gt;</B> <I>table</I> <B>&lt;/U&gt</B></TD>
+</TR>
+<TR>
+  <TD ALIGN=RIGHT></TD>
+  <TD ALIGN=LEFT>|</TD>
+  <TD ALIGN=LEFT><B>&lt;O&gt;</B> <I>table</I> <B>&lt;/O&gt</B></TD>
+</TR>
+<TR>
   <TD ALIGN=RIGHT><I>table</I></TD>
   <TD ALIGN=LEFT>:</TD>
-  <TD ALIGN=LEFT>[ <B>&lt;FONT&gt;</B> ] <B>&lt;TABLE&gt;</B> <I>rows</I> <B>&lt;/TABLE&gt;</B> [ <B>&lt;/FONT&gt;</B> ]</TD>
+  <TD ALIGN=LEFT><B>&lt;TABLE&gt;</B> <I>rows</I> <B>&lt;/TABLE&gt;</B></TD>
 </TR>
 <TR>
   <TD ALIGN=RIGHT><I>rows</I></TD>
@@ -632,10 +662,19 @@ Note that, as in HTML, element and attribute names are case-insensitive.
 </TR>
 </TABLE>
 <P>
+All non-printing characters such as tabs or newlines are ignored.
 Above, a <I>string</I> is any collection of printable characters, including
-all spaces. Note that outside of the body of a &lt;TD&gt; element, 
-whitespace characters are ignored; within a &lt;TD&gt; element, spaces
+spaces. For tables, outside of the body of a &lt;TD&gt; element, 
+whitespace characters are ignored, including spaces; within a &lt;TD&gt; element, spaces
 are preserved but all other white space characters are discarded.
+<B>N.B.</B> For technical reasons, if a table is wrapped in a font element such as  &lt;FONT&gt;
+or  &lt;B&gt;, any space immediately before or after this will cause a syntax error. For example,
+the label
+<PRE>
+&lt; &lt;U&gt;&lt;TABLE&gt;&lt;TR&gt;&lt;TD&gt;a&lt;/TD&gt;&lt;/TR&gt;&lt;/U&gt;&gt;
+</PRE>
+is not legal. Removing either the space or the &lt;U&gt...&lt;/U&gt will fix this.
+<P>
 HTML comments are allowed within an HTML string. They can occur anywhere
 provided that, if they contain part of an HTML element, they must contain
 the entire element.
