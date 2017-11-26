@@ -385,7 +385,7 @@ limitBoxes (boxf* boxes, int boxn, pointf *pps, int pn, int delta)
  * the box can be shrunk to the minimum width. The extra space can then be used by other
  * edges. 
  *
- * If a catastrophic error, return NULL.
+ * If a catastrophic error, return NULL and npoints is 0.
  */
 static pointf *_routesplines(path * pp, int *npoints, int polyline)
 {
@@ -405,6 +405,7 @@ static pointf *_routesplines(path * pp, int *npoints, int polyline)
 
     nedges++;
     nboxes += pp->nbox;
+    *npoints = 0;
 
     for (realedge = (edge_t *) pp->data;
 #ifdef NOTNOW
