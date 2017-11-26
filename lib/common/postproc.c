@@ -504,7 +504,7 @@ static void addXLabels(Agraph_t * gp)
 		    xlp++;
 		}
 		else {
-		    agerr(AGWARN, "no position for edge with label %s",
+		    agerr(AGWARN, "no position for edge with label %s\n",
 			    ED_label(ep)->text);
 		    continue;
 		}
@@ -519,7 +519,7 @@ static void addXLabels(Agraph_t * gp)
 		    xlp++;
 		}
 		else {
-		    agerr(AGWARN, "no position for edge with tail label %s",
+		    agerr(AGWARN, "no position for edge with tail label %s\n",
 			    ED_tail_label(ep)->text);
 		    continue;
 		}
@@ -534,7 +534,7 @@ static void addXLabels(Agraph_t * gp)
 		    xlp++;
 		}
 		else {
-		    agerr(AGWARN, "no position for edge with head label %s",
+		    agerr(AGWARN, "no position for edge with head label %s\n",
 			    ED_head_label(ep)->text);
 		    continue;
 		}
@@ -549,7 +549,7 @@ static void addXLabels(Agraph_t * gp)
 		    xlp++;
 		}
 		else {
-		    agerr(AGWARN, "no position for edge with xlabel %s",
+		    agerr(AGWARN, "no position for edge with xlabel %s\n",
 			    ED_xlabel(ep)->text);
 		    continue;
 		}
