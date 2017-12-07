@@ -4,10 +4,10 @@
 [![Windows Build Status](https://img.shields.io/appveyor/ci/ellson/graphviz/master.svg?label=Windows)](https://ci.appveyor.com/project/ellson/graphviz/branch/master)
 
 from AT&T Research and Lucent Bell Labs
-* https://emden.github.io/
-* http://www.graphviz.org/
 
-See doc/build.html within the source tree or http://ellson.github.io/graphviz/doc/html/build.html for prerequisites and detailed build notes.
+* https://graphviz.org/
+
+See doc/build.html within the source tree or https://graphviz.org/doc/build.html for prerequisites and detailed build notes.
 
 ## master GIT Repository
 
@@ -18,7 +18,7 @@ The master GIT Repository for graphviz can be found at:
 
 The Graphviz documents are currently hosted at https://emden.github.io/
 
-## Graph Visualization ( https://emden.github.io/about/ )
+## Graph Visualization ( https://graphviz.org/about/ )
 
 Graph visualization is a way of representing structural information as diagrams of abstract graphs and networks. It has important applications in networking, bioinformatics,  software engineering, database and web design, machine learning, and in visual interfaces for other technical domains.
 
