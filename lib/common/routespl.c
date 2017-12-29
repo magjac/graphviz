@@ -403,9 +403,9 @@ static pointf *_routesplines(path * pp, int *npoints, int polyline)
     int loopcnt, delta = INIT_DELTA;
     boolean unbounded;
 
+    *npoints = 0;
     nedges++;
     nboxes += pp->nbox;
-    *npoints = 0;
 
     for (realedge = (edge_t *) pp->data;
 #ifdef NOTNOW
