@@ -1847,7 +1847,7 @@ static boolean medians(graph_t * g, int r0, int r1)
 		if (lspan == rspan)
 		    ND_mval(n) = (list[lm] + list[rm]) / 2;
 		else {
-		    int w = list[lm] * rspan + list[rm] * lspan;
+		    double w = list[lm] * (double)rspan + list[rm] * (double)lspan;
 		    ND_mval(n) = w / (lspan + rspan);
 		}
 	    }
