@@ -78,7 +78,7 @@ copy $(SolutionDir)windows\dependencies\libraries\x86\bin\gobject-2.dll $(OutDir
 copy $(SolutionDir)windows\dependencies\libraries\x86\bin\libharfbuzz-0.dll $(OutDir)libharfbuzz-0.dll
 copy $(SolutionDir)windows\dependencies\libraries\x86\bin\pango-1.dll $(OutDir)pango-1.dll
 copy $(SolutionDir)windows\dependencies\libraries\x86\bin\pangocairo-1.dll $(OutDir)pangocairo-1.dll
-copy $(SolutionDir)windows\dependencies\libraries\x86\bin\pangoft2-1.dll $(OutDir)pango2-1.dll
+copy $(SolutionDir)windows\dependencies\libraries\x86\bin\pangoft2-1.dll $(OutDir)\pangoft2-1.dll
 copy $(SolutionDir)windows\dependencies\libraries\x86\bin\pangowin32-1.dll $(OutDir)pangowin32-1.dll
 copy $(SolutionDir)windows\dependencies\libraries\x86\bin\pixman-1.dll $(OutDir)pixman-1.dll</Command>
     </PostBuildEvent>
@@ -110,7 +110,7 @@ copy $(SolutionDir)windows\dependencies\libraries\x86\bin\gobject-2.dll $(OutDir
 copy $(SolutionDir)windows\dependencies\libraries\x86\bin\libharfbuzz-0.dll $(OutDir)libharfbuzz-0.dll
 copy $(SolutionDir)windows\dependencies\libraries\x86\bin\pango-1.dll $(OutDir)pango-1.dll
 copy $(SolutionDir)windows\dependencies\libraries\x86\bin\pangocairo-1.dll $(OutDir)pangocairo-1.dll
-copy $(SolutionDir)windows\dependencies\libraries\x86\bin\pangoft2-1.dll $(OutDir)pango2-1.dll
+copy $(SolutionDir)windows\dependencies\libraries\x86\bin\pangoft2-1.dll $(OutDir)\pangoft2-1.dll
 copy $(SolutionDir)windows\dependencies\libraries\x86\bin\pangowin32-1.dll $(OutDir)pangowin32-1.dll
 copy $(SolutionDir)windows\dependencies\libraries\x86\bin\pixman-1.dll $(OutDir)pixman-1.dll</Command>
     </PostBuildEvent>
