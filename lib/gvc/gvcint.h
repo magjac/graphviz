@@ -22,6 +22,7 @@ extern "C" {
 
 #include "cdt.h"
 #include "gvcommon.h"
+#include "gvcjob.h"
 #include "color.h"
 
     /* active plugin headers */
