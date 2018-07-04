@@ -2336,6 +2336,8 @@ else
   if test "$QMAKE" != "false"; then
     PKG_CHECK_MODULES(QTCORE, [Qt5Core],[
       PKG_CHECK_MODULES(QTGUI, [Qt5Widgets Qt5PrintSupport],[
+  # required for linking with QT
+  CPPFLAGS="${CPPFLAGS} -fPIE -fPIC"
 	use_qt="Yes"
       ],[
         use_qt="No (QtGui not available)"
