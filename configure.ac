@@ -208,7 +208,7 @@ DEFAULT_DPI=96
 AC_DEFINE_UNQUOTED(DEFAULT_DPI,$DEFAULT_DPI,Default DPI.)
 AC_DEFINE_UNQUOTED(BROWSER,"$BROWSER",[Command to open a browser on a URL])
 
-AM_INIT_AUTOMAKE([no-define subdir-objects])
+AM_INIT_AUTOMAKE([no-define])
 
 # Suppress verbose compile lines
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
@@ -2332,10 +2332,10 @@ if test "x$with_qt" != "xyes"; then
   use_qt="No (disabled)"
 else
 
-  AC_CHECK_PROGS(QMAKE,qmake-qt4 qmake-qt3 qmake,false)
+  AC_CHECK_PROGS(QMAKE,qmake-qt5 qmake,false)
   if test "$QMAKE" != "false"; then
-    PKG_CHECK_MODULES(QTCORE, [QtCore],[
-      PKG_CHECK_MODULES(QTGUI, [QtGui],[
+    PKG_CHECK_MODULES(QTCORE, [Qt5Core],[
+      PKG_CHECK_MODULES(QTGUI, [Qt5Widgets Qt5PrintSupport],[
 	use_qt="Yes"
       ],[
         use_qt="No (QtGui not available)"
