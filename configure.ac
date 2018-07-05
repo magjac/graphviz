@@ -2337,7 +2337,7 @@ else
     PKG_CHECK_MODULES(QTCORE, [Qt5Core],[
       PKG_CHECK_MODULES(QTGUI, [Qt5Widgets Qt5PrintSupport],[
   # required for linking with QT
-  CPPFLAGS="${CPPFLAGS} -fPIE -fPIC"
+  CPPFLAGS="${CPPFLAGS} -fPIE -fPIC -std=gnu++11"
 	use_qt="Yes"
       ],[
         use_qt="No (QtGui not available)"

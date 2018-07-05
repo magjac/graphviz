@@ -46,7 +46,7 @@ gvedit_SOURCES = main.cpp csettings.cpp mainwindow.cpp imageviewer.cpp mdichild.
 
 $(MOCABLES): mocables
 
-gvedit: $(MOCABLES)
+gvedit$(EXEEXT): $(MOCABLES)
 
 .PHONY: mocables
 mocables: qMakefile
