@@ -4,7 +4,7 @@ stages:
 portable-source-packaging:
     stage: package
     tags:
-        - older-redhat-system
+        - graphviz,centos7
     script:
         - ./autogen.sh
         - make dist
