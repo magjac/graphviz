@@ -2,7 +2,7 @@ stages:
     - source
     - build
 
-portable-source-packaging:
+portable-source:
     stage: source
     tags:
         - graphviz,centos7
@@ -18,10 +18,8 @@ portable-source-packaging:
     only:
         - master
 
-centos7-binary-packaging:
+.build_template: &build_definition
     stage: build
-    tags:
-        - graphviz,centos7
     script:
         - VERSION=$( cat VERSION )
         - rpmbuild -ta graphviz-$VERSION.tar.gz
@@ -32,3 +30,23 @@ centos7-binary-packaging:
             - graphviz-*.rpm
     only:
         - master
+
+centos6-build:
+    <<: *build_definition
+    tags:
+        - graphviz,centos6
+
+centos7-build:
+    <<: *build_definition
+    tags:
+        - graphviz,centos7
+
+fedora27-build:
+    <<: *build_definition
+    tags:
+        - graphviz,fedora27
+
+fedora28-build:
+    <<: *build_definition
+    tags:
+        - graphviz,fedora28

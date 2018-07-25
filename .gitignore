@@ -18,7 +18,8 @@ CMakeFiles
 CMakeCache.txt
 
 # product of: make dist
-graphviz*.tar.gz*
+graphviz-*.tar.gz
+VERSION
 
 lib/rxspencer/re
 lib/rxspencer/*.oo
@@ -100,8 +101,12 @@ FEATURE/
 cmd/dot/dot_builtins
 cmd/gvedit/gvedit
 cmd/gvedit/attrs.txt
+cmd/gvedit/.qmake.stash
+cmd/gvedit/moc_predefs.h
+cmd/smyrna/gui/.dirstamp
 lib/rxspencer/regex.h
 tclpkg/**/pkgIndex.tcl
+tclpkg/gv/runtime.h
 tclpkg/gv/SWIGTYPE*
 tclpkg/gv/gv.3*
 tclpkg/gv/META.gv
@@ -245,3 +250,4 @@ lib/color_lib
 
 # Python byte code
 *.pyc
+
