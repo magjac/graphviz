@@ -26,6 +26,8 @@ doxygen:
 	doxygen
 
 dist-hook:
+	# save VERSION for .gitlab-runners, to be included in artifacts, but not in dist
+	echo "@VERSION" >VERSION
 #	find $(distdir) -name CVS -type d -prune -exec rm -rf {} \;
 #	rm -f ToPAS
 #	find $(distdir) -type f -exec md5sum {} >>ToPAS \;

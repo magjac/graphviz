@@ -1,8 +1,9 @@
 stages:
-    - package
+    - source
+    - build
 
 portable-source-packaging:
-    stage: package
+    stage: source
     tags:
         - graphviz,centos7
     script:
@@ -12,6 +13,23 @@ portable-source-packaging:
         when: on_success
         expire_in: 1 week
         paths:
+            - VERSION
             - graphviz-*.tar.gz
+    only:
+        - master
+
+centos7-binary-packaging:
+    stage: build
+    dependencies: source
+    tags:
+        - graphviz,centos7
+    script:
+        - VERSION=$( cat VERSION )
+        - rpmbuild -ta graphviz-$VERSION.tar.gz
+    artifacts:
+        when: on_success
+        expire_in: 1 week
+        paths:
+            - graphviz-*.rpm
     only:
         - master
