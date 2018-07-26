@@ -17,11 +17,11 @@ pdf_DATA = $(pdfs)
 endif
 
 AM_CPPFLAGS = \
-        -I$(top_srcdir)/lib/common \
-        -I$(top_srcdir)/lib/gvc \
-        -I$(top_srcdir)/lib/pathplan \
-        -I$(top_srcdir)/lib/cgraph \
-        -I$(top_srcdir)/lib/cdt
+	-I$(top_srcdir)/lib/common \
+	-I$(top_srcdir)/lib/gvc \
+	-I$(top_srcdir)/lib/pathplan \
+	-I$(top_srcdir)/lib/cgraph \
+	-I$(top_srcdir)/lib/cdt
 
 gvedit_CPPFLAGS = \
 	$(AM_CPPFLAGS) \
@@ -42,11 +42,11 @@ noinst_HEADERS = csettings.h imageviewer.h mainwindow.h mdichild.h ui_settings.h
 
 MOCABLES = moc_csettings.cpp moc_imageviewer.cpp moc_mainwindow.cpp moc_mdichild.cpp qrc_mdi.cpp
 
-gvedit_SOURCES = main.cpp csettings.cpp mainwindow.cpp imageviewer.cpp mdichild.cpp
+gvedit_SOURCES = main.cpp csettings.cpp imageviewer.cpp mainwindow.cpp mdichild.cpp $(MOCABLES)
 
 $(MOCABLES): mocables
 
-gvedit$(EXEEXT): $(MOCABLES)
+gvedit gvedit$(EXEEXT): $(MOCABLES)
 
 .PHONY: mocables
 mocables: qMakefile
