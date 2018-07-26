@@ -28,8 +28,8 @@ portable-source:
         when: on_success
         expire_in: 1 week
         paths:
-            - /home/gitlab-runner/rpmbuild/SRPMS/graphviz-${VERSION}-1.rpm
-            - /home/gitlab-runner/rpmbuild/RPMS/*/graphviz*-${VERSION}-1.rpm
+            - /home/gitlab-runner/rpmbuild/SRPMS/graphviz-${VERSION}-1.*.rpm
+            - /home/gitlab-runner/rpmbuild/RPMS/*/graphviz*-${VERSION}-1.*.rpm
     only:
         - master
 
@@ -43,6 +43,11 @@ centos7-build:
     tags:
         - graphviz,centos7
 
+fedora26-build:
+    <<: *build_definition
+    tags:
+        - graphviz,fedora26
+
 fedora27-build:
     <<: *build_definition
     tags:
@@ -52,3 +57,8 @@ fedora28-build:
     <<: *build_definition
     tags:
         - graphviz,fedora28
+
+fedora29-build:
+    <<: *build_definition
+    tags:
+        - graphviz,fedora29
