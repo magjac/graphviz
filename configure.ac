@@ -2332,12 +2332,16 @@ if test "x$with_qt" != "xyes"; then
   use_qt="No (disabled)"
 else
 
+  # required for linking with QT5
+  AX_CHECK_COMPILE_FLAG([-std=c++11], [
+	CXXFLAGS="${CXXFLAGS} -fPIE -fPIC -std=c++11"
+     ],[
+	CXXFLAGS="${CXXFLAGS} -fPIE -fPIC"
+     ])
   AC_CHECK_PROGS(QMAKE,qmake-qt5 qmake,false)
   if test "$QMAKE" != "false"; then
     PKG_CHECK_MODULES(QTCORE, [Qt5Core],[
       PKG_CHECK_MODULES(QTGUI, [Qt5Widgets Qt5PrintSupport],[
-  # required for linking with QT
-    CXXFLAGS="${CXXFLAGS} -fPIE -fPIC -std=c++11"
 	use_qt="Yes"
       ],[
         use_qt="No (QtGui not available)"
