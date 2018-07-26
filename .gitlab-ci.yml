@@ -21,13 +21,15 @@ portable-source:
 .build_template: &build_definition
     stage: build
     script:
+        - rm -rf /home/gitlab-runner/rpmbuild
         - VERSION=$( cat VERSION )
-        - rpmbuild -ta graphviz-$VERSION.tar.gz
+        - rpmbuild -ta graphviz-${VERSION}.tar.gz
     artifacts:
         when: on_success
         expire_in: 1 week
         paths:
-            - graphviz-*.rpm
+            - /home/gitlab-runner/rpmbuild/SRPMS/graphviz-${VERSION}-1.rpm
+            - /home/gitlab-runner/rpmbuild/RPMS/*/graphviz*-${VERSION}-1.rpm
     only:
         - master
 
