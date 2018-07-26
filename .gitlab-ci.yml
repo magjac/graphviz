@@ -28,8 +28,8 @@ portable-source:
         when: on_success
         expire_in: 1 week
         paths:
-            - /home/gitlab-runner/rpmbuild/SRPMS/graphviz-${VERSION}-1.*.rpm
-            - /home/gitlab-runner/rpmbuild/RPMS/*/graphviz*-${VERSION}-1.*.rpm
+            - /home/gitlab-runner/rpmbuild/SRPMS/graphviz*.rpm
+            - /home/gitlab-runner/rpmbuild/RPMS/*/graphviz*.rpm
     only:
         - master
 
