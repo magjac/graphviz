@@ -25,7 +25,7 @@ Source0: http://www.graphviz.org/pub/@GRAPHVIZ_SOURCES@/graphviz-@VERSION@.tar.g
 %global DEVIL    1
 %global ANN      1
 %global GTS      1
-%global GTK      1
+%global GTK      0
 %global LASI     1
 %global WEBP     1
 %global PYTHON   0
