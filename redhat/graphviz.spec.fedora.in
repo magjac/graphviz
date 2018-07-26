@@ -31,6 +31,8 @@ Source0: http://www.graphviz.org/pub/@GRAPHVIZ_SOURCES@/graphviz-@VERSION@.tar.g
 %global PYTHON   0
 %global PYTHON2  1
 %global PYTHON3  1
+%global QT       0
+%global QT5      1
 # Not yet.
 %global MING     0
 
@@ -49,6 +51,8 @@ Source0: http://www.graphviz.org/pub/@GRAPHVIZ_SOURCES@/graphviz-@VERSION@.tar.g
 %global PYTHON   1
 %global PYTHON2  0
 %global PYTHON3  0
+%global QT       1
+%global QT5      0
 %endif
 
 # Plugins version
@@ -58,7 +62,7 @@ BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires: zlib-devel expat-devel ksh bison m4 flex swig gcc-c++
 BuildRequires: libXaw-devel libSM-devel libICE-devel libXpm-devel libXt-devel
-BuildRequires: libXmu-devel libXext-devel libX11-devel qt5-devel gtk2-devel freeglut-devel
+BuildRequires: libXmu-devel libXext-devel libX11-devel gtk2-devel freeglut-devel
 BuildRequires: freetype-devel fontconfig-devel cairo-devel pango-devel
 BuildRequires: gmp-devel gd gd-devel librsvg2-devel
 BuildRequires: ghostscript-devel poppler-glib-devel libtool-ltdl libtool-ltdl-devel
@@ -103,6 +107,12 @@ BuildRequires: golang gcc-go swig >= 3.0.2
 %endif
 %if %{GTK}
 BuildRequires: libglade2-devel gtkglarea2-devel gtkglext-devel glade3-libgladeui-devel
+%endif
+%if %{QT}
+BuildRequires: qt-devel
+%endif
+%if %{QT}
+BuildRequires: qt5-devel
 %endif
 
 # What a meal PHP makes of versioning !!!
