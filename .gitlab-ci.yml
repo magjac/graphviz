@@ -24,7 +24,7 @@ portable-source:
         - rm -rf /home/gitlab-runner/rpmbuild
         - VERSION=$( cat VERSION )
         - rpmbuild -ta graphviz-${VERSION}.tar.gz
-        - ln /home/gitlab-runner/rpmbuild .
+        - ln -s /home/gitlab-runner/rpmbuild .
     artifacts:
         when: on_success
         expire_in: 1 week
