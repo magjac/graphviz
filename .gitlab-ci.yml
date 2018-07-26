@@ -24,12 +24,13 @@ portable-source:
         - rm -rf /home/gitlab-runner/rpmbuild
         - VERSION=$( cat VERSION )
         - rpmbuild -ta graphviz-${VERSION}.tar.gz
+        - ln /home/gitlab-runner/rpmbuild .
     artifacts:
         when: on_success
         expire_in: 1 week
         paths:
-            - /home/gitlab-runner/rpmbuild/SRPMS/graphviz*.rpm
-            - /home/gitlab-runner/rpmbuild/RPMS/*/graphviz*.rpm
+            - rpmbuild/SRPMS/graphviz*.rpm
+            - rpmbuild/RPMS/*/graphviz*.rpm
     only:
         - master
 
@@ -42,11 +43,6 @@ centos7-build:
     <<: *build_definition
     tags:
         - graphviz,centos7
-
-fedora26-build:
-    <<: *build_definition
-    tags:
-        - graphviz,fedora26
 
 fedora27-build:
     <<: *build_definition
