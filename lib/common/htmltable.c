@@ -1787,8 +1787,8 @@ static void pos_html_tbl(htmltbl_t * tbl, boxf pos, int sides)
 		pos.UR.y = pos.LL.y + oldsz;
 		break;
 	    case VALIGN_TOP:
-		pos.UR.y += dely;
 		pos.LL.y += dely;
+		pos.UR.y = pos.LL.y + oldsz;
 		break;
 	    default:
 		pos.LL.y += dely / 2;
