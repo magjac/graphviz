@@ -188,6 +188,7 @@ cmd/lefty/lefty
 cmd/lneato/lneato
 cmd/mingle/mingle
 cmd/smyrna/smyrna
+cmd/smyrna/smyrna_static
 cmd/tools/acyclic
 cmd/tools/bcomps
 cmd/tools/ccomps
