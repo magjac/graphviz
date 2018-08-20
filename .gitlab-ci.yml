@@ -58,3 +58,8 @@ fedora29-build:
     <<: *build_definition
     tags:
         - graphviz,fedora29
+
+fedora29-build:
+    <<: *build_definition
+    tags:
+        - graphviz,fedora30
