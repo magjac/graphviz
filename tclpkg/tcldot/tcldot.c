@@ -127,15 +127,16 @@ static int dotstring(ClientData clientData, Tcl_Interp * interp,
     ictx_t *ictx = (ictx_t *)clientData;
     rdr_t rdr;
 
+    if (argc < 2) {
+	Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0], " string\"", NULL);
+	return TCL_ERROR;
+    }
+
     ictx->myioDisc.afread = myiodisc_memiofread;  /* replace afread to use memory range */
     rdr.data = argv[1];
     rdr.len = strlen(rdr.data);
     rdr.cur = 0;
 
-    if (argc < 2) {
-	Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0], " string\"", NULL);
-	return TCL_ERROR;
-    }
     /* agmemread() is broken for our use because it replaces the id disc */
     g = agread(&rdr, (Agdisc_t *)clientData);
     if (!g) {
