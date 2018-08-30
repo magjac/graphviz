@@ -213,7 +213,7 @@ int graphcmd(ClientData clientData, Tcl_Interp * interp,
     } else if ((c == 'l')
 	       && (strncmp(argv[1], "listsubgraphs", length) == 0)) {
 	for (sg = agfstsubg(g); sg; sg = agnxtsubg(sg)) {
-	    Tcl_AppendElement(interp, obj2cmd(g));
+	    Tcl_AppendElement(interp, obj2cmd(sg));
 	}
 	return TCL_OK;
 
