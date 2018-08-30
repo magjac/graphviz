@@ -31,12 +31,12 @@ int nodecmd(ClientData clientData, Tcl_Interp * interp,
     gctx_t *gctx = (gctx_t *)clientData;
 
     if (argc < 2) {
-	Tcl_AppendResult(interp, "Wrong # args: should be \"", argv[0], " option ?arg arg ...?\"", NULL);
+	Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0], " option ?arg arg ...?\"", NULL);
 	return TCL_ERROR;
     }
     n = cmd2n(argv[0]);
     if (!n) {
-	Tcl_AppendResult(interp, "Node \"", argv[0], "\" not found", NULL);
+	Tcl_AppendResult(interp, "node \"", argv[0], "\" not found", NULL);
 	return TCL_ERROR;
     }
     g = agraphof(n);
@@ -47,18 +47,18 @@ int nodecmd(ClientData clientData, Tcl_Interp * interp,
 
     if (MATCHES_OPTION("addedge", argv[1], c, length)) {
 	if ((argc < 3) || (!(argc % 2))) {
-	    Tcl_AppendResult(interp, "Wrong # args: should be \"", argv[0], " addedge head ?attributename attributevalue? ?...?\"", NULL);
+	    Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0], " addedge head ?attributename attributevalue? ?...?\"", NULL);
 	    return TCL_ERROR;
 	}
 	head = cmd2n(argv[2]);
 	if (!head) {
 	    if (!(head = agfindnode(g, argv[2]))) {
-		Tcl_AppendResult(interp, "Head node \"", argv[2], "\" not found.", NULL);
+		Tcl_AppendResult(interp, "head node \"", argv[2], "\" not found.", NULL);
 		return TCL_ERROR;
 	    }
 	}
 	if (agroot(g) != agroot(agraphof(head))) {
-	    Tcl_AppendResult(interp, "Nodes ", argv[0], " and ", argv[2], " are not in the same graph.", NULL);
+	    Tcl_AppendResult(interp, "nodes ", argv[0], " and ", argv[2], " are not in the same graph.", NULL);
 	    return TCL_ERROR;
 	}
         e = agedge(g, n, head, NULL, 1);
@@ -72,15 +72,15 @@ int nodecmd(ClientData clientData, Tcl_Interp * interp,
 
     } else if (MATCHES_OPTION("findedge", argv[1], c, length)) {
 	if (argc < 3) {
-	    Tcl_AppendResult(interp, "Wrong # args: should be \"", argv[0], " findedge headnodename\"", NULL);
+	    Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0], " findedge headnodename\"", NULL);
 	    return TCL_ERROR;
 	}
 	if (!(head = agfindnode(g, argv[2]))) {
-	    Tcl_AppendResult(interp, "Head node \"", argv[2], "\" not found.", NULL);
+	    Tcl_AppendResult(interp, "head node \"", argv[2], "\" not found.", NULL);
 	    return TCL_ERROR;
 	}
 	if (!(e = agfindedge(g, n, head))) {
-	    Tcl_AppendResult(interp, "Edge \"", argv[0], " - ", obj2cmd(head), "\" not found.", NULL);
+	    Tcl_AppendResult(interp, "edge \"", argv[0], " - ", obj2cmd(head), "\" not found.", NULL);
 	    return TCL_ERROR;
 	}
 	Tcl_AppendElement(interp, obj2cmd(head));
@@ -118,7 +118,7 @@ int nodecmd(ClientData clientData, Tcl_Interp * interp,
 		if ((a = agfindnodeattr(g, argv2[j]))) {
 		    Tcl_AppendElement(interp, agxget(n, a));
 		} else {
-		    Tcl_AppendResult(interp, "No attribute named \"", argv2[j], "\"", NULL);
+		    Tcl_AppendResult(interp, "no attribute named \"", argv2[j], "\"", NULL);
 		    return TCL_ERROR;
 		}
 	    }
@@ -137,7 +137,7 @@ int nodecmd(ClientData clientData, Tcl_Interp * interp,
 		    Tcl_AppendElement(interp, argv2[j]);
 		    Tcl_AppendElement(interp, agxget(n, a));
 		} else {
-		    Tcl_AppendResult(interp, "No attribute named \"", argv2[j], "\"", NULL);
+		    Tcl_AppendResult(interp, "no attribute named \"", argv2[j], "\"", NULL);
 		    return TCL_ERROR;
 		}
 	    }
@@ -153,7 +153,7 @@ int nodecmd(ClientData clientData, Tcl_Interp * interp,
 		 (CONST84 char ***) &argv2) != TCL_OK)
 		return TCL_ERROR;
 	    if ((argc2 == 0) || (argc2 % 2)) {
-		Tcl_AppendResult(interp, "Wrong # args: should be \"", argv[0],
+		Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0],
 				 "\" setattributes attributename attributevalue ?attributename attributevalue? ?...?",
 				 NULL);
 		Tcl_Free((char *) argv2);
@@ -163,7 +163,7 @@ int nodecmd(ClientData clientData, Tcl_Interp * interp,
 	    Tcl_Free((char *) argv2);
 	} else {
 	    if ((argc < 4) || (argc % 2)) {
-		Tcl_AppendResult(interp, "Wrong # args: should be \"", argv[0],
+		Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0],
 				 "\" setattributes attributename attributevalue ?attributename attributevalue? ?...?",
 				 NULL);
 		return TCL_ERROR;
@@ -177,7 +177,7 @@ int nodecmd(ClientData clientData, Tcl_Interp * interp,
 	return TCL_OK;
 
     } else {
-	Tcl_AppendResult(interp, "Bad option \"", argv[1],
+	Tcl_AppendResult(interp, "bad option \"", argv[1],
 			 "\": must be one of:",
 			 "\n\taddedge, listattributes, listedges, listinedges,",
 			 "\n\tlistoutedges, queryattributes, queryattributevalues,",

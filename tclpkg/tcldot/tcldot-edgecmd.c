@@ -29,12 +29,12 @@ int edgecmd(ClientData clientData, Tcl_Interp * interp,
     gctx_t *gctx = (gctx_t *)clientData;
 
     if (argc < 2) {
-	Tcl_AppendResult(interp, "Wrong # args: should be \"", argv[0], "\" option ?arg arg ...?", NULL);
+	Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0], "\" option ?arg arg ...?", NULL);
 	return TCL_ERROR;
     }
     e = cmd2e(argv[0]);
     if (!e) {
-        Tcl_AppendResult(interp, "Edge \"", argv[0], "\" not found", NULL);
+        Tcl_AppendResult(interp, "edge \"", argv[0], "\" not found", NULL);
         return TCL_ERROR;
     }
     g = agraphof(agtail(e));
@@ -65,7 +65,7 @@ int edgecmd(ClientData clientData, Tcl_Interp * interp,
 		if ((a = agfindedgeattr(g, argv2[j]))) {
 		    Tcl_AppendElement(interp, agxget(e, a));
 		} else {
-		    Tcl_AppendResult(interp, "No attribute named \"", argv2[j], "\"", NULL);
+		    Tcl_AppendResult(interp, "no attribute named \"", argv2[j], "\"", NULL);
 		    return TCL_ERROR;
 		}
 	    }
@@ -84,7 +84,7 @@ int edgecmd(ClientData clientData, Tcl_Interp * interp,
 		    Tcl_AppendElement(interp, argv2[j]);
 		    Tcl_AppendElement(interp, agxget(e, a));
 		} else {
-		    Tcl_AppendResult(interp, "No attribute named \"", argv2[j], "\"", NULL);
+		    Tcl_AppendResult(interp, "no attribute named \"", argv2[j], "\"", NULL);
 		    return TCL_ERROR;
 		}
 	    }
@@ -99,7 +99,7 @@ int edgecmd(ClientData clientData, Tcl_Interp * interp,
 		 (CONST84 char ***) &argv2) != TCL_OK)
 		return TCL_ERROR;
 	    if ((argc2 == 0) || (argc2 % 2)) {
-		Tcl_AppendResult(interp, "Wrong # args: should be \"", argv[0],
+		Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0],
 				 "\" setattributes attributename attributevalue ?attributename attributevalue? ?...?",
 				 NULL);
 		Tcl_Free((char *) argv2);
@@ -109,7 +109,7 @@ int edgecmd(ClientData clientData, Tcl_Interp * interp,
 	    Tcl_Free((char *) argv2);
 	} else {
 	    if ((argc < 4) || (argc % 2)) {
-		Tcl_AppendResult(interp, "Wrong # args: should be \"", argv[0],
+		Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0],
 				 "\" setattributes attributename attributevalue ?attributename attributevalue? ?...?",
 				 NULL);
 		return TCL_ERROR;
@@ -127,7 +127,7 @@ int edgecmd(ClientData clientData, Tcl_Interp * interp,
 	return TCL_OK;
 
     } else {
-	Tcl_AppendResult(interp, "Bad option \"", argv[1],
+	Tcl_AppendResult(interp, "bad option \"", argv[1],
 			 "\": must be one of:",
 			 "\n\tdelete, listattributes, listnodes,",
 			 "\n\tueryattributes, queryattributevalues,",

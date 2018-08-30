@@ -85,7 +85,7 @@ static int dotread(ClientData clientData, Tcl_Interp * interp,
     ictx->myioDisc.afread = myiodisc_afread;  /* replace afread to use Tcl Channels */
 
     if (argc < 2) {
-	Tcl_AppendResult(interp, "Wrong # args: should be \"", argv[0], " fileHandle\"", NULL);
+	Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0], " fileHandle\"", NULL);
 	return TCL_ERROR;
     }
     channel = Tcl_GetChannel(interp, argv[1], &mode);
@@ -133,7 +133,7 @@ static int dotstring(ClientData clientData, Tcl_Interp * interp,
     rdr.cur = 0;
 
     if (argc < 2) {
-	Tcl_AppendResult(interp, "Wrong # args: should be \"", argv[0], " string\"", NULL);
+	Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0], " string\"", NULL);
 	return TCL_ERROR;
     }
     /* agmemread() is broken for our use because it replaces the id disc */

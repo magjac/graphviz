@@ -35,12 +35,12 @@ int graphcmd(ClientData clientData, Tcl_Interp * interp,
     GVJ_t *job = gvc->job;
 
     if (argc < 2) {
-	Tcl_AppendResult(interp, "Wrong # args: should be \"", argv[0], " option ?arg arg ...?\"", NULL);
+	Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0], " option ?arg arg ...?\"", NULL);
 	return TCL_ERROR;
     }
     g = cmd2g(argv[0]);
     if (!g) {
-	Tcl_AppendResult(interp, "Graph \"", argv[0], "\" not found", NULL);
+	Tcl_AppendResult(interp, "graph \"", argv[0], "\" not found", NULL);
 	return TCL_ERROR;
     }
 
@@ -49,7 +49,7 @@ int graphcmd(ClientData clientData, Tcl_Interp * interp,
 
     if (MATCHES_OPTION("addedge", argv[1], c, length)) {
 	if ((argc < 4) || (argc % 2)) {
-	    Tcl_AppendResult(interp, "Wrong # args: should be \"", argv[0],
+	    Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0],
 			     " addedge tail head ?attributename attributevalue? ?...?\"",
 			     NULL);
 	    return TCL_ERROR;
@@ -57,23 +57,23 @@ int graphcmd(ClientData clientData, Tcl_Interp * interp,
         tail = cmd2n(argv[2]);
         if (!tail) {
 	    if (!(tail = agfindnode(g, argv[2]))) {
-		Tcl_AppendResult(interp, "Tail node \"", argv[2], "\" not found.", NULL);
+		Tcl_AppendResult(interp, "tail node \"", argv[2], "\" not found.", NULL);
 		return TCL_ERROR;
 	    }
         }
 	if (agroot(g) != agroot(agraphof(tail))) {
-	    Tcl_AppendResult(interp, "Tail node ", argv[2], " is not in the graph.", NULL);
+	    Tcl_AppendResult(interp, "tail node ", argv[2], " is not in the graph.", NULL);
 	    return TCL_ERROR;
 	}
         head = cmd2n(argv[3]);
         if (!head) {
 	    if (!(head = agfindnode(g, argv[3]))) {
-		Tcl_AppendResult(interp, "Head node \"", argv[3], "\" not found.", NULL);
+		Tcl_AppendResult(interp, "head node \"", argv[3], "\" not found.", NULL);
 		return TCL_ERROR;
 	    }
         }
 	if (agroot(g) != agroot(agraphof(head))) {
-	    Tcl_AppendResult(interp, "Head node ", argv[3], " is not in the graph.", NULL);
+	    Tcl_AppendResult(interp, "head node ", argv[3], " is not in the graph.", NULL);
 	    return TCL_ERROR;
 	}
 	e = agedge(g, tail, head, NULL, 1);
@@ -133,15 +133,15 @@ int graphcmd(ClientData clientData, Tcl_Interp * interp,
 	    return TCL_ERROR;
 	}
 	if (!(tail = agfindnode(g, argv[2]))) {
-	    Tcl_AppendResult(interp, "Tail node \"", argv[2], "\" not found.", NULL);
+	    Tcl_AppendResult(interp, "tail node \"", argv[2], "\" not found.", NULL);
 	    return TCL_ERROR;
 	}
 	if (!(head = agfindnode(g, argv[3]))) {
-	    Tcl_AppendResult(interp, "Head node \"", argv[3], "\" not found.", NULL);
+	    Tcl_AppendResult(interp, "head node \"", argv[3], "\" not found.", NULL);
 	    return TCL_ERROR;
 	}
 	if (!(e = agfindedge(g, tail, head))) {
-	    Tcl_AppendResult(interp, "Edge \"", argv[2], " - ", argv[3], "\" not found.", NULL);
+	    Tcl_AppendResult(interp, "edge \"", argv[2], " - ", argv[3], "\" not found.", NULL);
 	    return TCL_ERROR;
 	}
 	Tcl_AppendElement(interp, obj2cmd(e));
@@ -153,7 +153,7 @@ int graphcmd(ClientData clientData, Tcl_Interp * interp,
 	    return TCL_ERROR;
 	}
 	if (!(n = agfindnode(g, argv[2]))) {
-	    Tcl_AppendResult(interp, "Node not found.", NULL);
+	    Tcl_AppendResult(interp, "node not found.", NULL);
 	    return TCL_ERROR;
 	}
 	Tcl_AppendResult(interp, obj2cmd(n), NULL);
@@ -516,7 +516,7 @@ int graphcmd(ClientData clientData, Tcl_Interp * interp,
 	}
 	if (i == NO_SUPPORT) {
 	    const char *s = gvplugin_list(gvc, API_render, argv[3]);
-	    Tcl_AppendResult(interp, "Bad langname: \"", argv[3], "\". Use one of:", s, NULL);
+	    Tcl_AppendResult(interp, "bad langname: \"", argv[3], "\". Use one of:", s, NULL);
 	    return TCL_ERROR;
 	}
 
@@ -537,11 +537,11 @@ int graphcmd(ClientData clientData, Tcl_Interp * interp,
 	    chan = Tcl_GetChannel(interp, argv[2], &mode);
 
 	    if (!chan) {
-	        Tcl_AppendResult(interp, "Channel not open: \"", argv[2], NULL);
+	        Tcl_AppendResult(interp, "channel not open: \"", argv[2], NULL);
 	        return TCL_ERROR;
 	    }
 	    if (!(mode & TCL_WRITABLE)) {
-	        Tcl_AppendResult(interp, "Channel not writable: \"", argv[2], NULL);
+	        Tcl_AppendResult(interp, "channel not writable: \"", argv[2], NULL);
 	        return TCL_ERROR;
 	    }
 	    job->output_file = (FILE *)chan;
