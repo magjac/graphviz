@@ -273,29 +273,38 @@ dotty.protovt.normal.uifuncs = [
             dotty.node2move = data.obj;
             dotty.movewidget = data.widget;
             dotty.rp2 = data.pos;
+            # save the previous object pos
+            dotty.node_ppos = data.obj.pos;
         }
     };
     'leftmove' = function (data) {
-        local gt;
+        local gt, offset_pos;
 
         gt = dotty.graphs[dotty.views[data.widget].gtid];
         if (dotty.node2move & (
             dotty.rp2.x ~= data.pos.x | dotty.rp2.y ~= data.pos.y
         )) {
-            gt.movenode (gt, dotty.node2move, data.pos);
+            # use an offset from the cursor to the node's pre-move position
+            offset_pos.x = data.pos.x - (dotty.rp2.x - dotty.node_ppos.x);
+            offset_pos.y = data.pos.y - (dotty.rp2.y - dotty.node_ppos.y);
+            gt.movenode (gt, dotty.node2move, offset_pos);
             dotty.rp2 = data.pos;
         }
     };
     'leftup' = function (data) {
-        local gt;
+        local gt, offset_pos;
 
         gt = dotty.graphs[dotty.views[data.widget].gtid];
         if (dotty.node2move) {
-            if (dotty.movewidget == data.widget)
-                gt.movenode (gt, dotty.node2move, data.pos);
+            if (dotty.movewidget == data.widget) {
+                offset_pos.x = data.pos.x - (dotty.rp2.x - dotty.node_ppos.x);
+                offset_pos.y = data.pos.y - (dotty.rp2.y - dotty.node_ppos.y);
+                gt.movenode (gt, dotty.node2move, offset_pos);
+            }
             dotty.node2move = 0;
         } else if (~data.obj)
             gt.insertnode (gt, data.pos, null, null, null, 1);
+        gt.redrawgraph(gt, gt.views);
     };
     'middledown' = function (data) {
         if (~(data.obj.nid >= 0))
