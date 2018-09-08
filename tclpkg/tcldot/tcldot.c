@@ -25,7 +25,8 @@ static int dotnew(ClientData clientData, Tcl_Interp * interp,
     ictx_t *ictx = (ictx_t *)clientData;
     Agraph_t *g;
     char c;
-    int i, length;
+    int i;
+    size_t length;
     Agdesc_t kind;
 
     if ((argc < 2)) {
@@ -36,15 +37,13 @@ static int dotnew(ClientData clientData, Tcl_Interp * interp,
     }
     c = argv[1][0];
     length = strlen(argv[1]);
-    if ((c == 'd') && (strncmp(argv[1], "digraph", length) == 0)) {
+    if (MATCHES_OPTION("digraph", argv[1], c, length)) {
 	kind = Agdirected;
-    } else if ((c == 'd')
-	       && (strncmp(argv[1], "digraphstrict", length) == 0)) {
+    } else if (MATCHES_OPTION("digraphstrict", argv[1], c, length)) {
 	kind = Agstrictdirected;
-    } else if ((c == 'g') && (strncmp(argv[1], "graph", length) == 0)) {
+    } else if (MATCHES_OPTION("graph", argv[1], c, length)) {
 	kind = Agundirected;
-    } else if ((c == 'g')
-	       && (strncmp(argv[1], "graphstrict", length) == 0)) {
+    } else if (MATCHES_OPTION("graphstrict", argv[1], c, length)) {
 	kind = Agstrictundirected;
     } else {
 	Tcl_AppendResult(interp, "bad graphtype \"", argv[1], "\": must be one of:",
@@ -86,7 +85,7 @@ static int dotread(ClientData clientData, Tcl_Interp * interp,
     ictx->myioDisc.afread = myiodisc_afread;  /* replace afread to use Tcl Channels */
 
     if (argc < 2) {
-	Tcl_AppendResult(interp, "Wrong # args: should be \"", argv[0], " fileHandle\"", NULL);
+	Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0], " fileHandle\"", NULL);
 	return TCL_ERROR;
     }
     channel = Tcl_GetChannel(interp, argv[1], &mode);
@@ -128,15 +127,16 @@ static int dotstring(ClientData clientData, Tcl_Interp * interp,
     ictx_t *ictx = (ictx_t *)clientData;
     rdr_t rdr;
 
+    if (argc < 2) {
+	Tcl_AppendResult(interp, "wrong # args: should be \"", argv[0], " string\"", NULL);
+	return TCL_ERROR;
+    }
+
     ictx->myioDisc.afread = myiodisc_memiofread;  /* replace afread to use memory range */
     rdr.data = argv[1];
     rdr.len = strlen(rdr.data);
     rdr.cur = 0;
 
-    if (argc < 2) {
-	Tcl_AppendResult(interp, "Wrong # args: should be \"", argv[0], " string\"", NULL);
-	return TCL_ERROR;
-    }
     /* agmemread() is broken for our use because it replaces the id disc */
     g = agread(&rdr, (Agdisc_t *)clientData);
     if (!g) {

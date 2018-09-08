@@ -117,3 +117,11 @@ extern size_t Tcldot_string_writer(GVJ_t *job, const char *s, size_t len);
 extern size_t Tcldot_channel_writer(GVJ_t *job, const char *s, size_t len);
 
 extern void tcldot_layout(GVC_t *gvc, Agraph_t * g, char *engine);
+
+/* Check whether string str corresponds to option opname.
+ * opname: literal string.
+ * str: the string to check.
+ * str0: first character of str.
+ * strn: length of str. */
+#define MATCHES_OPTION(opname, str, str0, strn) \
+	(opname[0] == str0) && (sizeof(opname)-1 == strn) && (strncmp(opname, str, sizeof(opname)) == 0)
