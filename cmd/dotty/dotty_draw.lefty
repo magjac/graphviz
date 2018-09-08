@@ -158,6 +158,13 @@ dotty.protogt.movenode = function (gt, node, pos) {
     gt.undrawnode (gt, gt.views, node);
     node.pos.x = pos.x;
     node.pos.y = pos.y;
+    
+    # correct the bounding box when moving
+    node.rect[0].x = node.pos.x - node.size.x/2;
+    node.rect[1].x = node.pos.x + node.size.x/2;
+    node.rect[0].y = node.pos.y - node.size.y/2;
+    node.rect[1].y = node.pos.y + node.size.y/2;
+    
     gt.movenodedraw (node.draws, dp);
     for (eid in node.edges) {
         edge = node.edges[eid];
