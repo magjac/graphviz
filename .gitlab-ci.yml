@@ -34,32 +34,32 @@ portable-source:
     only:
         - master
 
-centos6-build:
-    <<: *build_definition
-    tags:
-        - graphviz,centos6
+#centos6-build:
+#    <<: *build_definition
+#    tags:
+#        - graphviz,centos6
 
 centos7-build:
     <<: *build_definition
     tags:
         - graphviz,centos7
 
-fedora27-build:
-    <<: *build_definition
-    tags:
-        - graphviz,fedora27
-
-fedora28-build:
-    <<: *build_definition
-    tags:
-        - graphviz,fedora28
-
-fedora29-build:
-    <<: *build_definition
-    tags:
-        - graphviz,fedora29
-
-fedora29-build:
-    <<: *build_definition
-    tags:
-        - graphviz,fedora30
+#fedora27-build:
+#    <<: *build_definition
+#    tags:
+#        - graphviz,fedora27
+#
+#fedora28-build:
+#    <<: *build_definition
+#    tags:
+#        - graphviz,fedora28
+#
+#fedora29-build:
+#    <<: *build_definition
+#    tags:
+#        - graphviz,fedora29
+#
+#fedora29-build:
+#    <<: *build_definition
+#    tags:
+#        - graphviz,fedora30
