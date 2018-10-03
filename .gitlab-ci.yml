@@ -34,10 +34,10 @@ portable-source:
     only:
         - master
 
-#centos6-build:
-#    <<: *build_definition
-#    tags:
-#        - graphviz,centos6
+centos6-build:
+    <<: *build_definition
+    tags:
+        - graphviz,centos6
 
 centos7-build:
     <<: *build_definition
