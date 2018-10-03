@@ -31,7 +31,6 @@ Source0: http://www.graphviz.org/pub/@GRAPHVIZ_SOURCES@/graphviz-@VERSION@.tar.g
 %global PYTHON   0
 %global PYTHON2  1
 %global PYTHON3  1
-%global QT4      0
 %global QT5      1
 # Not yet.
 %global MING     0
@@ -51,8 +50,6 @@ Source0: http://www.graphviz.org/pub/@GRAPHVIZ_SOURCES@/graphviz-@VERSION@.tar.g
 %global PYTHON   1
 %global PYTHON2  0
 %global PYTHON3  0
-%global QT4      1
-%global QT5      0
 %endif
 
 # Plugins version
@@ -108,11 +105,8 @@ BuildRequires: golang gcc-go swig >= 3.0.2
 %if %{GTK}
 BuildRequires: libglade2-devel gtkglarea2-devel gtkglext-devel glade3-libgladeui-devel
 %endif
-%if %{QT4}
-BuildRequires: qt-devel
-%endif
 %if %{QT5}
-BuildRequires: qt5-devel
+BuildRequires: qt5-qtbase-devel
 %endif
 
 # What a meal PHP makes of versioning !!!
@@ -132,7 +126,7 @@ BuildRequires: qt5-devel
 # RPM 4.9
 %global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}%{php_extdir}/.*\\.so$
 
-# Fix for the 387 extended precision (rhbz#772637)
+# Fix for the i386 extended precision (rhbz#772637)
 %ifarch i386 i686
 %global FFSTORE -ffloat-store
 %endif
