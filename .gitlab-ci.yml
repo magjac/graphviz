@@ -48,12 +48,12 @@ centos7-build:
 #    <<: *build_definition
 #    tags:
 #        - graphviz,fedora27
-#
-#fedora28-build:
-#    <<: *build_definition
-#    tags:
-#        - graphviz,fedora28
-#
+
+fedora28-build:
+    <<: *build_definition
+    tags:
+        - graphviz,fedora28
+
 #fedora29-build:
 #    <<: *build_definition
 #    tags:
