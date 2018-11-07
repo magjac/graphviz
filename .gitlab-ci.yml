@@ -44,22 +44,22 @@ centos7-build:
     tags:
         - graphviz,centos7
 
-#fedora27-build:
-#    <<: *build_definition
-#    tags:
-#        - graphviz,fedora27
+fedora27-build:
+    <<: *build_definition
+    tags:
+        - graphviz,fedora27
 
 fedora28-build:
     <<: *build_definition
     tags:
         - graphviz,fedora28
 
-#fedora29-build:
-#    <<: *build_definition
-#    tags:
-#        - graphviz,fedora29
-#
-#fedora29-build:
-#    <<: *build_definition
-#    tags:
-#        - graphviz,fedora30
+fedora29-build:
+    <<: *build_definition
+    tags:
+        - graphviz,fedora29
+
+fedora29-build:
+    <<: *build_definition
+    tags:
+        - graphviz,fedora30
