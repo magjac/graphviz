@@ -584,7 +584,8 @@ void dot_rank(graph_t * g, aspect_t* asp)
 
 int is_cluster(graph_t * g)
 {
-    return (strncmp(agnameof(g), "cluster", 7) == 0);
+    //return (strncmp(agnameof(g), "cluster", 7) == 0);
+    return is_a_cluster(g);   // from utils.c
 }
 
 #ifdef OBSOLETE

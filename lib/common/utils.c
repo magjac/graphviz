@@ -914,7 +914,7 @@ void compute_bb(graph_t * g)
 
 int is_a_cluster (Agraph_t* g)
 {
-    return ((g == g->root) || (!strncasecmp(agnameof(g), "cluster", 7)));
+    return ((g == g->root) || (!strncasecmp(agnameof(g), "cluster", 7)) || mapBool(agget(g,"cluster"),FALSE));
 }
 
 /* setAttr:
