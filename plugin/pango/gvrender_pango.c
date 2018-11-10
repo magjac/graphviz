@@ -214,6 +214,33 @@ static void cairogen_end_page(GVJ_t * job)
     }
 }
 
+static void cairogen_begin_anchor(GVJ_t *job, char *url, char *tooltip, char *target, char *id)
+{
+    obj_state_t *obj = job->obj;
+    cairo_t *cr = (cairo_t *) job->context;
+    double p0x, p0y, p1x, p1y;
+    char buf[300];
+
+    if (url && obj->url_map_p) {
+       p0x = obj->url_map_p[0].x;
+       p0y = -obj->url_map_p[0].y;
+       cairo_user_to_device (cr, &p0x, &p0y);
+       p1x = obj->url_map_p[1].x;
+       p1y = -obj->url_map_p[1].y;
+       cairo_user_to_device (cr, &p1x, &p1y);
+       snprintf(buf, sizeof(buf), "rect=[%f %f %f %f] uri='%s'",
+                p0x,
+                p0y,
+                p1x - p0x,
+                p1y - p0y,
+                url);
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 16, 0)
+       cairo_tag_begin (cr, CAIRO_TAG_LINK, buf);
+       cairo_tag_end (cr, CAIRO_TAG_LINK);
+#endif
+    }
+}
+
 static void cairogen_textspan(GVJ_t * job, pointf p, textspan_t * span)
 {
     obj_state_t *obj = job->obj;
@@ -425,7 +452,7 @@ static gvrender_engine_t cairogen_engine = {
     0,				/* cairogen_end_node */
     0,				/* cairogen_begin_edge */
     0,				/* cairogen_end_edge */
-    0,				/* cairogen_begin_anchor */
+    cairogen_begin_anchor,	/* cairogen_begin_anchor */
     0,				/* cairogen_end_anchor */
     0,				/* cairogen_begin_label */
     0,				/* cairogen_end_label */
@@ -465,6 +492,8 @@ static gvdevice_features_t device_features_ps = {
 
 static gvdevice_features_t device_features_pdf = {
     GVDEVICE_BINARY_FORMAT
+      | GVRENDER_DOES_MAPS
+      | GVRENDER_DOES_MAP_RECTANGLE
       | GVDEVICE_DOES_TRUECOLOR,/* flags */
     {36.,36.},			/* default margin - points */
     {0.,0.},                    /* default page width, height - points */
