@@ -107,8 +107,11 @@ char *agstrdup(Agraph_t * g, char *s)
 	sz = sizeof(refstr_t) + strlen(s);
 	if (g)
 	    r = (refstr_t *) agalloc(g, sz);
-	else
+	else {
 	    r = (refstr_t *) malloc(sz);
+	    if (!r)
+	        exit(1);
+	}
 	r->refcnt = 1;
 	strcpy(r->store, s);
 	r->s = r->store;
@@ -133,8 +136,11 @@ char *agstrdup_html(Agraph_t * g, char *s)
 	sz = sizeof(refstr_t) + strlen(s);
 	if (g)
 	    r = (refstr_t *) agalloc(g, sz);
-	else
+	else {
 	    r = (refstr_t *) malloc(sz);
+	    if (!r)
+	        exit(1);
+	}
 	r->refcnt = 1 | HTML_BIT;
 	strcpy(r->store, s);
 	r->s = r->store;
