@@ -880,7 +880,7 @@ else
             if test "x$PKG_CONFIG" != "x"; then
 	        AC_MSG_CHECKING(for Lua headers and libraries with pkg-config)
 	        echo
-	        for l in "$lua_suffix" "" "52" "5.2" "51" "5.1" "50" "5.0" ; do
+	        for l in "$lua_suffix" "" "53" "5.3" "52" "5.2" "51" "5.1" "50" "5.0" ; do
 	            pkgconfig_lua_found=`$PKG_CONFIG --exists lua$l 2>/dev/null`
 	            if test "x$?" = "x0" ; then
 		        LUA_VERSION=`$PKG_CONFIG --modversion lua$l`
@@ -1097,37 +1097,34 @@ else
     if test `$SWIG -help 2>&1 | $EGREP -c '\-php5* *- Generate'` = 0 ; then
       use_php="No (swig does not support -php or -php5 option)"
     else
-      AC_CHECK_PROGS(PHP,php7,php,php5)
+      AC_CHECK_PROGS(PHP,php7.2,php7,php,php5)
       if test "x$PHP" = "x"; then
         use_php="No (php not available)"
       else
-        if test -d /usr/include/php7; then
-          PHP_INCLUDES="-I/usr/include/php7 -I/usr/include/php7/main -I/usr/include/php7/Zend -I/usr/include/php7/TSRM"
+        AC_CHECK_PROGS(PHPCONFIG,${PHP}-config,php-config)
+        if test "x$PHPCONFIG" = "x"; then
+          use_php="No (php-config not available)"
         else
-          if test -d /usr/include/php5; then
-            PHP_INCLUDES="-I/usr/include/php5 -I/usr/include/php5/main -I/usr/include/php5/Zend -I/usr/include/php5/TSRM"
-          else
-            PHP_INCLUDES="-I/usr/include/php -I/usr/include/php/main -I/usr/include/php/TSRM -I/usr/include/php/Zend -I/usr/include/php/ext -I/usr/include/php/ext/date/lib"
-          fi
+          PHP_INCLUDES="`$PHPCONFIG --includes`"
+          PHP_INSTALL_DIR="`$PHPCONFIG --extension-dir`"
+          PHP_INSTALL_DATADIR="`$PHPCONFIG --man-dir`"
+          PHP_LIBS="`$PHPCONFIG --ldflags` `$PHPCONFIG --libs`"
+          save_CPPFLAGS=$CPPFLAGS
+          CPPFLAGS="$CPPFLAGS $PHP_INCLUDES"
+          AC_CHECK_HEADER(php.h,,[
+            use_php="No (missing header)"
+            PHP=
+          ])
+          CPPFLAGS=$save_CPPFLAGS
         fi
-        PHP_INSTALL_DIR="/usr/lib${LIBPOSTFIX}/php/modules"
-        PHP_INSTALL_DATADIR="/usr/share/php"
-        PHP_LIBS=
-        save_CPPFLAGS=$CPPFLAGS
-        CPPFLAGS="$CPPFLAGS $PHP_INCLUDES"
-        AC_CHECK_HEADER(php.h,,[
-          use_php="No (missing header)"
-          PHP=
-        ])
-        CPPFLAGS=$save_CPPFLAGS
-	if test "x$PHP" != "x"; then
-	  use_php="Yes"
-          AC_SUBST([PHP_INSTALL_DATADIR])
-          AC_SUBST([PHP_INSTALL_DIR])
-          AC_SUBST([PHP_INCLUDES])
-          AC_SUBST([PHP_LIBS])
-          AC_SUBST([SWIG_PHP_OPT])
-        fi
+      fi
+      if test "x$PHP" != "x"; then
+	    use_php="Yes"
+        AC_SUBST([PHP_INCLUDES])
+        AC_SUBST([PHP_INSTALL_DIR])
+        AC_SUBST([PHP_INSTALL_DATADIR])
+        AC_SUBST([PHP_LIBS])
+        AC_SUBST([SWIG_PHP_OPT])
       fi
     fi
   fi
