@@ -195,15 +195,14 @@ install: build
 	rm -rf $(OCAML_PACKAGE)/usr/lib/graphviz
 
 	# Some additional work for libgv-python
-	# Note the sed call because of python{24,25} instead of python{2.4,2.5}
 	# Note gv.py isn't really duplicated, it's just installed in a location
 	# where python-support will find it. Both being identical, python-support
 	# will just do the right thing.
 	for i in $(PYTHON_VERSIONS); do \
 		install -d $(PYTHON_PACKAGE)/usr/lib/$$i/site-packages ; \
-		cp $(PYTHON_PACKAGE)/usr/lib/graphviz/python/gv.py \
+		cp $(PYTHON_PACKAGE)/usr/lib/graphviz/python*/gv.py \
 			$(PYTHON_PACKAGE)/usr/lib/$$i/site-packages ; \
-		mv $(PYTHON_PACKAGE)/usr/lib/graphviz/$$(echo $$i|sed -e 's/\.//')/*.so \
+		mv $(PYTHON_PACKAGE)/usr/lib/graphviz/python*/*.so \
 			$(PYTHON_PACKAGE)/usr/lib/$$i/site-packages ; \
 	done
 	rm -rf $(PYTHON_PACKAGE)/usr/lib/graphviz

@@ -18,7 +18,7 @@ portable-source:
     only:
         - master
 
-.build_template: &build_definition
+.build_template: &rpm_build_definition
     stage: build
     script:
         - rm -rf /home/gitlab-runner/rpmbuild
@@ -34,32 +34,58 @@ portable-source:
     only:
         - master
 
+.build_template: &deb_build_definition
+    stage: build
+    script:
+        - VERSION=$( cat VERSION )
+        - zcat graphviz-@VERSION@.tar.gz | tar xf -
+        - (cd graphviz-@VERSION@; fakeroot make -f debian/rules binary)
+        - ln -s graphviz-@VERSION@ packages
+    artifacts:
+        when: on_success
+        expire_in: 1 week
+        paths:
+            - packages/*.deb
+            - packages/*.ddeb
+    only:
+        - master
+
 centos6-build:
-    <<: *build_definition
+    <<: *rpm_build_definition
     tags:
         - graphviz,centos6
 
 centos7-build:
-    <<: *build_definition
+    <<: *rpm_build_definition
     tags:
         - graphviz,centos7
 
 fedora27-build:
-    <<: *build_definition
+    <<: *rpm_build_definition
     tags:
         - graphviz,fedora27
 
 fedora28-build:
-    <<: *build_definition
+    <<: *rpm_build_definition
     tags:
         - graphviz,fedora28
 
 fedora29-build:
-    <<: *build_definition
+    <<: *rpm_build_definition
     tags:
         - graphviz,fedora29
 
 fedora30-build:
-    <<: *build_definition
+    <<: *rpm_build_definition
     tags:
         - graphviz,fedora30
+
+ubuntu18-04-build:
+    <<: *deb_build_definition
+    tags:
+        - graphviz,ubuntu18-04
+
+ubuntu18-10-build:
+    <<: *deb_build_definition
+    tags:
+        - graphviz,ubuntu18-10
