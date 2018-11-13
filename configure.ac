@@ -2267,7 +2267,15 @@ else
         AC_SUBST([ANN_LIBS])
         use_ann="Yes (but no ann.pc found)"
       else
-        use_ann="No (ANN library not available)"
+        if test -f /usr/lib/libann.so; then
+          AC_DEFINE_UNQUOTED(HAVE_ANN,1,
+            [Define if you have the ann library])
+          ANN_LIBS=-lann
+          AC_SUBST([ANN_LIBS])
+          use_ann="Yes (but no ann.pc found, and found in the wrong place)"
+        else
+          use_ann="No (ANN library not available)"
+        fi
       fi
     fi
   fi
