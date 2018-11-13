@@ -1107,7 +1107,7 @@ else
         else
           PHP_INCLUDES="`$PHPCONFIG --includes`"
           PHP_INSTALL_DIR="`$PHPCONFIG --extension-dir`"
-          PHP_INSTALL_DATADIR="`$PHPCONFIG --man-dir`"
+          PHP_INSTALL_DATADIR="/usr/share/php"
           PHP_LIBS="`$PHPCONFIG --ldflags` `$PHPCONFIG --libs`"
           save_CPPFLAGS=$CPPFLAGS
           CPPFLAGS="$CPPFLAGS $PHP_INCLUDES"
