@@ -44,8 +44,8 @@ portable-source:
         when: on_success
         expire_in: 1 week
         paths:
-            - *.deb
-            - *.ddeb
+            - ./*.deb
+            - ./*.ddeb
     only:
         - master
 
