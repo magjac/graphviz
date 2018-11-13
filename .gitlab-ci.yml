@@ -40,13 +40,12 @@ portable-source:
         - VERSION=$( cat VERSION )
         - zcat graphviz-${VERSION}.tar.gz | tar xf -
         - (cd graphviz-${VERSION}; fakeroot make -f debian/rules binary)
-        - ln -s graphviz-${VERSION} packages
     artifacts:
         when: on_success
         expire_in: 1 week
         paths:
-            - packages/*.deb
-            - packages/*.ddeb
+            - *.deb
+            - *.ddeb
     only:
         - master
 
