@@ -2270,11 +2270,19 @@ else
         if test -f /usr/lib/x86_64-linux-gnu/libann.so; then
           AC_DEFINE_UNQUOTED(HAVE_ANN,1,
             [Define if you have the ann library])
-          ANN_LIBS=-L/usr/lib/x86_64-linux-gnu  -lann
+          ANN_LIBS=-L/usr/lib/x86_64-linux-gnu -lann
           AC_SUBST([ANN_LIBS])
-          use_ann="Yes (but no ann.pc found so taking a wild guess its ubuntu)"
+          use_ann="Yes (but no ann.pc found so taking a wild guess its ubuntu-18.10)"
         else
-          use_ann="No (ANN library not available)"
+          if test -f /usr/lib/libann.so; then
+            AC_DEFINE_UNQUOTED(HAVE_ANN,1,
+              [Define if you have the ann library])
+            ANN_LIBS=-L/usr/lib -lann
+            AC_SUBST([ANN_LIBS])
+            use_ann="Yes (but no ann.pc found so taking a wild guess its ubuntu-18.04)"
+          else
+            use_ann="No (ANN library not available)"
+          fi
         fi
       fi
     fi
@@ -2736,13 +2744,13 @@ else
 fi
 
 dnl -----------------------------------
-dnl IPSEPCOLA   /* disabled by default due to C++ issues on some platforms */
+dnl IPSEPCOLA   /* enabled by default. C++ issues on some platforms should be resolved by now */
 AC_ARG_WITH(ipsepcola,
-  [AS_HELP_STRING([--with-ipsepcola=no],[IPSEPCOLA features in neato layout engine])],
-  [], [with_ipsepcola=no])
+  [AS_HELP_STRING([--with-ipsepcola=yes],[IPSEPCOLA features in neato layout engine])],
+  [], [with_ipsepcola=yes])
 
 if test "x$with_ipsepcola" != "xyes"; then
-  use_ipsepcola="No (disabled by default - C++ portability issues)"
+  use_ipsepcola="No (disabled)"
 else
   if test "x$use_digcola" != "xYes"; then
     use_ipsepcola="No (requires: digcola)"
