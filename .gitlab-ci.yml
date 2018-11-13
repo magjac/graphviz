@@ -38,9 +38,9 @@ portable-source:
     stage: build
     script:
         - VERSION=$( cat VERSION )
-        - zcat graphviz-@VERSION@.tar.gz | tar xf -
-        - (cd graphviz-@VERSION@; fakeroot make -f debian/rules binary)
-        - ln -s graphviz-@VERSION@ packages
+        - zcat graphviz-${VERSION}.tar.gz | tar xf -
+        - (cd graphviz-${VERSION}; fakeroot make -f debian/rules binary)
+        - ln -s graphviz-${VERSION} packages
     artifacts:
         when: on_success
         expire_in: 1 week
