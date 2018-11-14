@@ -21,8 +21,6 @@ man_MANS = mingle.1
 pdf_DATA = mingle.1.pdf
 
 mingle_SOURCES = minglemain.c
-# Dummy C++ source to cause C++ linking.
-nodist_EXTRA_mingle_SOURCES = dummy.cxx
 mingle_CPPFLAGS = $(AM_CPPFLAGS)
 mingle_LDADD = \
     $(top_builddir)/lib/mingle/libmingle_C.la \
