@@ -219,7 +219,8 @@ static void cairogen_begin_anchor(GVJ_t *job, char *url, char *tooltip, char *ta
     obj_state_t *obj = job->obj;
     cairo_t *cr = (cairo_t *) job->context;
     double p0x, p0y, p1x, p1y;
-    char buf[300];
+    char *buf;
+    size_t buf_len;
 
     if (url && obj->url_map_p) {
        p0x = obj->url_map_p[0].x;
@@ -228,7 +229,9 @@ static void cairogen_begin_anchor(GVJ_t *job, char *url, char *tooltip, char *ta
        p1x = obj->url_map_p[1].x;
        p1y = -obj->url_map_p[1].y;
        cairo_user_to_device (cr, &p1x, &p1y);
-       snprintf(buf, sizeof(buf), "rect=[%f %f %f %f] uri='%s'",
+       buf_len = strlen(url) + 200;
+       buf = malloc(buf_len);
+       snprintf(buf, buf_len, "rect=[%f %f %f %f] uri='%s'",
                 p0x,
                 p0y,
                 p1x - p0x,
@@ -238,6 +241,7 @@ static void cairogen_begin_anchor(GVJ_t *job, char *url, char *tooltip, char *ta
        cairo_tag_begin (cr, CAIRO_TAG_LINK, buf);
        cairo_tag_end (cr, CAIRO_TAG_LINK);
 #endif
+       free(buf);
     }
 }
 
