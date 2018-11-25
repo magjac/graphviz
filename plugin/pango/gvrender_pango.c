@@ -33,6 +33,7 @@ typedef enum {
 		FORMAT_PS,
 		FORMAT_PDF,
 		FORMAT_SVG,
+		FORMAT_EPS,
     } format_type;
 
 #define ARRAY_SIZE(A) (sizeof(A)/sizeof(A[0]))
@@ -108,9 +109,12 @@ static void cairogen_begin_page(GVJ_t * job)
     if (cr == NULL) {
         switch (job->render.id) {
         case FORMAT_PS:
+        case FORMAT_EPS:
 #ifdef CAIRO_HAS_PS_SURFACE
 	    surface = cairo_ps_surface_create_for_stream (writer,
 			job, job->width, job->height);
+            if (job->render.id == FORMAT_EPS)
+                cairo_ps_surface_set_eps (surface, TRUE);
 #endif
 	    break;
         case FORMAT_PDF:
@@ -495,6 +499,14 @@ static gvdevice_features_t device_features_ps = {
     {72.,72.},			/* postscript 72 dpi */
 };
 
+static gvdevice_features_t device_features_eps = {
+    GVRENDER_NO_WHITE_BG
+      | GVDEVICE_DOES_TRUECOLOR,    /* flags */
+    {36.,36.},			/* default margin - points */
+    {0.,0.},                    /* default page width, height - points */
+    {72.,72.},			/* postscript 72 dpi */
+};
+
 static gvdevice_features_t device_features_pdf = {
     GVDEVICE_BINARY_FORMAT
       | GVRENDER_NO_WHITE_BG
@@ -525,6 +537,7 @@ gvplugin_installed_t gvdevice_pango_types[] = {
 #endif
 #ifdef CAIRO_HAS_PS_SURFACE
     {FORMAT_PS, "ps:cairo", -10, NULL, &device_features_ps},
+    {FORMAT_EPS, "eps:cairo", -10, NULL, &device_features_eps},
 #endif
 #ifdef CAIRO_HAS_PDF_SURFACE
     {FORMAT_PDF, "pdf:cairo", 10, NULL, &device_features_pdf},
