@@ -488,7 +488,8 @@ static gvdevice_features_t device_features_png = {
 };
 
 static gvdevice_features_t device_features_ps = {
-    GVDEVICE_DOES_TRUECOLOR,    /* flags */
+    GVRENDER_NO_WHITE_BG
+      | GVDEVICE_DOES_TRUECOLOR,    /* flags */
     {36.,36.},			/* default margin - points */
     {0.,0.},                    /* default page width, height - points */
     {72.,72.},			/* postscript 72 dpi */
@@ -496,6 +497,7 @@ static gvdevice_features_t device_features_ps = {
 
 static gvdevice_features_t device_features_pdf = {
     GVDEVICE_BINARY_FORMAT
+      | GVRENDER_NO_WHITE_BG
       | GVRENDER_DOES_MAPS
       | GVRENDER_DOES_MAP_RECTANGLE
       | GVDEVICE_DOES_TRUECOLOR,/* flags */
@@ -505,7 +507,8 @@ static gvdevice_features_t device_features_pdf = {
 };
 
 static gvdevice_features_t device_features_svg = {
-    GVDEVICE_DOES_TRUECOLOR,    /* flags */
+    GVRENDER_NO_WHITE_BG
+      | GVDEVICE_DOES_TRUECOLOR,    /* flags */
     {0.,0.},			/* default margin - points */
     {0.,0.},                    /* default page width, height - points */
     {72.,72.},			/* svg 72 dpi */
