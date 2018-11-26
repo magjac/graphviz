@@ -1953,7 +1953,7 @@ if test "x$use_pangocairo" = "xYes"; then
     save_LIBS=$LIBS
     PKG_CHECK_MODULES(PANGOFT2, [pangoft2])
     LIBS="$LIBS $PANGOCAIRO_LIBS $PANGOFT2_LIBS"
-    AC_CHECK_FUNCS([pango_fc_font_lock_face pango_fc_font_unlock_face pango_font_map_create_context])
+    AC_CHECK_FUNCS([pango_fc_font_lock_face pango_fc_font_unlock_face pango_font_map_create_context cairo_surface_set_mime_data])
     LIBS=$save_LIBS
 fi
 
