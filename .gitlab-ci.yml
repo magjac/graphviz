@@ -74,10 +74,10 @@ fedora29-build:
     tags:
         - graphviz,fedora29
 
-          #fedora30-build:
-          #<<: *rpm_build_definition
-          #tags:
-          #- graphviz,fedora30
+fedora30-build:
+    <<: *rpm_build_definition
+    tags:
+        - graphviz,fedora30
 
 ubuntu18-04-build:
     <<: *deb_build_definition
