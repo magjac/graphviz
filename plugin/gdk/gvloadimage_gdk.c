@@ -52,31 +52,87 @@ reader (void *closure, unsigned char *data, unsigned int length)
 }
 #endif
 
-static void gdk_freeimage(usershape_t *us)
+static void gdk_set_mimedata_from_file (cairo_surface_t *image, const char *mime_type, const char *file)
 {
-    g_object_unref((GdkPixbuf*)(us->data));
+    FILE *fp;
+    unsigned char *data = NULL;
+    long len;
+    const char *id_prefix = "gvloadimage_gdk-";
+    char *unique_id;
+    size_t unique_id_len;
+
+    fp = fopen (file, "rb");
+    if (fp == NULL)
+        return;
+    fseek (fp, 0, SEEK_END);
+    len = ftell(fp);
+    fseek (fp, 0, SEEK_SET);
+    if (len > 0)
+        data = malloc ((size_t)len);
+    if (data) {
+        if (fread(data, (size_t)len, 1, fp) != 1) {
+            free (data);
+            data = NULL;
+        }
+    }
+    fclose(fp);
+
+    if (data) {
+        unique_id_len = strlen(id_prefix) + strlen(file) + 1;
+        unique_id = malloc (unique_id_len);
+        snprintf (unique_id, unique_id_len, "%s%s", id_prefix, file);
+#if 0
+        cairo_surface_set_mime_data (image, CAIRO_MIME_TYPE_UNIQUE_ID, (unsigned char *)unique_id, unique_id_len, free, unique_id);
+        cairo_surface_set_mime_data (image, mime_type, data, (unsigned long)len, free, data);
+#else
+        free(unique_id);
+        free(data);
+#endif
+    }
 }
 
-static GdkPixbuf* gdk_loadimage(GVJ_t * job, usershape_t *us)
+static void gdk_set_mimedata(cairo_surface_t *image, usershape_t *us)
 {
+    switch (us->type) {
+        case FT_PNG:
+            gdk_set_mimedata_from_file (image, CAIRO_MIME_TYPE_PNG, us->name);
+            break;
+        case FT_JPEG:
+            gdk_set_mimedata_from_file (image, CAIRO_MIME_TYPE_JPEG, us->name);
+            break;
+        default:
+            break;
+    }
+}
+
+static void gdk_freeimage(usershape_t *us)
+{
+    cairo_surface_destroy ((cairo_surface_t *)(us->data));
+}
+
+static cairo_surface_t* gdk_loadimage(GVJ_t * job, usershape_t *us)
+{
+    cairo_t *cr = (cairo_t *) job->context; /* target context */
     GdkPixbuf *image = NULL;
+    cairo_surface_t *cairo_image = NULL;
+    cairo_pattern_t *pattern;
 
     assert(job);
     assert(us);
     assert(us->name);
 
     if (us->data) {
-        if (us->datafree == gdk_freeimage)
-             image = (GdkPixbuf*)(us->data); /* use cached data */
-        else {
-             us->datafree(us);        /* free incompatible cache data */
-             us->datafree = NULL;
-             us->data = NULL;
+        if (us->datafree == gdk_freeimage) {
+	    cairo_image = cairo_surface_reference ((cairo_surface_t *)(us->data)); /* use cached data */
+	} else {
+	    us->datafree(us);        /* free incompatible cache data */
+	    us->datafree = NULL;
+	    us->data = NULL;
         }
     }
-    if (!image) { /* read file into cache */
-	if (!gvusershape_file_access(us))
-	    return NULL;
+    if (!cairo_image) { /* read file into cache */
+        if (!gvusershape_file_access(us))
+            return NULL;
         switch (us->type) {
             case FT_PNG:
             case FT_JPEG:
@@ -89,28 +145,38 @@ static GdkPixbuf* gdk_loadimage(GVJ_t * job, usershape_t *us)
             default:
                 image = NULL;
         }
+
         if (image) {
-            us->data = (void*)image;
+            cairo_save (cr);
+            gdk_cairo_set_source_pixbuf (cr, image, 0, 0);
+            pattern = cairo_get_source (cr);
+            assert(cairo_pattern_get_type (pattern) == CAIRO_PATTERN_TYPE_SURFACE);
+            cairo_pattern_get_surface (pattern, &cairo_image);
+            cairo_image = cairo_surface_reference (cairo_image);
+            cairo_restore (cr);
+            gdk_set_mimedata (cairo_image, us);
+            us->data = (void*)cairo_surface_reference (cairo_image);
             us->datafree = gdk_freeimage;
         }
-	gvusershape_file_release(us);
+        gvusershape_file_release(us);
     }
-    return image;
+    return cairo_image;
 }
 
 static void gdk_loadimage_cairo(GVJ_t * job, usershape_t *us, boxf b, boolean filled)
 {
     cairo_t *cr = (cairo_t *) job->context; /* target context */
-    GdkPixbuf *image;
+    cairo_surface_t *image;
 
     image = gdk_loadimage(job, us);
     if (image) {
         cairo_save(cr);
 	cairo_translate(cr, b.LL.x, -b.UR.y);
 	cairo_scale(cr, (b.UR.x - b.LL.x)/(us->w), (b.UR.y - b.LL.y)/(us->h)); 
-        gdk_cairo_set_source_pixbuf (cr, image, 0, 0);
+        cairo_set_source_surface (cr, image, 0, 0);
         cairo_paint (cr);
         cairo_restore(cr);
+        cairo_surface_destroy (image);
     }
 }
 
