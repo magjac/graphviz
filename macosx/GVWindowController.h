@@ -15,7 +15,11 @@
 #import <AppKit/AppKit.h>
 #import <Quartz/Quartz.h>
 
-@interface GVWindowController : NSWindowController <NSUserInterfaceValidations>
+#if !defined(MAC_OS_X_VERSION_10_13) || MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_13
+@protocol PDFViewDelegate <NSObject> @end
+#endif
+
+@interface GVWindowController : NSWindowController <NSUserInterfaceValidations, PDFViewDelegate>
 {
 	IBOutlet PDFView *documentView;
 }
