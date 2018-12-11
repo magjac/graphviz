@@ -45,7 +45,7 @@ extern char *gvplugin_list(GVC_t * gvc, api_t api, const char *str);
 	char *pluginList = gvplugin_list(_graphContext, api, ":");
 	char *restOfPlugins;
 	char *nextPlugin;
-	for (restOfPlugins = pluginList; nextPlugin = strsep(&restOfPlugins, " ");) {
+	for (restOfPlugins = pluginList; (nextPlugin = strsep(&restOfPlugins, " "));) {
 		if (*nextPlugin) {
 			char *lastColon = strrchr(nextPlugin, ':');
 			if (lastColon) {
