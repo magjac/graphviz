@@ -116,14 +116,8 @@
 }
 - (void)dealloc
 {
-    char darwinStr[256];
-    size_t size = sizeof(darwinStr);
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"GVGraphDocumentDidChange" object:[self document]];
-    sysctlbyname("kern.osrelease", darwinStr, &size, NULL, 0);
-    NSString *darwinVer = [NSString stringWithCString:darwinStr encoding:NSASCIIStringEncoding]; 
-    NSString *baseVer = @"11";
-    if ([darwinVer compare:baseVer] < 0)
-         [super dealloc];
+    [super dealloc];
 }
 
 
