@@ -14,11 +14,11 @@
 #import "GVExportViewController.h"
 #import "GVGraph.h"
 
-NSMutableArray *_formatRenders = nil;
+static NSMutableArray *_formatRenders = nil;
 
 @implementation GVExportViewController
 
-@synthesize filename = _filename;
+@synthesize URL = _url;
 @synthesize render = _render;
 
 + (void)initialize
@@ -51,7 +51,7 @@ NSMutableArray *_formatRenders = nil;
 {
 	if (self = [super initWithNibName:@"Export" bundle:nil]) {
 		_panel = nil;
-		_filename = nil;
+		_url = nil;
 		
 		_formatRender = nil;
 		_render = nil;
@@ -89,7 +89,7 @@ NSMutableArray *_formatRenders = nil;
 		_formatRender = [formatRender retain];
 		
 		/* force save panel to use this file type */
-		[_panel setRequiredFileType:[_formatRender objectForKey:@"format"]];
+		[_panel setAllowedFileTypes:[NSArray arrayWithObject:[_formatRender objectForKey:@"format"]]];
 		
 		/* remove existing render if it's not compatible with format */
 		if (![[_formatRender objectForKey:@"renders"] containsObject:_render])
@@ -105,42 +105,34 @@ NSMutableArray *_formatRenders = nil;
 	[endInvocation setSelector:selector];
 	[endInvocation setArgument:&self atIndex:2];
 	[endInvocation retain];
-	
+
 	_panel = [NSSavePanel savePanel];
 	[_panel setAccessoryView:[self view]];
-	[_panel setRequiredFileType:[_formatRender objectForKey:@"format"]];
-	[_panel
-		beginSheetForDirectory:[_filename stringByDeletingLastPathComponent]
-		file:[_filename lastPathComponent]
-		modalForWindow:window
-		modalDelegate:self
-		didEndSelector:@selector(savePanelDidEnd:returnCode:contextInfo:)
-		contextInfo:endInvocation];
-}
+	[_panel setAllowedFileTypes:[NSArray arrayWithObject:[_formatRender objectForKey:@"format"]]];
+	[_panel setDirectoryURL:[_url URLByDeletingLastPathComponent]];
+	[_panel setNameFieldStringValue:[_url lastPathComponent]];
+	[_panel beginSheetModalForWindow:window completionHandler:^(NSInteger result) {
+		if (result == NSOKButton) {
+			NSURL *url = [_panel URL];
+			if (_url != url) {
+				[_url release];
+				_url = [url retain];
+			}
 
-- (void)savePanelDidEnd:(NSSavePanel *)savePanel returnCode:(int)returnCode contextInfo:(void *)contextInfo
-{
-	NSInvocation *endInvocation = (NSInvocation *)contextInfo;
-	if (returnCode == NSOKButton) {
-		NSString *filename = [savePanel filename];
-		if (_filename != filename) {
-			[_filename release];
-			_filename = [filename retain];
+			/* invoke the end selector on the modal delegate */
+			[endInvocation invoke];
 		}
-		
-		/* invoke the end selector on the modal delegate */
-		[endInvocation invoke];
-	}
-	
-	[endInvocation release];
-	[_panel setAccessoryView:nil];
-	_panel = nil;
+
+		[endInvocation release];
+		[_panel setAccessoryView:nil];
+		_panel = nil;
+	}];
 }
 
 - (void)dealloc
 {
 	[_panel release];
-	[_filename release];
+	[_url release];
 	[_formatRender release];
 	[_render release];
 	[super dealloc];
