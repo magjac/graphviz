@@ -74,14 +74,14 @@
 {
 	if (!_exporter) {
 		_exporter = [[GVExportViewController alloc] init];
-		[_exporter setFilename:[[[self fileURL] path] stringByDeletingPathExtension]];
+		[_exporter setURL:[[self fileURL] URLByDeletingPathExtension]];
 	}
 	[_exporter beginSheetModalForWindow:[self windowForSheet] modalDelegate:self didEndSelector:@selector(exporterDidEnd:)];
 }
 
 - (void)exporterDidEnd:(GVExportViewController *)exporter
 {
-	[_graph renderWithFormat:[exporter device] toURL:[NSURL fileURLWithPath:[exporter filename]]];
+	[_graph renderWithFormat:[exporter device] toURL:[exporter URL]];
 }
 
 - (void)fileDidChange:(NSString *)path

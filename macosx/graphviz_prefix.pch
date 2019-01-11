@@ -15,4 +15,19 @@
     #import <Foundation/Foundation.h>
 	#import <AppKit/AppKit.h>
 	#import <Quartz/Quartz.h>
+
+	#ifndef __has_feature
+	#define __has_feature(x) 0	// Compatibility with non-clang compilers.
+	#endif
+
+	// Macros to use ObjC generics but keep compatibility with older Xcode versions
+	// from https://gist.github.com/smileyborg/d513754bc1cf41678054
+	#if __has_feature(objc_generics)
+	#   define __GENERICS(class, ...)      class<__VA_ARGS__>
+	#   define __GENERICS_TYPE(type)       type
+	#else
+	#   define __GENERICS(class, ...)      class
+	#   define __GENERICS_TYPE(type)       id
+	#endif
+
 #endif

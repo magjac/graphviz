@@ -15,7 +15,9 @@
 #import <AppKit/AppKit.h>
 #import <WebKit/WebKit.h>
 
+@class GVAttributeSchema;
 @class GVDocument;
+@class GVGraphDefaultAttributes;
 
 @interface GVAttributeInspectorController : NSWindowController {
 	IBOutlet NSToolbar *componentToolbar;
@@ -26,8 +28,10 @@
 	IBOutlet NSTableView *attributeTable;
 	IBOutlet WebView *documentationWeb;
 	
-	NSDictionary *_allSchemas;
-	NSMutableDictionary *_allAttributes;
+    // 'NSDictionary<NSToolbarItemIdentifier, NSArray<GVAttributeSchema *> *>'
+	__GENERICS(NSDictionary, NSToolbarItemIdentifier, __GENERICS(NSArray, GVAttributeSchema *) *) *_allSchemas;
+    // 'NSMutableDictionary<NSToolbarItemIdentifier, GVGraphDefaultAttributes *>'
+	__GENERICS(NSMutableDictionary, NSToolbarItemIdentifier, GVGraphDefaultAttributes *) *_allAttributes;
 	
 	GVDocument *_inspectedDocument;
 	BOOL _otherChangedGraph;

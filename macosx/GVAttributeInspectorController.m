@@ -118,7 +118,7 @@
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification
 {
-	int selectedRow = [[aNotification object] selectedRow];
+	NSInteger selectedRow = [[aNotification object] selectedRow];
 	NSString* documentation = selectedRow == -1 ? nil : [[[_allSchemas objectForKey:[componentToolbar selectedItemIdentifier]] objectAtIndex: selectedRow] documentation];
 	[[documentationWeb mainFrame] loadHTMLString:documentation baseURL:[NSURL URLWithString:@"http://www.graphviz.org/"]];
 }

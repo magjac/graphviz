@@ -16,14 +16,14 @@
 @interface GVExportViewController : NSViewController
 {
 	NSSavePanel *_panel;
-	NSString *_filename;
+	NSURL *_url;
 	NSDictionary *_formatRender;
 	NSString *_render;
 }
 
 @property(readonly) NSArray *formatRenders;
 @property(readonly) NSString *device;
-@property(retain) NSString *filename;
+@property(retain) NSURL *URL;
 @property(retain) NSDictionary *formatRender;
 @property(retain) NSString *render;
 
