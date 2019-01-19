@@ -276,8 +276,8 @@ static void init(int argc, char *argv[])
 	fprintf(stderr, "%s: no node specified\n", CmdName);
 	usage(1);
     }
-    Files = malloc(sizeof(char *) * argc / 2 + 2);
-    Nodes = malloc(sizeof(char *) * argc / 2 + 2);
+    Files = malloc(sizeof(char *) * (argc / 2 + 2));
+    Nodes = malloc(sizeof(char *) * (argc / 2 + 2));
     for (j = i = 0; i < argc; i++) {
 	Nodes[j] = argv[i++];
 	Files[j] = (argv[i] ? argv[i] : "-");
