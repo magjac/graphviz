@@ -1109,6 +1109,14 @@ static pointf get_cycle_centroid(graph_t *g, edge_t* edge)
 	static graph_t* ref_g = 0;
 
 	if (cycles == 0 || ref_g != g) {
+		//free the memory we're using to hold the previous cycles
+		if (cycles != 0) {
+			size_t i;
+			for (i=0; i < vec_length(cycles); ++i) {
+				vec_delete(vec_get(cycles, i));
+			}
+			vec_delete(cycles);
+		}
 		cycles = find_all_cycles(g);
 		ref_g = g;
 	}
