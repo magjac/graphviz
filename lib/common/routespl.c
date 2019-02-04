@@ -902,6 +902,252 @@ static pointf get_centroid(Agraph_t *g)
     return sum;
 }
 
+#define __CYCLE_CENTROID 
+#ifdef __CYCLE_CENTROID
+//generic vector structure
+typedef struct _tag_vec
+{
+    void** _mem;
+    size_t _elems;
+    size_t _capelems;
+} vec;
+
+static vec* vec_new()
+{
+    vec* pvec = (vec*)malloc(sizeof(vec));
+    pvec->_capelems = 10;
+    pvec->_elems = 0;
+    pvec->_mem = (void**)malloc(pvec->_capelems * sizeof(void*));
+    return pvec;
+}
+
+static void vec_delete(vec* pvec)
+{
+    free(pvec->_mem);
+    free(pvec);
+}
+
+static void vec_push_back(vec* pvec, void* data)
+{
+    if (pvec->_elems == pvec->_capelems) {
+		pvec->_capelems += 10;
+		pvec->_mem = (void**)realloc(pvec->_mem, pvec->_capelems * sizeof(void*));
+	}
+    pvec->_mem[pvec->_elems++] = data;  
+}
+
+static size_t vec_length(vec* pvec)
+{
+    return pvec->_elems;
+}
+
+static void* vec_get(vec* pvec, size_t index)
+{
+    assert(index < pvec->_elems);
+    return pvec->_mem[index];
+}
+
+static void* vec_pop(vec* pvec)
+{
+	if (pvec->_elems > 0)
+		return pvec->_mem[--pvec->_elems];
+	return NULL;
+}
+
+static boolean vec_contains(vec* pvec, void* item) 
+{
+	size_t i;
+
+	for (i=0; i < pvec->_elems; ++i) {
+		if (pvec->_mem[i] == item)
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
+static vec* vec_copy(vec* pvec)
+{
+    vec* nvec = (vec*)malloc(sizeof(vec));
+    nvec->_capelems = pvec->_capelems;
+    nvec->_elems = pvec->_elems;
+    nvec->_mem = (void**)malloc(pvec->_capelems * sizeof(void*));
+	memcpy(nvec->_mem, pvec->_mem, pvec->_elems * sizeof(void*));
+    return nvec;
+}
+//end generic vector structure
+
+static boolean cycle_contains_edge(vec* cycle, edge_t* edge)
+{
+	node_t* start = agtail(edge);
+	node_t* end = aghead(edge);
+	node_t* c_start;
+	node_t* c_end;
+
+	size_t cycle_len = vec_length(cycle);
+	size_t i;
+
+	for (i=0; i < cycle_len; ++i) {
+		if (i == 0) {
+			c_start = (node_t*)vec_get(cycle, cycle_len-1);
+		} else {
+			c_start = (node_t*)vec_get(cycle, i-1);
+		}
+	
+		c_end = (node_t*)vec_get(cycle, i);
+
+		if (c_start == start && c_end == end)
+			return TRUE;
+	}
+
+
+	return FALSE;
+}
+
+static boolean is_cycle_unique(vec* cycles, vec* cycle) 
+{
+	size_t cycle_len = vec_length(cycle);
+	size_t n_cycles = vec_length(cycles);
+	size_t c; //cycles counter
+	size_t i; //node counter
+
+	vec* cur_cycle;
+	size_t cur_cycle_len;
+	void* cur_cycle_item;
+	boolean all_items_match;
+
+	for (c=0; c < n_cycles; ++c) {
+		cur_cycle = (vec*)vec_get(cycles, c);
+		cur_cycle_len = vec_length(cur_cycle);
+
+		//if all the items match in equal length cycles then we're not unique
+		if (cur_cycle_len == cycle_len) {
+			all_items_match = TRUE;
+			for (i=0; i < cur_cycle_len; ++i) {
+				cur_cycle_item = vec_get(cur_cycle, i);
+				if (!vec_contains(cycle, cur_cycle_item)) {
+					all_items_match = FALSE;
+					break;
+				}
+			}
+			if (all_items_match)
+				return FALSE;
+		}
+	}
+
+	return TRUE;
+}
+
+static void dfs(graph_t *g, node_t* search, vec* visited, node_t* end, vec* cycles)
+{
+	edge_t* e;
+	node_t* n;
+
+	if (vec_contains(visited, search)) {
+		if (search == end) {
+			if (is_cycle_unique(cycles, visited)) {
+				vec* cycle = vec_copy(visited);
+				vec_push_back(cycles, cycle);
+			}
+		}
+	} else {
+		vec_push_back(visited, search);
+		for (e = agfstout(g, search); e; e = agnxtout(g, e)) {
+			n = aghead(e);
+			dfs(g, n, visited, end, cycles);
+		}
+		vec_pop(visited);
+	}
+}
+
+static vec* find_all_cycles(graph_t *g)
+{
+    node_t *n;
+
+    vec* alloced_cycles = vec_new(); //vector of vectors of nodes -- AKA cycles to delete
+    vec* cycles = vec_new(); //vector of vectors of nodes AKA a vector of cycles
+    vec* cycle;
+
+    for (n = agfstnode(g); n; n = agnxtnode(g, n)) {
+		cycle = vec_new();
+		vec_push_back(alloced_cycles, cycle); //keep track of all items we allocate to clean up at the end of this function
+		
+		dfs(g, n, cycle, n, cycles);
+	}
+	
+	vec_delete(alloced_cycles); //cycles contains copied vecs
+    return cycles;
+}
+
+static vec* find_shortest_cycle_with_edge(vec* cycles, edge_t* edge, size_t min_size)
+{
+	size_t c; //cycle counter
+	size_t cycles_len = vec_length(cycles);
+	vec* cycle;
+	size_t cycle_len; 
+	vec* shortest = 0;
+
+	for (c=0; c < cycles_len; ++c) {
+		cycle = (vec*)vec_get(cycles, c);
+		cycle_len = vec_length(cycle);
+
+		if (cycle_len < min_size)
+			continue;
+
+		if (!shortest || vec_length(shortest) > cycle_len) {
+			if (cycle_contains_edge(cycle, edge)) {
+				shortest = cycle;
+			}
+		}
+	}
+	return shortest;
+}
+
+static pointf get_cycle_centroid(graph_t *g, edge_t* edge)
+{
+	static vec* cycles = 0;
+	static graph_t* ref_g = 0;
+
+	if (cycles == 0 || ref_g != g) {
+		//free the memory we're using to hold the previous cycles
+		if (cycles != 0) {
+			size_t i;
+			for (i=0; i < vec_length(cycles); ++i) {
+				vec_delete(vec_get(cycles, i));
+			}
+			vec_delete(cycles);
+		}
+		cycles = find_all_cycles(g);
+		ref_g = g;
+	}
+
+	//find the center of the shortest cycle containing this edge
+	//cycles of length 2 do their own thing, we want 3 or
+	vec* cycle = find_shortest_cycle_with_edge(cycles, edge, 3);
+	size_t cycle_len;
+	size_t cnt = 0;
+    pointf sum = {0.0, 0.0};
+	size_t idx; //edge index
+	node_t *n;
+
+	if (!cycle)
+		return get_centroid(g);
+
+	cycle_len = vec_length(cycle);
+
+	for (idx=0; idx < cycle_len; ++idx) {
+		n = (node_t*)vec_get(cycle, idx);
+		sum.x += ND_coord(n).x;
+        sum.y += ND_coord(n).y;
+        cnt++;
+	}
+
+	sum.x = sum.x / cnt;
+    sum.y = sum.y / cnt;
+    return sum;
+}
+#endif
+
 static void bend(pointf spl[4], pointf centroid)
 {
     pointf  midpt,a;
@@ -980,7 +1226,11 @@ makeStraightEdges(graph_t * g, edge_t** edges, int e_cnt, int et, splineInfo* si
     p = dumb[1] = dumb[0] = add_pointf(ND_coord(n), ED_tail_port(e).p);
     q = dumb[2] = dumb[3] = add_pointf(ND_coord(head), ED_head_port(e).p);
     if ((e_cnt == 1) || Concentrate) {
-	if (curved) bend(dumb,get_centroid(g));
+#ifndef __CYCLE_CENTROID
+    if (curved) bend(dumb,get_centroid(g));
+#else
+	if (curved) bend(dumb,get_cycle_centroid(g, edges[0]));
+#endif
 	clip_and_install(e, aghead(e), dumb, 4, sinfo);
 	addEdgeLabels(g, e, p, q);
 	return;
