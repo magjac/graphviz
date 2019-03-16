@@ -12,11 +12,11 @@
  *************************************************************************/
 
 #import "GVGraphArguments.h"
-#import "GVGraph.h"
+#import "GVZGraph.h"
 
 @implementation GVGraphArguments
 
-- (id)initWithGraph:(GVGraph *)graph
+- (id)initWithGraph:(GVZGraph *)graph
 {
 	if (self = [super init]) {
 		_graph = graph;	/* no retain to avoid a retain cycle */

@@ -12,7 +12,7 @@
  *************************************************************************/
 
 #import "GVWindowController.h"
-#import "GVGraph.h"
+#import "GVZGraph.h"
 #import "GVDocument.h"
 
 @implementation GVWindowController

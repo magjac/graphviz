@@ -21,7 +21,7 @@
 		D85D33870DEC599F00A69D07 /* ZoomToFitToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D85D33860DEC599F00A69D07 /* ZoomToFitToolbarImage.tiff */; };
 		D86382D70D57118400D27D07 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = D86382D30D57118400D27D07 /* Document.xib */; };
 		D86382D80D57118400D27D07 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = D86382D50D57118400D27D07 /* MainMenu.xib */; };
-		D86CBB7D0D5AE541000FB42B /* GVGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = D86CBB7C0D5AE541000FB42B /* GVGraph.m */; };
+		D86CBB7D0D5AE541000FB42B /* GVZGraph.m in Sources */ = {isa = PBXBuildFile; fileRef = D86CBB7C0D5AE541000FB42B /* GVZGraph.m */; };
 		D86CBB9C0D5AFB49000FB42B /* GVGraphDefaultAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = D86CBB8E0D5AEF48000FB42B /* GVGraphDefaultAttributes.m */; };
 		D87989560D5C8C0B00CCC6E3 /* libcdt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D87989550D5C8C0B00CCC6E3 /* libcdt.dylib */; };
 		D87989EF0D5D273000CCC6E3 /* GVApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D87989EE0D5D273000CCC6E3 /* GVApplicationDelegate.m */; };
@@ -69,8 +69,8 @@
 		D85D33860DEC599F00A69D07 /* ZoomToFitToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = ZoomToFitToolbarImage.tiff; sourceTree = "<group>"; };
 		D86382D40D57118400D27D07 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Document.xib; sourceTree = "<group>"; };
 		D86382D60D57118400D27D07 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		D86CBB7B0D5AE541000FB42B /* GVGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVGraph.h; sourceTree = "<group>"; };
-		D86CBB7C0D5AE541000FB42B /* GVGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVGraph.m; sourceTree = "<group>"; };
+		D86CBB7B0D5AE541000FB42B /* GVZGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVZGraph.h; sourceTree = "<group>"; };
+		D86CBB7C0D5AE541000FB42B /* GVZGraph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVZGraph.m; sourceTree = "<group>"; };
 		D86CBB8D0D5AEF48000FB42B /* GVGraphDefaultAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVGraphDefaultAttributes.h; sourceTree = "<group>"; };
 		D86CBB8E0D5AEF48000FB42B /* GVGraphDefaultAttributes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVGraphDefaultAttributes.m; sourceTree = "<group>"; };
 		D87989550D5C8C0B00CCC6E3 /* libcdt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcdt.dylib; path = ../lib/cdt/.libs/libcdt.dylib; sourceTree = SOURCE_ROOT; };
@@ -156,8 +156,8 @@
 				D8264B090DE8111F009D6A44 /* GVExportViewController.m */,
 				D85D2EBA0DEAB83C00A69D07 /* GVFileNotificationCenter.h */,
 				D85D2EBB0DEAB83C00A69D07 /* GVFileNotificationCenter.m */,
-				D86CBB7B0D5AE541000FB42B /* GVGraph.h */,
-				D86CBB7C0D5AE541000FB42B /* GVGraph.m */,
+				D86CBB7B0D5AE541000FB42B /* GVZGraph.h */,
+				D86CBB7C0D5AE541000FB42B /* GVZGraph.m */,
 				D8C09DEB0D6067BE00134D03 /* GVGraphArguments.h */,
 				D8C09DEC0D6067BE00134D03 /* GVGraphArguments.m */,
 				D86CBB8D0D5AEF48000FB42B /* GVGraphDefaultAttributes.h */,
@@ -254,6 +254,8 @@
 /* Begin PBXProject section */
 		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "graphviz" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
@@ -308,7 +310,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D15AC310486D014006FF6A4 /* GVDocument.m in Sources */,
-				D86CBB7D0D5AE541000FB42B /* GVGraph.m in Sources */,
+				D86CBB7D0D5AE541000FB42B /* GVZGraph.m in Sources */,
 				D86CBB9C0D5AFB49000FB42B /* GVGraphDefaultAttributes.m in Sources */,
 				D885863D0D56DC2C00D35701 /* GVWindowController.m in Sources */,
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,

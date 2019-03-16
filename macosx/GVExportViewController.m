@@ -12,7 +12,7 @@
  *************************************************************************/
 
 #import "GVExportViewController.h"
-#import "GVGraph.h"
+#import "GVZGraph.h"
 
 static NSMutableArray *_formatRenders = nil;
 
@@ -28,7 +28,7 @@ static NSMutableArray *_formatRenders = nil;
 		
 		NSString *lastFormat = nil;
 		NSMutableArray *lastRenders = nil;
-		for (NSString *device in [GVGraph pluginsWithAPI:API_device]) {
+		for (NSString *device in [GVZGraph pluginsWithAPI:API_device]) {
 			NSArray *deviceComponents = [device componentsSeparatedByString:@":"];
 			NSUInteger componentCount = [deviceComponents count];
 			

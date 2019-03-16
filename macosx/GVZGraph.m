@@ -12,7 +12,7 @@
  *************************************************************************/
 
 
-#import "GVGraph.h"
+#import "GVZGraph.h"
 #import "GVGraphArguments.h"
 #import "GVGraphDefaultAttributes.h"
 
@@ -22,7 +22,7 @@ extern double PSinputscale;
 
 static GVC_t *_graphContext = nil;
 
-@implementation GVGraph
+@implementation GVZGraph
 
 @synthesize graph = _graph;
 @synthesize arguments = _arguments;

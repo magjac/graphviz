@@ -15,15 +15,15 @@
 #import <AppKit/AppKit.h>
 
 @class GVExportViewController;
-@class GVGraph;
+@class GVZGraph;
 
 @interface GVDocument : NSDocument
 {
 	GVExportViewController *_exporter;
-	GVGraph *_graph;
+	GVZGraph *_graph;
 }
 
-@property(readonly) GVGraph *graph;
+@property(readonly) GVZGraph *graph;
 
 - (id)init;
 

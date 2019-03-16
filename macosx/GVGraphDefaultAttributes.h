@@ -15,15 +15,15 @@
 
 #include "gvc.h"
 
-@class GVGraph;
+@class GVZGraph;
 
 @interface GVGraphDefaultAttributes : NSMutableDictionary
 {
-	GVGraph *_graph;
+	GVZGraph *_graph;
 	int _kind;
 }
 
-- (id)initWithGraph:(GVGraph *)graph prototype:(int)kind;
+- (id)initWithGraph:(GVZGraph *)graph prototype:(int)kind;
 
 /* dictionary primitive methods */
 - (NSUInteger)count;
