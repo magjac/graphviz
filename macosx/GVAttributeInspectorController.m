@@ -14,7 +14,7 @@
 #import "GVAttributeInspectorController.h"
 #import "GVAttributeSchema.h"
 #import "GVDocument.h"
-#import "GVGraph.h"
+#import "GVZGraph.h"
 #import "GVWindowController.h"
 
 @implementation GVAttributeInspectorController
@@ -86,7 +86,7 @@
 	/* reload the attributes from the inspected document's graph */
 	[_allAttributes removeAllObjects];
 	if ([_inspectedDocument respondsToSelector:@selector(graph)]) {
-		GVGraph *graph = [_inspectedDocument graph];
+		GVZGraph *graph = [_inspectedDocument graph];
 		[_allAttributes setObject:graph.graphAttributes forKey:[graphToolbarItem itemIdentifier]];
 		[_allAttributes setObject:graph.defaultNodeAttributes forKey:[nodeDefaultToolbarItem itemIdentifier]];
 		[_allAttributes setObject:graph.defaultEdgeAttributes forKey:[edgeDefaultToolbarItem itemIdentifier]];

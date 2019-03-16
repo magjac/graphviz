@@ -12,7 +12,7 @@
  *************************************************************************/
 
 #import "GVGraphDefaultAttributes.h"
-#import "GVGraph.h"
+#import "GVZGraph.h"
 
 @interface GVGraphDefaultAttributeKeyEnumerator : NSEnumerator
 {
@@ -65,7 +65,7 @@
 
 @implementation GVGraphDefaultAttributes
 
-- (id)initWithGraph:(GVGraph *)graph prototype:(int)kind
+- (id)initWithGraph:(GVZGraph *)graph prototype:(int)kind
 {
 	if (self = [super init]) {
 		_graph = graph;

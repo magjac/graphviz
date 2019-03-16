@@ -14,7 +14,7 @@
 #import "GVDocument.h"
 #import "GVExportViewController.h"
 #import "GVFileNotificationCenter.h"
-#import "GVGraph.h"
+#import "GVZGraph.h"
 #import "GVWindowController.h"
 
 @implementation GVDocument
@@ -33,7 +33,7 @@
 - (BOOL)readFromURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
 {
 	[_graph release];
-	_graph = [[GVGraph alloc] initWithURL:absoluteURL error:outError];
+	_graph = [[GVZGraph alloc] initWithURL:absoluteURL error:outError];
 	[_graph.arguments setValue:@"dot" forKey:@"layout"];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(graphDidChange:) name:@"GVGraphDidChange" object:_graph];
@@ -91,7 +91,7 @@
 	
 	/* reparse the graph fresh from the file */
 	[_graph release];
-	_graph = [[GVGraph alloc] initWithURL:[self fileURL] error:nil];
+	_graph = [[GVZGraph alloc] initWithURL:[self fileURL] error:nil];
 	[_graph.arguments setValue:@"dot" forKey:@"layout"];
 	[defaultCenter addObserver:self selector:@selector(graphDidChange:) name:@"GVGraphDidChange" object:_graph];
 	

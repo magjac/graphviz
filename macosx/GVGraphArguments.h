@@ -13,14 +13,14 @@
 
 #import <Foundation/Foundation.h>
 
-@class GVGraph;
+@class GVZGraph;
 
 @interface GVGraphArguments : NSMutableDictionary {
-	GVGraph *_graph;
+	GVZGraph *_graph;
 	NSMutableDictionary *_arguments;
 }
 
-- (id)initWithGraph:(GVGraph *)graph;
+- (id)initWithGraph:(GVZGraph *)graph;
 
 /* dictionary primitive methods */
 - (NSUInteger)count;

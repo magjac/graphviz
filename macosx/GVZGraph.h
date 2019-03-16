@@ -18,7 +18,7 @@
 @class GVGraphArguments;
 @class GVGraphDefaultAttributes;
 
-@interface GVGraph : NSObject
+@interface GVZGraph : NSObject
 {
 @public
 	graph_t *_graph;
