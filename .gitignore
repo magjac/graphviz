@@ -252,3 +252,8 @@ lib/color_lib
 # Python byte code
 *.pyc
 
+# Apple OS files
+.DS_Store
+
+# Xcode User Files
+**/xcuserdata/**
