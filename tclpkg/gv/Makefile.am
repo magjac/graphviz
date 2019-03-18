@@ -171,7 +171,7 @@ libgv_perl_la_LDFLAGS = -module -avoid-version $(PERL_LD)
 libgv_perl_la_CPPFLAGS = $(BASECPPFLAGS) $(PERL_CC)
 $(PERL_data): gv_perl.cpp
 gv_perl.cpp: gv.i
-	$(SWIG) -c++ -perl -o gv_perl.cpp $(srcdir)/gv.i
+	$(SWIG) -c++ $(SWIG_PERL_OPT) -o gv_perl.cpp $(srcdir)/gv.i
 
 pkgphpdir = $(pkglibdir)/php
 PHP_data = gv.php

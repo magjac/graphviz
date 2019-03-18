@@ -1031,8 +1031,13 @@ else
   if test "x$use_swig" != "xYes"; then
     use_perl="No (swig not available)"
   else
-    if test `$SWIG -help 2>&1 | $EGREP -c '\-perl *- Generate'` = 0; then
-      use_perl="No (swig does not support -perl option)"
+    if test `$SWIG -perl5 2>&1 | $EGREP -c '(Unable|No target)'` -eq 1; then
+      SWIG_PERL_OPT='-perl'
+    else
+      SWIG_PERL_OPT='-perl5'
+    fi
+    if test `$SWIG -help 2>&1 | $EGREP -c "(-perl|-perl5) *- Generate"` = 0; then
+      use_perl="No (swig does not support -perl or -perl5 option)"
     else
       AC_CHECK_PROG(PERL,perl,perl)
       if test "x$PERL" = "x"; then
@@ -1065,6 +1070,7 @@ else
 	  AC_SUBST([PERL_INCLUDES])
           AC_SUBST([PERL_LIBS])
 	  AC_SUBST([PERL_INSTALL_DIR])
+	  AC_SUBST([SWIG_PERL_OPT])
         fi
       fi
     fi
@@ -1085,8 +1091,8 @@ else
   if test "x$use_swig" != "xYes"; then
     use_php="No (swig not available)"
   else
-    if test `$SWIG -php7 2>&1 | $EGREP -c 'Unable'` -eq 1; then
-      if test `$SWIG -php5 2>&1 | $EGREP -c 'Unable'` -eq 1; then
+    if test `$SWIG -php7 2>&1 | $EGREP -c '(Unable|No target)'` -eq 1; then
+      if test `$SWIG -php5 2>&1 | $EGREP -c '(Unable|No target)'` -eq 1; then
         SWIG_PHP_OPT='-php'
       else
         SWIG_PHP_OPT='-php5'
@@ -1094,8 +1100,8 @@ else
     else
       SWIG_PHP_OPT='-php7'
     fi
-    if test `$SWIG -help 2>&1 | $EGREP -c '\-php5* *- Generate'` = 0 ; then
-      use_php="No (swig does not support -php or -php5 option)"
+    if test `$SWIG -help 2>&1 | $EGREP -c "(-php|-php5|-php7) *- Generate"` = 0 ; then
+      use_php="No (swig does not support -php or -php5 or -php7 option)"
     else
       AC_CHECK_PROGS(PHP,php7.2,php7,php,php5)
       if test "x$PHP" = "x"; then
