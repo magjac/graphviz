@@ -117,10 +117,11 @@ static CGImageRef quartz_loadimage(GVJ_t * job, usershape_t *us)
 			hint_format_type = FORMAT_NONE;
 			break;
 		}
+		CFStringRef uti_hint = format_to_uti(hint_format_type);
 		CFDictionaryRef options = hint_format_type == FORMAT_NONE ? NULL : CFDictionaryCreate(
 			kCFAllocatorDefault,
 			(const void **)&kCGImageSourceTypeIdentifierHint,
-			(const void **)format_to_uti(hint_format_type),
+			(const void **)&uti_hint,
 			1,
 			&kCFTypeDictionaryKeyCallBacks,
 			&kCFTypeDictionaryValueCallBacks);
