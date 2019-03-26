@@ -1,0 +1,5 @@
+-
+project_name: 'graphviz'
+project_desciption: 'A set of tools for laying out graphs of nodes and edges'
+project_url: 'http://www.graphviz.org/'
+gitlab_plan: 'Ultimate'
