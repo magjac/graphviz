@@ -1,1 +1,1 @@
-SUBDIRS = shapes
+SUBDIRS = shapes vuln
