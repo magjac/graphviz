@@ -468,8 +468,10 @@ startElementHandler(void *userData, const char *name, const char **atts)
 	if (pos > 0) {
 	    const char *attrname;
 	    attrname = atts[pos];
-
-	    bind_node(attrname);
+            if (G == 0)
+                fprintf(stderr,"node %s outside graph, ignored\n",attrname);
+	    else
+                bind_node(attrname);
 
 	    pushString(&ud->elements, attrname);
 	}
@@ -495,21 +497,25 @@ startElementHandler(void *userData, const char *name, const char **atts)
 	if (tname)
 	    head = tname;
 
-	bind_edge(tail, head);
+        if (G == 0)
+            fprintf(stderr,"edge source %s target %s outside graph, ignored\n",(char*)tail,(char*)head);
+        else {
+            bind_edge(tail, head);
 
-	t = AGTAIL(E);
-	tname = agnameof(t);
+            t = AGTAIL(E);
+	    tname = agnameof(t);
 
-	if (strcmp(tname, tail) == 0) {
-	    ud->edgeinverted = FALSE;
-	} else if (strcmp(tname, head) == 0) {
-	    ud->edgeinverted = TRUE;
-	}
+	    if (strcmp(tname, tail) == 0) {
+	        ud->edgeinverted = FALSE;
+	    } else if (strcmp(tname, head) == 0) {
+	        ud->edgeinverted = TRUE;
+	    }
 
-	pos = get_xml_attr("id", atts);
-	if (pos > 0) {
-	    setEdgeAttr(E, GRAPHML_ID, (char *) atts[pos], ud);
-	}
+	    pos = get_xml_attr("id", atts);
+	    if (pos > 0) {
+	        setEdgeAttr(E, GRAPHML_ID, (char *) atts[pos], ud);
+	    }
+        }
     } else {
 	/* must be some extension */
 	fprintf(stderr,
@@ -530,7 +536,7 @@ static void endElementHandler(void *userData, const char *name)
 	char *ele_name = topString(ud->elements);
 	if (ud->closedElementType == TAG_GRAPH) {
 	    Agnode_t *node = agnode(root, ele_name, 0);
-	    agdelete(root, node);
+	    if (node) agdelete(root, node);
 	}
 	popString(&ud->elements);
 	Current_class = TAG_GRAPH;

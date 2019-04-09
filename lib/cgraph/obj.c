@@ -168,6 +168,8 @@ void agdelcb(Agraph_t * g, void *obj, Agcbstack_t * cbstack)
 
 Agraph_t *agroot(void* obj)
 {
+    // fixes CVE-2019-11023 by moving the problem to the caller :-)
+    if (obj == 0) return NILgraph; 
     switch (AGTYPE(obj)) {
     case AGINEDGE:
     case AGOUTEDGE:

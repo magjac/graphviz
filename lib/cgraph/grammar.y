@@ -22,6 +22,7 @@ extern void yyerror(char *);	/* gets mapped to aagerror, see below */
 #endif
 
 static char Key[] = "key";
+static int SubgraphDepth = 0;
 
 typedef union s {					/* possible items in generic list */
 		Agnode_t		*n;
@@ -542,6 +543,7 @@ static void startgraph(char *name, int directed, int strict)
 	static Agdesc_t	req;	/* get rid of warnings */
 
 	if (G == NILgraph) {
+    SubgraphDepth = 0;
 		req.directed = directed;
 		req.strict = strict;
 		req.maingraph = TRUE;
@@ -562,6 +564,11 @@ static void endgraph()
 
 static void opensubg(char *name)
 {
+  if (++SubgraphDepth >= YYMAXDEPTH/2) {
+    char buf[128];
+    sprintf(buf,"subgraphs nested more than %d deep",YYMAXDEPTH);
+    agerr(AGERR,buf);
+  }
 	S = push(S,agsubg(S->g,name,TRUE));
 	agstrfree(G,name);
 }
@@ -569,6 +576,7 @@ static void opensubg(char *name)
 static void closesubg()
 {
 	Agraph_t *subg = S->g;
+  --SubgraphDepth;
 	S = pop(S);
 	S->subg = subg;
 	assert(subg);
