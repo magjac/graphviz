@@ -3005,6 +3005,7 @@ AC_CONFIG_FILES(Makefile
 	tests/unit_tests/lib/common/Makefile
 	tests/regression_tests/Makefile
 	tests/regression_tests/shapes/Makefile
+	tests/regression_tests/vuln/Makefile
 	share/Makefile
 	share/examples/Makefile
 	share/gui/Makefile
