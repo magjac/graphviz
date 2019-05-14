@@ -21,7 +21,6 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="28"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -86,7 +85,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">GraphAttributes</string>
+									<string key="NSResourceName">GraphAttributesTemplate</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -108,7 +107,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">EdgeAttributes</string>
+									<string key="NSResourceName">EdgeAttributesTemplate</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -130,7 +129,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">NodeAttributes</string>
+									<string key="NSResourceName">NodeAttributesTemplate</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -162,7 +161,7 @@
 				</object>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="1006">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -319,7 +318,6 @@
 											</object>
 											<string key="NSFrameSize">{289, 279}</string>
 											<reference key="NSSuperview" ref="622001215"/>
-											<reference key="NSNextKeyView" ref="230844095"/>
 											<reference key="NSDocView" ref="230844095"/>
 											<reference key="NSBGColor" ref="24209500"/>
 											<int key="NScvFlags">4</int>
@@ -347,7 +345,6 @@
 									</object>
 									<string key="NSFrameSize">{300, 279}</string>
 									<reference key="NSSuperview" ref="578061934"/>
-									<reference key="NSNextKeyView" ref="731772484"/>
 									<int key="NSsFlags">16</int>
 									<reference key="NSVScroller" ref="103194017"/>
 									<reference key="NSHScroller" ref="517585291"/>
@@ -380,7 +377,6 @@
 									</object>
 									<string key="NSFrame">{{0, 280}, {300, 120}}</string>
 									<reference key="NSSuperview" ref="578061934"/>
-									<reference key="NSNextKeyView"/>
 									<string key="FrameName"/>
 									<string key="GroupName"/>
 									<object class="WebPreferences" key="Preferences">
@@ -411,7 +407,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{300, 400}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -705,6 +700,7 @@
 					<string>25.IBPluginDependency</string>
 					<string>26.IBPluginDependency</string>
 					<string>27.IBPluginDependency</string>
+					<string>4.IBEditorWindowLastContentRect</string>
 					<string>4.IBPluginDependency</string>
 					<string>4.editorWindowContentRectSynchronizationRect</string>
 					<string>61.IBPluginDependency</string>
@@ -732,6 +728,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.WebKitIBPlugin</string>
+					<string>{{227, 534}, {616, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{50, 727}, {616, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1576,9 +1573,9 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>EdgeAttributes</string>
-				<string>GraphAttributes</string>
-				<string>NodeAttributes</string>
+				<string>EdgeAttributesTemplate</string>
+				<string>GraphAttributesTemplate</string>
+				<string>NodeAttributesTemplate</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
