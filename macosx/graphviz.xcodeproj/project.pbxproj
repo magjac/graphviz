@@ -12,7 +12,6 @@
 		8D15AC310486D014006FF6A4 /* GVDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* GVDocument.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		D826490D0DE58739009D6A44 /* ActualSizeToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D82649090DE58739009D6A44 /* ActualSizeToolbarImage.tiff */; };
-		D826490E0DE58739009D6A44 /* InspectorToolbarImage.tif in Resources */ = {isa = PBXBuildFile; fileRef = D826490A0DE58739009D6A44 /* InspectorToolbarImage.tif */; };
 		D826490F0DE58739009D6A44 /* ZoomInToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D826490B0DE58739009D6A44 /* ZoomInToolbarImage.tiff */; };
 		D82649100DE58739009D6A44 /* ZoomOutToolbarImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = D826490C0DE58739009D6A44 /* ZoomOutToolbarImage.tiff */; };
 		D8264B0A0DE8111F009D6A44 /* GVExportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8264B090DE8111F009D6A44 /* GVExportViewController.m */; };
@@ -58,7 +57,6 @@
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Graphviz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Graphviz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D82649090DE58739009D6A44 /* ActualSizeToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = ActualSizeToolbarImage.tiff; sourceTree = "<group>"; };
-		D826490A0DE58739009D6A44 /* InspectorToolbarImage.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = InspectorToolbarImage.tif; sourceTree = "<group>"; };
 		D826490B0DE58739009D6A44 /* ZoomInToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = ZoomInToolbarImage.tiff; sourceTree = "<group>"; };
 		D826490C0DE58739009D6A44 /* ZoomOutToolbarImage.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = ZoomOutToolbarImage.tiff; sourceTree = "<group>"; };
 		D8264B080DE8111F009D6A44 /* GVExportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVExportViewController.h; sourceTree = "<group>"; };
@@ -182,7 +180,6 @@
 			children = (
 				5BCDD0AA141A8E6400E812BC /* graphviz.help */,
 				D82649090DE58739009D6A44 /* ActualSizeToolbarImage.tiff */,
-				D826490A0DE58739009D6A44 /* InspectorToolbarImage.tif */,
 				D826490B0DE58739009D6A44 /* ZoomInToolbarImage.tiff */,
 				D826490C0DE58739009D6A44 /* ZoomOutToolbarImage.tiff */,
 				D85D33860DEC599F00A69D07 /* ZoomToFitToolbarImage.tiff */,
@@ -291,7 +288,6 @@
 				D8C09DBA0D60427200134D03 /* GraphAttributesTemplate.png in Resources */,
 				D8C09DBB0D60427200134D03 /* EdgeAttributesTemplate.png in Resources */,
 				D826490D0DE58739009D6A44 /* ActualSizeToolbarImage.tiff in Resources */,
-				D826490E0DE58739009D6A44 /* InspectorToolbarImage.tif in Resources */,
 				D826490F0DE58739009D6A44 /* ZoomInToolbarImage.tiff in Resources */,
 				D82649100DE58739009D6A44 /* ZoomOutToolbarImage.tiff in Resources */,
 				D8264B0D0DE81133009D6A44 /* Export.xib in Resources */,
