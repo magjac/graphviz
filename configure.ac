@@ -116,6 +116,7 @@ AC_SUBST([GRAPHVIZ_VERSION_REVISION])
 
 AC_ARG_VAR(LIBPOSTFIX, [subscript to lib, e.g. "/64" for "/usr/lib/64" on Solaris])
 AC_ARG_VAR(INTGOSIZE, [integer size for go, 32 or 64])
+AC_ARG_VAR(RUBY_VER, [version number of the ruby package])
 
 INTGOSIZE=32
 if test -z "$LIBPOSTFIX"; then
@@ -1397,7 +1398,7 @@ else
           RUBY_INSTALL_DIR="`$RUBY $srcdir/config/config_ruby.rb vendorarchdir`"
 	fi
       ],[
-        PKG_CHECK_MODULES([RUBY], [ruby-1.9],[
+        PKG_CHECK_MODULES([RUBY], [ruby-${RUBY_VER}],[
 	  AC_CHECK_PROG(RUBY,ruby,ruby)
           if test "x$RUBY" = "x"; then
             use_ruby="No (ruby not available)"
