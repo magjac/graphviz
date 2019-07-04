@@ -572,21 +572,22 @@ else
     use_swig="No (swig not available)"
   else
     SWIG_VERSION=`$SWIG -version 2>&1 | $EGREP Version | cut -d ' ' -f 3`
+    AC_SUBST([SWIG_VERSION])
     SWIG_VERSION_MAJOR=`echo $SWIG_VERSION | cut -d '.' -f 1`
     SWIG_VERSION_MINOR=`echo $SWIG_VERSION | cut -d '.' -f 2`
     SWIG_VERSION_MICRO=`echo $SWIG_VERSION | cut -d '.' -f 3`
     if test $SWIG_VERSION_MAJOR -lt 2; then
       if test $SWIG_VERSION_MAJOR -lt 1; then
-	SWIG=
+        SWIG=
       else
         if test $SWIG_VERSION_MINOR -lt 3; then
-	  SWIG=
-	else
+          SWIG=
+        else
           # EL5 has swig-1.3.29 which does not define SWIGJAVA
-	  if test $SWIG_VERSION_MICRO -lt 40; then
+          if test $SWIG_VERSION_MICRO -lt 40; then
             SWIGJAVA_CPPFLAGS=-DSWIGJAVA
             AC_SUBST([SWIGJAVA_CPPFLAGS])
-	  fi
+          fi
         fi
       fi
     fi
@@ -596,7 +597,7 @@ else
     else
       use_swig="Yes"
     fi
-fi
+  fi
 fi
 AM_CONDITIONAL(WITH_SWIG, [test "x$SWIG" != "x"])
 
@@ -3061,6 +3062,7 @@ echo "  ipsepcola:     $use_ipsepcola"
 echo "  ltdl:          $use_ltdl"
 echo "  ortho:         $use_ortho"
 echo "  sfdp:          $use_sfdp"
+echo "  swig:          $use_swig ( $SWIG_VERSION )"
 echo "  shared:        $use_shared"
 echo "  static:        $use_static"
 echo "  qt:            $use_qt"
