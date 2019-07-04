@@ -572,6 +572,7 @@ else
     use_swig="No (swig not available)"
   else
     SWIG_VERSION=`$SWIG -version 2>&1 | $EGREP Version | cut -d ' ' -f 3`
+    AC_SUBST([SWIG_VERSION])
     SWIG_VERSION_MAJOR=`echo $SWIG_VERSION | cut -d '.' -f 1`
     SWIG_VERSION_MINOR=`echo $SWIG_VERSION | cut -d '.' -f 2`
     SWIG_VERSION_MICRO=`echo $SWIG_VERSION | cut -d '.' -f 3`
@@ -3061,6 +3062,7 @@ echo "  ipsepcola:     $use_ipsepcola"
 echo "  ltdl:          $use_ltdl"
 echo "  ortho:         $use_ortho"
 echo "  sfdp:          $use_sfdp"
+echo "  swig:          $use_swig ( $SWIG_VERSION )"
 echo "  shared:        $use_shared"
 echo "  static:        $use_static"
 echo "  qt:            $use_qt"
