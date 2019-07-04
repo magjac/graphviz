@@ -577,16 +577,16 @@ else
     SWIG_VERSION_MICRO=`echo $SWIG_VERSION | cut -d '.' -f 3`
     if test $SWIG_VERSION_MAJOR -lt 2; then
       if test $SWIG_VERSION_MAJOR -lt 1; then
-	SWIG=
+        SWIG=
       else
         if test $SWIG_VERSION_MINOR -lt 3; then
-	  SWIG=
-	else
+          SWIG=
+        else
           # EL5 has swig-1.3.29 which does not define SWIGJAVA
-	  if test $SWIG_VERSION_MICRO -lt 40; then
+          if test $SWIG_VERSION_MICRO -lt 40; then
             SWIGJAVA_CPPFLAGS=-DSWIGJAVA
             AC_SUBST([SWIGJAVA_CPPFLAGS])
-	  fi
+          fi
         fi
       fi
     fi
@@ -596,7 +596,7 @@ else
     else
       use_swig="Yes"
     fi
-fi
+  fi
 fi
 AM_CONDITIONAL(WITH_SWIG, [test "x$SWIG" != "x"])
 
