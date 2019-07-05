@@ -1,4 +1,5 @@
-version: 2.41.{build}
+# version: 2.43.{build}
+version: 2.42.0
 clone_depth: 25
 
 image: Visual Studio 2015
