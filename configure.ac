@@ -2884,6 +2884,7 @@ AM_CONDITIONAL(HAVE_CRITERION, test "$use_criterion" = "Yes")
 # -----------------------------------------------------------------------
 
 # Generate Makefiles
+#	tests/regression_tests/vuln/Makefile was removed
 AC_CONFIG_FILES(Makefile
 	debian/changelog
 	doc/Makefile
@@ -3007,7 +3008,6 @@ AC_CONFIG_FILES(Makefile
 	tests/unit_tests/lib/common/Makefile
 	tests/regression_tests/Makefile
 	tests/regression_tests/shapes/Makefile
-	tests/regression_tests/vuln/Makefile
 	share/Makefile
 	share/examples/Makefile
 	share/gui/Makefile
@@ -3015,6 +3015,8 @@ AC_CONFIG_FILES(Makefile
 	redhat/graphviz.spec.rhel
 	Doxyfile
 	)
+
+#	tests/regression_tests/vuln/Makefile was removed
 
 AC_OUTPUT
 
