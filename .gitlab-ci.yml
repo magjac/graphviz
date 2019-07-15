@@ -24,10 +24,9 @@ portable-source:
     stage: build
     script:
         - rm -rf /home/gitlab-runner/rpmbuild
-        - VERSION=$( cat VERSION )
-        - rpmbuild -ta graphviz-${VERSION}.tar.gz
-        - eval $( grep VERSION_ID /etc/os-release )
-        - eval $( grep ID /etc/os-release )
+        - GV_VERSION=$( cat VERSION )
+        - rpmbuild -ta graphviz-${GV_VERSION}.tar.gz
+        - . /etc/os-release
         - ARCH=$( uname -m )
         - DIR=Packages/${ID}/${VERSION_ID}
         - mkdir -p ${DIR}/os/${ARCH}
@@ -48,11 +47,10 @@ portable-source:
 .build_template: &deb_build_definition
     stage: build
     script:
-        - VERSION=$( cat VERSION )
-        - zcat graphviz-${VERSION}.tar.gz | tar xf -
-        - (cd graphviz-${VERSION}; fakeroot make -f debian/rules binary)
-        - eval $( grep VERSION_ID /etc/os-release )
-        - eval $( grep ID /etc/os-release )
+        - GV_VERSION=$( cat VERSION )
+        - zcat graphviz-${GV_VERSION}.tar.gz | tar xf -
+        - (cd graphviz-${GV_VERSION}; fakeroot make -f debian/rules binary)
+        - . /etc/os-release
         - ARCH=$( uname -m )
         - DIR=Packages/${ID}/${VERSION_ID}
         - mkdir -p ${DIR}/os/${ARCH}
@@ -65,8 +63,8 @@ portable-source:
         when: on_success
         expire_in: 1 week
         paths:
-            - Packages/*/*/*/*/*.rpm
-            - Packages/*/*/*/*.rpm
+            - Packages/*/*/*/*/*deb
+            - Packages/*/*/*/*.gz
     only:
         - master
 
