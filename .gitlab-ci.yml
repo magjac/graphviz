@@ -26,13 +26,18 @@ portable-source:
         - rm -rf /home/gitlab-runner/rpmbuild
         - VERSION=$( cat VERSION )
         - rpmbuild -ta graphviz-${VERSION}.tar.gz
-        - ln -s /home/gitlab-runner/rpmbuild .
+        - eval $( grep VERSION_ID /etc/os-release )
+        - eval $( grep NAME /etc/os-release )
+        - DIR=Packages/${NAME}/${VERSION_ID}
+        - mkdir -p ${DIR}/os ${DIR}/debug ${DIR}/source
+        - mv /home/gitlab-runner/rpmbuild/SRPMS/*.src.rpm ${DIR}/source/
+        - mv /home/gitlab-runner/rpmbuild/RPMS/*debuginfo*rpm ${DIR}/debug/
+        - mv /home/gitlab-runner/rpmbuild/RPMS/*.rpm ${DIR}/os/
     artifacts:
         when: on_success
         expire_in: 1 week
         paths:
-            - rpmbuild/SRPMS/graphviz*.rpm
-            - rpmbuild/RPMS/*/graphviz*.rpm
+            - Packages/*/*/*/*
     only:
          - master
 
@@ -42,12 +47,18 @@ portable-source:
         - VERSION=$( cat VERSION )
         - zcat graphviz-${VERSION}.tar.gz | tar xf -
         - (cd graphviz-${VERSION}; fakeroot make -f debian/rules binary)
+        - eval $( grep VERSION_ID /etc/os-release )
+        - eval $( grep NAME /etc/os-release )
+        - DIR=Packages/${NAME}/${VERSION_ID}
+        - mkdir -p ${DIR}/os ${DIR}/debug ${DIR}/source/
+        - mv *.deb ${DIR}/os/
+        - mv *.ddeb ${DIR}/debug/
+        - cp graphviz-${VERSION}.tar.gz ${DIR}/source/
     artifacts:
         when: on_success
         expire_in: 1 week
         paths:
-            - ./*.deb
-            - ./*.ddeb
+            - Packages/*/*/*/*
     only:
         - master
 
@@ -114,5 +125,5 @@ deployment:
         - chmod 700 ~/.ssh
         - ssh-keyscan "$DEPLOY_HOST" >> ~/.ssh/known_hosts
         - chmod 644 ~/.ssh/known_hosts
-        - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" touch hello
+        - scp -r Packages "$DEPLOY_USER"@"$DEPLOY_HOST"
 
