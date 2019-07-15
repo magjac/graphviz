@@ -104,17 +104,6 @@ ubuntu19-04-build:
 
 deployment:
     stage: deploy
-    dependecies:
-        - centos6-build
-        - centos7-build
-        - fedora27-build
-        - fedora28-build
-        - fedora29-build
-        - fedora30-build
-        - fedora31-build
-        - ubuntu18-04-build
-        - ubuntu18-10-build
-        - ubuntu19-04-build
     script:
         - uname -a
         - COLLECTION=$( cat COLLECTION )
