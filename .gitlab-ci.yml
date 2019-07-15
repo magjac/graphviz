@@ -102,7 +102,7 @@ ubuntu19-04-build:
         - graphviz,ubuntu19-04
 
 
-deploy:
+deployment:
     stage: deploy
     dependecies:
         - centos6-build
@@ -115,7 +115,7 @@ deploy:
         - ubuntu18-04-build
         - ubuntu18-10-build
         - ubuntu19-04-build
-script:
+    script:
         - uname -a
         - COLLECTION=$( cat COLLECTION )
         - ls -l
