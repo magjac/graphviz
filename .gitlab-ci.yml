@@ -26,8 +26,10 @@ portable-source:
         - rm -rf /home/gitlab-runner/rpmbuild
         - GV_VERSION=$( cat VERSION )
         - rpmbuild -ta graphviz-${GV_VERSION}.tar.gz
-        - ARCH=$( uname -m )
+        - DISTRO_NAME=$( cat /etc/redhat-release | cut -d' ' -f1 | tr 'A-Z' 'a-z' )
+        - DISTRO_VERSION=$( cat /etc/redhat-release | cut -d' ' -f3 )
         - DIR=Packages/${DISTRO_NAME}/${DISTRO_VERSION}
+        - ARCH=$( uname -m )
         - mkdir -p ${DIR}/os/${ARCH}
         - mkdir -p ${DIR}/debug/${ARCH}
         - mkdir -p ${DIR}/source
@@ -49,8 +51,9 @@ portable-source:
         - GV_VERSION=$( cat VERSION )
         - zcat graphviz-${GV_VERSION}.tar.gz | tar xf -
         - (cd graphviz-${GV_VERSION}; fakeroot make -f debian/rules binary)
+        - . /etc/os-release
+        - DIR=Packages/${ID}/${VERSION_ID}
         - ARCH=$( uname -m )
-        - DIR=Packages/${DISTRO_NAME}/${DISTRO_VERSION}
         - mkdir -p ${DIR}/os/${ARCH}
         - mkdir -p ${DIR}/debug/${ARCH}
         - mkdir -p ${DIR}/source
@@ -67,71 +70,51 @@ portable-source:
         - master
 
 centos6-build:
-    export DISTRO_NAME=centos
-    export DISTRO_VERSION=6
     <<: *rpm_build_definition
     tags:
         - graphviz,centos6
 
 centos7-build:
-    export DISTRO_NAME=centos
-    export DISTRO_VERSION=7
     <<: *rpm_build_definition
     tags:
         - graphviz,centos7
 
 fedora27-build:
-    export DISTRO_NAME=fedora
-    export DISTRO_VERSION=27
     <<: *rpm_build_definition
     tags:
         - graphviz,fedora27
 
 fedora28-build:
-    export DISTRO_NAME=fedora
-    export DISTRO_VERSION=28
     <<: *rpm_build_definition
     tags:
         - graphviz,fedora28
 
 fedora29-build:
-    export DISTRO_NAME=fedora
-    export DISTRO_VERSION=29
     <<: *rpm_build_definition
     tags:
         - graphviz,fedora29
 
 fedora30-build:
-    export DISTRO_NAME=fedora
-    export DISTRO_VERSION=30
     <<: *rpm_build_definition
     tags:
         - graphviz,fedora30
 
 fedora31-build:
-    export DISTRO_NAME=fedora
-    export DISTRO_VERSION=31
     <<: *rpm_build_definition
     tags:
         - graphviz,fedora31
 
 ubuntu18-04-build:
-    export DISTRO_NAME=ubuntu
-    export DISTRO_VERSION=18.04
     <<: *deb_build_definition
     tags:
         - graphviz,ubuntu18-04
 
 ubuntu18-10-build:
-    export DISTRO_NAME=ubuntu
-    export DISTRO_VERSION=18.10
     <<: *deb_build_definition
     tags:
         - graphviz,ubuntu18-10
 
 ubuntu19-04-build:
-    export DISTRO_NAME=ubuntu
-    export DISTRO_VERSION=19.04
     <<: *deb_build_definition
     tags:
         - graphviz,ubuntu19-04
