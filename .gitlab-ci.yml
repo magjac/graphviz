@@ -33,14 +33,15 @@ portable-source:
         - mkdir -p ${DIR}/os/${ARCH}
         - mkdir -p ${DIR}/debug/${ARCH}
         - mkdir -p ${DIR}/source
-        - mv /home/gitlab-runner/rpmbuild/SRPMS/*.src.rpm ${DIR}/source/
-        - mv /home/gitlab-runner/rpmbuild/RPMS/*/*debuginfo*rpm ${DIR}/debug/${ARCH}/
-        - mv /home/gitlab-runner/rpmbuild/RPMS/*/*.rpm ${DIR}/os/${ARCH}/
+        - cp /home/gitlab-runner/rpmbuild/SRPMS/*.src.rpm ${DIR}/source/
+        - cp /home/gitlab-runner/rpmbuild/RPMS/*/*debuginfo*rpm ${DIR}/debug/${ARCH}/
+        - cp /home/gitlab-runner/rpmbuild/RPMS/*/*.rpm ${DIR}/os/${ARCH}/
     artifacts:
         when: on_success
         expire_in: 1 week
         paths:
-            - Packages/*/*/*/*
+            - Packages/*/*/*/*/*.rpm
+            - Packages/*/*/*/*.rpm
     only:
          - master
 
@@ -57,14 +58,15 @@ portable-source:
         - mkdir -p ${DIR}/os/${ARCH}
         - mkdir -p ${DIR}/debug/${ARCH}
         - mkdir -p ${DIR}/source
-        - mv *.deb ${DIR}/os/${ARCH}/
-        - mv *.ddeb ${DIR}/debug/${ARCH}/
+        - cp *.deb ${DIR}/os/${ARCH}/
+        - cp *.ddeb ${DIR}/debug/${ARCH}/
         - cp graphviz-${VERSION}.tar.gz ${DIR}/source/
     artifacts:
         when: on_success
         expire_in: 1 week
         paths:
-            - Packages/*/*/*/*
+            - Packages/*/*/*/*/*.rpm
+            - Packages/*/*/*/*.rpm
     only:
         - master
 
