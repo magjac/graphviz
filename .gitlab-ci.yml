@@ -1,101 +1,128 @@
 stages:
-    - source
-    - build
+	- source
+	- build
 
 portable-source:
-    stage: source
-    tags:
-        - graphviz,centos7
-    script:
-        - ./autogen.sh
-        - make dist
-    artifacts:
-        when: on_success
-        expire_in: 1 week
-        paths:
-            - VERSION
-            - graphviz-*.tar.gz
-    only:
-        - master
+	stage: source
+	tags:
+		- graphviz,centos7
+	script:
+		- ./autogen.sh
+		- make dist
+	artifacts:
+		when: on_success
+		expire_in: 1 week
+		paths:
+			- VERSION
+			- COLLECTION
+			- graphviz-*.tar.gz
+	only:
+		- master
 
 .build_template: &rpm_build_definition
-    stage: build
-    script:
-        - rm -rf /home/gitlab-runner/rpmbuild
-        - VERSION=$( cat VERSION )
-        - rpmbuild -ta graphviz-${VERSION}.tar.gz
-        - ln -s /home/gitlab-runner/rpmbuild .
-    artifacts:
-        when: on_success
-        expire_in: 1 week
-        paths:
-            - rpmbuild/SRPMS/graphviz*.rpm
-            - rpmbuild/RPMS/*/graphviz*.rpm
-    only:
-        - master
+	stage: build
+	script:
+		- rm -rf /home/gitlab-runner/rpmbuild
+		- VERSION=$( cat VERSION )
+		- rpmbuild -ta graphviz-${VERSION}.tar.gz
+		- ln -s /home/gitlab-runner/rpmbuild .
+	artifacts:
+		when: on_success
+		expire_in: 1 week
+		paths:
+			- rpmbuild/SRPMS/graphviz*.rpm
+			- rpmbuild/RPMS/*/graphviz*.rpm
+	only:
+		 - master
 
 .build_template: &deb_build_definition
-    stage: build
-    script:
-        - VERSION=$( cat VERSION )
-        - zcat graphviz-${VERSION}.tar.gz | tar xf -
-        - (cd graphviz-${VERSION}; fakeroot make -f debian/rules binary)
-    artifacts:
-        when: on_success
-        expire_in: 1 week
-        paths:
-            - ./*.deb
-            - ./*.ddeb
-    only:
-        - master
+	stage: build
+	script:
+		- VERSION=$( cat VERSION )
+		- zcat graphviz-${VERSION}.tar.gz | tar xf -
+		- (cd graphviz-${VERSION}; fakeroot make -f debian/rules binary)
+	artifacts:
+		when: on_success
+		expire_in: 1 week
+		paths:
+			- ./*.deb
+			- ./*.ddeb
+	only:
+		- master
 
 centos6-build:
-    <<: *rpm_build_definition
-    tags:
-        - graphviz,centos6
+	<<: *rpm_build_definition
+	tags:
+		- graphviz,centos6
 
 centos7-build:
-    <<: *rpm_build_definition
-    tags:
-        - graphviz,centos7
+	<<: *rpm_build_definition
+	tags:
+		- graphviz,centos7
 
 fedora27-build:
-    <<: *rpm_build_definition
-    tags:
-        - graphviz,fedora27
+	<<: *rpm_build_definition
+	tags:
+		- graphviz,fedora27
 
 fedora28-build:
-    <<: *rpm_build_definition
-    tags:
-        - graphviz,fedora28
+	<<: *rpm_build_definition
+	tags:
+		- graphviz,fedora28
 
 fedora29-build:
-    <<: *rpm_build_definition
-    tags:
-        - graphviz,fedora29
+	<<: *rpm_build_definition
+	tags:
+		- graphviz,fedora29
 
 fedora30-build:
-    <<: *rpm_build_definition
-    tags:
-        - graphviz,fedora30
+	<<: *rpm_build_definition
+	tags:
+		- graphviz,fedora30
 
 fedora31-build:
-    <<: *rpm_build_definition
-    tags:
-        - graphviz,fedora31
+	<<: *rpm_build_definition
+	tags:
+		- graphviz,fedora31
 
 ubuntu18-04-build:
-    <<: *deb_build_definition
-    tags:
-        - graphviz,ubuntu18-04
+	<<: *deb_build_definition
+	tags:
+		- graphviz,ubuntu18-04
 
 ubuntu18-10-build:
-    <<: *deb_build_definition
-    tags:
-        - graphviz,ubuntu18-10
+	<<: *deb_build_definition
+	tags:
+		- graphviz,ubuntu18-10
 
 ubuntu19-04-build:
-    <<: *deb_build_definition
-    tags:
-        - graphviz,ubuntu19-04
+	<<: *deb_build_definition
+	tags:
+		- graphviz,ubuntu19-04
+
+
+deploy:
+	stage: deploy
+	dependecies:
+		- centos6-build
+		- centos7-build
+		- fedora27-build
+		- fedora28-build
+		- fedora29-build
+		- fedora30-build
+		- fedora31-build
+		- ubuntu18-04-build
+		- ubuntu18-10-build
+		- ubuntu19-04-build
+script:
+        - uname -a
+		- COLLECTION=$( cat COLLECTION )
+        - ls -l
+        - eval $(ssh-agent -s)
+        - cat "$DEPLOY_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+        - mkdir -p ~/.ssh
+        - chmod 700 ~/.ssh
+        - ssh-keyscan "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+        - chmod 644 ~/.ssh/known_hosts
+        - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" touch hello
 
