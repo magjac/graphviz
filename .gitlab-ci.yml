@@ -28,11 +28,12 @@ portable-source:
         - rpmbuild -ta graphviz-${VERSION}.tar.gz
         - eval $( grep VERSION_ID /etc/os-release )
         - eval $( grep NAME /etc/os-release )
+        - ARCH=$( uname -m )
         - DIR=Packages/${NAME}/${VERSION_ID}
-        - mkdir -p ${DIR}/os ${DIR}/debug ${DIR}/source
+        - mkdir -p ${DIR}/${ARCH}/os ${DIR}/${ARCH}/debug ${DIR}/source
         - mv /home/gitlab-runner/rpmbuild/SRPMS/*.src.rpm ${DIR}/source/
-        - mv /home/gitlab-runner/rpmbuild/RPMS/*debuginfo*rpm ${DIR}/debug/
-        - mv /home/gitlab-runner/rpmbuild/RPMS/*.rpm ${DIR}/os/
+        - mv /home/gitlab-runner/rpmbuild/RPMS/*/*debuginfo*rpm ${DIR}/debug/${ARCH}/
+        - mv /home/gitlab-runner/rpmbuild/RPMS/*/*.rpm ${DIR}/os/${ARCH}/
     artifacts:
         when: on_success
         expire_in: 1 week
@@ -49,10 +50,11 @@ portable-source:
         - (cd graphviz-${VERSION}; fakeroot make -f debian/rules binary)
         - eval $( grep VERSION_ID /etc/os-release )
         - eval $( grep NAME /etc/os-release )
+        - ARCH=$( uname -m )
         - DIR=Packages/${NAME}/${VERSION_ID}
         - mkdir -p ${DIR}/os ${DIR}/debug ${DIR}/source/
-        - mv *.deb ${DIR}/os/
-        - mv *.ddeb ${DIR}/debug/
+        - mv *.deb ${DIR}/os/${ARCH}/
+        - mv *.ddeb ${DIR}/debug/${ARCH}/
         - cp graphviz-${VERSION}.tar.gz ${DIR}/source/
     artifacts:
         when: on_success
