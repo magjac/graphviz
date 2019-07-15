@@ -27,9 +27,9 @@ portable-source:
         - VERSION=$( cat VERSION )
         - rpmbuild -ta graphviz-${VERSION}.tar.gz
         - eval $( grep VERSION_ID /etc/os-release )
-        - eval $( grep NAME /etc/os-release )
+        - eval $( grep ID /etc/os-release )
         - ARCH=$( uname -m )
-        - DIR=Packages/${NAME}/${VERSION_ID}
+        - DIR=Packages/${ID}/${VERSION_ID}
         - mkdir -p ${DIR}/os/${ARCH}
         - mkdir -p ${DIR}/debug/${ARCH}
         - mkdir -p ${DIR}/source
@@ -52,9 +52,9 @@ portable-source:
         - zcat graphviz-${VERSION}.tar.gz | tar xf -
         - (cd graphviz-${VERSION}; fakeroot make -f debian/rules binary)
         - eval $( grep VERSION_ID /etc/os-release )
-        - eval $( grep NAME /etc/os-release )
+        - eval $( grep ID /etc/os-release )
         - ARCH=$( uname -m )
-        - DIR=Packages/${NAME}/${VERSION_ID}
+        - DIR=Packages/${ID}/${VERSION_ID}
         - mkdir -p ${DIR}/os/${ARCH}
         - mkdir -p ${DIR}/debug/${ARCH}
         - mkdir -p ${DIR}/source
