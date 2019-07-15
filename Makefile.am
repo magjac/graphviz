@@ -27,6 +27,7 @@ doxygen:
 
 dist-hook:
 	echo "@VERSION@" >VERSION
+	echo "@GRAPHVIZ_COLLECTION@" >COLLECTION
 #	find $(distdir) -name CVS -type d -prune -exec rm -rf {} \;
 #	rm -f ToPAS
 #	find $(distdir) -type f -exec md5sum {} >>ToPAS \;

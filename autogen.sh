@@ -31,21 +31,24 @@ dnl For the minor number: odd => unstable series
 dnl                       even => stable series
 dnl For the micro number: 0 => in-progress development
 dnl                       timestamp => tar-file snapshot or release
+
+dnl uncomment the next 4 lines for development releases, minor version must be odd
 m4_define([graphviz_version_major],[2])
 m4_define([graphviz_version_minor],[43])
-
-dnl NB: The next line is for hard-coding the micro version for stable releases
-dnl m4_define([graphviz_version_micro],[0])
-
-dnl NB: the next line gets changed to a date/time string for development releases
 m4_define([graphviz_version_micro],[$GRAPHVIZ_VERSION_DATE])
+m4_define([graphviz_collection],[development])
+
+dnl uncomment the next 4 lines for stable releases, minor version must be even
+dnl m4_define([graphviz_version_major],[2])
+dnl m4_define([graphviz_version_minor],[43])
+dnl m4_define([graphviz_version_micro],[0])
+dnl m4_define([graphviz_collection],[stable])
 
 m4_define([graphviz_version_date],[$GRAPHVIZ_VERSION_DATE])
 m4_define([graphviz_change_date],["$GRAPHVIZ_CHANGE_DATE"])
 m4_define([graphviz_git_date],["$GRAPHVIZ_GIT_DATE"])
 m4_define([graphviz_author_name],["$GRAPHVIZ_AUTHOR_NAME"])
 m4_define([graphviz_author_email],[$GRAPHVIZ_AUTHOR_EMAIL])
-m4_define([graphviz_collection],[development])
 m4_define([graphviz_version_commit],[$GRAPHVIZ_VERSION_COMMIT])
 
 EOF
