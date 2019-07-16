@@ -135,7 +135,8 @@ deployment:
         - chmod -R o-rwx Packages
         - chmod -R g-wx Packages
         - chmod -R g+X Packages
+        - for i in Packages/*; do ssh "$DEPLOY_USER"@"$DEPLOY_HOST" rm -rf $i; done
         - scp -r Packages "$DEPLOY_USER"@"$DEPLOY_HOST"':'
-        - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/*/centos/source Packages/*/fedora/source; do createrepo $i; done'
-        - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/*/centos/os/* Packages/*/fedora/os/*; do createrepo $i; done'
-        - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/*/centos/debug/* Packages/*/fedora/debug/*; do createrepo $i; done'
+        - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/*/centos/*/source Packages/*/fedora/*/source; do createrepo $i; done'
+        - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/*/centos/*/os/* Packages/*/fedora/*/os/*; do createrepo $i; done'
+        - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/*/centos/*/debug/* Packages/*/fedora/*/debug/*; do createrepo $i; done'
