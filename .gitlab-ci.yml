@@ -25,11 +25,12 @@ portable-source:
     script:
         - rm -rf /home/gitlab-runner/rpmbuild
         - GV_VERSION=$( cat VERSION )
+        - COLLECTION=$( cat COLLECTION )
         - rpmbuild -ta graphviz-${GV_VERSION}.tar.gz
         - ID=$( cat /etc/redhat-release | cut -d' ' -f1 | tr 'A-Z' 'a-z' )
         - VERSION_ID=$( cat /etc/redhat-release | cut -d' ' -f3 )
         - if test -f /etc/os-release; then . /etc/os-release; fi
-        - DIR=Packages/${ID}/${VERSION_ID}
+        - DIR=Packages/${COLLECTION}/${ID}/${VERSION_ID}
         - ARCH=$( uname -m )
         - mkdir -p ${DIR}/os/${ARCH}
         - mkdir -p ${DIR}/debug/${ARCH}
@@ -41,8 +42,8 @@ portable-source:
         when: on_success
         expire_in: 1 week
         paths:
+            - Packages/*/*/*/*/*/*.rpm
             - Packages/*/*/*/*/*.rpm
-            - Packages/*/*/*/*.rpm
     only:
          - master
 
@@ -50,10 +51,11 @@ portable-source:
     stage: build
     script:
         - GV_VERSION=$( cat VERSION )
+        - COLLECTION=$( cat COLLECTION )
         - zcat graphviz-${GV_VERSION}.tar.gz | tar xf -
         - (cd graphviz-${GV_VERSION}; fakeroot make -f debian/rules binary)
         - . /etc/os-release
-        - DIR=Packages/${ID}/${VERSION_ID}
+        - DIR=Packages/${COLLECTION}/${ID}/${VERSION_ID}
         - ARCH=$( uname -m )
         - mkdir -p ${DIR}/os/${ARCH}
         - mkdir -p ${DIR}/debug/${ARCH}
@@ -65,8 +67,8 @@ portable-source:
         when: on_success
         expire_in: 1 week
         paths:
-            - Packages/*/*/*/*/*deb
-            - Packages/*/*/*/*.gz
+            - Packages/*/*/*/*/*/*deb
+            - Packages/*/*/*/*/*.gz
     only:
         - master
 
@@ -124,16 +126,13 @@ ubuntu19-04-build:
 deployment:
     stage: deploy
     script:
-        - uname -a
-        - COLLECTION=$( cat COLLECTION )
-        - ls -l
         - eval $(ssh-agent -s)
         - cat "$DEPLOY_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
         - mkdir -p ~/.ssh
         - chmod 700 ~/.ssh
         - ssh-keyscan "$DEPLOY_HOST" >> ~/.ssh/known_hosts
         - chmod 644 ~/.ssh/known_hosts
-        - chmod -R go-rx Packages
+        - chmod -R go-wx Packages
         - chmod -R +X Packages
         - scp -r Packages "$DEPLOY_USER"@"$DEPLOY_HOST"':'
         - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/centos/* Packages/fedora/*; do createrepo $i; done'
