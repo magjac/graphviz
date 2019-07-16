@@ -132,5 +132,5 @@ deployment:
         - chmod 700 ~/.ssh
         - ssh-keyscan "$DEPLOY_HOST" >> ~/.ssh/known_hosts
         - chmod 644 ~/.ssh/known_hosts
-        - scp -r Packages "$DEPLOY_USER"@"$DEPLOY_HOST"
+        - scp -r Packages "$DEPLOY_USER"@"$DEPLOY_HOST":
 
