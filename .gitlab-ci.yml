@@ -140,3 +140,4 @@ deployment:
         - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/*/centos/*/source Packages/*/fedora/*/source; do createrepo $i; done'
         - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/*/centos/*/os/* Packages/*/fedora/*/os/*; do createrepo $i; done'
         - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/*/centos/*/debug/* Packages/*/fedora/*/debug/*; do createrepo $i; done'
+        - scp graphviz-fedora.repo graphviz-centos.repo "$DEPLOY_USER"@"$DEPLOY_HOST"':'Packages/
