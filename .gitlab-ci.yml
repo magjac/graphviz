@@ -28,7 +28,7 @@ portable-source:
         - COLLECTION=$( cat COLLECTION )
         - rpmbuild -ta graphviz-${GV_VERSION}.tar.gz
         - ID=$( cat /etc/redhat-release | cut -d' ' -f1 | tr 'A-Z' 'a-z' )
-        - VERSION_ID=$( cat /etc/redhat-release | cut -d' ' -f3 )
+        - VERSION_ID=$( cat /etc/redhat-release | cut -d' ' -f3  | cut -d'.' -f1 )
         - if test -f /etc/os-release; then . /etc/os-release; fi
         - DIR=Packages/${COLLECTION}/${ID}/${VERSION_ID}
         - ARCH=$( uname -m )
@@ -136,4 +136,6 @@ deployment:
         - chmod -R g-wx Packages
         - chmod -R g+X Packages
         - scp -r Packages "$DEPLOY_USER"@"$DEPLOY_HOST"':'
-        - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/*/centos/* Packages/*/fedora/*; do createrepo $i; done'
+        - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/*/centos/source Packages/*/fedora/source; do createrepo $i; done'
+        - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/*/centos/os/* Packages/*/fedora/os/*; do createrepo $i; done'
+        - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/*/centos/debug/* Packages/*/fedora/debug/*; do createrepo $i; done'
