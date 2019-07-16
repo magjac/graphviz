@@ -26,9 +26,10 @@ portable-source:
         - rm -rf /home/gitlab-runner/rpmbuild
         - GV_VERSION=$( cat VERSION )
         - rpmbuild -ta graphviz-${GV_VERSION}.tar.gz
-        - DISTRO_NAME=$( cat /etc/redhat-release | cut -d' ' -f1 | tr 'A-Z' 'a-z' )
-        - DISTRO_VERSION=$( cat /etc/redhat-release | cut -d' ' -f3 )
-        - DIR=Packages/${DISTRO_NAME}/${DISTRO_VERSION}
+        - ID=$( cat /etc/redhat-release | cut -d' ' -f1 | tr 'A-Z' 'a-z' )
+        - VERSION_ID=$( cat /etc/redhat-release | cut -d' ' -f3 )
+        - if test -f /etc/os-release; then . /etc/os-release; fi
+        - DIR=Packages/${ID}/${VERSION_ID}
         - ARCH=$( uname -m )
         - mkdir -p ${DIR}/os/${ARCH}
         - mkdir -p ${DIR}/debug/${ARCH}
@@ -132,4 +133,7 @@ deployment:
         - chmod 700 ~/.ssh
         - ssh-keyscan "$DEPLOY_HOST" >> ~/.ssh/known_hosts
         - chmod 644 ~/.ssh/known_hosts
+        - chmod -R go-rx Packages
+        - chmod -R +X Packages
         - scp -r Packages "$DEPLOY_USER"@"$DEPLOY_HOST"':'
+        - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/centos/* Packages/fedora/*; do createrepo $i; done'
