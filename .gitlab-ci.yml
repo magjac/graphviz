@@ -35,9 +35,9 @@ portable-source:
         - mkdir -p ${DIR}/os/${ARCH}
         - mkdir -p ${DIR}/debug/${ARCH}
         - mkdir -p ${DIR}/source
-        - cp /home/gitlab-runner/rpmbuild/SRPMS/*.src.rpm ${DIR}/source/
-        - cp /home/gitlab-runner/rpmbuild/RPMS/*/*debuginfo*rpm ${DIR}/debug/${ARCH}/
-        - cp /home/gitlab-runner/rpmbuild/RPMS/*/*.rpm ${DIR}/os/${ARCH}/
+        - mv /home/gitlab-runner/rpmbuild/SRPMS/*.src.rpm ${DIR}/source/
+        - mv /home/gitlab-runner/rpmbuild/RPMS/*/*debuginfo*rpm ${DIR}/debug/${ARCH}/
+        - mv /home/gitlab-runner/rpmbuild/RPMS/*/*.rpm ${DIR}/os/${ARCH}/
     artifacts:
         when: on_success
         expire_in: 1 week
@@ -60,8 +60,8 @@ portable-source:
         - mkdir -p ${DIR}/os/${ARCH}
         - mkdir -p ${DIR}/debug/${ARCH}
         - mkdir -p ${DIR}/source
-        - cp *.deb ${DIR}/os/${ARCH}/
-        - cp *.ddeb ${DIR}/debug/${ARCH}/
+        - mv *.deb ${DIR}/os/${ARCH}/
+        - mv *.ddeb ${DIR}/debug/${ARCH}/
         - cp graphviz-${GV_VERSION}.tar.gz ${DIR}/source/
     artifacts:
         when: on_success
@@ -132,7 +132,8 @@ deployment:
         - chmod 700 ~/.ssh
         - ssh-keyscan "$DEPLOY_HOST" >> ~/.ssh/known_hosts
         - chmod 644 ~/.ssh/known_hosts
-        - chmod -R go-wx Packages
-        - chmod -R +X Packages
+        - chmod -R o-rwx Packages
+        - chmod -R g-wx Packages
+        - chmod -R g+X Packages
         - scp -r Packages "$DEPLOY_USER"@"$DEPLOY_HOST"':'
         - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/centos/* Packages/fedora/*; do createrepo $i; done'
