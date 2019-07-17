@@ -137,11 +137,11 @@ deployment:
         - chmod -R g-wx Packages
         - chmod -R g+X Packages
         - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'rm -rf Packages/'"$COLLECTION"'/{fedora,centos,ubuntu}'
+        - scp -r Packages "$DEPLOY_USER"@"$DEPLOY_HOST"':'
+        - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/'"$COLLECTION"'/{fedora,centos}/*/{source,os/*,debug/*}; do createrepo $i; done'
+        - scp graphviz-fedora.repo graphviz-centos.repo "$DEPLOY_USER"@"$DEPLOY_HOST"':'Packages/
         - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" mkdir -p Packages/"$COLLECTION"/portable_source
         - scp graphviz-"$GV_VERSION".tar.gz "$DEPLOY_USER"@"$DEPLOY_HOST"':'Packages/"$COLLECTION"/portable_source/
-        - scp -r Packages "$DEPLOY_USER"@"$DEPLOY_HOST"':'
-        - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packagesa/'"$COLLECTION"'/{fedora,centos}/*/{source,os/*,debug/*}; do createrepo $i; done'
-        - scp graphviz-fedora.repo graphviz-centos.repo "$DEPLOY_USER"@"$DEPLOY_HOST"':'Packages/
     only:
         - master
     tags:
