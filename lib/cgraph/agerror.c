@@ -91,8 +91,10 @@ userout (agerrlevel_t level, const char *fmt, va_list args)
 	bufsz = MAX(bufsz*2,n+1);
 	if ((np = (char*)realloc(buf, bufsz)) == NULL) {
 	    fputs("userout: could not allocate memory\n", stderr );
+	    free(buf);
 	    return;
 	}
+	buf = np;
     }
     va_end(args);
 }

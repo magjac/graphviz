@@ -404,7 +404,7 @@ static void mp_bezier(GVJ_t * job, pointf * A, int n, int arrow_at_start,
     gvprintf(job, " %s\n", buffer);      /* print points */
     free(buffer);
     for (i = 0; i < count; i++) {
-        gvprintf(job, " %d", i % (count - 1) ? 1 : 0);   /* -1 on all */
+        gvprintf(job, " %d", i % (count + 1) ? 1 : 0);   /* -1 on all */
     }
     gvputs(job, "\n");
 }

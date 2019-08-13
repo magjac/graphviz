@@ -338,7 +338,7 @@ static void cloneGraph(Agraph_t * tgt, Agraph_t * src)
 		    exerror("error cloning edge (%s,%s) from graph %s",
 		      agnameof(agtail(e)), agnameof(aghead(e)),
 		      agnameof(src));
-		return;
+		goto done;
 	    }
 	    ep->key = e;
 	    ep->val = ne;
@@ -352,6 +352,7 @@ static void cloneGraph(Agraph_t * tgt, Agraph_t * src)
 	}
     }
 
+done:
     dtclose (emap);
     free (data);
 }

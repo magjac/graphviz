@@ -73,6 +73,8 @@ static void lasi_loadimage_ps(GVJ_t * job, usershape_t *us, boxf b, boolean fill
 		us->datasize = statbuf.st_size;
 #if HAVE_SYS_MMAN_H
 		us->data = mmap(0, statbuf.st_size, PROT_READ, MAP_SHARED, fd, 0);
+		if (us->data == MAP_FAILED)
+			us->data = NULL;
 #else
 		us->data = malloc(statbuf.st_size);
 		read(fd, us->data, statbuf.st_size);

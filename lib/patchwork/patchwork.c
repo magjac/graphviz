@@ -261,11 +261,13 @@ static void walkTree(treenode_t * tree)
 static void freeTree (treenode_t* tp)
 {
     treenode_t* cp = tp->leftchild;
+    treenode_t* rp;
     int i, nc = tp->n_children;
 
     for (i = 0; i < nc; i++) {
+	rp = cp->rightsib;
 	freeTree (cp);
-	cp = cp->rightsib;
+	cp = rp;
     }
     free (tp);
 }

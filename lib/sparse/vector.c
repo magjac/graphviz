@@ -24,7 +24,10 @@ Vector Vector_new(int maxlen, size_t size_of_elem, void (*deallocator)(void *v))
   v->size_of_elem = size_of_elem;
   v->deallocator = deallocator;
   v->v = malloc(size_of_elem*maxlen);
-  if (!v->v) return NULL;
+  if (!v->v){
+    free(v);
+    return NULL;
+  }
   return v;
 }
 

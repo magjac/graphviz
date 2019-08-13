@@ -891,8 +891,8 @@ void plot_dot_map(Agraph_t* gr, int n, int dim, real *x, SparseMatrix polys, Spa
   /* background color + plot label?*/
 
   if (!gr) fprintf(f, "}\n");
-  
- 
+
+  FREE(sbuff);
 }
 
 #if 0

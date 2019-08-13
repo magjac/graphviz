@@ -178,19 +178,6 @@ SparseMatrix_import_dot (Agraph_t* g, int dim, real **label_sizes, real **x, int
     val = N_NEW(nedges, real);
   }
 
-
-  if (format == FORMAT_COORD){
-    A = SparseMatrix_new(i, i, nedges, MATRIX_TYPE_REAL, format);
-    A->nz = nedges;
-    I = A->ia;
-    J = A->ja;
-    val = (real*) A->a;
-  } else {
-    I = N_NEW(nedges, int);
-    J = N_NEW(nedges, int);
-    val = N_NEW(nedges, real);
-  }
-
   sym = agattr(g, AGEDGE, "weight", NULL);
   if (D) {
     symD = agattr(g, AGEDGE, "len", NULL);
@@ -297,7 +284,10 @@ SparseMatrix_import_dot (Agraph_t* g, int dim, real **label_sizes, real **x, int
 	  (*x)[i*dim+3] = ww;
 	} else if (dim == 1){
 	  nitems = sscanf(pval, "%lf", &xx);
-	  if (nitems != 1) return NULL;
+	  if (nitems != 1){
+	    A = NULL;
+	    goto done;
+          }
 	  (*x)[i*dim] = xx;
 	} else {
 	  assert(0);
@@ -320,6 +310,7 @@ SparseMatrix_import_dot (Agraph_t* g, int dim, real **label_sizes, real **x, int
 
   if (D) *D = SparseMatrix_from_coordinate_arrays(nedges, nnodes, nnodes, I, J, valD, type, sz);
 
+done:
   if (format != FORMAT_COORD){
     FREE(I);
     FREE(J);

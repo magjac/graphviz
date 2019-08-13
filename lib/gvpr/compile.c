@@ -2473,8 +2473,10 @@ comp_prog *compileProg(parse_prog * inp, Gpr_t * state, int flags)
 
     if (flags) {
 	endg_sfx = strdup (doFlags(flags, tmps));
-	if (*endg_sfx == '\0')
+	if (*endg_sfx == '\0') {
+	    free(endg_sfx);
 	    endg_sfx = 0;
+	}
     }
 
     if (!(initDisc(state)))

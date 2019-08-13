@@ -338,6 +338,9 @@ void sfdp_layout(graph_t * g)
 	graphAdjustMode(g, &am, 0);
 #endif
 
+	pad.x = PS2INCH(DFLT_MARGIN);
+	pad.y = PS2INCH(DFLT_MARGIN);
+
 	if ((am.mode == AM_PRISM) && doAdjust) {
 	    doAdjust = 0;  /* overlap removal done in sfdp */
 	    ctrl->overlap = am.value;
@@ -346,9 +349,6 @@ void sfdp_layout(graph_t * g)
 	    if (sep.doAdd) {
 		pad.x = PS2INCH(sep.x);
 		pad.y = PS2INCH(sep.y);
-	    } else {
-		pad.x = PS2INCH(DFLT_MARGIN);
-		pad.y = PS2INCH(DFLT_MARGIN);
 	    }
 	}
 	else {

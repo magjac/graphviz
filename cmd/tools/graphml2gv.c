@@ -773,7 +773,7 @@ int main(int argc, char **argv)
     Agraph_t *G;
     Agraph_t *prev = 0;
     FILE *inFile;
-    int rv, gcnt = 0;
+    int rv = 0, gcnt = 0;
 
 #ifdef HAVE_EXPAT
     initargs(argc, argv);
