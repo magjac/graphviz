@@ -650,14 +650,12 @@ int sfvscanf(Sfio_t * f, reg const char *form, va_list args)
 	    if (value) {
 		n_assign += 1;
 
-		if (fmt == 'p') {
-			if (sizeof(char*) > sizeof(int)){
-				*((void **) value) = (void *) ((ulong) argv.lu);
-			}
-			else {
-				*((void **) value) = (void *) ((uint) argv.lu);
-			}
-		}
+		if (fmt == 'p')
+#if _more_void_int
+		    *((void **) value) = (void *) ((ulong) argv.lu);
+#else
+		    *((void **) value) = (void *) ((uint) argv.lu);
+#endif
 		else if (sizeof(long) > sizeof(int) &&
 			 FMTCMP(size, long, Sflong_t)) {
 		    if (fmt == 'd' || fmt == 'i')

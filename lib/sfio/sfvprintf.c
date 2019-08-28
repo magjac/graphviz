@@ -576,14 +576,13 @@ int sfvprintf(Sfio_t * f, const char *form, va_list args)
 	    flags =
 		(flags & ~(SFFMT_SIGN | SFFMT_BLANK | SFFMT_ZERO)) |
 		SFFMT_ALTER;
-		if (sizeof(char*) > sizeof(int)) {
-			lv = (Sflong_t) ((Sfulong_t) argv.vp);
-			goto long_cvt;
-		} else {
-			v = (int) ((uint) argv.vp);
-			goto int_cvt;
-		}
-
+#if _more_void_int
+	    lv = (Sflong_t) ((Sfulong_t) argv.vp);
+	    goto long_cvt;
+#else
+	    v = (int) ((uint) argv.vp);
+	    goto int_cvt;
+#endif
 	case 'o':
 	    base = 8;
 	    n_s = 7;
@@ -618,7 +617,7 @@ int sfvprintf(Sfio_t * f, const char *form, va_list args)
 		n_s = base == 10 ? -1 : 0;
 
 	  int_arg:
-	  if ((sizeof(long) > sizeof(int)) || (sizeof(char*) > sizeof(int))) {
+#if _more_long_int || _more_void_int
 	    if (FMTCMP(size, Sflong_t, Sflong_t)) {
 		lv = argv.ll;
 		goto long_cvt;
@@ -651,8 +650,9 @@ int sfvprintf(Sfio_t * f, const char *form, va_list args)
 			*--sp = ssp[((Sfulong_t) lv) % base];
 		    } while ((lv = ((Sfulong_t) lv) / base));
 		}
-	    }
-	  } else if (sizeof(short) < sizeof(int)
+	    } else
+#endif
+	    if (sizeof(short) < sizeof(int)
 		    && FMTCMP(size, short, Sflong_t)) {
 		if (ft && ft->extf && (ft->flags & SFFMT_VALUE)) {
 		    if (fmt == 'd')
