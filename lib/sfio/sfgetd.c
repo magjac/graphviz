@@ -13,6 +13,8 @@
 
 #include	"sfhdr.h"
 
+#include <math.h>
+
 /*	Read a portably coded double value
 **
 **	Written by Kiem-Phong Vo

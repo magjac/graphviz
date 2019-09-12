@@ -13,6 +13,8 @@
 
 #include	"sfhdr.h"
 
+#include <math.h>
+
 /*	Return the length of a double value if coded in a portable format
 **
 **	Written by Kiem-Phong Vo

@@ -14,6 +14,7 @@
 #include	"sfhdr.h"
 
 #include <float.h>
+#include <math.h>
 
 /*	Write out a floating point value in a portable format
 **
