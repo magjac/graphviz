@@ -273,11 +273,11 @@ void CMainWindow::slotPaste()
 void CMainWindow::slotAbout()
 {
     QString abs (tr("<b>GVEdit</b> Graph File Editor For Graphviz"
-			  "version: 1.02\n"
-                          "Graphviz version: "));
+                    " version: 1.02\n"
+                    "Graphviz version: "));
 
     abs += tr (gvcVersion (frmSettings->gvc));
-    QMessageBox::about(this, tr("About GVEdit\n"), abs);
+    QMessageBox::about(this, tr("About GVEdit"), abs);
 }
 
 void CMainWindow::setChild ()
