@@ -1,3 +1,15 @@
+October 9, 2019
+    - Release 2.42.3
+	- Merge 1316, 1317, 1319, 1320
+	- Patches #1591, #1596
+	- Add Fedora 32 builds
+	- CI/CD fixes
+	- Documentation (Warning about HTML label usage)
+
+September 17, 2019
+    - Release 2.42.2 - ( Never fully released due to CI/CD hardware issues ) 
+    - Fix deployment issues.  Builds can now be found under:
+	             http://www2.graphviz.org/Packages/
 July 17, 2019
     - Release 2.42.1
     - Fix deployment issues.  Builds can now be found under:
