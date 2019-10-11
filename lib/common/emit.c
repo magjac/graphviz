@@ -456,7 +456,7 @@ static double getSegLen (char* s)
 
 /* parseSegs:
  * Parse string of form color;float:color;float:...:color;float:color
- * where the floats are optional, nonnegative, sum to <= 1.
+ * where the semicolon-floats are optional, nonnegative, sum to <= 1.
  * Store the values in an array of colorseg_t's and return the array in psegs.
  * If nseg == 0, count the number of colors.
  * If the sum of the floats does not equal 1, the remainder is equally distributed
@@ -514,7 +514,8 @@ parseSegs (char* clrs, int nseg, colorsegs_t** psegs)
 	}
 	else {
 	    if (doWarn) {
-		agerr (AGERR, "Illegal length value in \"%s\" color attribute ", clrs);
+		agerr (AGERR, "Illegal value in \"%s\" color attribute; float expected after ';'\n",
+                    clrs);
 		doWarn = 0;
 		rval = 2;
 	    }
@@ -4230,7 +4231,7 @@ boolean findStopColor (char* colorlist, char* clrs[2], float* frac)
     rv = parseSegs (colorlist, 0, &segs);
     if (rv || (segs->numc < 2) || (segs->segs[0].color == NULL)) {
 	clrs[0] = NULL;
-	freeSegs (segs);
+	if (segs) freeSegs (segs);
 	return FALSE;
     }
 
