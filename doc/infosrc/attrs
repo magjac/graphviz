@@ -1231,7 +1231,7 @@ For further details, see
 External PostScript files</A>.
 :showboxes:ENG:int:0:0; dot
 Print guide boxes in PostScript at the beginning of
-routesplines if 1, or at the end if 2. (Debugging)
+routesplines if 1, or at the end if 2. (Debugging, TB mode only!)
 :sides:N:int:4:0;
 Number of sides if <A HREF=#d:shape><B>shape</B></A>=polygon.
 :size:G:double/point;
