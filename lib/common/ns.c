@@ -693,7 +693,7 @@ static void TB_balance(void)
     nrank = N_NEW(Maxrank + 1, int);
     for (i = 0; i <= Maxrank; i++)
 	nrank[i] = 0;
-    if (s = agget(G,"TBbalance")) {
+    if ( (s = agget(G,"TBbalance")) ) {
          if (streq(s,"min")) adj = 1;
          else if (streq(s,"max")) adj = 2;
          if (adj) for (n = GD_nlist(G); n; n = ND_next(n))
