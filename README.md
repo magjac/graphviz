@@ -16,7 +16,7 @@ The master GIT Repository for graphviz can be found at:
 
 ## Support
 
-This project has only 3 of its founders remaining as volunteer maintainers, and support is limited and may end soon. If you can offer funding to support a formal foundation to continue this project, please contact us.
+This project has only 3 of its founders remaining as volunteer maintainers, and support is limited and may end soon. If you can help fund to a more formal foundation to continue this project, please contact north on graphviz org.
 
 ## Documentation
 
