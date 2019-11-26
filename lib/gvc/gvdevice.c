@@ -263,7 +263,8 @@ int gvferror (FILE* stream)
 
 size_t gvfwrite (const void *ptr, size_t size, size_t nmemb, FILE *stream)
 {
-    assert(size = sizeof(char));
+    size = sizeof(char);
+    assert(size);
     return gvwrite((GVJ_t*)stream, ptr, nmemb);
 }
 

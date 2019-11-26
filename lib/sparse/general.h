@@ -24,11 +24,11 @@
  * In particular, note that Verbose is declared but undefined.
  */
 #ifndef STANDALONE
-#include <cgraph.h>
-#include <globals.h>
-#include <logic.h>
-#include <arith.h>
-#include <memory.h>
+#include "cgraph.h"
+#include "globals.h"
+#include "logic.h"
+#include "arith.h"
+#include "memory.h"
 #endif  /* STANDALONE */
 
 #define real double

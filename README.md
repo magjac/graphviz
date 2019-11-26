@@ -14,6 +14,10 @@ See doc/build.html within the source tree or https://graphviz.org/doc/build.html
 The master GIT Repository for graphviz can be found at:
 * https://gitlab.com/graphviz/graphviz/
 
+## Support
+
+This project has only 3 of its founders remaining as volunteer maintainers, and support is limited and may end soon. If you can help fund to a more formal foundation to continue this project, please contact north on graphviz org.
+
 ## Documentation
 
 The Graphviz documents are currently hosted at https://emden.github.io/
