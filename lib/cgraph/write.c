@@ -634,7 +634,7 @@ static int write_body(Agraph_t * g, iochan_t * ofile)
     /* has_attr = (agattrrec(g) != NIL(Agattr_t*)); */
 
     CHKRV(write_subgs(g, ofile));
-    dd = agdatadict(agroot(g), FALSE);
+    dd = agdatadict(g, FALSE);
     for (n = agfstnode(g); n; n = agnxtnode(g, n)) {
 	if (write_node_test(g, n, AGSEQ(n)))
 	    CHKRV(write_node(n, ofile, dd ? dd->dict.n : 0));
