@@ -662,6 +662,13 @@ void graph_init(graph_t * g, boolean use_rankdir)
     int rankdir;
     GD_drawing(g) = NEW(layout_t);
 
+    /* reparseable input */
+    if ((p = agget(g, "postaction"))) {   /* requires a graph wrapper for yyparse */
+        char *buf = gmalloc(strlen("digraph {  }") + strlen(p) + 1);
+        sprintf(buf,"%s { %s }",agisdirected(g)?"digraph":"graph",p);
+        agmemconcat(g, buf);
+    }
+
     /* set this up fairly early in case any string sizes are needed */
     if ((p = agget(g, "fontpath")) || (p = getenv("DOTFONTPATH"))) {
 	/* overide GDFONTPATH in local environment if dot
@@ -839,7 +846,6 @@ void graph_init(graph_t * g, boolean use_rankdir)
     GD_drawing(g)->xdots = init_xdot (g);
 
     /* initialize id, if any */
-
     if ((p = agget(g, "id")) && *p)
 	GD_drawing(g)->id = strdup_and_subst_obj(p, g);
 }
