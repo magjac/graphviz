@@ -318,7 +318,8 @@ static void applyattrs(void *obj)
 			}
 		}
 		else {
-			assert(AGTYPE(obj) == AGEDGE);
+			/* assert(AGTYPE(obj) == AGEDGE);  surprising this fails */
+			assert((AGTYPE(obj) == AGINEDGE) || (AGTYPE(obj) == AGOUTEDGE));
 			assert(aptr->tag == T_atom);
 			assert(streq(aptr->u.name,Key));
 		}
