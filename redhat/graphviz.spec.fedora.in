@@ -25,7 +25,7 @@ Source0: http://www.graphviz.org/pub/@GRAPHVIZ_SOURCES@/graphviz-@VERSION@.tar.g
 %global DEVIL    1
 %global ANN      1
 %global GTS      1
-%global GTK      0
+%global GTK      1
 %global LASI     1
 %global WEBP     1
 %global PYTHON   0
@@ -103,7 +103,7 @@ BuildRequires: python3 python3-devel
 BuildRequires: golang gcc-go swig >= 3.0.2
 %endif
 %if %{GTK}
-BuildRequires: libglade2-devel gtkglarea2-devel gtkglext-devel glade3-libgladeui-devel
+BuildRequires: libglade2-devel gtkglext-devel glade3-libgladeui-devel
 %endif
 %if %{QT5}
 BuildRequires: qt5-qtbase-devel
