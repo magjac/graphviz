@@ -160,6 +160,8 @@ lib/cgraph/grammar.h
 lib/cgraph/scan.c
 lib/common/brewer_lib
 lib/common/color_lib
+lib/common/color_lib-sort
+lib/common/color_lib-temp
 lib/common/colortbl.h
 lib/common/htmlparse.c
 lib/common/htmlparse.h
