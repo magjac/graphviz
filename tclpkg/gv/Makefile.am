@@ -32,6 +32,20 @@ $(SHARP_data): gv_sharp.cpp
 gv_sharp.cpp: gv.i
 	$(SWIG) -c++ -csharp -namespace gv -o gv_sharp.cpp $(srcdir)/gv.i
 
+pkgddir = $(pkglibdir)/d
+D_data = 
+nodist_libgv_d_la_SOURCES = gv_d.cpp $(D_data)
+libgv_d_la_SOURCES = $(BASESOURCES) gv_dummy_init.c
+libgv_d_la_LIBADD = $(BASELIBS) $(D_LIBS)
+libgv_d_la_LDFLAGS = -module -avoid-version
+libgv_d_la_CPPFLAGS = $(BASECPPFLAGS) $(D_INCLUDES)
+# $(D_data): gv_d.cpp
+gv_d.cpp: gv.i
+	$(SWIG) -c++ -d -o gv_d.cpp $(srcdir)/gv.i
+	mv $@ $@.orig
+	sed '/include/s/malloc\.h/cstdlib/' $@.orig > $@
+	rm $@.orig
+
 pkggodir = $(pkglibdir)/go
 GO_data = runtime.h gv.go
 nodist_libgv_go_la_SOURCES = gv_go.cpp runtime.h gv.go
@@ -105,6 +119,20 @@ libgv_java_la_CPPFLAGS = $(BASECPPFLAGS) $(SWIGJAVA_CPPFLAGS) $(JAVA_INCLUDES)
 $(JAVA_data): gv_java.cpp
 gv_java.cpp: gv.i
 	$(SWIG) -package org.graphviz -java -c++ -o gv_java.cpp $(srcdir)/gv.i
+
+pkgjavascriptdir = $(pkglibdir)/javascript
+JAVASCRIPT_data = 
+nodist_libgv_javascript_la_SOURCES = gv_javascript.cpp $(JAVASCRIPT_data)
+libgv_javascript_la_SOURCES = $(BASESOURCES) gv_dummy_init.c
+libgv_javascript_la_LIBADD = $(BASELIBS) $(JAVASCRIPT_LIBS)
+libgv_javascript_la_LDFLAGS = -module -avoid-version
+libgv_javascript_la_CPPFLAGS = $(BASECPPFLAGS) $(JAVASCRIPT_INCLUDES)
+# $(D_data): gv_javascript.cpp
+gv_javascript.cpp: gv.i
+	$(SWIG) -c++ -javascript -o gv_d.cpp $(srcdir)/gv.i
+	mv $@ $@.orig
+	sed '/include/s/malloc\.h/cstdlib/' $@.orig > $@
+	rm $@.orig
 
 pkgluadir = $(pkglibdir)/lua
 LUA_data = 
@@ -265,6 +293,13 @@ pdf_DATA += gv.3sharp.pdf
 pkgsharp_LTLIBRARIES = libgv_sharp.la
 DEVTSTS += test_sharp
 endif
+if WITH_D
+pkgd_DATA = $(D_data)
+#man_MANS += gv.3d
+#pdf_DATA += gv.3d.pdf
+pkgd_LTLIBRARIES = libgv_d.la
+#DEVTSTS += test_d
+endif
 if WITH_GO
 pkggo_DATA = $(GO_data)
 man_MANS += gv.3go
@@ -292,6 +327,13 @@ man_MANS += gv.3java
 pdf_DATA += gv.3java.pdf
 pkgjava_LTLIBRARIES = libgv_java.la
 DEVTSTS += test_java
+endif
+if WITH_JAVASCRIPT
+pkgd_DATA = $(JAVASCRIPT_data)
+#man_MANS += gv.3javascript
+#pdf_DATA += gv.3javascript.pdf
+pkgjavascript_LTLIBRARIES = libgv_javascript.la
+#DEVTSTS += test_javascript
 endif
 if WITH_LUA
 pkglua_DATA = $(LUA_data)

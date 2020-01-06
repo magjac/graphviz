@@ -633,6 +633,51 @@ fi
 AM_CONDITIONAL(WITH_SHARP, [test "x$use_sharp" = "xYes"])
 
 dnl -----------------------------------
+dnl INCLUDES and LIBS for D (disabled by default - incomplete)
+
+AC_ARG_ENABLE(d,
+  [AS_HELP_STRING([--enable-d=no],[d language bindings])],
+  [], [enable_d=no])
+
+if test "x$enable_d" != "xyes"; then
+  use_d="No (disabled by default - incomplete"
+else
+  if test "x$use_swig" != "xYes"; then
+    use_d="No (swig not available)"
+  else
+    if test `$SWIG -help 2>&1 | $EGREP -c '\-d* *- Generate'` = 0 ; then
+      use_d="No (swig does not support -d option)"
+    else
+      AC_CHECK_PROG(D,gdc,ldc)
+      if test "x$D" = "x"; then
+        use_d="No (D compiler not available)"
+      else
+        D_INCLUDES=
+#        D_INSTALL_DIR="/usr/lib${LIBPOSTFIX}/d/modules"
+#        D_INSTALL_DATADIR="/usr/share/d"
+        D_LIBS=
+#        save_CPPFLAGS=$CPPFLAGS
+#        CPPFLAGS="$CPPFLAGS $D_INCLUDES"
+#        AC_CHECK_HEADER(d.h,,[
+#          use_d="No (missing header)"
+#          D=
+#        ])
+#        CPPFLAGS=$save_CPPFLAGS
+	if test "x$D" != "x"; then
+	  use_d="Yes"
+#          AC_SUBST([D_INSTALL_DATADIR])
+#          AC_SUBST([D_INSTALL_DIR])
+          AC_SUBST([D_INCLUDES])
+          AC_SUBST([D_LIBS])
+          AC_SUBST([INTDSIZE])
+        fi
+      fi
+    fi
+  fi
+fi
+AM_CONDITIONAL(WITH_D, [test "x$use_d" = "xYes"])
+
+dnl -----------------------------------
 dnl INCLUDES and LIBS for GO
 
 AC_ARG_ENABLE(go,
@@ -747,7 +792,7 @@ fi
 AM_CONDITIONAL(WITH_GUILE, [test "x$use_guile" = "xYes"])
 
 dnl -----------------------------------
-dnl INCLUDES and LIBS for IO   (disbled until supported by swig)
+dnl INCLUDES and LIBS for IO   (disabled until supported by swig)
 
 AC_ARG_ENABLE(io,
   [AS_HELP_STRING([--enable-io=no],[io language bindings])],
@@ -839,6 +884,51 @@ else
   fi
 fi
 AM_CONDITIONAL(WITH_JAVA, [test "x$use_java" = "xYes"])
+
+dnl -----------------------------------
+dnl INCLUDES and LIBS for JAVASCRIPT (disabled by default - incomplete)
+
+AC_ARG_ENABLE(javascript,
+  [AS_HELP_STRING([--enable-javascript=no],[d language bindings])],
+  [], [enable_javascript=no])
+
+if test "x$enable_javascript" != "xyes"; then
+  use_javascript="No (disabled by default - incomplete"
+else
+  if test "x$use_swig" != "xYes"; then
+    use_javascript="No (swig not available)"
+  else
+    if test `$SWIG -help 2>&1 | $EGREP -c '\-javascript* *- Generate'` = 0 ; then
+      use_javascript="No (swig does not support -javascript option)"
+    else
+      AC_CHECK_PROG(JAVASCRIPT,js,js)
+      if test "x$JAVASCRIPT" = "x"; then
+        use_javascript="No (JAVASCRIPT compiler not available)"
+      else
+        JAVASCRIPT_INCLUDES=
+#        JAVASCRIPT_INSTALL_DIR="/usr/lib${LIBPOSTFIX}/javascript/modules"
+#        JAVASCRIPT_INSTALL_DATADIR="/usr/share/javascript"
+        JAVASCRIPT_LIBS=
+#        save_CPPFLAGS=$CPPFLAGS
+#        CPPFLAGS="$CPPFLAGS $JAVASCRIPT_INCLUDES"
+#        AC_CHECK_HEADER(javascript.h,,[
+#          use_javascript="No (missing header)"
+#          JAVASCRIPT=
+#        ])
+#        CPPFLAGS=$save_CPPFLAGS
+	if test "x$D" != "x"; then
+	  use_javascript="Yes"
+#          AC_SUBST([JAVASCRIPT_INSTALL_DATADIR])
+#          AC_SUBST([JAVASCRIPT_INSTALL_DIR])
+          AC_SUBST([JAVASCRIPT_INCLUDES])
+          AC_SUBST([JAVASCRIPT_LIBS])
+          AC_SUBST([INTJAVASCRIPTSIZE])
+        fi
+      fi
+    fi
+  fi
+fi
+AM_CONDITIONAL(WITH_JAVASCRIPT, [test "x$use_javascript" = "xYes"])
 
 dnl -----------------------------------
 dnl INCLUDES and LIBS for LUA
@@ -3105,10 +3195,12 @@ echo "  xlib:          $use_xlib"
 echo ""
 echo "language extensions:"
 echo "  gv_sharp:      $use_sharp"
+echo "  gv_d:          $use_d"
 echo "  gv_go:         $use_go"
 echo "  gv_guile:      $use_guile"
 echo "  gv_io:         $use_io"
 echo "  gv_java:       $use_java"
+echo "  gv_javascript: $use_javascript"
 echo "  gv_lua:        $use_lua"
 echo "  gv_ocaml:      $use_ocaml"
 echo "  gv_perl:       $use_perl"
