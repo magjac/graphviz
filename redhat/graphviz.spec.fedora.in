@@ -12,44 +12,50 @@ Source0: http://www.graphviz.org/pub/@GRAPHVIZ_SOURCES@/graphviz-@VERSION@.tar.g
 
 # Necessary conditionals
 %ifarch %{mono_arches}
-%global SHARP  1
+%global SHARP      1
 %else
-%global SHARP  0
+%global SHARP      0
 %endif
 
 # Assuming Fedora
-%global LICENSE  1
-%global GOLANG   1
-%global OCAML    1
-%global ARRRR    1
-%global DEVIL    1
-%global ANN      1
-%global GTS      1
-%global GTK      1
-%global LASI     1
-%global WEBP     1
-%global PYTHON   0
-%global PYTHON2  1
-%global PYTHON3  1
-%global QT5      1
+%global LICENSE    1
+%global ANN        1
+%global ARRRR      1
+%global DEEEE      0
+%global DEVIL      1
+%global GOLANG     1
+%global GTS        1
+%global GTK        1
+%global GUILE      1
+%global JAVA       1
+%global JAVASCRIPT 0
+%global LASI       1
+%global OCAML      1
+%global WEBP       1
+%global PYTHON     0
+%global PYTHON2    1
+%global PYTHON3    1
+%global QT5        1
 # Not yet.
-%global MING     0
+%global MING       0
 
 # Overrides for RHEL
 %if 0%{?rhel}
-%global LICENSE  0
-%global GOLANG   0
-%global SHARP    0
-%global ARRRR    0
-%global DEVIL    0
-%global ANN      0
-%global GTS      0
-%global GTK      0
-%global LASI     0
-%global WEBP     0
-%global PYTHON   1
-%global PYTHON2  0
-%global PYTHON3  0
+%global LICENSE    0
+%global ANN        0
+%global ARRRR      0
+%global DEEEE      0
+%global DEVIL      0
+%global GOLANG     0
+%global GTS        0
+%global GTK        0
+%global JAVASCRIPT 0
+%global LASI       0
+%global PYTHON     1
+%global PYTHON2    0
+%global PYTHON3    0
+%global SHARP      0
+%global WEBP       0
 %endif
 
 # Plugins version
@@ -63,32 +69,44 @@ BuildRequires: libXmu-devel libXext-devel libX11-devel gtk2-devel freeglut-devel
 BuildRequires: freetype-devel fontconfig-devel cairo-devel pango-devel
 BuildRequires: gmp-devel gd gd-devel librsvg2-devel
 BuildRequires: ghostscript-devel poppler-glib-devel libtool-ltdl libtool-ltdl-devel
-BuildRequires: ruby ruby-devel guile-devel java-devel php-devel lua-devel
+BuildRequires: ruby ruby-devel php-devel lua-devel
 BuildRequires: perl-devel perl-libs perl-ExtUtils-Embed tcl tcl-devel tk tk-devel
 
-%if %{SHARP}
-BuildRequires: mono-core
-%endif
-%if %{DEVIL}
-BuildRequires: DevIL-devel
+%if %{ANN}
+BuildRequires: ann-devel
 %endif
 %if %{ARRRR}
 BuildRequires: R-devel
 %endif
-%if %{OCAML}
-BuildRequires: ocaml
+%if %{DEEEE}
+BuildRequires: ldc-druntime-devel
 %endif
-%if %{ANN}
-BuildRequires: ann-devel
+%if %{DEVIL}
+BuildRequires: DevIL-devel
+%endif
+%if %{GOLANG}
+BuildRequires: golang gcc-go swig >= 3.0.2
+%endif
+%if %{GTK}
+BuildRequires: libglade2-devel gtkglext-devel glade3-libgladeui-devel
 %endif
 %if %{GTS}
 BuildRequires: gts-devel
 %endif
-%if %{WEBP}
-BuildRequires: libwebp-devel
+%if %{GUILE}
+BuildRequires: guile-devel swig >= 3.0.2
 %endif
+%if %{JAVA}
+BuildRequires: java-devel
+%endif
+#%if %{JAVASCRIPT}
+#BuildRequires: javascript-devel
+#%endif
 %if %{LASI}
 BuildRequires: lasi-devel
+%endif
+%if %{OCAML}
+BuildRequires: ocaml
 %endif
 %if %{PYTHON}
 BuildRequires: python python-devel
@@ -99,14 +117,14 @@ BuildRequires: python2 python2-devel
 %if %{PYTHON3}
 BuildRequires: python3 python3-devel
 %endif
-%if %{GOLANG}
-BuildRequires: golang gcc-go swig >= 3.0.2
-%endif
-%if %{GTK}
-BuildRequires: libglade2-devel gtkglext-devel glade3-libgladeui-devel
-%endif
 %if %{QT5}
 BuildRequires: qt5-qtbase-devel
+%endif
+%if %{SHARP}
+BuildRequires: mono-core
+%endif
+%if %{WEBP}
+BuildRequires: libwebp-devel
 %endif
 
 # What a meal PHP makes of versioning !!!
@@ -535,6 +553,25 @@ C# extension for graphviz.
 %{_mandir}/man3/*.3sharp.*
 %endif
 
+#-- graphviz-lang-d rpm ---------------------------------------------
+%if 0%{?DEEEE}
+%package lang-d
+Group:          Applications/Multimedia
+Summary:        D extension for graphviz
+Requires:       %{name} = %{version}-%{release}, D
+Obsoletes:      %{name}-d <= 2.41
+Provides:       %{name}-d = %{version}-%{release}
+
+%description lang-d
+D extension for graphviz.
+
+%files lang-d
+%defattr(-,root,root,-)
+%dir %{_libdir}/graphviz/d
+%{_libdir}/graphviz/d/*
+%{_mandir}/man3/*.3d.*
+%endif
+
 #-- graphviz-lang-go rpm --------------------------------------------
 %if %{GOLANG}
 %package lang-go
@@ -555,6 +592,7 @@ Guile extension for graphviz.
 %endif
 
 #-- graphviz-lang-guile rpm --------------------------------------------
+%if %{GUILE}
 %package lang-guile
 Group:          Applications/Multimedia
 Summary:        Guile extension for graphviz
@@ -570,6 +608,7 @@ Guile extension for graphviz.
 %dir %{_libdir}/graphviz/guile
 %{_libdir}/graphviz/guile/*
 %{_mandir}/man3/*.3guile.*
+%endif
 
 #-- graphviz-lang-io rpm -----------------------------------------------
 %if 0%{?_IO}
@@ -589,6 +628,7 @@ Io extension for graphviz.
 %endif
 
 #-- graphviz-lang-java rpm ---------------------------------------------
+%if 0%{?JAVA}
 %package lang-java
 Group:          Applications/Multimedia
 Summary:        Java extension for graphviz
@@ -604,6 +644,26 @@ Java extension for graphviz.
 %dir %{_libdir}/graphviz/java
 %{_libdir}/graphviz/java/*
 %{_mandir}/man3/*.3java.*
+%endif
+
+#-- graphviz-lang-javascript rpm ---------------------------------------------
+%if 0%{?JAVASCRIPT}
+%package lang-javascript
+Group:          Applications/Multimedia
+Summary:        Javascript extension for graphviz
+Requires:       %{name} = %{version}-%{release}, javascript
+Obsoletes:      %{name}-javascript <= 2.41
+Provides:       %{name}-javascript = %{version}-%{release}
+
+%description lang-javascript
+Javascript extension for graphviz.
+
+%files lang-javascript
+%defattr(-,root,root,-)
+%dir %{_libdir}/graphviz/javascript
+%{_libdir}/graphviz/javascript/*
+%{_mandir}/man3/*.3javascript.*
+%endif
 
 #-- graphviz-lang-lua rpm ----------------------------------------------
 %package lang-lua
@@ -903,6 +963,8 @@ CFLAGS="$RPM_OPT_FLAGS" \
         --enable-guile \
         --disable-io \
         --enable-java \
+        --disable-d \
+        --disable-javascript \
         --enable-lua \
         --enable-perl \
         --enable-php \
@@ -912,6 +974,9 @@ CFLAGS="$RPM_OPT_FLAGS" \
         --with-ghostscript \
         --without-glitz \
         --with-ipsepcola \
+%if ! %{ANN}
+        --without-ann \
+%endif
 %if ! %{PYTHON}
         --disable-python \
 %endif
@@ -924,8 +989,14 @@ CFLAGS="$RPM_OPT_FLAGS" \
 %if ! %{GOLANG}
         --disable-go \
 %endif
-%if ! %{ANN}
-        --without-ann \
+%if ! %{JAVASCRIPT}
+        --disable-javascript \
+%endif
+%if ! %{JAVA}
+        --disable-java \
+%endif
+%if ! %{GUILE}
+        --disable-guile \
 %endif
 %if ! %{LASI}
         --without-lasi \
@@ -944,6 +1015,9 @@ CFLAGS="$RPM_OPT_FLAGS" \
 %endif
 %if ! %{ARRRR}
         --disable-r \
+%endif
+%if ! %{DEEEE}
+        --disable-d \
 %endif
 %if ! %{WEBP}
         --without-webp \
