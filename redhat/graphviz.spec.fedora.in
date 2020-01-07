@@ -94,7 +94,7 @@ BuildRequires: libglade2-devel gtkglext-devel glade3-libgladeui-devel
 BuildRequires: gts-devel
 %endif
 %if %{GUILE}
-BuildRequires: guile-devel swig >= 3.0.2
+BuildRequires: guile-devel
 %endif
 %if %{JAVA}
 BuildRequires: java-devel
