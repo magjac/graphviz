@@ -26,6 +26,7 @@
 #define MODE_MAJOR       1
 #define MODE_HIER        2
 #define MODE_IPSEP       3
+#define MODE_SGD         4
 
 #define INIT_ERROR       -1
 #define INIT_SELF        0
