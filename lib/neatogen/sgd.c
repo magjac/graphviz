@@ -12,7 +12,6 @@ void fisheryates_shuffle(term *terms, int nC2) {
     for (i=nC2-1; i>=1; i--) {
         // unsigned j = rk_interval(i, &rstate);
         int j = (int)(drand48() * (i+1)); // TODO: better rng
-        fprintf(stderr, "%d %d %f %f\n", i, j, terms[i].d, terms[i].w);
 
         term temp = terms[i];
         terms[i] = terms[j];
