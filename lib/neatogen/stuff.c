@@ -247,7 +247,7 @@ int scan_graph_mode(graph_t * G, int mode)
     nE = agnedges(G);
 
     lenx = agattr(G, AGEDGE, "len", 0);
-    if (mode == MODE_KK) {
+    if (mode == MODE_KK || mode == MODE_SGD) {
 	Epsilon = .0001 * nV;
 	getdouble(G, "epsilon", &Epsilon);
 	if ((str = agget(G->root, "Damping")))
@@ -276,7 +276,7 @@ int scan_graph_mode(graph_t * G, int mode)
     else
 	Initial_dist = total_len / (nE > 0 ? nE : 1) * sqrt(nV) + 1;
 
-    if (!Nop && (mode == MODE_KK)) {
+    if (!Nop && (mode == MODE_KK || mode == MODE_SGD)) {
 	GD_dist(G) = new_array(nV, nV, Initial_dist);
 	GD_spring(G) = new_array(nV, nV, 1.0);
 	GD_sum_t(G) = new_array(nV, Ndim, 1.0);

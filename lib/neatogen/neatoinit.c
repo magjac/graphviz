@@ -28,6 +28,7 @@
 #endif
 #include "kkutils.h"
 #include "pointset.h"
+#include "sgd.h"
 
 #ifndef HAVE_SRAND48
 #define srand48 srand
@@ -1335,41 +1336,6 @@ static void kkNeato(Agraph_t * g, int nG, int model)
     }
     solve_model(g, nG);
 }
-/* sgdNeato:
- * Solve using stochastic gradient descent a la Zheng, Pawar, Goodman.
- */
-static void sgdNeato(Agraph_t * g, int nG, int model)
-{
-    fprintf("hello, love from sgd");
-
-    if (model == MODEL_SUBSET) {
-        subset_model(g, nG);
-    } else if (model == MODEL_CIRCUIT) {
-        if (!circuit_model(g, nG)) {
-            agerr(AGWARN,
-        	  "graph %s is disconnected. Hence, the circuit model\n",
-        	  agnameof(g));
-            agerr(AGPREV,
-        	  "is undefined. Reverting to the shortest path model.\n");
-            agerr(AGPREV,
-        	  "Alternatively, consider running neato using -Gpack=true or decomposing\n");
-            agerr(AGPREV, "the graph into connected components.\n");
-            shortest_path(g, nG);
-        }
-    } else if (model == MODEL_MDS) {
-        shortest_path(g, nG);
-        mds_model(g, nG);
-    } else
-        shortest_path(g, nG);
-    initial_positions(g, nG);
-    diffeq_model(g, nG);
-    if (Verbose) {
-        fprintf(stderr, "Solving model %d iterations %d tol %f\n",
-        	model, MaxIter, Epsilon);
-        start_timer();
-    }
-    solve_model(g, nG);
-}
 
 /* neatoLayout:
  * Use stress optimization to layout a single component
@@ -1394,7 +1360,7 @@ neatoLayout(Agraph_t * mg, Agraph_t * g, int layoutMode, int layoutModel,
 	if (layoutMode == MODE_KK)
 	kkNeato(g, nG, layoutModel);
 	else if (layoutMode == MODE_SGD)
-	sgdNeato(g, nG, layoutModel)
+	sgd(g, nG, layoutModel);
 	else
 	majorization(mg, g, nG, layoutMode, layoutModel, Ndim, MaxIter, am);
 }

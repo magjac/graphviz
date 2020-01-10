@@ -45,6 +45,7 @@ set(sources
     sparsegraph.h
     stress.h
     voronoi.h
+	sgd.h
 
     # Source files
     adjust.c
@@ -85,6 +86,7 @@ set(sources
     stuff.c
     stress.c
     voronoi.c
+	sgd.c
 )
 
 if (with_ipsepcola)
