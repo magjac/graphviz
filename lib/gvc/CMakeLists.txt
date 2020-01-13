@@ -59,6 +59,7 @@ target_link_libraries(gvc
     ${EXPAT_LIBRARIES}
     ${RXSPENCER_LIBRARIES}
     ${ZLIB_LIBRARIES}
+    ${MATH_LIB}
 )
 
 if (NOT WIN32)
