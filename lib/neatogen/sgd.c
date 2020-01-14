@@ -18,6 +18,17 @@ void fisheryates_shuffle(term *terms, int nC2) {
         terms[j] = temp;
     }
 }
+float calculate_stress(term *terms, int nC2) {
+    float stress = 0;
+    int ij;
+    for (ij=0; ij<nC2; ij++) {
+        float dx = ND_pos(terms[ij].i)[0] - ND_pos(terms[ij].j)[0];
+        float dy = ND_pos(terms[ij].i)[1] - ND_pos(terms[ij].j)[1];
+        float r = sqrt(dx*dx + dy*dy) - terms[ij].d;
+        stress += terms[ij].w * (r * r);
+    }
+    return stress;
+}
 
 void sgd(graph_t *G, /* input graph */
          int n, /* number of nodes */
@@ -58,6 +69,10 @@ void sgd(graph_t *G, /* input graph */
 
     // perform optimisation
     int t;
+    if (Verbose) {
+        fprintf(stderr, "Solving model:");
+        start_timer();
+    }
     for (t=0; t<30; t++) {
         fisheryates_shuffle(terms, nC2);
         float eta = eta_max * exp(-lambda * t);
@@ -75,11 +90,21 @@ void sgd(graph_t *G, /* input graph */
             float r_x = r * dx;
             float r_y = r * dy;
 
-            ND_pos(terms[ij].i)[0] -= r_x;
-            ND_pos(terms[ij].i)[1] -= r_y;
-            ND_pos(terms[ij].j)[0] += r_x;
-            ND_pos(terms[ij].j)[1] += r_y;
+            if (!ND_pinned(terms[ij].i)) {
+                ND_pos(terms[ij].i)[0] -= r_x;
+                ND_pos(terms[ij].i)[1] -= r_y;
+            }
+            if (!ND_pinned(terms[ij].j)) {
+                ND_pos(terms[ij].j)[0] += r_x;
+                ND_pos(terms[ij].j)[1] += r_y;
+            }
         }
+        if (Verbose) {
+            fprintf(stderr, " %.3f", calculate_stress(terms, nC2));
+        }
+    }
+    if (Verbose) {
+        fprintf(stderr, "\n %.2f sec\n", elapsed_sec());
     }
     free(terms);
 }
