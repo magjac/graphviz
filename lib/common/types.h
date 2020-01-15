@@ -297,8 +297,8 @@ typedef enum {NATIVEFONTS,PSFONTS,SVGFONTS} fontname_kind;
 #ifndef DOT_ONLY
 	/* to place nodes */
 	node_t **neato_nlist;
-    node_t **heap;
-    int heapsize;
+	node_t **heap;
+	int heapsize;
 	int move;
 	double **dist;
 	double **spring;
