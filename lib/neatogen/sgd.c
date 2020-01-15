@@ -36,8 +36,8 @@ void dijkstra_single_source(graph_t *G, node_t *source, term *terms, int *offset
     node_t *v, *u;
     for (t = 0; (v = GD_neato_nlist(G)[t]); t++) {
         ND_dist(v) = Initial_dist;
-	    ND_heapindex(v) = -1;
-	}
+        ND_heapindex(v) = -1;
+    }
 
     ND_dist(source) = 0;
     ND_hops(source) = 0;
@@ -45,15 +45,15 @@ void dijkstra_single_source(graph_t *G, node_t *source, term *terms, int *offset
 
     edge_t *e;
     while ((v = neato_dequeue(G))) {
-		// if the target is fixed then always create a term as shortest paths are not calculated from there
-		// if not fixed then only create a term if the target index is lower
+        // if the target is fixed then always create a term as shortest paths are not calculated from there
+        // if not fixed then only create a term if the target index is lower
         if (isFixed(v) || ND_id(v)<ND_id(source)) {
-			terms[*offset].i = source;
-			terms[*offset].j = v;
-			terms[*offset].d = ND_dist(v);
-			terms[*offset].w = 1 / (terms[*offset].d*terms[*offset].d);
-			(*offset)++;
-		}
+            terms[*offset].i = source;
+            terms[*offset].j = v;
+            terms[*offset].d = ND_dist(v);
+            terms[*offset].w = 1 / (terms[*offset].d*terms[*offset].d);
+            (*offset)++;
+        }
         for (e = agfstedge(G, v); e; e = agnxtedge(G, e, v)) {
             if ((u = agtail(e)) == v)
                 u = aghead(e);
@@ -95,27 +95,27 @@ void sgd(graph_t *G, /* input graph */
     term *terms = N_NEW(n_terms, term);
 
     // calculate term values through shortest paths
-	int offset = 0;
+    int offset = 0;
     GD_heap(G) = N_NEW(n + 1, node_t *);
     GD_heapsize(G) = 0;
-	if (Verbose) {
-		fprintf(stderr, "calculating shortest paths:");
+    if (Verbose) {
+        fprintf(stderr, "calculating shortest paths:");
         start_timer();
-	}
+    }
     for (i=0; i<n; i++) {
         node_t *source = GD_neato_nlist(G)[i];
         if (!isFixed(source))
-			dijkstra_single_source(G, source, terms, &offset);
+            dijkstra_single_source(G, source, terms, &offset);
     }
-	free(GD_heap(G));
+    free(GD_heap(G));
     assert(offset == n_terms);
-	if (Verbose) {
-		fprintf(stderr, " %.2f\n", elapsed_sec());
-	}
+    if (Verbose) {
+        fprintf(stderr, " %.2f\n", elapsed_sec());
+    }
 
     // initialise annealing schedule
     float w_min = terms[0].w, w_max = terms[0].w;
-	int ij;
+    int ij;
     for (ij=1; ij<n_terms; ij++) {
         if (terms[ij].w < w_min)
             w_min = terms[ij].w;
