@@ -247,7 +247,7 @@ int scan_graph_mode(graph_t * G, int mode)
     nE = agnedges(G);
 
     lenx = agattr(G, AGEDGE, "len", 0);
-    if (mode == MODE_KK || mode == MODE_SGD) {
+    if (mode == MODE_KK) {
 	Epsilon = .0001 * nV;
 	getdouble(G, "epsilon", &Epsilon);
 	if ((str = agget(G->root, "Damping")))
@@ -259,6 +259,15 @@ int scan_graph_mode(graph_t * G, int mode)
 	    GD_neato_nlist(G)[i] = np;
 	    ND_id(np) = i++;
 	    ND_heapindex(np) = -1;
+	    total_len += setEdgeLen(G, np, lenx, dfltlen);
+	}
+    } else if (mode == MODE_SGD) {
+	Epsilon = .01;
+	getdouble(G, "epsilon", &Epsilon);
+	GD_neato_nlist(G) = N_NEW(nV + 1, node_t *);
+	for (i = 0, np = agfstnode(G); np; np = agnxtnode(G, np)) {
+	    GD_neato_nlist(G)[i] = np;
+	    ND_id(np) = i++;
 	    total_len += setEdgeLen(G, np, lenx, dfltlen);
 	}
     } else {
@@ -276,7 +285,7 @@ int scan_graph_mode(graph_t * G, int mode)
     else
 	Initial_dist = total_len / (nE > 0 ? nE : 1) * sqrt(nV) + 1;
 
-    if (!Nop && (mode == MODE_KK || mode == MODE_SGD)) {
+    if (!Nop && (mode == MODE_KK)) {
 	GD_dist(G) = new_array(nV, nV, Initial_dist);
 	GD_spring(G) = new_array(nV, nV, 1.0);
 	GD_sum_t(G) = new_array(nV, Ndim, 1.0);
@@ -591,77 +600,73 @@ void move_node(graph_t * G, int nG, node_t * n)
     }
 }
 
-static node_t **Heap;
-static int Heapsize;
-static node_t *Src;
-
-void heapup(node_t * v)
+void heapup(graph_t * G, node_t * v)
 {
     int i, par;
     node_t *u;
 
     for (i = ND_heapindex(v); i > 0; i = par) {
 	par = (i - 1) / 2;
-	u = Heap[par];
+	u = GD_heap(G)[par];
 	if (ND_dist(u) <= ND_dist(v))
 	    break;
-	Heap[par] = v;
+	GD_heap(G)[par] = v;
 	ND_heapindex(v) = par;
-	Heap[i] = u;
+	GD_heap(G)[i] = u;
 	ND_heapindex(u) = i;
     }
 }
 
-void heapdown(node_t * v)
+void heapdown(graph_t * G, node_t * v)
 {
     int i, left, right, c;
     node_t *u;
 
     i = ND_heapindex(v);
-    while ((left = 2 * i + 1) < Heapsize) {
+    while ((left = 2 * i + 1) < GD_heapsize(G)) {
 	right = left + 1;
-	if ((right < Heapsize)
-	    && (ND_dist(Heap[right]) < ND_dist(Heap[left])))
+	if ((right < GD_heapsize(G))
+	    && (ND_dist(GD_heap(G)[right]) < ND_dist(GD_heap(G)[left])))
 	    c = right;
 	else
 	    c = left;
-	u = Heap[c];
+	u = GD_heap(G)[c];
 	if (ND_dist(v) <= ND_dist(u))
 	    break;
-	Heap[c] = v;
+	GD_heap(G)[c] = v;
 	ND_heapindex(v) = c;
-	Heap[i] = u;
+	GD_heap(G)[i] = u;
 	ND_heapindex(u) = i;
 	i = c;
     }
 }
 
-void neato_enqueue(node_t * v)
+void neato_enqueue(graph_t * G, node_t * v)
 {
     int i;
 
     assert(ND_heapindex(v) < 0);
-    i = Heapsize++;
+    i = GD_heapsize(G)++;
     ND_heapindex(v) = i;
-    Heap[i] = v;
+    GD_heap(G)[i] = v;
     if (i > 0)
-	heapup(v);
+	heapup(G, v);
 }
 
-node_t *neato_dequeue(void)
+node_t *neato_dequeue(graph_t * G)
 {
     int i;
     node_t *rv, *v;
 
-    if (Heapsize == 0)
+    if (GD_heapsize(G) == 0)
 	return NULL;
-    rv = Heap[0];
-    i = --Heapsize;
-    v = Heap[i];
-    Heap[0] = v;
+    rv = GD_heap(G)[0];
+    i = --GD_heapsize(G);
+    v = GD_heap(G)[i];
+    GD_heap(G)[0] = v;
     ND_heapindex(v) = 0;
     if (i > 1)
-	heapdown(v);
+	heapdown(G, v);
     ND_heapindex(rv) = -1;
     return rv;
 }
@@ -670,7 +675,8 @@ void shortest_path(graph_t * G, int nG)
 {
     node_t *v;
 
-    Heap = N_NEW(nG + 1, node_t *);
+    GD_heap(G) = N_NEW(nG + 1, node_t *);
+    GD_heapsize(G) = 0;
     if (Verbose) {
 	fprintf(stderr, "Calculating shortest paths: ");
 	start_timer();
@@ -680,7 +686,7 @@ void shortest_path(graph_t * G, int nG)
     if (Verbose) {
 	fprintf(stderr, "%.2f sec\n", elapsed_sec());
     }
-    free(Heap);
+    free(GD_heap(G));
 }
 
 void s1(graph_t * G, node_t * node)
@@ -692,12 +698,12 @@ void s1(graph_t * G, node_t * node)
 
     for (t = 0; (v = GD_neato_nlist(G)[t]); t++)
 	ND_dist(v) = Initial_dist;
-    Src = node;
+    node_t * Src = node;
     ND_dist(Src) = 0;
     ND_hops(Src) = 0;
-    neato_enqueue(Src);
+    neato_enqueue(G, Src);
 
-    while ((v = neato_dequeue())) {
+    while ((v = neato_dequeue(G))) {
 	if (v != Src)
 	    make_spring(G, Src, v, ND_dist(v));
 	for (e = agfstedge(G, v); e; e = agnxtedge(G, e, v)) {
@@ -707,10 +713,10 @@ void s1(graph_t * G, node_t * node)
 	    if (ND_dist(u) > f) {
 		ND_dist(u) = f;
 		if (ND_heapindex(u) >= 0)
-		    heapup(u);
+		    heapup(G, u);
 		else {
 		    ND_hops(u) = ND_hops(v) + 1;
-		    neato_enqueue(u);
+		    neato_enqueue(G, u);
 		}
 	    }
 	}
