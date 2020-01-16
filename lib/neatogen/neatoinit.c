@@ -1362,7 +1362,7 @@ neatoLayout(Agraph_t * mg, Agraph_t * g, int layoutMode, int layoutModel,
     if (layoutMode == MODE_KK)
 	kkNeato(g, nG, layoutModel);
     else if (layoutMode == MODE_SGD)
-	sgd(g, nG, layoutModel);
+	sgd(g, layoutModel);
     else
 	majorization(mg, g, nG, layoutMode, layoutModel, Ndim, MaxIter, am);
 }
