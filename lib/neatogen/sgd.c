@@ -3,10 +3,13 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include "randomkit.h"
+
 typedef struct term {
     node_t *i, *j;
     float d, w;
 } term;
+// TODO: convert to just indices rather than node_t, because working with the auxiliary graph_t is slow
 
 float calculate_stress(term *terms, int n_terms) {
     float stress = 0;
@@ -19,11 +22,16 @@ float calculate_stress(term *terms, int n_terms) {
     }
     return stress;
 }
+// it is much faster to shuffle term rather than pointers to term, even though the swap is more expensive
+static rk_state rstate;
 void fisheryates_shuffle(term *terms, int n_terms) {
     int i;
     for (i=n_terms-1; i>=1; i--) {
         // srand48() is called in neatoinit.c, so no need to seed here
-        int j = (int)(drand48() * (i+1));
+        //int j = (int)(drand48() * (i+1));
+        // TODO: better RNG because shuffling is eating up at least 50% of computation
+
+        int j = rk_interval(i, &rstate);
 
         term temp = terms[i];
         terms[i] = terms[j];
@@ -140,6 +148,7 @@ void sgd(graph_t *G, /* input graph */
         start_timer();
     }
     int t;
+    rk_seed(0, &rstate);
     for (t=0; t<MaxIter; t++) {
         fisheryates_shuffle(terms, n_terms);
         float eta = eta_max * exp(-lambda * t);
