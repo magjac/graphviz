@@ -24,13 +24,11 @@ float calculate_stress(term *terms, int n_terms) {
 }
 // it is much faster to shuffle term rather than pointers to term, even though the swap is more expensive
 static rk_state rstate;
-void fisheryates_shuffle(term *terms, int n_terms) {
+static void fisheryates_shuffle(term *terms, int n_terms) {
     int i;
     for (i=n_terms-1; i>=1; i--) {
         // srand48() is called in neatoinit.c, so no need to seed here
         //int j = (int)(drand48() * (i+1));
-        // TODO: better RNG because shuffling is eating up at least 50% of computation
-
         int j = rk_interval(i, &rstate);
 
         term temp = terms[i];
