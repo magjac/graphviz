@@ -600,73 +600,77 @@ void move_node(graph_t * G, int nG, node_t * n)
     }
 }
 
-void heapup(graph_t * G, node_t * v)
+static node_t **Heap;
+static int Heapsize;
+static node_t *Src;
+
+void heapup(node_t * v)
 {
     int i, par;
     node_t *u;
 
     for (i = ND_heapindex(v); i > 0; i = par) {
 	par = (i - 1) / 2;
-	u = GD_heap(G)[par];
+	u = Heap[par];
 	if (ND_dist(u) <= ND_dist(v))
 	    break;
-	GD_heap(G)[par] = v;
+	Heap[par] = v;
 	ND_heapindex(v) = par;
-	GD_heap(G)[i] = u;
+	Heap[i] = u;
 	ND_heapindex(u) = i;
     }
 }
 
-void heapdown(graph_t * G, node_t * v)
+void heapdown(node_t * v)
 {
     int i, left, right, c;
     node_t *u;
 
     i = ND_heapindex(v);
-    while ((left = 2 * i + 1) < GD_heapsize(G)) {
+    while ((left = 2 * i + 1) < Heapsize) {
 	right = left + 1;
-	if ((right < GD_heapsize(G))
-	    && (ND_dist(GD_heap(G)[right]) < ND_dist(GD_heap(G)[left])))
+	if ((right < Heapsize)
+	    && (ND_dist(Heap[right]) < ND_dist(Heap[left])))
 	    c = right;
 	else
 	    c = left;
-	u = GD_heap(G)[c];
+	u = Heap[c];
 	if (ND_dist(v) <= ND_dist(u))
 	    break;
-	GD_heap(G)[c] = v;
+	Heap[c] = v;
 	ND_heapindex(v) = c;
-	GD_heap(G)[i] = u;
+	Heap[i] = u;
 	ND_heapindex(u) = i;
 	i = c;
     }
 }
 
-void neato_enqueue(graph_t * G, node_t * v)
+void neato_enqueue(node_t * v)
 {
     int i;
 
     assert(ND_heapindex(v) < 0);
-    i = GD_heapsize(G)++;
+    i = Heapsize++;
     ND_heapindex(v) = i;
-    GD_heap(G)[i] = v;
+    Heap[i] = v;
     if (i > 0)
-	heapup(G, v);
+	heapup(v);
 }
 
-node_t *neato_dequeue(graph_t * G)
+node_t *neato_dequeue(void)
 {
     int i;
     node_t *rv, *v;
 
-    if (GD_heapsize(G) == 0)
+    if (Heapsize == 0)
 	return NULL;
-    rv = GD_heap(G)[0];
-    i = --GD_heapsize(G);
-    v = GD_heap(G)[i];
-    GD_heap(G)[0] = v;
+    rv = Heap[0];
+    i = --Heapsize;
+    v = Heap[i];
+    Heap[0] = v;
     ND_heapindex(v) = 0;
     if (i > 1)
-	heapdown(G, v);
+	heapdown(v);
     ND_heapindex(rv) = -1;
     return rv;
 }
@@ -675,8 +679,7 @@ void shortest_path(graph_t * G, int nG)
 {
     node_t *v;
 
-    GD_heap(G) = N_NEW(nG + 1, node_t *);
-    GD_heapsize(G) = 0;
+    Heap = N_NEW(nG + 1, node_t *);
     if (Verbose) {
 	fprintf(stderr, "Calculating shortest paths: ");
 	start_timer();
@@ -686,7 +689,7 @@ void shortest_path(graph_t * G, int nG)
     if (Verbose) {
 	fprintf(stderr, "%.2f sec\n", elapsed_sec());
     }
-    free(GD_heap(G));
+    free(Heap);
 }
 
 void s1(graph_t * G, node_t * node)
@@ -698,12 +701,12 @@ void s1(graph_t * G, node_t * node)
 
     for (t = 0; (v = GD_neato_nlist(G)[t]); t++)
 	ND_dist(v) = Initial_dist;
-    node_t * Src = node;
+    Src = node;
     ND_dist(Src) = 0;
     ND_hops(Src) = 0;
-    neato_enqueue(G, Src);
+    neato_enqueue(Src);
 
-    while ((v = neato_dequeue(G))) {
+    while ((v = neato_dequeue())) {
 	if (v != Src)
 	    make_spring(G, Src, v, ND_dist(v));
 	for (e = agfstedge(G, v); e; e = agnxtedge(G, e, v)) {
@@ -713,10 +716,10 @@ void s1(graph_t * G, node_t * node)
 	    if (ND_dist(u) > f) {
 		ND_dist(u) = f;
 		if (ND_heapindex(u) >= 0)
-		    heapup(G, u);
+		    heapup(u);
 		else {
 		    ND_hops(u) = ND_hops(v) + 1;
-		    neato_enqueue(G, u);
+		    neato_enqueue(u);
 		}
 	    }
 	}

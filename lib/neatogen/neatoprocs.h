@@ -30,8 +30,8 @@ extern "C" {
     extern double fpow32(double);
     extern Ppolyline_t getPath(edge_t *, vconfig_t *, int, Ppoly_t **,
 			       int);
-    extern void heapdown(graph_t *, Agnode_t *);
-    extern void heapup(graph_t *, Agnode_t *);
+    extern void heapdown(Agnode_t *);
+    extern void heapup(Agnode_t *);
     extern void initial_positions(graph_t *, int);
     extern int init_port(Agnode_t *, Agedge_t *, char *, boolean);
     extern void jitter3d(Agnode_t *, int);
@@ -43,8 +43,8 @@ extern "C" {
     extern void move_node(graph_t *, int, Agnode_t *);
     extern int init_nop(graph_t * g, int);
     extern void neato_cleanup(graph_t * g);
-    extern node_t *neato_dequeue(graph_t *);
-    extern void neato_enqueue(graph_t *, node_t *);
+    extern node_t *neato_dequeue(void);
+    extern void neato_enqueue(node_t *);
     extern void neato_init_node(node_t * n);
     extern void neato_layout(Agraph_t * g);
     extern int Plegal_arrangement(Ppoly_t ** polys, int n_polys);

@@ -122,7 +122,7 @@ void sgd(graph_t *G, /* input graph */
     assert(offset == n_terms);
     free(graph);
     if (Verbose) {
-        fprintf(stderr, " %.2f\n", elapsed_sec());
+        fprintf(stderr, " %.2f sec\n", elapsed_sec());
     }
 
     // initialise annealing schedule

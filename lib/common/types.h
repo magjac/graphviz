@@ -297,8 +297,6 @@ typedef enum {NATIVEFONTS,PSFONTS,SVGFONTS} fontname_kind;
 #ifndef DOT_ONLY
 	/* to place nodes */
 	node_t **neato_nlist;
-	node_t **heap;
-	int heapsize;
 	int move;
 	double **dist;
 	double **spring;
@@ -400,8 +398,6 @@ typedef enum {NATIVEFONTS,PSFONTS,SVGFONTS} fontname_kind;
 #define GD_ndim(g) (((Agraphinfo_t*)AGDATA(g))->ndim)
 #define GD_odim(g) (((Agraphinfo_t*)AGDATA(g))->odim)
 #define GD_neato_nlist(g) (((Agraphinfo_t*)AGDATA(g))->neato_nlist)
-#define GD_heap(g) (((Agraphinfo_t*)AGDATA(g))->heap)
-#define GD_heapsize(g) (((Agraphinfo_t*)AGDATA(g))->heapsize)
 #define GD_nlist(g) (((Agraphinfo_t*)AGDATA(g))->nlist)
 #define GD_nodesep(g) (((Agraphinfo_t*)AGDATA(g))->nodesep)
 #define GD_outleaf(g) (((Agraphinfo_t*)AGDATA(g))->outleaf)
