@@ -32,8 +32,8 @@ static void fisheryates_shuffle(term_sgd *terms, int n_terms) {
     }
 }
 
-// to make dijkstras faster
-graph_sgd * extract_adjacency(graph_t *G) {
+// graph_sgd data structure exists only to make dijkstras faster
+graph_sgd * extract_adjacency(graph_t *G, int model) {
     node_t *np;
     edge_t *ep;
     int n_nodes = 0, n_edges = 0;
@@ -41,7 +41,9 @@ graph_sgd * extract_adjacency(graph_t *G) {
         assert(ND_id(np) == n_nodes);
         n_nodes++;
         for (ep = agfstedge(G, np); ep; ep = agnxtedge(G, ep, np)) {
-            n_edges++;
+            if (agtail(ep) != np && agtail(ep) != aghead(ep)) { // ignore self-loops and double edges
+                n_edges++;
+            }
         }
     }
     graph_sgd *graph = N_NEW(1, graph_sgd);
@@ -58,25 +60,62 @@ graph_sgd * extract_adjacency(graph_t *G) {
         graph->sources[n_nodes] = n_edges;
         graph->pinneds[n_nodes] = isFixed(np);
         for (ep = agfstedge(G, np); ep; ep = agnxtedge(G, ep, np)) {
+            if (agtail(ep) == np || agtail(ep) == aghead(ep)) { // ignore self-loops and double edges
+                continue;
+            }
             node_t *target = (agtail(ep) == np) ? aghead(ep) : agtail(ep); // in case edge is reversed
             graph->targets[n_edges] = ND_id(target);
             graph->weights[n_edges] = ED_dist(ep);
-            /*if (model == MODEL_MDS) {
-                graph->weights[n_edges] = ED_dist(ep);
-            } else if (model == MODEL_SHORTPATH) {
+            if (model == MODEL_SHORTPATH) {
                 graph->weights[n_edges] = 1;
+            } else if (model == MODEL_MDS) {
+                assert(ED_dist(ep) > 0);
+                graph->weights[n_edges] = ED_dist(ep);
+            } else if (model == MODEL_SUBSET) {
+                // perform reweighting later
             } else {
-                assert(false); // not supported
-            }*/
-            assert(ED_dist(ep) > 0);
+                assert(false); // circuit model not supported
+            }
             n_edges++;
         }
         n_nodes++;
     }
     assert(n_nodes == graph->n);
     assert(n_edges == graph->sources[graph->n]);
-
     graph->sources[n_nodes] = n_edges;
+
+    if (model == MODEL_SUBSET) {
+        // i,j,k refer to actual node indices, while x,y refer to edge indices in graph->targets
+        int i;
+        bool *neighbours = N_NEW(graph->n, bool);
+        for (i=0; i<graph->n; i++) {
+            neighbours[i] = false; // initialise false
+        }
+        for (i=0; i<graph->n; i++) {
+            int x;
+            for (x=graph->sources[i]; x<graph->sources[i+1]; x++) {
+                neighbours[graph->targets[x]] = true; // set up sort of hashset
+            }
+            int deg_i = graph->sources[i+1] - graph->sources[i];
+            for (x=graph->sources[i]; x<graph->sources[i+1]; x++) {
+                int j = graph->targets[x];
+                int y, intersect = 0;
+                for (y=graph->sources[j]; y<graph->sources[j+1]; y++) {
+                    int k = graph->targets[y];
+                    if (neighbours[k]) {
+                        intersect++;
+                    }
+                }
+                int deg_j = graph->sources[j+1] - graph->sources[j];
+                graph->weights[x] = deg_i + deg_j - (2*intersect);
+                assert(graph->weights[x] > 0);
+            }
+            for (x=graph->sources[i]; x<graph->sources[i+1]; x++) {
+                neighbours[graph->targets[x]] = false; // reset sort of hashset
+            }
+        }
+        free(neighbours);
+    }
     return graph;
 }
 void free_adjacency(graph_sgd *graph) {
@@ -91,10 +130,9 @@ void free_adjacency(graph_sgd *graph) {
 void sgd(graph_t *G, /* input graph */
         int model /* distance model */)
 {
-    if (model == MODEL_SUBSET) {
-        agerr(AGWARN, "subset model not yet supported in Gmode=sgd, reverting to MDS model\n");
-    } else if (model == MODEL_CIRCUIT) {
+    if (model == MODEL_CIRCUIT) {
         agerr(AGWARN, "circuit model not yet supported in Gmode=sgd, reverting to MDS model\n");
+        model = MODEL_MDS;
     }
     int n = agnnodes(G);
 
@@ -113,7 +151,7 @@ void sgd(graph_t *G, /* input graph */
     term_sgd *terms = N_NEW(n_terms, term_sgd);
     // calculate term values through shortest paths
     int offset = 0;
-    graph_sgd *graph = extract_adjacency(G);
+    graph_sgd *graph = extract_adjacency(G, model);
     for (i=0; i<n; i++) {
         if (!isFixed(GD_neato_nlist(G)[i])) {
             offset += dijkstra_sgd(graph, i, terms+offset);
