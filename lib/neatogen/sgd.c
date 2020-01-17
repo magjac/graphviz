@@ -154,7 +154,7 @@ void sgd(graph_t *G, /* input graph */
     int n = agnnodes(G);
 
     if (Verbose) {
-        fprintf(stderr, "calculating shortest paths:");
+        fprintf(stderr, "calculating shortest paths and setting up stress terms:");
         start_timer();
     }
     // calculate how many terms will be needed as fixed nodes can be ignored
@@ -175,7 +175,7 @@ void sgd(graph_t *G, /* input graph */
         }
     }
     assert(offset == n_terms);
-    free(graph);
+    free_adjacency(graph);
     if (Verbose) {
         fprintf(stderr, " %.2f sec\n", elapsed_sec());
     }
@@ -213,7 +213,7 @@ void sgd(graph_t *G, /* input graph */
         start_timer();
     }
     int t;
-    rk_seed(0, &rstate);
+    rk_seed(0, &rstate); // TODO: get seed from graph
     for (t=0; t<MaxIter; t++) {
         fisheryates_shuffle(terms, n_terms);
         float eta = eta_max * exp(-lambda * t);
