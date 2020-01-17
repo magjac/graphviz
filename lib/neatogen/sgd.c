@@ -41,7 +41,7 @@ graph_sgd * extract_adjacency(graph_t *G, int model) {
         assert(ND_id(np) == n_nodes);
         n_nodes++;
         for (ep = agfstedge(G, np); ep; ep = agnxtedge(G, ep, np)) {
-            if (agtail(ep) != np && agtail(ep) != aghead(ep)) { // ignore self-loops and double edges
+            if (agtail(ep) != aghead(ep)) { // ignore self-loops and double edges
                 n_edges++;
             }
         }
@@ -60,7 +60,7 @@ graph_sgd * extract_adjacency(graph_t *G, int model) {
         graph->sources[n_nodes] = n_edges;
         graph->pinneds[n_nodes] = isFixed(np);
         for (ep = agfstedge(G, np); ep; ep = agnxtedge(G, ep, np)) {
-            if (agtail(ep) == np || agtail(ep) == aghead(ep)) { // ignore self-loops and double edges
+            if (agtail(ep) == aghead(ep)) { // ignore self-loops and double edges
                 continue;
             }
             node_t *target = (agtail(ep) == np) ? aghead(ep) : agtail(ep); // in case edge is reversed
@@ -87,34 +87,51 @@ graph_sgd * extract_adjacency(graph_t *G, int model) {
     if (model == MODEL_SUBSET) {
         // i,j,k refer to actual node indices, while x,y refer to edge indices in graph->targets
         int i;
-        bool *neighbours = N_NEW(graph->n, bool);
+        bool *neighbours_i = N_NEW(graph->n, bool);
+        bool *neighbours_j = N_NEW(graph->n, bool);
         for (i=0; i<graph->n; i++) {
-            neighbours[i] = false; // initialise false
+			// initialise to no neighbours
+            neighbours_i[i] = false;
+			neighbours_j[i] = false;
         }
         for (i=0; i<graph->n; i++) {
             int x;
+			int deg_i = 0;
             for (x=graph->sources[i]; x<graph->sources[i+1]; x++) {
-                neighbours[graph->targets[x]] = true; // set up sort of hashset
+                int j = graph->targets[x];
+				if (neighbours_i[j] == false) { // ignore multiedges
+					neighbours_i[j] = true; // set up sort of hashset
+					deg_i++;
+				}
             }
-            int deg_i = graph->sources[i+1] - graph->sources[i];
             for (x=graph->sources[i]; x<graph->sources[i+1]; x++) {
                 int j = graph->targets[x];
                 int y, intersect = 0;
+                int deg_j = 0;
                 for (y=graph->sources[j]; y<graph->sources[j+1]; y++) {
                     int k = graph->targets[y];
-                    if (neighbours[k]) {
-                        intersect++;
+                    if (neighbours_j[k] == false) { // ignore multiedges
+						neighbours_j[k] = true; // set up sort of hashset
+						deg_j++;
+						if (neighbours_i[k]) {
+							intersect++;
+						}
                     }
                 }
-                int deg_j = graph->sources[j+1] - graph->sources[j];
                 graph->weights[x] = deg_i + deg_j - (2*intersect);
                 assert(graph->weights[x] > 0);
+                for (y=graph->sources[j]; y<graph->sources[j+1]; y++) {
+                    int k = graph->targets[y];
+					neighbours_j[k] = false; // reset sort of hashset
+                }
             }
             for (x=graph->sources[i]; x<graph->sources[i+1]; x++) {
-                neighbours[graph->targets[x]] = false; // reset sort of hashset
+                int j = graph->targets[x];
+                neighbours_i[j] = false; // reset sort of hashset
             }
         }
-        free(neighbours);
+        free(neighbours_i);
+        free(neighbours_j);
     }
     return graph;
 }
