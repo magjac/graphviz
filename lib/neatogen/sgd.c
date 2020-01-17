@@ -90,19 +90,19 @@ graph_sgd * extract_adjacency(graph_t *G, int model) {
         bool *neighbours_i = N_NEW(graph->n, bool);
         bool *neighbours_j = N_NEW(graph->n, bool);
         for (i=0; i<graph->n; i++) {
-			// initialise to no neighbours
+            // initialise to no neighbours
             neighbours_i[i] = false;
-			neighbours_j[i] = false;
+            neighbours_j[i] = false;
         }
         for (i=0; i<graph->n; i++) {
             int x;
-			int deg_i = 0;
+            int deg_i = 0;
             for (x=graph->sources[i]; x<graph->sources[i+1]; x++) {
                 int j = graph->targets[x];
-				if (neighbours_i[j] == false) { // ignore multiedges
-					neighbours_i[j] = true; // set up sort of hashset
-					deg_i++;
-				}
+                if (neighbours_i[j] == false) { // ignore multiedges
+                    neighbours_i[j] = true; // set up sort of hashset
+                    deg_i++;
+                }
             }
             for (x=graph->sources[i]; x<graph->sources[i+1]; x++) {
                 int j = graph->targets[x];
@@ -111,18 +111,18 @@ graph_sgd * extract_adjacency(graph_t *G, int model) {
                 for (y=graph->sources[j]; y<graph->sources[j+1]; y++) {
                     int k = graph->targets[y];
                     if (neighbours_j[k] == false) { // ignore multiedges
-						neighbours_j[k] = true; // set up sort of hashset
-						deg_j++;
-						if (neighbours_i[k]) {
-							intersect++;
-						}
+                        neighbours_j[k] = true; // set up sort of hashset
+                        deg_j++;
+                        if (neighbours_i[k]) {
+                            intersect++;
+                        }
                     }
                 }
                 graph->weights[x] = deg_i + deg_j - (2*intersect);
                 assert(graph->weights[x] > 0);
                 for (y=graph->sources[j]; y<graph->sources[j+1]; y++) {
                     int k = graph->targets[y];
-					neighbours_j[k] = false; // reset sort of hashset
+                    neighbours_j[k] = false; // reset sort of hashset
                 }
             }
             for (x=graph->sources[i]; x<graph->sources[i+1]; x++) {
