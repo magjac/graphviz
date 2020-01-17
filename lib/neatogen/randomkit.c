@@ -71,51 +71,6 @@
 #include <limits.h>
 #include <math.h>
 
-/*
-#ifdef _WIN32
-
-// * Windows
-// * XXX: we have to use this ugly defined(__GNUC__) because it is not easy to
-// * detect the compiler used in distutils itself
-// */
-//#if (defined(__GNUC__) && defined(NPY_NEEDS_MINGW_TIME_WORKAROUND))
-//
-///*
-// * FIXME: ideally, we should set this to the real version of MSVCRT. We need
-// * something higher than 0x601 to enable _ftime64 and co
-// */
-//#define __MSVCRT_VERSION__ 0x0700
-//#include <time.h>
-//#include <sys/timeb.h>
-//
-///*
-// * mingw msvcr lib import wrongly export _ftime, which does not exist in the
-// * actual msvc runtime for version >= 8; we make it an alias to _ftime64, which
-// * is available in those versions of the runtime
-// */
-//#define _FTIME(x) _ftime64((x))
-//#else
-//#include <time.h>
-//#include <sys/timeb.h>
-//#define _FTIME(x) _ftime((x))
-//#endif
-//
-//#ifndef RK_NO_WINCRYPT
-///* Windows crypto */
-//#ifndef _WIN32_WINNT
-//#define _WIN32_WINNT 0x0400
-//#endif
-//#include <windows.h>
-//#include <wincrypt.h>
-//#endif
-//
-//#else
-///* Unix */
-//#include <time.h>
-//#include <sys/time.h>
-//#include <unistd.h>
-//#endif
-
 #include "randomkit.h"
 
 #ifndef RK_DEV_URANDOM
