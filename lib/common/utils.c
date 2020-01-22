@@ -2002,6 +2002,7 @@ void fix_fc(void)
 #endif
 
 #ifndef HAVE_DRAND48
+#pragma weak drand48
 double drand48(void)
 {
     double d;
