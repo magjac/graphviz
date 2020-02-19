@@ -81,15 +81,15 @@ centos7-build:
     tags:
         - graphviz,centos7
 
-fedora27-build:
-    <<: *rpm_build_definition
-    tags:
-        - graphviz,fedora27
+          #fedora27-build:
+          #<<: *rpm_build_definition
+          #tags:
+          #- graphviz,fedora27
 
-fedora28-build:
-    <<: *rpm_build_definition
-    tags:
-        - graphviz,fedora28
+          #fedora28-build:
+          #<<: *rpm_build_definition
+          #tags:
+          #- graphviz,fedora28
 
 fedora29-build:
     <<: *rpm_build_definition
@@ -110,6 +110,11 @@ fedora32-build:
     <<: *rpm_build_definition
     tags:
         - graphviz,fedora32
+
+fedora33-build:
+    <<: *rpm_build_definition
+    tags:
+        - graphviz,fedora33
 
 ubuntu18-04-build:
     <<: *deb_build_definition
