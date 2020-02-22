@@ -412,7 +412,7 @@ int dijkstra_sgd(graph_sgd *graph, int source, term_sgd *terms) {
     dists[source] = 0;
     for (i=graph->sources[source]; i<graph->sources[source+1]; i++) {
         int target = graph->targets[i];
-        dists[target] = graph->weights[target];
+        dists[target] = graph->weights[i];
     }
     initHeap_f(&h, source, indices, dists, graph->n);
 
@@ -433,7 +433,7 @@ int dijkstra_sgd(graph_sgd *graph, int source, term_sgd *terms) {
         }
         for (i=graph->sources[closest]; i<graph->sources[closest+1]; i++) {
             int target = graph->targets[i];
-            int weight = graph->weights[i];
+            float weight = graph->weights[i];
             increaseKey_f(&h, target, d+weight, indices, dists);
         }
     }

@@ -66,16 +66,7 @@ graph_sgd * extract_adjacency(graph_t *G, int model) {
             node_t *target = (agtail(ep) == np) ? aghead(ep) : agtail(ep); // in case edge is reversed
             graph->targets[n_edges] = ND_id(target);
             graph->weights[n_edges] = ED_dist(ep);
-            if (model == MODEL_SHORTPATH) {
-                graph->weights[n_edges] = 1;
-            } else if (model == MODEL_MDS) {
-                assert(ED_dist(ep) > 0);
-                graph->weights[n_edges] = ED_dist(ep);
-            } else if (model == MODEL_SUBSET) {
-                // perform reweighting later
-            } else {
-                assert(false); // circuit model not supported
-            }
+            assert(graph->weights[n_edges] > 0);
             n_edges++;
         }
         n_nodes++;
@@ -84,7 +75,9 @@ graph_sgd * extract_adjacency(graph_t *G, int model) {
     assert(n_edges == graph->sources[graph->n]);
     graph->sources[n_nodes] = n_edges;
 
-    if (model == MODEL_SUBSET) {
+    if (model == MODEL_SHORTPATH || model == MODEL_MDS) {
+        // TODO: fix MDS
+    } else if (model == MODEL_SUBSET) {
         // i,j,k refer to actual node indices, while x,y refer to edge indices in graph->targets
         int i;
         bool *neighbours_i = N_NEW(graph->n, bool);
@@ -132,6 +125,8 @@ graph_sgd * extract_adjacency(graph_t *G, int model) {
         }
         free(neighbours_i);
         free(neighbours_j);
+    } else {
+        assert(false); // circuit model not supported
     }
     return graph;
 }
