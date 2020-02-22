@@ -75,8 +75,8 @@ graph_sgd * extract_adjacency(graph_t *G, int model) {
     assert(n_edges == graph->sources[graph->n]);
     graph->sources[n_nodes] = n_edges;
 
-    if (model == MODEL_SHORTPATH || model == MODEL_MDS) {
-        // TODO: fix MDS
+    if (model == MODEL_SHORTPATH) {
+        // do nothing
     } else if (model == MODEL_SUBSET) {
         // i,j,k refer to actual node indices, while x,y refer to edge indices in graph->targets
         int i;
@@ -126,7 +126,8 @@ graph_sgd * extract_adjacency(graph_t *G, int model) {
         free(neighbours_i);
         free(neighbours_j);
     } else {
-        assert(false); // circuit model not supported
+        // TODO: model == MODEL_MDS and MODEL_CIRCUIT
+        assert(false); // mds and circuit model not supported
     }
     return graph;
 }
@@ -143,8 +144,12 @@ void sgd(graph_t *G, /* input graph */
         int model /* distance model */)
 {
     if (model == MODEL_CIRCUIT) {
-        agerr(AGWARN, "circuit model not yet supported in Gmode=sgd, reverting to MDS model\n");
-        model = MODEL_MDS;
+        agerr(AGWARN, "circuit model not yet supported in Gmode=sgd, reverting to shortpath model\n");
+        model = MODEL_SHORTPATH;
+    }
+    if (model == MODEL_MDS) {
+        agerr(AGWARN, "mds model not yet supported in Gmode=sgd, reverting to shortpath model\n");
+        model = MODEL_SHORTPATH;
     }
     int n = agnnodes(G);
 
