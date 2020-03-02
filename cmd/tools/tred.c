@@ -2,7 +2,7 @@
 /* vim:set shiftwidth=4 ts=8: */
 
 /*************************************************************************
- * Copyright (c) 2011 AT&T Intellectual Property 
+ * Copyright (c) 2011 AT&T Intellectual Property
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,8 +35,8 @@ typedef struct {
     unsigned char dist;
 } nodeinfo_t;
 
-#define ON_STACK(ninfo,n) (ninfo[AGSEQ(n)].on_stack) 
-#define DIST(ninfo,n) (ninfo[AGSEQ(n)].dist) 
+#define ON_STACK(ninfo,n) (ninfo[AGSEQ(n)].on_stack)
+#define DIST(ninfo,n) (ninfo[AGSEQ(n)].dist)
 #define agrootof(n) ((n)->root)
 
 #ifdef HAVE_UNISTD_H
@@ -130,28 +130,28 @@ static Agedge_t *top(estack_t* sp)
 	    return 0;
 	pp = sp->Stk.curblk->prev->endp-1;
     }
-    else 
+    else
 	pp = sp->Stk.curp-1;
     return *pp;
 }
 
 /* dfs:
  * Main function for transitive reduction.
- * This does a DFS starting at node n. Each node records the length of 
+ * This does a DFS starting at node n. Each node records the length of
  * its largest simple path from n. We only care if the length is > 1. Node
  * n will have distance 0; outneighbors of n will have distance 1 or 2; all
- * others will have distance 2. 
+ * others will have distance 2.
  *
- * During the DFS, we only push edges on the stack whose head has distance 0 
+ * During the DFS, we only push edges on the stack whose head has distance 0
  * (i.e., hasn't been visited yet), setting its distance to the distance of the
  * tail node plus one. If we find a head node with distance 1, we don't push the
  * edge, since it has already been in a DFS, but we update its distance. We also
  * check for back edges and report these.
- * 
+ *
  * After the DFS, we check all outedges of n. Those edges whose head has
  * distance 2 we delete. We also delete all but one copy of any edges with the
  * same head.
- */ 
+ */
 static int dfs(Agnode_t * n, nodeinfo_t* ninfo, int warn, estack_t* sp)
 {
     Agraph_t *g = agrootof(n);
@@ -208,7 +208,7 @@ static int dfs(Agnode_t * n, nodeinfo_t* ninfo, int warn, estack_t* sp)
 	    prev = pop(sp, ninfo);
 	}
     }
-    oldhd = NULL; 
+    oldhd = NULL;
     for (e = agfstout(g, n); e; e = f) {
 	f = agnxtout(g, e);
 	hd = aghead(e);
