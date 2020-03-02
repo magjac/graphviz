@@ -4,7 +4,7 @@ tred \- transitive reduction filter for directed graphs
 .SH SYNOPSIS
 .B tred
 [
-.B \-v?
+.B \-vr?
 ]
 [
 .I files
@@ -27,7 +27,10 @@ Undirected graphs are silently ignored.
 The following options are supported:
 .TP
 .B \-v
-Verbose output.
+Verbose output to stderr.
+.TP
+.B \-r
+Print information of removed edges to stderr.
 .TP
 .B \-?
 Print usage information.

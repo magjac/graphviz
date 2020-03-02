@@ -49,6 +49,7 @@ typedef struct {
 static char **Files;
 static char *CmdName;
 static int Verbose;
+static int PrintRemovedEdges;
 
 typedef struct blk_t {
     Agedge_t **data;
@@ -164,6 +165,7 @@ static int dfs(Agnode_t * n, nodeinfo_t* ninfo, int warn, estack_t* sp)
     Agnode_t* v;
     Agnode_t* hd;
     Agnode_t* oldhd;
+    int do_delete;
 
     dummy.out.base.tag.objtype = AGOUTEDGE;
     dummy.out.node = n;
@@ -210,20 +212,27 @@ static int dfs(Agnode_t * n, nodeinfo_t* ninfo, int warn, estack_t* sp)
     }
     oldhd = NULL;
     for (e = agfstout(g, n); e; e = f) {
+        do_delete = 0;
 	f = agnxtout(g, e);
 	hd = aghead(e);
         if (oldhd == hd)
-	    agdelete(g, e);
+	    do_delete = 1;
         else {
             oldhd = hd;
-	    if (DIST(ninfo, hd)>1) agdelete(g, e);
-	}
+            if (DIST(ninfo, hd)>1) do_delete = 1;
+        }
+        if(do_delete) {
+            if(PrintRemovedEdges) fprintf(stderr,"removed edge: %s: \"%s\" -> \"%s\"\n"
+                          , agnameof(g), agnameof(aghead(e)), agnameof(agtail(e)));
+            agdelete(g, e);
+        }
     }
     return warn;
 }
 
-static char *useString = "Usage: %s [-v?] <files>\n\
-  -v - verbose\n\
+static char *useString = "Usage: %s [-vr?] <files>\n\
+  -v - verbose (to stderr)\n\
+  -r - print removed edges to stderr\n\
   -? - print usage\n\
 If no files are specified, stdin is used\n";
 
@@ -239,11 +248,14 @@ static void init(int argc, char *argv[])
 
     CmdName = argv[0];
     opterr = 0;
-    while ((c = getopt(argc, argv, "v")) != -1) {
+    while ((c = getopt(argc, argv, "vr")) != -1) {
 	switch (c) {
 	case 'v':
 	    Verbose = 1;
 	    break;
+	case 'r':
+        PrintRemovedEdges = 1;
+        break;
 	case '?':
 	    if (optopt == '?')
 		usage(0);
