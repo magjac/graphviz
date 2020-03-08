@@ -38,6 +38,8 @@
 #include "gvio.h"
 #include "gvcint.h"
 
+#define LOCALNAMEPREFIX		'%'
+
 typedef enum { FORMAT_SVG, FORMAT_SVGZ, } format_type;
 
 /* SVG dash array */
@@ -201,7 +203,7 @@ static void svg_begin_graph(GVJ_t * job)
     obj_state_t *obj = job->obj;
 
     gvputs(job, "<!--");
-    if (agnameof(obj->u.g)[0]) {
+    if (agnameof(obj->u.g)[0] && agnameof(obj->u.g)[0] != LOCALNAMEPREFIX) {
 	gvputs(job, " Title: ");
 	gvputs(job, xml_string(agnameof(obj->u.g)));
     }
@@ -262,7 +264,7 @@ static void svg_begin_page(GVJ_t * job)
     gvprintdouble(job, -job->translation.y);
     gvputs(job, ")\">\n");
     /* default style */
-    if (agnameof(obj->u.g)[0]) {
+    if (agnameof(obj->u.g)[0] && agnameof(obj->u.g)[0] != LOCALNAMEPREFIX) {
 	gvputs(job, "<title>");
 	gvputs(job, xml_string(agnameof(obj->u.g)));
 	gvputs(job, "</title>\n");
