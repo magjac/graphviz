@@ -156,6 +156,9 @@ install: build
 		--override s/libgvc$(GVC_SONAME)-dev//      \
 		--override s/libexpr$(EXPR_SONAME)-dev//      \
 		--override s/libgts-0.7-5-dev/libgts-dev/ \
+		--override s/libexpat1-dev// \
+		--override s/libltdl7-dev// \
+		--override s/zlib1g-dev// \
 		$(CURDIR)/debian/libgraphviz-dev.substvars \
 		$(CURDIR)/debian/tmp/usr/lib/*.so
 
