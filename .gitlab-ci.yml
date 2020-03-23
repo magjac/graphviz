@@ -49,6 +49,7 @@ portable-source:
 .build_template: &deb_build_definition
     stage: build
     script:
+        - cat /etc/os-release
         - GV_VERSION=$( cat VERSION )
         - COLLECTION=$( cat COLLECTION )
         - zcat graphviz-${GV_VERSION}.tar.gz | tar xf -
