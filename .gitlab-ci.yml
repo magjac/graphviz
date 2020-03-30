@@ -137,6 +137,11 @@ ubuntu19-04-build:
         - linux
     image: "graphviz/graphviz:ubuntu-19.04"
 
+ubuntu19-10-build:
+    <<: *deb_build_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:ubuntu-19.10"
 
 deployment:
     stage: deploy
