@@ -1,6 +1,7 @@
 stages:
     - source
     - build
+    - test
     - deploy
 
 portable-source:
@@ -156,6 +157,28 @@ ubuntu19-10-build:
     tags:
         - linux
     image: "graphviz/graphviz:ubuntu-19.10"
+
+ubuntu19-10-test:
+    stage: test
+    script:
+        - cat /etc/os-release
+        - ls -lt
+        - GV_VERSION=$( cat VERSION )
+        - COLLECTION=$( cat COLLECTION )
+        - zcat graphviz-${GV_VERSION}.tar.gz | tar xf -
+        - . /etc/os-release
+        - DIR=Packages/${COLLECTION}/${ID}/${VERSION_ID}
+        - ARCH=$( uname -m )
+        - find Packages
+        - apt install ./${DIR}/os/${ARCH}/libgraphviz4_${GV_VERSION}-1_amd64.deb
+        - apt install ./${DIR}/os/${ARCH}/graphviz_${GV_VERSION}-1_amd64.deb
+        - cd graphviz-${GV_VERSION}
+        - ./configure
+        - make -C tests/regression_tests/shapes check
+    image: "graphviz/graphviz:ubuntu-19.10"
+    only:
+        - master
+        - run-tests-on-gitlab-runners
 
 deployment:
     stage: deploy
