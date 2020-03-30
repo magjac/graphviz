@@ -8,7 +8,7 @@
 \def\dag{{\it dag}}
 \def\DOT{{\it DOT}}
 \def\graphviz{{\it Graphviz}}
-\newcommand{\lastedited}{January 5, 2015}
+\newcommand{\lastedited}{February 13, 2020}
 \date{\lastedited}
 \newcommand{\mymark}{{\it dot} User's Manual, \lastedited \hfil }
 \markboth{\mymark}{\mymark}
@@ -1526,11 +1526,8 @@ Vertical bars $|$ separate alternatives.
 {\it node-stmt} & $\rightarrow$ & {\it node-id} \lopt{\it attr-list}\ropt \\
 
 {\it node-id}  & $\rightarrow$ & {\it id} \lopt  {\it port}\ropt \\
-{\it port}  & $\rightarrow$ & {\it port-location} \lopt  {\it port-angle}\ropt\
- $|$ {\it port-angle} \lopt  {\it port-location}\ropt \\
 
-{\it port-location}  & $\rightarrow$ & ':' {\it id} $|$ ':' '(' {\it id} ',' {\it id} ')' \\
-{\it port-angle}  & $\rightarrow$ & '@' {\it id} \\
+{\it port}  & $\rightarrow$ & ':' {\it id} \lopt ':' {\it id} \ropt \\
 
 {\it edge-stmt} & $\rightarrow$ & \lgrp{\it node-id} $|$ {\it subgraph}\rgrp\ {\it edgeRHS} \lopt {\it attr-list}\ropt \\
 
