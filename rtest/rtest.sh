@@ -17,7 +17,7 @@ then
   exit 1
 fi
 # csh, ksh88 filter
-(( 1.5 == 1 )) && { echo "Graphviz test suite requires ksh93"; exit 1; } 
+#(( 1.5 == 1 )) && { echo "Graphviz test suite requires ksh93"; exit 1; }
 
 TESTFILE=tests.txt     # Test specifications
 GRAPHDIR=graphs        # Directory of input graphs and data
