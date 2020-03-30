@@ -67,8 +67,6 @@ portable-source:
         paths:
             - Packages/*/*/*/*/*/*deb
             - Packages/*/*/*/*/*.gz
-    only:
-        - master
 
 centos6-build:
     <<: *rpm_build_definition
@@ -123,17 +121,21 @@ fedora33-build:
 ubuntu18-04-build:
     <<: *deb_build_definition
     tags:
-        - graphviz,ubuntu18-04
+        - linux
+    image: "graphviz/graphviz:ubuntu-18.04"
 
 ubuntu18-10-build:
     <<: *deb_build_definition
     tags:
         - graphviz,ubuntu18-10
+    only:
+        - master
 
 ubuntu19-04-build:
     <<: *deb_build_definition
     tags:
-        - graphviz,ubuntu19-04
+        - linux
+    image: "graphviz/graphviz:ubuntu-19.04"
 
 
 deployment:
