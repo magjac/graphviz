@@ -180,6 +180,12 @@ ubuntu18-04-test:
         - linux
     image: "graphviz/graphviz:ubuntu-18.04"
 
+ubuntu19-04-test:
+    <<: *deb_test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:ubuntu-19.04"
+
 ubuntu19-10-test:
     <<: *deb_test_definition
     tags:
