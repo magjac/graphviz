@@ -22,7 +22,7 @@ portable-source:
 .build_template: &rpm_build_definition
     stage: build
     script:
-        - rm -rf /home/gitlab-runner/rpmbuild
+        - rm -rf ${HOME}/rpmbuild
         - GV_VERSION=$( cat VERSION )
         - COLLECTION=$( cat COLLECTION )
         - rpmbuild -ta graphviz-${GV_VERSION}.tar.gz
@@ -34,9 +34,9 @@ portable-source:
         - mkdir -p ${DIR}/os/${ARCH}
         - mkdir -p ${DIR}/debug/${ARCH}
         - mkdir -p ${DIR}/source
-        - mv /home/gitlab-runner/rpmbuild/SRPMS/*.src.rpm ${DIR}/source/
-        - mv /home/gitlab-runner/rpmbuild/RPMS/*/*debuginfo*rpm ${DIR}/debug/${ARCH}/
-        - mv /home/gitlab-runner/rpmbuild/RPMS/*/*.rpm ${DIR}/os/${ARCH}/
+        - mv ${HOME}/rpmbuild/SRPMS/*.src.rpm ${DIR}/source/
+        - mv ${HOME}/rpmbuild/RPMS/*/*debuginfo*rpm ${DIR}/debug/${ARCH}/
+        - mv ${HOME}/rpmbuild/RPMS/*/*.rpm ${DIR}/os/${ARCH}/
     artifacts:
         when: on_success
         expire_in: 1 week
