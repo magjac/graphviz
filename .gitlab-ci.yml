@@ -98,37 +98,32 @@ centos8-build:
 fedora29-build:
     <<: *rpm_build_definition
     tags:
-        - graphviz,fedora29
-    only:
-         - master
+        - linux
+    image: "graphviz/graphviz:fedora29"
 
 fedora30-build:
     <<: *rpm_build_definition
     tags:
-        - graphviz,fedora30
-    only:
-         - master
+        - linux
+    image: "graphviz/graphviz:fedora30"
 
 fedora31-build:
     <<: *rpm_build_definition
     tags:
-        - graphviz,fedora31
-    only:
-         - master
+        - linux
+    image: "graphviz/graphviz:fedora31"
 
 fedora32-build:
     <<: *rpm_build_definition
     tags:
-        - graphviz,fedora32
-    only:
-         - master
+        - linux
+    image: "graphviz/graphviz:fedora32"
 
 fedora33-build:
     <<: *rpm_build_definition
     tags:
-        - graphviz,fedora33
-    only:
-         - master
+        - linux
+    image: "graphviz/graphviz:fedora33"
 
 ubuntu18-04-build:
     <<: *deb_build_definition

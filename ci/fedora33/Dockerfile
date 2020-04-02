@@ -1,21 +1,26 @@
-FROM centos:6
+FROM fedora:33
 
 # Development tools
 RUN yum -y groupinstall 'Development Tools'
 RUN ln -s /usr/lib64/libedit.so.0 /usr/lib64/libedit.so
+RUN yum -y install rpm-build
+RUN yum -y install bison
+RUN yum -y install byacc
+RUN yum -y install flex
 
 # Centos build utilities
 RUN yum -y install libtool-ltdl-devel
 RUN yum -y install ksh
 RUN yum -y install cmake
 
-# Option xpat
-RUN yum -y install expat-devel
-
 # Option glut
 RUN yum -y install freeglut-devel
 
+# Option ann
+RUN yum -y install ann-devel
+
 # Option gts
+RUN yum -y install gts-devel
 
 # Option swig
 RUN yum -y install swig
@@ -25,11 +30,11 @@ RUN yum -y install swig
 # Command smyra
 
 # Command gvedit
-RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-RUN yum -y install qt5-qtbase-devel
+RUN yum -y install qt5-devel
 RUN yum -y install ncurses-devel
 
 # Plugin library devil
+RUN yum -y install DevIL-devel
 
 # Plugin library gd
 RUN yum -y install gd-devel
@@ -38,15 +43,16 @@ RUN yum -y install gd-devel
 RUN yum -y install ghostscript-devel
 
 # Plugin library gtk
-RUN yum -y install gtk2-devel
+RUN yum -y install gtkglext-devel
 
 # Plugin library lasi
+RUN yum -y install lasi-devel
 
 # Plugin library pangocairo
 
 # Plugin library poppler
 RUN yum -y install poppler-glib-devel
-RUN yum -y install poppler-qt
+RUN yum -y install poppler-qt5
 
 # Plugin library rsvg
 RUN yum -y install librsvg2-devel
@@ -54,9 +60,10 @@ RUN yum -y install librsvg2-devel
 # Plugin library webp
 
 # Language extension gv_sharp & gv_ruby
-RUN yum -y install ruby
 
 # Language extension gv_go
+RUN yum -y install golang
+RUN yum -y install gcc-go
 
 # Language extension gv_guile
 RUN yum -y install guile-devel
@@ -75,21 +82,22 @@ RUN yum -y install perl-ExtUtils-Embed
 
 # Language extension gv_php
 RUN yum -y install php-devel
-RUN yum -y install bzip2-devel
-RUN yum -y install pcre-devel
-RUN yum -y install openssl-devel
 
 # Language extension gv_python & gv_python2
-RUN yum -y install python2-devel
+
+# Language extension gv_python3
+RUN yum -y install python3-devel
+
+# Language extension gv_R
+RUN yum -y install R-devel
 
 # Language extension gv_ruby
 RUN yum -y install ruby-devel
 
 # Language extension gv_tcl
-RUN yum -y install tcl-devel
 
-# Requred in redhat/graphviz.spec.fedora.in
-RUN yum -y install libICE-devel
-RUN yum -y install libSM-devel
+# Required in redhat/graphviz.spec.fedora.in
 RUN yum -y install libXaw-devel
-RUN yum -y install tk-devel
+RUN yum -y install glade3-libgladeui-devel
+RUN yum -y install libglade2-devel
+RUN yum -y install mono-core
