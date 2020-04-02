@@ -22,7 +22,7 @@ portable-source:
 .build_template: &rpm_build_definition
     stage: build
     script:
-        - rm -rf /home/gitlab-runner/rpmbuild
+        - rm -rf ${HOME}/rpmbuild
         - GV_VERSION=$( cat VERSION )
         - COLLECTION=$( cat COLLECTION )
         - rpmbuild -ta graphviz-${GV_VERSION}.tar.gz
@@ -34,17 +34,15 @@ portable-source:
         - mkdir -p ${DIR}/os/${ARCH}
         - mkdir -p ${DIR}/debug/${ARCH}
         - mkdir -p ${DIR}/source
-        - mv /home/gitlab-runner/rpmbuild/SRPMS/*.src.rpm ${DIR}/source/
-        - mv /home/gitlab-runner/rpmbuild/RPMS/*/*debuginfo*rpm ${DIR}/debug/${ARCH}/
-        - mv /home/gitlab-runner/rpmbuild/RPMS/*/*.rpm ${DIR}/os/${ARCH}/
+        - mv ${HOME}/rpmbuild/SRPMS/*.src.rpm ${DIR}/source/
+        - mv ${HOME}/rpmbuild/RPMS/*/*debuginfo*rpm ${DIR}/debug/${ARCH}/
+        - mv ${HOME}/rpmbuild/RPMS/*/*.rpm ${DIR}/os/${ARCH}/
     artifacts:
         when: on_success
         expire_in: 1 week
         paths:
             - Packages/*/*/*/*/*/*.rpm
             - Packages/*/*/*/*/*.rpm
-    only:
-         - master
 
 .build_template: &deb_build_definition
     stage: build
@@ -72,17 +70,20 @@ portable-source:
 centos6-build:
     <<: *rpm_build_definition
     tags:
-        - graphviz,centos6
+        - linux
+    image: "graphviz/graphviz:centos6"
 
 centos7-build:
     <<: *rpm_build_definition
     tags:
-        - graphviz,centos7
+        - linux
+    image: "graphviz/graphviz:centos7"
 
 centos8-build:
     <<: *rpm_build_definition
     tags:
-        - graphviz,centos8
+        - linux
+    image: "graphviz/graphviz:centos8"
 
           #fedora27-build:
           #<<: *rpm_build_definition
@@ -98,26 +99,36 @@ fedora29-build:
     <<: *rpm_build_definition
     tags:
         - graphviz,fedora29
+    only:
+         - master
 
 fedora30-build:
     <<: *rpm_build_definition
     tags:
         - graphviz,fedora30
+    only:
+         - master
 
 fedora31-build:
     <<: *rpm_build_definition
     tags:
         - graphviz,fedora31
+    only:
+         - master
 
 fedora32-build:
     <<: *rpm_build_definition
     tags:
         - graphviz,fedora32
+    only:
+         - master
 
 fedora33-build:
     <<: *rpm_build_definition
     tags:
         - graphviz,fedora33
+    only:
+         - master
 
 ubuntu18-04-build:
     <<: *deb_build_definition

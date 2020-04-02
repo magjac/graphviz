@@ -1,8 +1,9 @@
-FROM centos:7
+FROM centos:8
 
 # Development tools
 RUN yum -y groupinstall 'Development Tools'
 RUN ln -s /usr/lib64/libedit.so.0 /usr/lib64/libedit.so
+RUN dnf config-manager --set-enabled PowerTools
 
 # Centos build utilities
 RUN yum -y install libtool-ltdl-devel
@@ -22,7 +23,7 @@ RUN yum -y install swig
 # Command smyra
 
 # Command gvedit
-RUN yum -y install qt5-qtbase-devel
+RUN yum -y install qt5-devel
 RUN yum -y install ncurses-devel
 
 # Plugin library devil
@@ -42,7 +43,7 @@ RUN yum -y install gtk2-devel
 
 # Plugin library poppler
 RUN yum -y install poppler-glib-devel
-RUN yum -y install poppler-qt
+RUN yum -y install poppler-qt5
 
 # Plugin library rsvg
 RUN yum -y install librsvg2-devel
@@ -70,7 +71,6 @@ RUN yum -y install perl-ExtUtils-Embed
 
 # Language extension gv_php
 RUN yum -y install php-devel
-RUN yum -y install bzip2-devel
 RUN yum -y install openssl-devel
 RUN yum -y install libxml2-devel
 
