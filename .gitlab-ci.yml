@@ -43,8 +43,6 @@ portable-source:
         paths:
             - Packages/*/*/*/*/*/*.rpm
             - Packages/*/*/*/*/*.rpm
-    only:
-         - master
 
 .build_template: &deb_build_definition
     stage: build
@@ -72,17 +70,20 @@ portable-source:
 centos6-build:
     <<: *rpm_build_definition
     tags:
-        - graphviz,centos6
+        - linux
+    image: "graphviz/graphviz:centos6"
 
 centos7-build:
     <<: *rpm_build_definition
     tags:
-        - graphviz,centos7
+        - linux
+    image: "graphviz/graphviz:centos7"
 
 centos8-build:
     <<: *rpm_build_definition
     tags:
-        - graphviz,centos8
+        - linux
+    image: "graphviz/graphviz:centos8"
 
           #fedora27-build:
           #<<: *rpm_build_definition
@@ -98,26 +99,36 @@ fedora29-build:
     <<: *rpm_build_definition
     tags:
         - graphviz,fedora29
+    only:
+         - master
 
 fedora30-build:
     <<: *rpm_build_definition
     tags:
         - graphviz,fedora30
+    only:
+         - master
 
 fedora31-build:
     <<: *rpm_build_definition
     tags:
         - graphviz,fedora31
+    only:
+         - master
 
 fedora32-build:
     <<: *rpm_build_definition
     tags:
         - graphviz,fedora32
+    only:
+         - master
 
 fedora33-build:
     <<: *rpm_build_definition
     tags:
         - graphviz,fedora33
+    only:
+         - master
 
 ubuntu18-04-build:
     <<: *deb_build_definition
