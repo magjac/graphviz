@@ -14,7 +14,7 @@ digraph G {
   node [shape=circle width=0.5 label=""]
 
   {
-    edge [dir=back samehead=ahead samearrowhead=1]
+    edge [dir=back samehead=ahead]
     a->Z [arrowtail=none taillabel=none]
     b->Z [arrowtail=normal taillabel=normal]
     c->Z [arrowtail=inv taillabel=inv]
@@ -34,7 +34,7 @@ digraph G {
     q->Z [arrowtail=crow taillabel=crow]
   }
   {
-    edge [dir=forward sametail=atail samearrowtail=1]
+    edge [dir=forward sametail=atail]
     Z->A [arrowhead=none headlabel=none]
     Z->B [arrowhead=normal headlabel=normal]
     Z->C [arrowhead=inv headlabel=inv]
