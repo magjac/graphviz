@@ -431,3 +431,5 @@ print -u 2 "No. tests: $TOT_CNT Layout failures: $CRASH_CNT"
 else
 print -u 2 "No. tests: $TOT_CNT Layout failures: $CRASH_CNT Changes: $DIFF_CNT"
 fi
+(( EXIT_STATUS=CRASH_CNT+DIFF_CNT ))
+exit $EXIT_STATUS
