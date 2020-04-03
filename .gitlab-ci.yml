@@ -173,6 +173,6 @@ deployment:
         - md5sum graphviz-"$GV_VERSION".tar.gz >graphviz-"$GV_VERSION".tar.gz.md5
         - scp graphviz-"$GV_VERSION".tar.gz graphviz-"$GV_VERSION".tar.gz.md5 "$DEPLOY_USER"@"$DEPLOY_HOST"':'Packages/"$COLLECTION"/portable_source/
     only:
-        - master
+        - master@graphviz/graphviz
     tags:
         - graphviz,deploy
