@@ -17,7 +17,7 @@ digraph structs {
 </TABLE>>,
 		pos="34.5,41.5",
 		width=0.95833];
-	struct1:f1 -> struct2:f0	[pos="e,21.5,51.5 71.5,126 71.5,89.861 30.436,90.789 22.736,61.6"];
+	struct1:f1 -> struct2:f0	[pos="e,21.5,52.5 71.5,125 71.5,89.68 30.789,90.941 22.837,62.766"];
 	struct3	[height=1.1528,
 		label=<
 <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
@@ -36,5 +36,5 @@ digraph structs {
 </TABLE>>,
 		pos="158.5,41.5",
 		width=1.9861];
-	struct1:f2 -> struct3:here	[pos="e,154.15,48.971 112.5,126 112.5,98.624 132.02,72.394 146.91,56.371"];
+	struct1:f2 -> struct3:here	[pos="e,154.15,49.728 112.5,125 112.5,98.095 132.02,72.518 146.91,56.926"];
 }
