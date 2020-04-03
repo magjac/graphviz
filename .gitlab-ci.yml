@@ -137,7 +137,7 @@ ubuntu18-10-build:
     tags:
         - graphviz,ubuntu18-10
     only:
-        - master
+        - master@graphviz/graphviz
 
 ubuntu19-04-build:
     <<: *deb_build_definition
