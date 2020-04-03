@@ -284,9 +284,10 @@ sq_rules
 =
 dot png
 
-fdp_clus
-fdp.gv
-fdp png
+# FIXME: Re-enable when https://gitlab.com/graphviz/graphviz/-/issues/1690 is fixed
+#fdp_clus
+#fdp.gv
+#fdp png
 
 japanese
 =
