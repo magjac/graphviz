@@ -137,7 +137,7 @@ ubuntu18-10-build:
     tags:
         - graphviz,ubuntu18-10
     only:
-        - master
+        - master@graphviz/graphviz
 
 ubuntu19-04-build:
     <<: *deb_build_definition
@@ -173,6 +173,6 @@ deployment:
         - md5sum graphviz-"$GV_VERSION".tar.gz >graphviz-"$GV_VERSION".tar.gz.md5
         - scp graphviz-"$GV_VERSION".tar.gz graphviz-"$GV_VERSION".tar.gz.md5 "$DEPLOY_USER"@"$DEPLOY_HOST"':'Packages/"$COLLECTION"/portable_source/
     only:
-        - master
+        - master@graphviz/graphviz
     tags:
         - graphviz,deploy
