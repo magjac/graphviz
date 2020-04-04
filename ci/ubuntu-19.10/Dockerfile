@@ -78,5 +78,6 @@ tcl-dev \
 # Test utilities
 python-pytest \
 python3-pytest \
+ksh \
 # Clean up
 && rm -rf /var/lib/apt/lists/*
