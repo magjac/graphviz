@@ -3092,13 +3092,18 @@ AC_CONFIG_FILES(Makefile
 	tclpkg/gv/demo/Makefile
 	tclpkg/gv/META.gv
 	rtest/Makefile
+	rtest/graphs/Makefile
+	rtest/linux.x86/Makefile
 	tests/Makefile
 	tests/unit_tests/Makefile
 	tests/unit_tests/lib/Makefile
 	tests/unit_tests/lib/common/Makefile
 	tests/regression_tests/Makefile
 	tests/regression_tests/shapes/Makefile
+	tests/regression_tests/shapes/reference/Makefile
 	tests/regression_tests/vuln/Makefile
+	tests/regression_tests/vuln/input/Makefile
+	tests/regression_tests/vuln/reference/Makefile
 	share/Makefile
 	share/examples/Makefile
 	share/gui/Makefile
