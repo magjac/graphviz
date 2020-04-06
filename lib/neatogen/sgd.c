@@ -1,3 +1,4 @@
+#include "neato.h"
 #include "sgd.h"
 #include "dijkstra.h"
 #include "randomkit.h"

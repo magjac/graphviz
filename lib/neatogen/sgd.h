@@ -1,7 +1,9 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifndef SGD_H
 #define SGD_H
-
-#include "neato.h"
 
 typedef struct term_sgd {
     int i, j;
@@ -20,3 +22,7 @@ typedef struct graph_sgd {
 extern void sgd(graph_t *, int);
 
 #endif /* SGD_H */
+
+#ifdef __cplusplus
+}
+#endif
