@@ -18,6 +18,8 @@ portable-source:
             - VERSION
             - COLLECTION
             - graphviz-*.tar.gz
+    except:
+        - tags
 
 .build_template: &rpm_build_definition
     stage: build
@@ -43,6 +45,8 @@ portable-source:
         paths:
             - Packages/*/*/*/*/*/*.rpm
             - Packages/*/*/*/*/*.rpm
+    except:
+        - tags
 
 .build_template: &deb_build_definition
     stage: build
@@ -66,6 +70,8 @@ portable-source:
         paths:
             - Packages/*/*/*/*/*/*deb
             - Packages/*/*/*/*/*.gz
+    except:
+        - tags
 
 centos6-build:
     <<: *rpm_build_definition
