@@ -1,3 +1,17 @@
+April 6, 2020
+	- Merged feature:
+		sgd
+	- Merged:
+
+		!1322 "Add pkg-config files"
+		!1326 "tred: add feature to output removed edges to stderr upon request"
+		!1328 "Fix issue 1671: Workaround: avoid creating a virtual edge loop."
+		!1329 "Add riscv64 to host_cpu configure.ac"
+		!1332 "lib/cgraph: include empty malloc.h from subdir include"
+		!1333 "lib/gvpr: compile mkdefs with $(HOSTCC) rather than $(CC)"
+		!1334 "lib/vpsc: rename bcopy->b_copy"
+		!1340 "[Issue #1481]: MSB4018 The NativeCodeAnalysis task failed unexpectedly."
+
 April 5, 2020
     - Release 2.42.4
 	- Merge	1341, 1339, 1338, 1337, 1336, 1327, 1325, 1324, 1335
