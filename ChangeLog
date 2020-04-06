@@ -1,3 +1,10 @@
+April 5, 2020
+    - Release 2.42.4
+	- Merge	1341, 1339, 1338, 1337, 1336, 1327, 1325, 1324, 1335
+	- Patches 1687, 1376, 1647, 1605
+	- Add Ubuntu 19.10 builds to CI/CD
+	- CI/CD source & build stages now run on GitLab hosted runners
+
 October 9, 2019
     - Release 2.42.3
 	- Merge 1316, 1317, 1319, 1320
