@@ -33,16 +33,16 @@ dnl For the micro number: 0 => in-progress development
 dnl                       timestamp => tar-file snapshot or release
 
 dnl uncomment the next 4 lines for development releases, minor version must be odd
-dnl m4_define([graphviz_version_major],[2])
-dnl m4_define([graphviz_version_minor],[43])
-dnl m4_define([graphviz_version_micro],[$GRAPHVIZ_VERSION_DATE])
-dnl m4_define([graphviz_collection],[development])
+m4_define([graphviz_version_major],[2])
+m4_define([graphviz_version_minor],[43])
+m4_define([graphviz_version_micro],[$GRAPHVIZ_VERSION_DATE])
+m4_define([graphviz_collection],[development])
 
 dnl uncomment the next 4 lines for stable releases, minor version must be even
-m4_define([graphviz_version_major],[2])
-m4_define([graphviz_version_minor],[42])
-m4_define([graphviz_version_micro],[4])
-m4_define([graphviz_collection],[stable])
+dnl m4_define([graphviz_version_major],[2])
+dnl m4_define([graphviz_version_minor],[42])
+dnl m4_define([graphviz_version_micro],[4])
+dnl m4_define([graphviz_collection],[stable])
 
 m4_define([graphviz_version_date],[$GRAPHVIZ_VERSION_DATE])
 m4_define([graphviz_change_date],["$GRAPHVIZ_CHANGE_DATE"])
