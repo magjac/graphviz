@@ -99,6 +99,12 @@
     <ClInclude Include="quad_prog_vpsc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="randomkit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sgd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="site.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -216,6 +222,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="quad_prog_vpsc.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="randomkit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sgd.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="site.c">

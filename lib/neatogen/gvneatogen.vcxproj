@@ -113,6 +113,8 @@
     <ClInclude Include="poly.h" />
     <ClInclude Include="quad_prog_solver.h" />
     <ClInclude Include="quad_prog_vpsc.h" />
+    <ClInclude Include="randomkit.h" />
+    <ClInclude Include="sgd.h" />
     <ClInclude Include="site.h" />
     <ClInclude Include="sparsegraph.h" />
     <ClInclude Include="stress.h" />
@@ -154,6 +156,8 @@
     <ClCompile Include="printvis.c" />
     <ClCompile Include="quad_prog_solve.c" />
     <ClCompile Include="quad_prog_vpsc.c" />
+    <ClCompile Include="randomkit.c" />
+    <ClCompile Include="sgd.c" />
     <ClCompile Include="site.c" />
     <ClCompile Include="smart_ini_x.c" />
     <ClCompile Include="solve.c" />

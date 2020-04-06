@@ -45,6 +45,8 @@ set(sources
     sparsegraph.h
     stress.h
     voronoi.h
+    sgd.h
+    randomkit.h
 
     # Source files
     adjust.c
@@ -85,6 +87,8 @@ set(sources
     stuff.c
     stress.c
     voronoi.c
+    sgd.c
+    randomkit.c
 )
 
 if (with_ipsepcola)

@@ -28,6 +28,7 @@
 #endif
 #include "kkutils.h"
 #include "pointset.h"
+#include "sgd.h"
 
 #ifndef HAVE_SRAND48
 #define srand48 srand
@@ -662,6 +663,8 @@ static int neatoMode(graph_t * g)
 	    mode = MODE_KK;
 	else if (streq(str, "major"))
 	    mode = MODE_MAJOR;
+	else if (streq(str, "sgd"))
+		mode = MODE_SGD;
 #ifdef DIGCOLA
 	else if (streq(str, "hier"))
 	    mode = MODE_HIER;
@@ -1348,16 +1351,20 @@ neatoLayout(Agraph_t * mg, Agraph_t * g, int layoutMode, int layoutModel,
 	MaxIter = atoi(str);
     else if (layoutMode == MODE_MAJOR)
 	MaxIter = DFLT_ITERATIONS;
-    else
+    else if (layoutMode == MODE_KK)
 	MaxIter = 100 * agnnodes(g);
+    else if (layoutMode == MODE_SGD)
+	MaxIter = 30;
 
     nG = scan_graph_mode(g, layoutMode);
     if ((nG < 2) || (MaxIter < 0))
 	return;
-    if (layoutMode)
-	majorization(mg, g, nG, layoutMode, layoutModel, Ndim, MaxIter, am);
-    else
+    if (layoutMode == MODE_KK)
 	kkNeato(g, nG, layoutModel);
+    else if (layoutMode == MODE_SGD)
+	sgd(g, layoutModel);
+    else
+	majorization(mg, g, nG, layoutMode, layoutModel, Ndim, MaxIter, am);
 }
 
 /* addZ;

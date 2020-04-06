@@ -291,7 +291,7 @@ If undefined, the value of the <A HREF=#d:target>target</A> is used.
 Tooltip annotation attached to the non-label part of an edge.
 This is used only if the edge has a <A HREF=#d:URL>URL</A>
 or <A HREF=#d:edgeURL>edgeURL</A> attribute.
-:epsilon:G:double:.0001 * # nodes(mode == KK)/.0001(mode == major);  neato
+:epsilon:G:double:.0001 * # nodes(mode == KK)/.0001(mode == major)/.01(mode == sgd);  neato
 Terminating condition. If the length squared of all energy gradients are
 < <B>epsilon</B>, the algorithm stops.
 :esep:G:addDouble/addPoint:+3; notdot
@@ -735,7 +735,7 @@ the cluster bounding box. By default, this is 8 points.
 <P>
 For nodes, this attribute specifies space left around the node's label.
 By default, the value is <TT>0.11,0.055</TT>.
-:maxiter:G:int:100 &#42; # nodes(mode == KK)/200(mode == major)/600(fdp);  neato,fdp
+:maxiter:G:int:100 &#42; # nodes(mode == KK)/200(mode == major)/30(mode == sgd)/600(fdp);  neato,fdp
 Sets the number of iterations used.
 :mclimit:G:double:1.0;  dot
 Multiplicative scale factor used to alter the MinQuit (default = 8)
@@ -753,7 +753,11 @@ neato uses stress majorization. If <B>mode</B> is <TT>"KK"</TT>,
 neato uses a version of the gradient descent method. The only advantage
 to the latter technique is that it is sometimes appreciably faster for
 small (number of nodes < 100) graphs. A significant disadvantage is that
-it may cycle.
+it may cycle. If <B>mode</B> is <TT>"sgd"</TT>, neato uses a version of the
+stochastic gradient descent method. The advantage of sgd is faster and more
+reliable convergence than both the previous methods, while the disadvantage
+is that it runs in a fixed number of iterations and may require larger
+values of <TT>"maxiter"</TT> in some graphs.
 <P>
 There are two experimental modes in neato, "hier", which adds a top-down
 directionality similar to the layout used in dot, and "ipsep", which

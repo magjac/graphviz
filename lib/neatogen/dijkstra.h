@@ -21,6 +21,7 @@ extern "C" {
 #define _DIJKSTRA_H_
 
 #include "defs.h"
+#include "sgd.h"
 
 #ifdef __cplusplus
     void dijkstra(int vertex, vtx_data * graph, int n, DistType * dist);
@@ -38,6 +39,7 @@ extern "C" {
     extern int dijkstra_bounded(int, vtx_data *, int, DistType *, int,
 				int *);
 #endif
+    extern int dijkstra_sgd(graph_sgd *, int, term_sgd *);
 
 #endif
 

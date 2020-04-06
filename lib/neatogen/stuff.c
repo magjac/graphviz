@@ -261,6 +261,15 @@ int scan_graph_mode(graph_t * G, int mode)
 	    ND_heapindex(np) = -1;
 	    total_len += setEdgeLen(G, np, lenx, dfltlen);
 	}
+    } else if (mode == MODE_SGD) {
+	Epsilon = .01;
+	getdouble(G, "epsilon", &Epsilon);
+	GD_neato_nlist(G) = N_NEW(nV + 1, node_t *); // not sure why but sometimes needs the + 1
+	for (i = 0, np = agfstnode(G); np; np = agnxtnode(G, np)) {
+	    GD_neato_nlist(G)[i] = np;
+	    ND_id(np) = i++;
+	    total_len += setEdgeLen(G, np, lenx, dfltlen);
+	}
     } else {
 	Epsilon = DFLT_TOLERANCE;
 	getdouble(G, "epsilon", &Epsilon);

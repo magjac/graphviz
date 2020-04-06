@@ -394,3 +394,52 @@ void dijkstra_f(int vertex, vtx_data * graph, int n, float *dist)
     freeHeap(&H);
     free(index);
 }
+
+// single source shortest paths that also builds terms as it goes
+// mostly copied from dijkstra_f above
+// returns the number of terms built
+int dijkstra_sgd(graph_sgd *graph, int source, term_sgd *terms) {
+    heap h;
+#ifdef OBSOLETE
+    mkHeap(&h, graph->n);
+#endif
+    int *indices = N_GNEW(graph->n, int);
+    float *dists = N_GNEW(graph->n, float);
+    int i;
+    for (i=0; i<graph->n; i++) {
+        dists[i] = MAXFLOAT;
+    }
+    dists[source] = 0;
+    for (i=graph->sources[source]; i<graph->sources[source+1]; i++) {
+        int target = graph->targets[i];
+        dists[target] = graph->weights[i];
+    }
+    initHeap_f(&h, source, indices, dists, graph->n);
+
+    int closest = 0, offset = 0;
+    while (extractMax_f(&h, &closest, indices, dists)) {
+        float d = dists[closest];
+        if (d == MAXFLOAT) {
+            break;
+        }
+        // if the target is fixed then always create a term as shortest paths are not calculated from there
+        // if not fixed then only create a term if the target index is lower
+        if (graph->pinneds[closest] || closest<source) {
+            terms[offset].i = source;
+            terms[offset].j = closest;
+            terms[offset].d = d;
+            terms[offset].w = 1 / (d*d);
+            offset++;
+        }
+        for (i=graph->sources[closest]; i<graph->sources[closest+1]; i++) {
+            int target = graph->targets[i];
+            float weight = graph->weights[i];
+            increaseKey_f(&h, target, d+weight, indices, dists);
+        }
+    }
+    freeHeap(&h);
+    free(indices);
+    free(dists);
+    return offset;
+}
+
