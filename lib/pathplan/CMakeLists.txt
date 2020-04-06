@@ -52,3 +52,4 @@ set_target_properties(pathplan PROPERTIES
     VERSION 4.0.0
     SOVERSION 4
 )
+target_link_libraries(pathplan m)
