@@ -3,7 +3,7 @@
 
 pdfdir = $(pkgdatadir)/doc/pdf
 pkgconfigdir = $(libdir)/pkgconfig
-
+HOSTCC ?= $(CC)
 GVPR_VERSION="2:0:0"
 
 AM_CPPFLAGS = \
@@ -21,7 +21,6 @@ AM_CPPFLAGS = \
 	-DDFLT_GVPRPATH="\".$(PATH_SEPARATOR)$(pkgdatadir)/gvpr\""
 
 pkginclude_HEADERS = gvpr.h
-noinst_PROGRAMS = mkdefs
 noinst_HEADERS = actions.h compile.h gprstate.h parse.h queue.h trieFA.h trie.c
 noinst_LTLIBRARIES = libgvpr_C.la
 lib_LTLIBRARIES = libgvpr.la
@@ -54,7 +53,8 @@ if WITH_WIN32
 libgvpr_la_LDFLAGS += -export-symbols-regex gvpr
 endif
 
-mkdefs_SOURCES = mkdefs.c
+mkdefs$(EXEEXT):
+	$(HOSTCC) $(srcdir)/mkdefs.c -o mkdefs$(EXEEXT)
 
 gdefs.h: $(top_srcdir)/lib/gvpr/gprdata mkdefs$(EXEEXT)
 	./mkdefs$(EXEEXT) gdefs.h < $(top_srcdir)/lib/gvpr/gprdata
