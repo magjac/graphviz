@@ -1213,8 +1213,6 @@ void flat_rev(Agraph_t * g, Agedge_t * e)
 		break;
     if (rev) {
 	merge_oneway(e, rev);
-	if (ED_to_virt(e) == 0)
-	    ED_to_virt(e) = rev;
 	if ((ED_edge_type(rev) == FLATORDER)
 	    && (ED_to_orig(rev) == 0))
 	    ED_to_orig(rev) = e;
