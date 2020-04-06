@@ -137,13 +137,13 @@ ubuntu18-04-build:
         - linux
     image: "graphviz/graphviz:ubuntu-18.04"
 
-# FIXME: Ubuntu 18.10 is End of Life. Docker image cannot be created. Fix or remove
-ubuntu18-10-build:
-    <<: *deb_build_definition
-    tags:
-        - graphviz,ubuntu18-10
-    only:
-        - master@graphviz/graphviz
+        # FIXME: Ubuntu 18.10 is End of Life. Docker image cannot be created. Fix or remove
+        #ubuntu18-10-build:
+        #<<: *deb_build_definition
+        #tags:
+        #- graphviz,ubuntu18-10
+        #only:
+        #- master@graphviz/graphviz
 
 ubuntu19-04-build:
     <<: *deb_build_definition
