@@ -155,8 +155,8 @@ void Blocks::removeBlock(Block *doomed) {
 	//erase(doomed);
 }
 void Blocks::cleanup() {
-	vector<Block*> bcopy(begin(),end());
-	for(vector<Block*>::iterator i=bcopy.begin();i!=bcopy.end();i++) {
+	vector<Block*> b_copy(begin(),end());
+	for(vector<Block*>::iterator i=b_copy.begin();i!=b_copy.end();i++) {
 		Block *b=*i;
 		if(b->deleted) {
 			erase(b);
