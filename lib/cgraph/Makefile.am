@@ -8,10 +8,11 @@ pkgconfigdir = $(libdir)/pkgconfig
 
 AM_CPPFLAGS = \
 	-I$(top_srcdir) \
-	-I$(top_srcdir)/lib/cdt
+	-I$(top_srcdir)/lib/cdt \
+	-Iinclude
 
 pkginclude_HEADERS = cgraph.h
-noinst_HEADERS = agxbuf.h cghdr.h malloc.h
+noinst_HEADERS = agxbuf.h cghdr.h include/malloc.h
 noinst_LTLIBRARIES = libcgraph_C.la
 lib_LTLIBRARIES = libcgraph.la
 pkgconfig_DATA = libcgraph.pc
