@@ -1,7 +1,7 @@
 April 8, 2020
     - Release 2.44.0
 	- Merged feature:
-		sgd
+		New SGD mode in neato (thanks Jonathan Zheng)
 	- Merged:
 		!1322 "Add pkg-config files"
 		!1326 "tred: add feature to output removed edges to stderr upon request"
