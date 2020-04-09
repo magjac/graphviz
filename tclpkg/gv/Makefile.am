@@ -158,7 +158,11 @@ nodist_libgv_ocaml_la_SOURCES = gv_ocaml.cpp $(OCAML_data)
 libgv_ocaml_la_SOURCES = $(BASESOURCES) gv_dummy_init.c
 libgv_ocaml_la_LIBADD = $(BASELIBS) $(OCAML_LIBS)
 libgv_ocaml_la_LDFLAGS = -module -avoid-version
-libgv_ocaml_la_CPPFLAGS = $(BASECPPFLAGS) $(OCAML_INCLUDES) -Dint64=int64_t -fpermissive
+libgv_ocaml_la_CPPFLAGS = \
+	$(BASECPPFLAGS) \
+	$(OCAML_INCLUDES) \
+	-Dint64=int64_t \
+	-fpermissive
 gv.ml gv.mli: gv_ocaml.cpp
 gv_ocaml.cpp: gv.i
 	$(SWIG) -c++ -ocaml -o gv_ocaml.cpp $(srcdir)/gv.i
