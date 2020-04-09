@@ -453,6 +453,8 @@ closeOpen (void)
 	fprintf(opts.outfile, "}\ngraph {\n");
 }
 
+extern void makeTetrix(int depth, edgefn ef);
+
 int main(int argc, char *argv[])
 {
     GraphType graphType;

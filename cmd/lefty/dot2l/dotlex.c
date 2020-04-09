@@ -252,7 +252,7 @@ static char *scan_token (char *p) {
     char *q;
 
     q = lexbuf;
-    if (p == '\0')
+    if (!p || *p == '\0')
         return NULL;
     while (isalnum (*p) || (*p == '_') || (!isascii (*p)))
         *q++ = *p++;
