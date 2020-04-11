@@ -19,7 +19,15 @@ if [ "${ID_LIKE}" = "debian" ]; then
     apt install ./${DIR}/os/${ARCH}/libgraphviz4_${GV_VERSION}-1_amd64.deb
     apt install ./${DIR}/os/${ARCH}/graphviz_${GV_VERSION}-1_amd64.deb
 else
-    rpm --install --force ${DIR}/os/${ARCH}/*.rpm
+    rpm --install --force \
+        ${DIR}/os/${ARCH}/graphviz-${GV_VERSION}*.rpm \
+        ${DIR}/os/${ARCH}/graphviz-libs-${GV_VERSION}*.rpm \
+        ${DIR}/os/${ARCH}/graphviz-plugins-core-${GV_VERSION}*.rpm \
+        ${DIR}/os/${ARCH}/graphviz-plugins-x-${GV_VERSION}*.rpm \
+        ${DIR}/os/${ARCH}/graphviz-x-${GV_VERSION}*.rpm \
+        ${DIR}/os/${ARCH}/graphviz-nox-${GV_VERSION}*.rpm \
+        ${DIR}/os/${ARCH}/graphviz-gd-${GV_VERSION}*.rpm \
+        ${DIR}/os/${ARCH}/graphviz-plugins-gd-${GV_VERSION}*.rpm
 fi
 cd graphviz-${GV_VERSION}
 ./configure
