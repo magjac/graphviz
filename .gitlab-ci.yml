@@ -48,21 +48,10 @@ portable-source:
     except:
         - tags
 
-.test_template: &deb_test_definition
+.test_template: &test_definition
     stage: test
     script:
-        - cat /etc/os-release
-        - GV_VERSION=$( cat VERSION )
-        - COLLECTION=$( cat COLLECTION )
-        - zcat graphviz-${GV_VERSION}.tar.gz | tar xf -
-        - . /etc/os-release
-        - DIR=Packages/${COLLECTION}/${ID}/${VERSION_ID}
-        - ARCH=$( uname -m )
-        - apt install ./${DIR}/os/${ARCH}/libgraphviz4_${GV_VERSION}-1_amd64.deb
-        - apt install ./${DIR}/os/${ARCH}/graphviz_${GV_VERSION}-1_amd64.deb
-        - cd graphviz-${GV_VERSION}
-        - ./configure
-        - make -C tests/regression_tests/shapes check
+        - ci/test.sh
 
 centos6-build:
     <<: *rpm_build_definition
@@ -149,19 +138,19 @@ ubuntu19-10-build:
     image: "graphviz/graphviz:ubuntu-19.10"
 
 ubuntu18-04-test:
-    <<: *deb_test_definition
+    <<: *test_definition
     tags:
         - linux
     image: "graphviz/graphviz:ubuntu-18.04"
 
 ubuntu19-04-test:
-    <<: *deb_test_definition
+    <<: *test_definition
     tags:
         - linux
     image: "graphviz/graphviz:ubuntu-19.04"
 
 ubuntu19-10-test:
-    <<: *deb_test_definition
+    <<: *test_definition
     tags:
         - linux
     image: "graphviz/graphviz:ubuntu-19.10"
