@@ -155,6 +155,54 @@ ubuntu19-10-test:
         - linux
     image: "graphviz/graphviz:ubuntu-19.10"
 
+centos6-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:centos6"
+
+centos7-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:centos7"
+
+centos8-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:centos8"
+
+fedora29-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:fedora29"
+
+fedora30-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:fedora30"
+
+fedora31-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:fedora31"
+
+fedora32-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:fedora32"
+
+fedora33-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:fedora33"
+
 deployment:
     stage: deploy
     script:
