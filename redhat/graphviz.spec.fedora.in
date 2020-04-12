@@ -313,8 +313,11 @@ Requires:         %{name}-nox = %{version}-%{release}
 Graphviz plugins - core layout engines and text renderers
 
 # run "dot -c" to generate plugin config in {_libdir}/graphviz/config%{pluginsver}
+# this one is conditional because of rpm dependency ordering
+# on a fresh install this package is installed before dot is avaiable from graphviz-nox
+# no matter since dot -c is also run from the graphviz-nox install
 %post plugins-core
-LD_LIBRARY_PATH=%{_libdir} %{_bindir}/dot -c
+[ -x %{_bindir}/dot ] && LD_LIBRARY_PATH=%{_libdir} %{_bindir}/dot -c || :
 
 # if there is no dot after everything else is done, then remove config
 %postun plugins-core
