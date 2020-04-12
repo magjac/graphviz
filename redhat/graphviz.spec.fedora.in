@@ -184,9 +184,10 @@ Graphviz plugins and commands that do not depend on x11.
 When used alone, this is intended for minimalist web-server apps
 with no X11 on the server.
 
-# completely remove any old plugins and configs before any fresh install of dot.
+# completely remove any old configs before any fresh install of dot.
+# don't remove any externally provided plugins. "doc -c" should refind them
 %pre nox
-rm -rf %{_libdir}/graphviz || :
+rm -rf %{_libdir}/graphviz/config* || :
 
 # run "dot -c" to generate plugin config in {_libdir}/graphviz/config%{pluginsver}
 %post nox
