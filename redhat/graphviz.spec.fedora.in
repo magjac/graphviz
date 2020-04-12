@@ -184,6 +184,14 @@ Graphviz plugins and commands that do not depend on x11.
 When used alone, this is intended for minimalist web-server apps
 with no X11 on the server.
 
+# completely remove any old plugins and configs before any fresh install of dot.
+%pre nox
+rm -rf %{_libdir}/graphviz || :
+
+# run "dot -c" to generate plugin config in {_libdir}/graphviz/config%{pluginsver}
+%post nox
+LD_LIBRARY_PATH=%{_libdir} %{_bindir}/dot -c
+
 %files nox
 %defattr(-,root,root,-)
 %if %{LICENSE}
@@ -305,12 +313,12 @@ Graphviz plugins - core layout engines and text renderers
 
 # run "dot -c" to generate plugin config in {_libdir}/graphviz/config%{pluginsver}
 %post plugins-core
-LD_LIBRARY_PATH=$RPM_INSTALL_PREFIX0/%{_lib} $RPM_INSTALL_PREFIX0/bin/dot -c
+LD_LIBRARY_PATH=%{_libdir} %{_bindir}/dot -c
 
 # if there is no dot after everything else is done, then remove config
 %postun plugins-core
 if [ $1 -eq 0 ]; then
-        rm -f $RPM_INSTALL_PREFIX0/%{_lib}/graphviz/config6 || :
+        rm -f %{_libdir}/graphviz/config6 || :
 fi
 
 %files plugins-core
@@ -362,10 +370,10 @@ Graphviz plugins that depend on x11 - most installations will want this.
 
 # run "dot -c" to generate plugin config in {_libdir}/graphviz/config6
 %post plugins-x
-LD_LIBRARY_PATH=$RPM_INSTALL_PREFIX0/%{_lib} $RPM_INSTALL_PREFIX0/bin/dot -c
+LD_LIBRARY_PATH=%{_libdir} %{_bindir}/dot -c
 
 %postun plugins-x
-[ -x $RPM_INSTALL_PREFIX0/bin/dot ] && LD_LIBRARY_PATH=$RPM_INSTALL_PREFIX0/%{_lib} $RPM_INSTALL_PREFIX0/bin/dot -c || :
+[ -x %{_bindir}/dot ] && LD_LIBRARY_PATH=%{_libdir} %{_bindir}/dot -c || :
 
 %files plugins-x
 %defattr(-,root,root,-)
@@ -418,10 +426,10 @@ based renderer.)
 
 # run "dot -c" to generate plugin config in {_libdir}/graphviz/config6
 %post plugins-gd
-LD_LIBRARY_PATH=$RPM_INSTALL_PREFIX0/%{_lib} $RPM_INSTALL_PREFIX0/bin/dot -c
+LD_LIBRARY_PATH=%{_libdir} %{_bindir}/dot -c
 
 %postun plugins-gd
-[ -x $RPM_INSTALL_PREFIX0/bin/dot ] && LD_LIBRARY_PATH=$RPM_INSTALL_PREFIX0/%{_lib} $RPM_INSTALL_PREFIX0/bin/dot -c || :
+[ -x %{_bindir}/dot ] && LD_LIBRARY_PATH=%{_libdir} %{_bindir}/dot -c || :
 
 %files plugins-gd
 %defattr(-,root,root,-)
@@ -442,10 +450,10 @@ Graphviz plugin for webp image rendering.
 
 # run "dot -c" to generate plugin config in {_libdir}/graphviz/config6
 %post plugins-webp
-LD_LIBRARY_PATH=$RPM_INSTALL_PREFIX0/%{_lib} $RPM_INSTALL_PREFIX0/bin/dot -c
+LD_LIBRARY_PATH=%{_libdir} %{_bindir}/dot -c
 
 %postun plugins-webp
-[ -x $RPM_INSTALL_PREFIX0/bin/dot ] && LD_LIBRARY_PATH=$RPM_INSTALL_PREFIX0/%{_lib} $RPM_INSTALL_PREFIX0/bin/dot -c || :
+[ -x %{_bindir}/dot ] && LD_LIBRARY_PATH=%{_libdir} %{_bindir}/dot -c || :
 
 %files plugins-webp
 %defattr(-,root,root,-)
@@ -464,10 +472,10 @@ Graphviz plugin for visio image rendering.
 
 # run "dot -c" to generate plugin config in {_libdir}/graphviz/config6
 %post plugins-visio
-LD_LIBRARY_PATH=$RPM_INSTALL_PREFIX0/%{_lib} $RPM_INSTALL_PREFIX0/bin/dot -c
+LD_LIBRARY_PATH=%{_libdir} %{_bindir}/dot -c
 
 %postun plugins-visio
-[ -x $RPM_INSTALL_PREFIX0/bin/dot ] && LD_LIBRARY_PATH=$RPM_INSTALL_PREFIX0/%{_lib} $RPM_INSTALL_PREFIX0/bin/dot -c || :
+[ -x %{_bindir}/dot ] && LD_LIBRARY_PATH=%{_libdir} %{_bindir}/dot -c || :
 
 %files plugins-visio
 %defattr(-,root,root,-)
@@ -490,10 +498,10 @@ supported directly by the cairo+pango based renderer in the base graphviz rpm.)
 
 # run "dot -c" to generate plugin config in {_libdir}/graphviz/config6
 %post plugins-devil
-LD_LIBRARY_PATH=$RPM_INSTALL_PREFIX0/%{_lib} $RPM_INSTALL_PREFIX0/bin/dot -c
+LD_LIBRARY_PATH=%{_libdir} %{_bindir}/dot -c
 
 %postun plugins-devil
-[ -x $RPM_INSTALL_PREFIX0/bin/dot ] && LD_LIBRARY_PATH=$RPM_INSTALL_PREFIX0/%{_lib} $RPM_INSTALL_PREFIX0/bin/dot -c || :
+[ -x %{_bindir}/dot ] && LD_LIBRARY_PATH=%{_libdir} %{_bindir}/dot -c || :
 
 %files plugins-devil
 %defattr(-,root,root,-)
@@ -515,10 +523,10 @@ Graphviz plugin for -Tswf (flash) renderer based on ming.
 
 # run "dot -c" to generate plugin config in {_libdir}/graphviz/config6
 %post plugins-ming
-LD_LIBRARY_PATH=$RPM_INSTALL_PREFIX0/%{_lib} $RPM_INSTALL_PREFIX0/bin/dot -c
+LD_LIBRARY_PATH=%{_libdir} %{_bindir}/dot -c
 
 %postun plugins-ming
-[ -x $RPM_INSTALL_PREFIX0/bin/dot ] && LD_LIBRARY_PATH=$RPM_INSTALL_PREFIX0/%{_lib} $RPM_INSTALL_PREFIX0/bin/dot -c || :
+[ -x %{_bindir}/dot ] && LD_LIBRARY_PATH=%{_libdir} %{_bindir}/dot -c || :
 
 %files plugins-ming
 %{_libdir}/graphviz/libgvplugin_ming.so.*
