@@ -1,6 +1,7 @@
 stages:
     - source
     - build
+    - test
     - deploy
 
 portable-source:
@@ -24,21 +25,7 @@ portable-source:
 .build_template: &rpm_build_definition
     stage: build
     script:
-        - rm -rf ${HOME}/rpmbuild
-        - GV_VERSION=$( cat VERSION )
-        - COLLECTION=$( cat COLLECTION )
-        - rpmbuild -ta graphviz-${GV_VERSION}.tar.gz
-        - ID=$( cat /etc/redhat-release | cut -d' ' -f1 | tr 'A-Z' 'a-z' )
-        - VERSION_ID=$( cat /etc/redhat-release | cut -d' ' -f3  | cut -d'.' -f1 )
-        - if test -f /etc/os-release; then . /etc/os-release; fi
-        - DIR=Packages/${COLLECTION}/${ID}/${VERSION_ID}
-        - ARCH=$( uname -m )
-        - mkdir -p ${DIR}/os/${ARCH}
-        - mkdir -p ${DIR}/debug/${ARCH}
-        - mkdir -p ${DIR}/source
-        - mv ${HOME}/rpmbuild/SRPMS/*.src.rpm ${DIR}/source/
-        - mv ${HOME}/rpmbuild/RPMS/*/*debuginfo*rpm ${DIR}/debug/${ARCH}/
-        - mv ${HOME}/rpmbuild/RPMS/*/*.rpm ${DIR}/os/${ARCH}/
+        - ci/build.sh
     artifacts:
         when: on_success
         expire_in: 1 week
@@ -51,19 +38,7 @@ portable-source:
 .build_template: &deb_build_definition
     stage: build
     script:
-        - cat /etc/os-release
-        - GV_VERSION=$( cat VERSION )
-        - COLLECTION=$( cat COLLECTION )
-        - zcat graphviz-${GV_VERSION}.tar.gz | tar xf -
-        - (cd graphviz-${GV_VERSION}; fakeroot make -f debian/rules binary)
-        - . /etc/os-release
-        - DIR=Packages/${COLLECTION}/${ID}/${VERSION_ID}
-        - ARCH=$( uname -m )
-        - mkdir -p ${DIR}/os/${ARCH}
-        - mkdir -p ${DIR}/debug/${ARCH}
-        - mkdir -p ${DIR}/source
-        - mv *.deb ${DIR}/os/${ARCH}/
-        - mv *.ddeb ${DIR}/debug/${ARCH}/
+        - ci/build.sh
     artifacts:
         when: on_success
         expire_in: 1 week
@@ -72,6 +47,11 @@ portable-source:
             - Packages/*/*/*/*/*.gz
     except:
         - tags
+
+.test_template: &test_definition
+    stage: test
+    script:
+        - ci/test.sh
 
 centos6-build:
     <<: *rpm_build_definition
@@ -156,6 +136,72 @@ ubuntu19-10-build:
     tags:
         - linux
     image: "graphviz/graphviz:ubuntu-19.10"
+
+ubuntu18-04-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:ubuntu-18.04"
+
+ubuntu19-04-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:ubuntu-19.04"
+
+ubuntu19-10-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:ubuntu-19.10"
+
+centos6-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:centos6"
+
+centos7-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:centos7"
+
+centos8-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:centos8"
+
+fedora29-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:fedora29"
+
+fedora30-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:fedora30"
+
+fedora31-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:fedora31"
+
+fedora32-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:fedora32"
+
+fedora33-test:
+    <<: *test_definition
+    tags:
+        - linux
+    image: "graphviz/graphviz:fedora33"
 
 deployment:
     stage: deploy
