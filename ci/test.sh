@@ -25,8 +25,5 @@ else
         ${DIR}/os/${ARCH}/graphviz-nox-${GV_VERSION}*.rpm
 fi
 cd graphviz-${GV_VERSION}
-./configure
 tests/regression_tests/installation/check_installation.sh
-ln -s /usr/bin/dot cmd/dot/dot_builtins
-ln -s /usr/bin/diffimg contrib/diffimg/diffimg
-make -C tests/regression_tests/shapes check
+tests/regression_tests/shapes/shapes.sh
