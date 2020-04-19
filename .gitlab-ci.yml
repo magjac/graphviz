@@ -52,6 +52,9 @@ portable-source:
     stage: test
     script:
         - ci/test.sh
+    artifacts:
+        reports:
+            junit: graphviz-*/report.xml
 
 centos6-build:
     <<: *rpm_build_definition
