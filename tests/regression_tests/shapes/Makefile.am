@@ -5,4 +5,5 @@ check test rtest:
 
 EXTRA_DIST = \
 	shapes.sh \
+	test_shapes.py \
 	shapes.py
