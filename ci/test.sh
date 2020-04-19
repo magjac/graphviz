@@ -25,5 +25,8 @@ else
         ${DIR}/os/${ARCH}/graphviz-nox-${GV_VERSION}*.rpm
 fi
 cd graphviz-${GV_VERSION}
-tests/regression_tests/installation/check_installation.sh
-tests/regression_tests/shapes/shapes.sh
+if command -v python3; then
+    python3 -m pytest --junitxml=report.xml tests
+else
+    python2 -m pytest --junitxml=report.xml tests
+fi
