@@ -82,6 +82,9 @@ RUN yum -y install openssl-devel
 # Language extension gv_python & gv_python2
 RUN yum -y install python2-devel
 
+# Language extension gv_python3
+RUN yum -y install python34-devel
+
 # Language extension gv_ruby
 RUN yum -y install ruby-devel
 
