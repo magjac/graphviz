@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y ksh
 RUN apt-get update && apt-get install --no-install-recommends -y quilt
 RUN apt-get update && apt-get install --no-install-recommends -y d-shlibs
 RUN apt-get update && apt-get install --no-install-recommends -y debhelper
+RUN apt-get update && apt-get install --no-install-recommends -y fakeroot
 
 # Option glut
 RUN apt-get update && apt-get install --no-install-recommends -y freeglut3-dev
