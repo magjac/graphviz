@@ -101,6 +101,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y tcl-dev
 
 # Test utilities
 RUN apt-get update && apt-get install --no-install-recommends -y python-pytest
+RUN apt-get update && apt-get install --no-install-recommends -y python3-pytest
 
 # Clean up
 RUN rm -rf /var/lib/apt/lists/*

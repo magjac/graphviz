@@ -94,6 +94,8 @@ RUN yum -y install tk-devel
 
 # Test utilities
 RUN yum -y install -y python-pytest
+RUN rpm --install https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/p/python36-py-1.4.32-2.el7.noarch.rpm
+RUN rpm --install https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/p/python36-pytest-2.9.2-4.el7.noarch.rpm
 
 # Clean up
 RUN yum clean all && rm -rf /var/cache/yum
