@@ -100,3 +100,6 @@ RUN apt-get install -y tcl-dev
 
 # Test utilities
 RUN apt-get update && apt-get install -y python-pytest
+
+# Clean up
+RUN rm -rf /var/lib/apt/lists/*

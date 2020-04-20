@@ -105,3 +105,6 @@ RUN yum -y install mono-core
 
 # Test utilities
 RUN yum -y install -y python-pytest
+
+# Clean up
+RUN yum clean all && rm -rf /var/cache/yum
