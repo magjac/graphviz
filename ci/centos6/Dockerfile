@@ -93,3 +93,7 @@ RUN yum -y install libICE-devel
 RUN yum -y install libSM-devel
 RUN yum -y install libXaw-devel
 RUN yum -y install tk-devel
+
+# Test utilities
+RUN yum -y install -y python2-pytest
+RUN yum -y install -y python34-pytest

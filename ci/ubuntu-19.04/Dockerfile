@@ -97,3 +97,6 @@ RUN apt-get install -y ruby-dev
 
 # Language extension gv_tcl
 RUN apt-get install -y tcl-dev
+
+# Test utilities
+RUN apt-get update && apt-get install -y python-pytest
