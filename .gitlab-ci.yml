@@ -145,72 +145,132 @@ ubuntu20-04-build:
 
 ubuntu18-04-test:
     <<: *test_definition
+    needs:
+        - job: portable-source
+          artifacts: true
+        - job: "ubuntu18-04-build"
+          artifacts: true
     tags:
         - linux
     image: "graphviz/graphviz:ubuntu-18.04"
 
 ubuntu19-04-test:
     <<: *test_definition
+    needs:
+        - job: portable-source
+          artifacts: true
+        - job: "ubuntu19-04-build"
+          artifacts: true
     tags:
         - linux
     image: "graphviz/graphviz:ubuntu-19.04"
 
 ubuntu19-10-test:
     <<: *test_definition
+    needs:
+        - job: portable-source
+          artifacts: true
+        - job: "ubuntu19-10-build"
+          artifacts: true
     tags:
         - linux
     image: "graphviz/graphviz:ubuntu-19.10"
 
 ubuntu20-04-test:
     <<: *test_definition
+    needs:
+        - job: portable-source
+          artifacts: true
+        - job: "ubuntu20-04-build"
+          artifacts: true
     tags:
         - linux
     image: "graphviz/graphviz:ubuntu-20.04"
 
 centos6-test:
     <<: *test_definition
+    needs:
+        - job: portable-source
+          artifacts: true
+        - job: "centos6-build"
+          artifacts: true
     tags:
         - linux
     image: "graphviz/graphviz:centos6"
 
 centos7-test:
     <<: *test_definition
+    needs:
+        - job: portable-source
+          artifacts: true
+        - job: "centos7-build"
+          artifacts: true
     tags:
         - linux
     image: "graphviz/graphviz:centos7"
 
 centos8-test:
     <<: *test_definition
+    needs:
+        - job: portable-source
+          artifacts: true
+        - job: "centos8-build"
+          artifacts: true
     tags:
         - linux
     image: "graphviz/graphviz:centos8"
 
 fedora29-test:
     <<: *test_definition
+    needs:
+        - job: portable-source
+          artifacts: true
+        - job: "fedora29-build"
+          artifacts: true
     tags:
         - linux
     image: "graphviz/graphviz:fedora29"
 
 fedora30-test:
     <<: *test_definition
+    needs:
+        - job: portable-source
+          artifacts: true
+        - job: "fedora30-build"
+          artifacts: true
     tags:
         - linux
     image: "graphviz/graphviz:fedora30"
 
 fedora31-test:
     <<: *test_definition
+    needs:
+        - job: portable-source
+          artifacts: true
+        - job: "fedora31-build"
+          artifacts: true
     tags:
         - linux
     image: "graphviz/graphviz:fedora31"
 
 fedora32-test:
     <<: *test_definition
+    needs:
+        - job: portable-source
+          artifacts: true
+        - job: "fedora32-build"
+          artifacts: true
     tags:
         - linux
     image: "graphviz/graphviz:fedora32"
 
 fedora33-test:
     <<: *test_definition
+    needs:
+        - job: portable-source
+          artifacts: true
+        - job: "fedora33-build"
+          artifacts: true
     tags:
         - linux
     image: "graphviz/graphviz:fedora33"
