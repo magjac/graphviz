@@ -52,6 +52,9 @@ portable-source:
     stage: test
     script:
         - ci/test.sh
+    artifacts:
+        reports:
+            junit: graphviz-*/report.xml
 
 centos6-build:
     <<: *rpm_build_definition
@@ -125,12 +128,6 @@ ubuntu18-04-build:
         #only:
         #- master@graphviz/graphviz
 
-ubuntu19-04-build:
-    <<: *deb_build_definition
-    tags:
-        - linux
-    image: "graphviz/graphviz:ubuntu-19.04"
-
 ubuntu19-10-build:
     <<: *deb_build_definition
     tags:
@@ -153,17 +150,6 @@ ubuntu18-04-test:
     tags:
         - linux
     image: "graphviz/graphviz:ubuntu-18.04"
-
-ubuntu19-04-test:
-    <<: *test_definition
-    needs:
-        - job: portable-source
-          artifacts: true
-        - job: "ubuntu19-04-build"
-          artifacts: true
-    tags:
-        - linux
-    image: "graphviz/graphviz:ubuntu-19.04"
 
 ubuntu19-10-test:
     <<: *test_definition
