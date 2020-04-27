@@ -11,8 +11,6 @@
  * Contributors: See CVS logs. Details at http://www.graphviz.org/
  *************************************************************************/
 
-#include <malloc.h>
-
 #include "LinkedList.h"
 #include "PriorityQueue.h"
 #include "memory.h"
