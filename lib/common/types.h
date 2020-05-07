@@ -324,8 +324,8 @@ typedef enum {NATIVEFONTS,PSFONTS,SVGFONTS} fontname_kind;
 	node_t *maxset;	/* set leaders */
 	long n_nodes;
 	/* includes virtual */
-	short minrank;
-	short maxrank;
+	int minrank;
+	int maxrank;
 
 	/* various flags */
 	boolean has_flat_edges;
