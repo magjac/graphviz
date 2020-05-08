@@ -345,7 +345,7 @@ void initial_positions(graph_t * G, int nG)
     if (init == INIT_REGULAR)
 	return;
     if ((init == INIT_SELF) && (once == 0)) {
-	agerr(AGWARN, "start=%s not supported with mode=self - ignored\n");
+	agerr(AGWARN, "start=0 not supported with mode=self - ignored\n");
 	once = 1;
     }
 
