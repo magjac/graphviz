@@ -356,7 +356,7 @@ static char *strdup_and_subst_obj0 (char *str, void *obj, int escBackslash)
      * total length for newstring required from malloc.
      */
     for (s = str; (c = *s++);) {
-	if (c == '\\') {
+	if (c == '\\' && *s != '\0') {
 	    switch (c = *s++) {
 	    case 'G':
 		newlen += g_len;
@@ -394,7 +394,7 @@ static char *strdup_and_subst_obj0 (char *str, void *obj, int escBackslash)
 
     /* second pass over str assembles new string */
     for (s = str, p = newstr; (c = *s++);) {
-	if (c == '\\') {
+	if (c == '\\' && *s != '\0') {
 	    switch (c = *s++) {
 	    case 'G':
 		for (t = g_str; (*p = *t++); p++);
