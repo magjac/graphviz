@@ -11,4 +11,5 @@ BEGIN {
     gsub ("\"","",name);
   }
   printf ("%s %s %s %s\n", $5, $7, $8, $9) > name; 
+  close(name);
 }
