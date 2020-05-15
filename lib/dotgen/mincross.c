@@ -1365,7 +1365,7 @@ void install_in_rank(graph_t * g, node_t * n)
     if (GD_rank(g)[r].v + ND_order(n) >
 	GD_rank(g)[r].av + GD_rank(Root)[r].an) {
 	agerr(AGERR, "install_in_rank, line %d: GD_rank(g)[%d].v + ND_order(%s) [%d] > GD_rank(g)[%d].av + GD_rank(Root)[%d].an [%d]\n",
-	      __LINE__, r, agnameof(n),GD_rank(g)[r].v + ND_order(n), r, r, GD_rank(g)[r].av+GD_rank(Root)[r].an);
+	      __LINE__, r, agnameof(n),ND_order(n), r, r, GD_rank(Root)[r].an);
 	return;
     }
 }
