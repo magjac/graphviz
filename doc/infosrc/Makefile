@@ -5,7 +5,7 @@
 #  gs and awk are used in ps_to_jpg.sh
 #  dot is used in mkarrows.sh, mkshapes.sh, mkstyles.sh, mktapers.sh, mksplines.sh
 #  ps_to_png.sh and other make rules rely on netpbm tools 
-#  and ps2raster, which is part of the GMT library.
+#  and psconvert, which is part of the GMT library.
 #  
 #  python is used to run jconvert.py, which converts the json schema
 #  graphviz_json_schema.json to html. This also relies on the python
@@ -114,7 +114,7 @@ sdlshapes.ps : sdlshapes.dot
 	dot -Tps -lsdl.ps sdlshapes.dot > sdlshapes.ps
 
 sdlshapes.ppm: sdlshapes.ps
-	ps2raster sdlshapes.ps -Tm -A -E800
+	gmt psconvert sdlshapes.ps -Tm -A -E800
 
 sdlshapes.jpg : sdlshapes.ppm
 	cat sdlshapes.ppm | pamscale .1 | pnmtojpeg >sdlshapes.jpg
