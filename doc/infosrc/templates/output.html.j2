@@ -1,0 +1,30 @@
+<TABLE ALIGN=CENTER>
+<TR><TH>Command-line<BR>parameter</TH><TH>Format</TH></TR>
+{% for params, format in formats | dictsort %}
+ <TR><TD ALIGN=CENTER>
+  {%- for p in params -%}
+    <A NAME=a:{{p}} HREF=#d:{{p}}>{{p}}</A>
+    {%- if not loop.last %}
+
+<BR>
+    {%- endif %}
+  {%- endfor %}
+
+</TD><TD>{{ format }}</TD> </TR>
+{% endfor %}
+</TABLE>
+<HR>
+<H2>Format Descriptions</H2>
+<DL>
+{% for params, description in descriptions | dictsort %}
+  {% for p in params %}
+    {% if not loop.first -%}
+      ,
+    {%- endif -%}
+    <DT><A NAME=d:{{p}} HREF=#a:{{p}}><STRONG>{{p}}</STRONG></A>
+  {% endfor -%}
+  <DD>
+  {{- description }}
+{% endfor %}
+</DL>
+<HR>
