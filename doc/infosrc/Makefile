@@ -2,7 +2,6 @@
 # Generator for on-line documentation.
 #
 # Required tools: cc, dot, awk, ksh, yacc, gs, python.
-#  gs and awk are used in ps_to_jpg.sh
 #  dot is used in mkarrows.sh, mkshapes.sh, mkstyles.sh, mktapers.sh, mksplines.sh
 #  ps_to_png.sh and other make rules rely on netpbm tools 
 #  and ps2raster, which is part of the GMT library.
@@ -218,7 +217,7 @@ distclean : clean
 
 EXTRA_DIST = $(XGIF) mklang.y mkarrows.sh mkattrs.sh mkshapes.sh mkstyles.sh mktapers.sh \
              mktypes.sh mkarrowtbl.sh mkoutput.sh mkshhtml.sh \
-	         ps_to_jpg.sh ps_to_png.sh arrow_grammar grammar html_grammar \
+	           ps_to_png.sh arrow_grammar grammar html_grammar \
              shapelist attrs.1 colors.1 colors.n \
              output.1 output.2 html.1 html.2 html1.dot html.3 \
              shapes.1 shapes.2 shapes.3 lang.1 lang.2 arrows.1 arrows.2 \
