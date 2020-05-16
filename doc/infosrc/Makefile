@@ -213,7 +213,7 @@ clean :
 
 distclean : clean
 	rm -f attrs.html colors.html output.html shapes.html lang.html arrows.html
-	rm -f $(A2GIF) $(AGIF) $(SGIF) $(MJPG) $(MGIF) $(MPNG) shapes
+	rm -f $(A2GIF) $(AGIF) $(SGIF) $(MPJG) $(MGIF) $(MPNG) $(XGIF) shapes
 	(for s in $$(cat shapelist); do rm -f $$s.gif; done)
 
 EXTRA_DIST = $(XGIF) mklang.y mkarrows.sh mkattrs.sh mkshapes.sh mkstyles.sh mktapers.sh \
