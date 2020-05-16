@@ -76,6 +76,7 @@ uninstall:
 	$(MAKE) -C $(PKGCONFIG_DIR) uninstall
 	$(MAKE) -C $(LIBXML2_DIR) uninstall
 	
+.PHONY: clean
 clean:
 	$(MAKE) -C $(PANGO_DIR) clean
 	$(MAKE) -C $(GLIB_DIR) clean
@@ -91,6 +92,7 @@ clean:
 	$(MAKE) -C $(PKGCONFIG_DIR) clean
 	$(MAKE) -C $(LIBXML2_DIR) clean
 	
+.PHONY: distclean
 distclean:
 	$(MAKE) -C $(PANGO_DIR) distclean
 	$(MAKE) -C $(GLIB_DIR) distclean

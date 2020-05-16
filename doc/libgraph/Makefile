@@ -2,6 +2,7 @@ TEX=latex
 PTEX=pdflatex
 DVI=dvips
 
+.PHONY: all
 all : Agraph.pdf
 
 %.pdf : %.dot
@@ -26,6 +27,7 @@ agmemread.tex : agmemread.c
 Agraph.aux : Agraph.tex
 	$(TEX) Agraph
 
+.PHONY: clean
 clean: 
 	rm -rf *.bbl *.aux *.dvi *.ps *.pdf *.log *.toc *.blg
 

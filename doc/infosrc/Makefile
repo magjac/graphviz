@@ -102,8 +102,10 @@ INSTALL_FILES = $(HTML) $(DOTS) $(SGIF) $(AGIF) $(A2GIF) $(MGIF) $(XGIF) $(MJPG)
 .gv.png :
 	dot -Tpng -o $@ $<
 
+.PHONY: all
 all : $(HTML) $(GIF) $(MPNG) $(MJPG)
 
+.PHONY: install
 install : all
 	$(INSTALL) $(INSTALL_FILES) $(INSTALL_DIR)
 
@@ -208,9 +210,11 @@ $(TAPERPNG) : mktapers.sh
 $(SPLINEPNG) : mksplines.sh
 	./mksplines.sh $@
 
+.PHONY: clean
 clean :
 	rm -f mklang sdlshapes.ps sdlshapes.ppm html.html
 
+.PHONY: distclean
 distclean : clean
 	rm -f attrs.html colors.html output.html shapes.html lang.html arrows.html
 	rm -f $(A2GIF) $(AGIF) $(SGIF) $(MJPG) $(MGIF) $(MPNG) shapes
@@ -226,4 +230,3 @@ EXTRA_DIST = $(XGIF) mklang.y mkarrows.sh mkattrs.sh mkshapes.sh mkstyles.sh mkt
              colorlist.dot html1.dot html4.dot round.dot constraint.dot \
              html2.dot mrecord.dot sdlshapes.dot fill.dot html3.dot record.dot \
              attrs types X11 outputs eqn.gif plugins.gv
-

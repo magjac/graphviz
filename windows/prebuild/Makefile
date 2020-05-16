@@ -89,8 +89,10 @@ PANGO_DIR=$(call dirname, $(PANGO_URL))
 BASE_CONFIG=--prefix=$(LOCAL) --disable-dependency-tracking --enable-static=no --enable-shared=yes PKG_CONFIG="$(LOCAL_BIN)/$(PKGCONFIG_BIN)"
 FLAG_CONFIG=CFLAGS="-O2 -mms-bitfields -I$(LOCAL_INCLUDE)" LDFLAGS="-L$(LOCAL_LIB)"
 
+.PHONY: install
 install: $(LOCAL_LIB)/$(PANGO) $(LOCAL_LIB)/$(GD) $(LOCAL_BIN)/$(FLEX_BIN) $(LOCAL_BIN)/$(YACC_BIN)
 
+.PHONY: uninstall
 uninstall:
 	$(MAKE) -C $(PANGO_DIR) uninstall
 	$(MAKE) -C $(GLIB_DIR) uninstall
@@ -110,6 +112,7 @@ uninstall:
 	rm -rf $(LOCAL_BIN)/flex++.exe
 	rm -rf $(LOCAL_BIN)/$(YACC_BIN)
 	
+.PHONY: distclean
 distclean:
 	$(MAKE) -C $(PANGO_DIR) distclean
 	$(MAKE) -C $(GLIB_DIR) distclean
@@ -625,9 +628,3 @@ $(UNZIP_BIN_EXE):
 	@echo TRANSFERRING ZIP BIN...
 	@echo
 	$(WGET) $(UNZIP_BIN_URL) || rm -f $(UNZIP_BIN_EXE)
-	
-#
-# phony
-#
-
-.PHONY: install uninstall clean distclean

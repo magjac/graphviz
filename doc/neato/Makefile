@@ -24,5 +24,6 @@ neato.bbl : neato.tex ../dotguide/graphdraw.bib neato.aux
 neato.aux : neato.tex $(GRAPHFILES)
 	pdflatex neato
 
+.PHONY: clean
 clean: 
 	rm -rf *.ps *.pdf *.log 

@@ -32,6 +32,7 @@ inkpot_xlate.c:
 inkpot_xlate.h:
 	ln -s ../inkpot_xlate.h
 
+.PHONY: clean
 clean:
 	rm -rf *.o inkpot inkpot.[ch] inkpot_scheme.[ch] \
 		inkpot_value.[ch] inkpot_xlate.[ch]

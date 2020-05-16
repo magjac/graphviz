@@ -1,3 +1,4 @@
+.PHONY: all
 all: gv_test.png
 
 ################################################
@@ -31,5 +32,6 @@ _gv.so: gv.o gv_python.o
 gv_python.cpp gv.py: gv.i
 	swig -c++ -python -o gv_python.cpp gv.i
 
+.PHONY: clean
 clean:
 	rm -f gv.py gv_python.cpp _gv.so *.o gv_test.png $(EXTRACLEAN)

@@ -47,6 +47,7 @@ dotguide.bbl : dotguide.tex ../dotguide/graphdraw.bib dotguide.aux
 dotguide.aux : dotguide.tex $(GRAPHFILES)
 	pdflatex dotguide
 
+.PHONY: clean
 clean: 
 	rm -rf *.ps *.pdf *.log  dotguide.aux dotguide.blg dotguide.bbl
 

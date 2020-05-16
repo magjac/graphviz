@@ -18,7 +18,9 @@
 
 PSS = fig2tpa.ps fig2tpb.ps figboxinitial.ps figboxfinal.ps figfractalonea.ps figfractaloneb.ps figfractalmva.ps figfractalmvb.ps figfractaltracea.ps figfractaltraceb.ps figfractaltracec.ps figradixtree.ps figbigtree.ps figtria.ps figtrib.ps figdag.ps lefty.ps
 
+.PHONY: all
 all: $(PSS)
 
+.PHONY: clean
 clean:
 	rm -rf *.ps
