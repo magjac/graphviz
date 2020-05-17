@@ -6,95 +6,66 @@ RUN ln -s /usr/lib64/libedit.so.0 /usr/lib64/libedit.so
 RUN dnf config-manager --set-enabled PowerTools
 
 # Centos build utilities
-RUN yum -y install libtool-ltdl-devel
-RUN yum -y install ksh
-RUN yum -y install cmake
-
+RUN yum -y install \
+libtool-ltdl-devel \
+ksh \
+cmake \
 # Option glut
-RUN yum -y install freeglut-devel
-
+freeglut-devel \
 # Option gts
-
 # Option swig
-RUN yum -y install swig
-
+swig \
 # Command lefty
-
 # Command smyra
-
 # Command gvedit
-RUN yum -y install qt5-devel
-RUN yum -y install ncurses-devel
-
+qt5-devel \
+ncurses-devel \
 # Plugin library devil
-
 # Plugin library gd
-RUN yum -y install gd-devel
-
+gd-devel \
 # Plugin library ghostscipt
-RUN yum -y install ghostscript-devel
-
+ghostscript-devel \
 # Plugin library gtk
-RUN yum -y install gtk2-devel
-
+gtk2-devel \
 # Plugin library lasi
-
 # Plugin library pangocairo
-
 # Plugin library poppler
-RUN yum -y install poppler-glib-devel
-RUN yum -y install poppler-qt5
-
+poppler-glib-devel \
+poppler-qt5 \
 # Plugin library rsvg
-RUN yum -y install librsvg2-devel
-
+librsvg2-devel \
 # Plugin library webp
-
 # Language extension gv_sharp & gv_ruby
-
 # Language extension gv_go
-
 # Language extension gv_guile
-RUN yum -y install guile-devel
-
+guile-devel \
 # Language extension gv_java
-RUN yum -y install java-devel
-
+java-devel \
 # Language extension gv_lua
-RUN yum -y install lua-devel
-
+lua-devel \
 # Language extension gv_ocaml
-RUN yum -y install ocaml
-
+ocaml \
 # Language extension gv_perl
-RUN yum -y install perl-ExtUtils-Embed
-
+perl-ExtUtils-Embed \
 # Language extension gv_php
-RUN yum -y install php-devel
-RUN yum -y install openssl-devel
-RUN yum -y install libxml2-devel
-
+php-devel \
+openssl-devel \
+libxml2-devel \
 # Language extension gv_python & gv_python2
-RUN yum -y install python2-devel
-
+python2-devel \
 # Language extension gv_python3
-RUN yum -y install python3-devel
-
+python3-devel \
 # Language extension gv_ruby
-RUN yum -y install ruby-devel
-
+ruby-devel \
 # Language extension gv_tcl
-RUN yum -y install tcl-devel
-
+tcl-devel \
 # Requred in redhat/graphviz.spec.fedora.in
-RUN yum -y install libICE-devel
-RUN yum -y install libSM-devel
-RUN yum -y install libXaw-devel
-RUN yum -y install tk-devel
-
+libICE-devel \
+libSM-devel \
+libXaw-devel \
+tk-devel \
 # Test utilities
-RUN yum -y install -y python2-pytest
-RUN yum -y install -y python3-pytest
-
+python2-pytest \
+python3-pytest \
 # Clean up
-RUN yum clean all && rm -rf /var/cache/yum
+&& yum clean all && rm -rf /var/cache/yum
