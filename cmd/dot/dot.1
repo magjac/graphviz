@@ -352,7 +352,7 @@ in the layout.
 layout the graph.
 .PP
 \fBstart=\fIval\fR. Adjusts the random initial placement of nodes
-with no specified position.  If \fIval\fP is is an integer,
+with no specified position.  If \fIval\fP is an integer,
 it is used as the seed for the random number generator.
 If \fIval\fP is not an integer, a random system\(hygenerated integer,
 such as the process ID or current time, is used as the seed.
@@ -634,6 +634,22 @@ As usual, edge layout is guided by the \fBsplines\fR attribute.
 \fB\-s\fIfscale\fR scale input by \fIfscale\fP, the default is 72.
 .PP
 \fB\-y\fR invert y coordinate in output.
+.PP
+\fB\-o\fIfile\fR write output to \fIfile\fP.
+.PP
+\fB\-x\fP reduce graph.
+.PP
+\fB\-Lg\fP don't use grid.
+.PP
+\fB\-LO\fP use old attractive force.
+.PP
+\fB\-Ln\fIi\fR set number of iterations to \fIi\fP.
+.PP
+\fB\-LU\fIi\fR set unscaled factor to \fIi\fP.
+.PP
+\fB\-LC\fIv\fR set overlap expansion factor to \fIv\fP.
+.PP
+\fB\-LT\fR[*]\fIv\fR set temperature (temperature factor) to \fIv\fP.
 .PP
 \fB\-V\fP (version) prints version information and exits.
 .PP
