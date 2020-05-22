@@ -98,7 +98,7 @@ endif()
 
 # ============================ Set Graphviz version ============================
 set(GRAPHVIZ_VERSION_MAJOR 2)
-set(GRAPHVIZ_VERSION_MINOR 43)
+set(GRAPHVIZ_VERSION_MINOR 45)
 set(GRAPHVIZ_VERSION_PATCH 0)
 set(GRAPHVIZ_VERSION_STRING "${GRAPHVIZ_VERSION_MAJOR}.${GRAPHVIZ_VERSION_MINOR}.${GRAPHVIZ_VERSION_PATCH}")
 configure_file(graphviz_version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/graphviz_version.h @ONLY)
