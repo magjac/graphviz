@@ -1,13 +1,15 @@
-from unittest import TestCase
+from unittest import TestCase, skipIf
 
 import subprocess
 import os
+import sys
 
 
 TEST_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
 class TestLargeGraphs(TestCase):
+	@skipIf(sys.platform == 'win32', reason='https://gitlab.com/graphviz/graphviz/-/issues/1710')
 	def test_long_chain(self):
 		"""
 		This test will fail on 32bit Windows machine if compiled with stack size < 16MB.
