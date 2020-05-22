@@ -20,7 +20,7 @@ This project has only 3 of its founders remaining as volunteer maintainers, and 
 
 ## Documentation
 
-The Graphviz documents are currently hosted at https://emden.github.io/
+The Graphviz documents are currently hosted at https://graphviz.org/
 
 ## Graph Visualization ( https://graphviz.org/about/ )
 
