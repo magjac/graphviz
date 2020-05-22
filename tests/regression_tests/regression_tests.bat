@@ -5,4 +5,5 @@ python shapes.py
 popd
 
 REM Larger graph testing
-python -m unittest discover large
+# FIXME: re-enable when https://gitlab.com/graphviz/graphviz/-/issues/1710 is fixed
+#python -m unittest discover large
