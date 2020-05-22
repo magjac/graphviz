@@ -155,6 +155,25 @@ equivalently,
 <TT>"Latin1"</TT>. The <B>charset</B> attribute is case-insensitive.
 Note that if the character encoding used in the input does not
 match the <B>charset</B> value, the resulting output may be very strange.
+:class:ENCG:string:"":;svg
+Classnames to attach to the node, edge, graph, or cluster's SVG element.
+Combine with <a href="#d:stylesheet">stylesheet</a> for styling SVG output
+using CSS classnames.
+<p>
+Multiple space-separated classes are supported.
+<p>
+<pre>
+digraph G {
+  graph [class="cats"];
+
+  subgraph cluster_big {
+    graph [class="big_cats"];
+
+    "Lion" [class="yellow social"];
+    "Snow Leopard" [class="white solitary"];
+  };
+}
+</pre>
 :clusterrank:G:clusterMode:local;  dot
 Mode used for handling clusters. If <B>clusterrank</B> is "local", a
 subgraph whose name begins with "cluster" is given special treatment.
@@ -1337,7 +1356,8 @@ making all edges invisible, a specific edge can overrride this via:
 <P>
 Of course, the component can also explicitly set its <TT>style</TT> attribute to the desired value.
 :stylesheet:G:string:"";  svg
-A URL or pathname specifying an XML style sheet, used in SVG output.
+A URL or pathname specifying an XML style sheet, used in SVG output. Combine
+with <a href="#d:class">class</a> to style elements using CSS selectors.
 :tailURL:E:escString:""; map,svg
 If <B>tailURL</B> is defined, it is
 output as part of the tail label of the edge.
