@@ -76,7 +76,7 @@ build_script:
         $env:Path = $env:APPVEYOR_BUILD_FOLDER + "\" + $env:configuration + "\Graphviz\bin" + ";" + $env:Path;
         dot -c;
         cd tests\regression_tests;
-        ./regression_tests.bat;
+        ./regression_tests.ps1;
       }
 
 artifacts:
