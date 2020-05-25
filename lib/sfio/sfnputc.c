@@ -12,6 +12,7 @@
  *************************************************************************/
 
 #include	"sfhdr.h"
+#include <string.h>
 
 /*	Write out a character n times
 **
@@ -45,8 +46,7 @@ ssize_t sfnputc(reg Sfio_t * f, reg int c, reg size_t n)
     }
     if ((size_t) p > n)
 	p = n;
-    MEMSET(ps, c, p);
-    ps -= p;
+    memset(ps, c, p);
 
     w = n;
     if (ps == f->next) {	/* simple sfwrite */

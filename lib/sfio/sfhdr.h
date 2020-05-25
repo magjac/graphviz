@@ -745,17 +745,6 @@ extern "C" {
 	  case  2 : *to++ = *fr++; \
 	  case  1 : *to++ = *fr++; \
 	}
-#define MEMSET(s,c,n) \
-	switch(n) \
-	{ default : memset((void*)s,(int)c,n); s += n; break; \
-	  case  7 : *s++ = c; \
-	  case  6 : *s++ = c; \
-	  case  5 : *s++ = c; \
-	  case  4 : *s++ = c; \
-	  case  3 : *s++ = c; \
-	  case  2 : *s++ = c; \
-	  case  1 : *s++ = c; \
-	}
 
     extern Sfextern_t _Sfextern;
     extern Sftab_t _Sftable;
