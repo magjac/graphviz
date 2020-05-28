@@ -7,10 +7,7 @@ name=
 # and desc arrays, respectively, indexed by the format name.
 # The initial line of an item has the format :name:long name 
 # 
-# Lines beginning with '#' are treated as comments, unless the 
-# following character is '<', in which case, it is assumed the
-# remainder of the line contains a filename, whose contents will
-# be read into the generared html file.
+# Lines beginning with '#' are treated as comments.
 OLDIFS="$IFS"
 IFS=
 while read line
@@ -18,18 +15,7 @@ do
   c=${line:0:1}
   if [[ $c == '#' ]]
   then 
-    if [[ ${line:1:1} == '<' ]]
-    then
-      filename=${line:2}
-      filename=${filename##*( )}
-      filename=${filename%%*( )}
-      while read incline
-      do
-        txt="$txt${incline}\n"
-      done < $filename
-    else
-      continue
-    fi
+    continue
   elif [[ $c == ':' ]]
   then
     if [[ -n "$name" ]]
