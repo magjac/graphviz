@@ -1,3 +1,4 @@
+.PHONY: all
 all: dot demo simple example
 
 ################################################
@@ -22,5 +23,6 @@ demo: demo.o builtins.o
 simple: simple.o builtins.o
 example: example.o builtins.o
 
+.PHONY: clean
 clean:
 	rm -rf *.o dot demo simple example *.png $(EXTRACLEAN)

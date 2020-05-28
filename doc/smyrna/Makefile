@@ -34,5 +34,6 @@ smyrna.bbl : smyrna.tex ../dotguide/graphdraw.bib smyrna.aux
 smyrna.aux : smyrna.tex $(GRAPHFILES)
 	pdflatex smyrna
 
+.PHONY: clean
 clean: 
 	rm -rf *.pdf *.log *.aux *.bbl *.blg *.log *.toc

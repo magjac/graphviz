@@ -2,6 +2,7 @@ TEX=latex
 PTEX=pdflatex
 DVI=dvips
 
+.PHONY: all
 all : libguide.pdf
 
 %.pdf : %.dot
@@ -32,6 +33,7 @@ libguide.bbl : libguide.tex graphdraw.bib libguide.aux
 libguide.aux : libguide.tex
 	$(TEX) libguide
 
+.PHONY: clean
 clean: 
 	rm -rf *.bbl *.aux *.dvi *.ps *.pdf *.log *.toc *.blg
 

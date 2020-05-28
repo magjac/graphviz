@@ -94,6 +94,7 @@ uninstall:
 	$(MAKE) -C $(FREETYPE_DIR) uninstall
 	$(MAKE) -C $(PKGCONFIG_DIR) uninstall
 	
+.PHONY: clean
 clean:
 	$(MAKE) -C $(JPEG_DIR) clean
 	$(MAKE) -C $(TIFF_DIR) clean
@@ -111,6 +112,7 @@ clean:
 	$(MAKE) -C $(FREETYPE_DIR) clean
 	$(MAKE) -C $(PKGCONFIG_DIR) clean
 	
+.PHONY: distclean
 distclean:
 	$(MAKE) -C $(JPEG_DIR) distclean
 	$(MAKE) -C $(TIFF_DIR) distclean

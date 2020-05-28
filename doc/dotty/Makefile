@@ -12,7 +12,9 @@ dotty.bbl:
 	bibtex dotty
 	rm dotty.dvi
 
+.PHONY: all
 all: dotty.bbl dotty.dvi
 
+.PHONY: clean
 clean:
 	rm -f *.aux *.log *.bbl *.blg *.ps *.dvi
