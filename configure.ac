@@ -1270,7 +1270,7 @@ else
       if test "x$PYTHON" = "x"; then
 	use_python="No (python is too old)"
       else
-        PYTHON_PREFIX=`$PYTHON -c "import sys; print sys.prefix"`
+        PYTHON_PREFIX=`$PYTHON -c "import sys; print(sys.prefix)"`
         PYTHON_INCLUDES=-I$PYTHON_PREFIX/include/python$PYTHON_VERSION_SHORT
 #        PYTHON_LIBS="-lpython$PYTHON_VERSION_SHORT"
 	PYTHON_LIBS="-undefined dynamic_lookup"
