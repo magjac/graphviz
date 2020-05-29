@@ -142,9 +142,11 @@ colors.html : colors.1 colors.n ../../lib/common/color_names ../../lib/common/sv
 	cat colors.n >> colors.html
 	rm -rf colortmp
 
-output.html : output.1 output.2 outputs mkoutput.sh plugins.png jconvert.py
-	cat output.1 > output.html
+schema.html : jconvert.py graphviz_json_schema.json
 	./jconvert.py graphviz_json_schema.json schema.html
+
+output.html : output.1 output.2 outputs mkoutput.sh plugins.png jconvert.py schema.html
+	cat output.1 > output.html
 	./mkoutput.sh < outputs >> output.html
 	cat output.2 >> output.html
 
@@ -215,7 +217,7 @@ clean :
 
 .PHONY: distclean
 distclean : clean
-	rm -f attrs.html colors.html output.html shapes.html lang.html arrows.html
+	rm -f attrs.html colors.html output.html shapes.html lang.html arrows.html schema.html
 	rm -f $(A2GIF) $(AGIF) $(SGIF) $(MPJG) $(MGIF) $(MPNG) $(XGIF) shapes
 	(for s in $$(cat shapelist); do rm -f $$s.gif; done)
 
