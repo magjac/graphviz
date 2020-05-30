@@ -6,9 +6,14 @@
 #  ps_to_png.sh and other make rules rely on netpbm tools 
 #  and psconvert, which is part of the GMT library.
 #  
-#  python is used to run jconvert.py, which converts the json schema
-#  graphviz_json_schema.json to html. This also relies on the python
-#  package json2html.
+#  Install python modules with:
+#  $ pip install --user -r requirements.txt
+#
+#  python is used to run:
+#  - jconvert.py, which converts the json schema graphviz_json_schema.json to html.
+#    This also relies on the python package json2html.
+#  - mkoutput.py, which converts templates/output.html to output.html
+#    This requires the jinja2 python package.
 #
 # The main product are 7 web pages:
 #    arrows.html  - arrow_grammar
@@ -142,13 +147,14 @@ colors.html : colors.1 colors.n ../../lib/common/color_names ../../lib/common/sv
 	cat colors.n >> colors.html
 	rm -rf colortmp
 
+
+output.html : output.1 output.2 outputs mkoutput.py plugins.png jconvert.py schema.html templates/output.html.j2
+	cat output.1 > output.html
+	./mkoutput.py < outputs >> output.html
+	cat output.2 >> output.html
+
 schema.html : jconvert.py graphviz_json_schema.json
 	./jconvert.py graphviz_json_schema.json schema.html
-
-output.html : output.1 output.2 outputs mkoutput.sh plugins.png jconvert.py schema.html
-	cat output.1 > output.html
-	./mkoutput.sh < outputs >> output.html
-	cat output.2 >> output.html
 
 html.html : html.1 html_grammar html.2 html.3 html1.gif html2.gif html3.gif html4.gif mklang
 	./mklang html_grammar gramtmp
@@ -222,7 +228,7 @@ distclean : clean
 	(for s in $$(cat shapelist); do rm -f $$s.gif; done)
 
 EXTRA_DIST = $(XGIF) mklang.y mkarrows.sh mkattrs.sh mkshapes.sh mkstyles.sh mktapers.sh \
-             mktypes.sh mkarrowtbl.sh mkoutput.sh mkshhtml.sh \
+             mktypes.sh mkarrowtbl.sh mkoutput.py mkshhtml.sh \
 	           ps_to_png.sh arrow_grammar grammar html_grammar \
              shapelist attrs.1 colors.1 colors.n \
              output.1 output.2 html.1 html.2 html1.dot html.3 \
