@@ -56,7 +56,7 @@ static char *api_names[] = { APIS };    /* "render", "layout", ... */
 #undef ELEM
 
 /* translate a string api name to its type, or -1 on error */
-api_t gvplugin_api(char *str)
+api_t gvplugin_api(const char *str)
 {
     int api;
 
