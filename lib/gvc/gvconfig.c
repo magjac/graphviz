@@ -90,7 +90,7 @@ extern Dt_t * textfont_dict_open(GVC_t *gvc);
 
  */
 
-static gvplugin_package_t * gvplugin_package_record(GVC_t * gvc, char *path, char *name)
+static gvplugin_package_t * gvplugin_package_record(GVC_t * gvc, const char *path, const char *name)
 {
     gvplugin_package_t *package = gmalloc(sizeof(gvplugin_package_t));
     package->path = (path) ? strdup(path) : NULL;
