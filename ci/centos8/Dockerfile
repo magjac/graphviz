@@ -23,7 +23,9 @@ ncurses-devel \
 # Plugin library devil
 # Plugin library gd
 gd-devel \
-# Plugin library ghostscipt
+# Documentation
+ghostscript \
+# Plugin library
 ghostscript-devel \
 # Plugin library gtk
 gtk2-devel \

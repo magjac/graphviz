@@ -37,6 +37,8 @@ qt5-default \
 libdevil-dev \
 # Plugin library gd
 libgd-dev \
+# Documentation
+ghostscript \
 # Plugin library ghostscipt
 libgs-dev \
 # Plugin library lasi

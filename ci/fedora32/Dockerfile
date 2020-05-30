@@ -39,8 +39,8 @@ RUN yum -y install DevIL-devel
 # Plugin library gd
 RUN yum -y install gd-devel
 
-# Plugin library ghostscipt
-RUN yum -y install ghostscript-devel
+# Documentation and Plugin library ghostscipt
+RUN yum -y install ghostscript ghostscript-devel
 
 # Plugin library gtk
 RUN yum -y install gtkglext-devel
