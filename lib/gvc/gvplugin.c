@@ -85,7 +85,12 @@ boolean gvplugin_install(GVC_t * gvc, api_t api, const char *typestr,
 {
     gvplugin_available_t *plugin, **pnext;
 #define TYPSIZ 63
-    char *p, pins[TYPSIZ + 1], pnxt[TYPSIZ + 1];
+    char *p, *t, pins[TYPSIZ + 1], pnxt[TYPSIZ + 1];
+
+    /* duplicate typestr to later save in the plugin list */
+    t = strdup(typestr);
+    if (t == NULL)
+        return FALSE;
 
     strncpy(pins, typestr, TYPSIZ);
     if ((p = strchr(pins, ':')))
@@ -119,7 +124,7 @@ boolean gvplugin_install(GVC_t * gvc, api_t api, const char *typestr,
     plugin = GNEW(gvplugin_available_t);
     plugin->next = *pnext;
     *pnext = plugin;
-    plugin->typestr = typestr;
+    plugin->typestr = t;
     plugin->quality = quality;
     plugin->package = package;
     plugin->typeptr = typeptr;  /* null if not loaded */
