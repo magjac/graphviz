@@ -115,6 +115,8 @@ of the layout programs.
 </TD><TD ALIGN="CENTER">false</TD><TD></TD><TD></TD> </TR>
  <TR><TD><A NAME=a:charset HREF=#d:charset>charset</A>
 </TD><TD>G</TD><TD>string</TD><TD ALIGN="CENTER">"UTF-8"</TD><TD></TD><TD></TD> </TR>
+ <TR><TD><A NAME=a:class HREF=#d:class>class</A>
+</TD><TD>ENCG</TD><TD>string</TD><TD ALIGN="CENTER">""</TD><TD></TD><TD>svg only</TD> </TR>
  <TR><TD><A NAME=a:clusterrank HREF=#d:clusterrank>clusterrank</A>
 </TD><TD>G</TD><TD><A HREF=#k:clusterMode>clusterMode</A>
 </TD><TD ALIGN="CENTER">local</TD><TD></TD><TD>dot only</TD> </TR>
@@ -167,7 +169,7 @@ of the layout programs.
 </TD><TD>E</TD><TD><A HREF=#k:escString>escString</A>
 </TD><TD ALIGN="CENTER">""</TD><TD></TD><TD>svg, cmap only</TD> </TR>
  <TR><TD><A NAME=a:epsilon HREF=#d:epsilon>epsilon</A>
-</TD><TD>G</TD><TD>double</TD><TD ALIGN="CENTER">.0001 * # nodes(mode == KK)<BR>.0001(mode == major)</TD><TD></TD><TD>neato only</TD> </TR>
+</TD><TD>G</TD><TD>double</TD><TD ALIGN="CENTER">.0001 * # nodes(mode == KK)<BR>.0001(mode == major)<BR>.01(mode == sgd)</TD><TD></TD><TD>neato only</TD> </TR>
  <TR><TD><A NAME=a:esep HREF=#d:esep>esep</A>
 </TD><TD>G</TD><TD><A HREF=#k:addDouble>addDouble</A>
 <BR><A HREF=#k:addPoint>addPoint</A>
@@ -314,7 +316,7 @@ of the layout programs.
 </TD><TD>NCG</TD><TD>double<BR><A HREF=#k:point>point</A>
 </TD><TD ALIGN="CENTER">&#60;device-dependent&#62;</TD><TD></TD><TD></TD> </TR>
  <TR><TD><A NAME=a:maxiter HREF=#d:maxiter>maxiter</A>
-</TD><TD>G</TD><TD>int</TD><TD ALIGN="CENTER">100 &#42; # nodes(mode == KK)<BR>200(mode == major)<BR>600(fdp)</TD><TD></TD><TD>fdp, neato only</TD> </TR>
+</TD><TD>G</TD><TD>int</TD><TD ALIGN="CENTER">100 &#42; # nodes(mode == KK)<BR>200(mode == major)<BR>30(mode == sgd)<BR>600(fdp)</TD><TD></TD><TD>fdp, neato only</TD> </TR>
  <TR><TD><A NAME=a:mclimit HREF=#d:mclimit>mclimit</A>
 </TD><TD>G</TD><TD>double</TD><TD ALIGN="CENTER">1.0</TD><TD></TD><TD>dot only</TD> </TR>
  <TR><TD><A NAME=a:mindist HREF=#d:mindist>mindist</A>
@@ -637,6 +639,26 @@ of the layout programs.
   <TT>"Latin1"</TT>. The <B>charset</B> attribute is case-insensitive.
   Note that if the character encoding used in the input does not
   match the <B>charset</B> value, the resulting output may be very strange.
+
+<DT><A NAME=d:class HREF=#a:class><STRONG>class</STRONG></A>
+<DD>  Classnames to attach to the node, edge, graph, or cluster's SVG element.
+  Combine with <a href="#d:stylesheet">stylesheet</a> for styling SVG output
+  using CSS classnames.
+  <p>
+  Multiple space-separated classes are supported.
+  <p>
+  <pre>
+  digraph G {
+    graph [class="cats"];
+  
+    subgraph cluster_big {
+      graph [class="big_cats"];
+  
+      "Lion" [class="yellow social"];
+      "Snow Leopard" [class="white solitary"];
+    };
+  }
+  </pre>
 
 <DT><A NAME=d:clusterrank HREF=#a:clusterrank><STRONG>clusterrank</STRONG></A>
 <DD>  Mode used for handling clusters. If <B>clusterrank</B> is "local", a
@@ -1311,7 +1333,11 @@ of the layout programs.
   neato uses a version of the gradient descent method. The only advantage
   to the latter technique is that it is sometimes appreciably faster for
   small (number of nodes < 100) graphs. A significant disadvantage is that
-  it may cycle.
+  it may cycle. If <B>mode</B> is <TT>"sgd"</TT>, neato uses a version of the
+  stochastic gradient descent method. The advantage of sgd is faster and more
+  reliable convergence than both the previous methods, while the disadvantage
+  is that it runs in a fixed number of iterations and may require larger
+  values of <TT>"maxiter"</TT> in some graphs.
   <P>
   There are two experimental modes in neato, "hier", which adds a top-down
   directionality similar to the layout used in dot, and "ipsep", which
@@ -1838,7 +1864,7 @@ of the layout programs.
 
 <DT><A NAME=d:showboxes HREF=#a:showboxes><STRONG>showboxes</STRONG></A>
 <DD>  Print guide boxes in PostScript at the beginning of
-  routesplines if 1, or at the end if 2. (Debugging)
+  routesplines if 1, or at the end if 2. (Debugging, TB mode only!)
 
 <DT><A NAME=d:sides HREF=#a:sides><STRONG>sides</STRONG></A>
 <DD>  Number of sides if <A HREF=#d:shape><B>shape</B></A>=polygon.
@@ -1949,7 +1975,8 @@ of the layout programs.
   Of course, the component can also explicitly set its <TT>style</TT> attribute to the desired value.
 
 <DT><A NAME=d:stylesheet HREF=#a:stylesheet><STRONG>stylesheet</STRONG></A>
-<DD>  A URL or pathname specifying an XML style sheet, used in SVG output.
+<DD>  A URL or pathname specifying an XML style sheet, used in SVG output. Combine
+  with <a href="#d:class">class</a> to style elements using CSS selectors.
 
 <DT><A NAME=d:tailURL HREF=#a:tailURL><STRONG>tailURL</STRONG></A>
 <DD>  If <B>tailURL</B> is defined, it is
