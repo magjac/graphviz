@@ -22,7 +22,7 @@ extern "C" {
 /*                "stk_" to prevent name conflicts. */
 /*                                                                      */
 /*                Function names: Each word in a function name begins with */
-/*                a capital letter.  An example funcntion name is  */
+/*                a capital letter.  An example function name is  */
 /*                CreateRedTree(a,b,c). Furthermore, each function name */
 /*                should begin with a capital letter to easily distinguish */
 /*                them from variables. */

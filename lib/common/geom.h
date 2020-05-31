@@ -50,9 +50,6 @@ typedef struct { pointf LL, UR; } boxf;
 /* expand box b0 as needed to enclose box b1 */
 #define EXPANDBB(b0, b1) ((b0).LL.x = MIN((b0).LL.x, (b1).LL.x), (b0).LL.y = MIN((b0).LL.y, (b1).LL.y), (b0).UR.x = MAX((b0).UR.x, (b1).UR.x), (b0).UR.y = MAX((b0).UR.y, (b1).UR.y))
 
-/* clip box b0 to fit box b1 */
-#define CLIPBB(b0, b1) ((b0).LL.x = MAX((b0).LL.x, (b1).LL.x), (b0).LL.y = MAX((b0).LL.y, (b1).LL.y), (b0).UR.x = MIN((b0).UR.x, (b1).UR.x), (b0).UR.y = MIN((b0).UR.y, (b1).UR.y))
-
 #define LEN2(a,b)		(SQR(a) + SQR(b))
 #define LEN(a,b)		(sqrt(LEN2((a),(b))))
 
