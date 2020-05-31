@@ -71,7 +71,6 @@ extern unsigned char Verbose;
 #endif    /* STANDALONE */
 
 #define FREE free
-#define MEMCPY memcpy
 
 #ifndef DEBUG
 #ifndef NDEBUG

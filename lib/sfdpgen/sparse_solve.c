@@ -189,7 +189,7 @@ static real conjugate_gradient(Operator A, Operator precon, int n, real *x, real
       beta = rho/rho_old;
       p = vector_saxpy(n, z, p, beta);
     } else {
-      MEMCPY(p, z, sizeof(real)*n);
+      memcpy(p, z, sizeof(real)*n);
     }
 
     q = Ax(A, p, q);
@@ -277,7 +277,7 @@ real* jacobi(SparseMatrix A, int dim, real *x0, real *rhs, int maxit, int *flag)
 	y[i] = (b[i] - sum)/diag;
 
       }
-      MEMCPY(x, y, sizeof(real)*n);
+      memcpy(x, y, sizeof(real)*n);
     }
 
     for (i = 0; i < n; i++) {

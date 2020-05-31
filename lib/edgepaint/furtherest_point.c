@@ -10,6 +10,7 @@
 #include "general.h"
 #include "QuadTree.h"
 #include "furtherest_point.h"
+#include <string.h>
 
 static real dist(int dim, real *x, real *y){
   int k;
@@ -87,7 +88,7 @@ void furtherest_point(int k, int dim, real *wgt, real *pts, real *center, real w
 
   qt->total_weight = *dist_max = distance_to_group(k, dim, wgt, pts, center, usr_dist);/* store distance in total_weight */
   if (!(*argmax)) *argmax = MALLOC(sizeof(real)*dim);
-  MEMCPY(*argmax, center, sizeof(real)*dim);
+  memcpy(*argmax, center, sizeof(real)*dim);
 
   candidates = MALLOC(sizeof(qt)*ncandidates_max);
   candidates2 = MALLOC(sizeof(qt)*ncandidates2_max);
@@ -128,7 +129,7 @@ void furtherest_point(int k, int dim, real *wgt, real *pts, real *center, real w
 	    for (j = 0; j < dim; j++) fprintf(stderr,"%f, ", qt->qts[ii]->center[j]);
 	    fprintf(stderr,"}\n");
  	  }
-	  MEMCPY(*argmax, qt->qts[ii]->center, sizeof(real)*dim);
+	  memcpy(*argmax, qt->qts[ii]->center, sizeof(real)*dim);
 	} else if (distance + wmax*sqrt(((real) dim))*(qt->width)/2 < *dist_max){
 	  pruned = TRUE;
 	}
@@ -219,7 +220,7 @@ void furtherest_point_in_list(int k, int dim, real *wgt, real *pts, QuadTree qt,
   average = qt->average;
   qt->total_weight = *dist_max = distance_to_group(k, dim, wgt, pts, average, usr_dist);/* store distance in total_weight */
   if (!(*argmax)) *argmax = MALLOC(sizeof(real)*dim);
-  MEMCPY(*argmax, average, sizeof(real)*dim);
+  memcpy(*argmax, average, sizeof(real)*dim);
 
   candidates = MALLOC(sizeof(qt)*ncandidates_max);
   candidates2 = MALLOC(sizeof(qt)*ncandidates2_max);
@@ -260,7 +261,7 @@ void furtherest_point_in_list(int k, int dim, real *wgt, real *pts, QuadTree qt,
 	    for (j = 0; j < dim; j++) fprintf(stderr,"%f, ", qt->qts[ii]->average[j]);
 	    fprintf(stderr,"}\n");
  	  }
-	  MEMCPY(*argmax, qt->qts[ii]->average, sizeof(real)*dim);
+	  memcpy(*argmax, qt->qts[ii]->average, sizeof(real)*dim);
 	} else if (distance + wmax*sqrt(((real) dim))*(qt->width) < *dist_max){/* average feasible point in this square is too close to the point set */
 	  pruned = TRUE;
 	}
