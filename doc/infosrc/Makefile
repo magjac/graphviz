@@ -3,8 +3,7 @@
 #
 # Required tools: cc, dot, awk, ksh, yacc, gs, python.
 #  dot is used in mkarrows.sh, mkshapes.sh, mkstyles.sh, mktapers.sh, mksplines.sh
-#  ps_to_png.sh and other make rules rely on netpbm tools 
-#  and psconvert, which is part of the GMT library.
+#  ps_to_png.sh and other make rules rely on netpbm tools.
 #  
 #  Install python modules with:
 #  $ pip install --user -r requirements.txt
@@ -36,8 +35,6 @@ XGIF = forward.gif back.gif both.gif nohead.gif
 
 MGIF = constraint.gif record.gif html1.gif html2.gif fill.gif round.gif \
        mrecord.gif html3.gif html4.gif colorlist.gif record2.gif fixed.gif tee.gif
-
-MJPG = sdlshapes.jpg
 
 GRADPNG = g_lin0.png g_wlin0.png g_rad0.png g_lin45.png g_wlin45.png g_rad45.png g_lin90.png g_wlin90.png g_rad90.png \
           g_lin180.png g_wlin180.png g_rad180.png g_lin270.png g_wlin270.png g_rad270.png g_lin360.png g_wlin360.png g_rad360.png
@@ -93,7 +90,7 @@ DOTS = html2.gv html3.gv html4.gv tee.gv
 HTML = attrs.html colors.html command.html lang.html output.html shapes.html \
        arrows.html schema.html
 MISC = graphviz_json_schema.json w3data.js
-INSTALL_FILES = $(HTML) $(DOTS) $(SGIF) $(AGIF) $(A2GIF) $(MGIF) $(XGIF) $(MJPG) $(MPNG) $(MISC)
+INSTALL_FILES = $(HTML) $(DOTS) $(SGIF) $(AGIF) $(A2GIF) $(MGIF) $(XGIF) $(MPNG) $(MISC)
 
 .SUFFIXES: .gv .gif .dot .png
 
@@ -118,12 +115,6 @@ record2.gif : record.dot
 
 sdlshapes.ps : sdlshapes.dot
 	dot -Tps -lsdl.ps sdlshapes.dot > sdlshapes.ps
-
-sdlshapes.ppm: sdlshapes.ps
-	gmt psconvert sdlshapes.ps -Tm -A -E800
-
-sdlshapes.jpg : sdlshapes.ppm
-	cat sdlshapes.ppm | pamscale .1 | pnmtojpeg >sdlshapes.jpg
 
 sdlshapes.png : sdlshapes.ps
 	./ps_to_png.sh sdlshapes.ps sdlshapes.png

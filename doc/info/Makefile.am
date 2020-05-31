@@ -26,7 +26,7 @@ html_DATA = attrs.html colors.html command.html \
   invtriangle.gif mrecord.gif nohead.gif none.gif plain.gif note.gif octagon.gif \
   oval.gif parallelogram.gif pentagon.gif plaintext.gif point.gif polygon.gif \
   record.gif record2.gif rect.gif rectangle.gif round.gif septagon.gif tab.gif \
-  trapezium.gif triangle.gif tripleoctagon.gif sdlshapes.jpg sdlshapes.png \
+  trapezium.gif triangle.gif tripleoctagon.gif sdlshapes.png \
   square.gif html2.gv html3.gv html4.gv plugins.png \
   c_bold.png c_dashed.png c_dotted.png c_filled.png c_rounded.png c_solid.png c_striped.png \
   e_bold.png e_dashed.png e_dotted.png e_solid.png \
