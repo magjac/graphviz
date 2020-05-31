@@ -148,10 +148,8 @@ colors.html : colors.1 colors.n ../../lib/common/color_names ../../lib/common/sv
 	rm -rf colortmp
 
 
-output.html : output.1 output.2 outputs mkoutput.py plugins.png jconvert.py schema.html templates/output.html.j2
-	cat output.1 > output.html
-	./mkoutput.py < outputs >> output.html
-	cat output.2 >> output.html
+output.html : outputs mkoutput.py plugins.png schema.html templates/output.html.j2
+	./mkoutput.py < outputs > output.html
 
 schema.html : jconvert.py graphviz_json_schema.json
 	./jconvert.py graphviz_json_schema.json schema.html
