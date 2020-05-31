@@ -153,6 +153,11 @@ function doDiff
       then
           print -u 2 "Test $1:$2 : == Failed == $OUTFILE"
           (( DIFF_CNT+=1 ))
+      else
+          if [[ -n "$VERBOSE" ]]
+          then
+             print -u 2 "Test $1:$2 : == OK == $OUTFILE"
+          fi
       fi
       ;;
     svg )
@@ -163,6 +168,11 @@ function doDiff
       then
           print -u 2 "Test $1:$2 : == Failed == $OUTFILE"
           (( DIFF_CNT+=1 ))
+      else
+          if [[ -n "$VERBOSE" ]]
+          then
+              print -u 2 "Test $1:$2 : == OK == $OUTFILE"
+          fi
       fi
       ;;
     png )
@@ -178,6 +188,10 @@ function doDiff
           print -u 2 "Test $1:$2 : == Failed == $OUTFILE"
           (( DIFF_CNT+=1 ))
       else
+          if [[ -n "$VERBOSE" ]]
+          then
+              print -u 2 "Test $1:$2 : == OK == $OUTFILE"
+          fi
 	  rm $OUTHTML/dif_$OUTFILE
       fi
       ;;
@@ -187,6 +201,11 @@ function doDiff
       then
           print -u 2 "Test $1:$2 : == Failed == $OUTFILE"
           (( DIFF_CNT+=1 ))
+      else
+          if [[ -n "$VERBOSE" ]]
+          then
+              print -u 2 "Test $1:$2 : == OK == $OUTFILE"
+          fi
       fi
       ;;
     esac
