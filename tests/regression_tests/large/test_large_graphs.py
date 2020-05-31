@@ -5,9 +5,6 @@ import os
 import sys
 
 
-TEST_DIR = os.path.dirname(os.path.realpath(__file__))
-
-
 class TestLargeGraphs(TestCase):
 	@skipIf(sys.platform == 'win32', reason='https://gitlab.com/graphviz/graphviz/-/issues/1710')
 	def test_long_chain(self):
@@ -32,5 +29,5 @@ class TestLargeGraphs(TestCase):
 			graph.render("long_chain")
 		"""
 		subprocess.check_call([
-			'dot', '-Tsvg', '-O', os.path.join(TEST_DIR, 'long_chain')
+			'dot', '-Tsvg', '-O', os.devnull
 		])
