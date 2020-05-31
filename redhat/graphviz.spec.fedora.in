@@ -74,7 +74,7 @@ BuildRequires: libXaw-devel libSM-devel libICE-devel libXpm-devel libXt-devel
 BuildRequires: libXmu-devel libXext-devel libX11-devel gtk2-devel freeglut-devel
 BuildRequires: freetype-devel fontconfig-devel cairo-devel pango-devel
 BuildRequires: gmp-devel gd gd-devel librsvg2-devel
-BuildRequires: ghostscript-devel poppler-glib-devel libtool-ltdl libtool-ltdl-devel
+BuildRequires: ghostscript ghostscript-devel poppler-glib-devel libtool-ltdl libtool-ltdl-devel
 BuildRequires: ruby ruby-devel php-devel lua-devel
 BuildRequires: perl-devel perl-libs perl-ExtUtils-Embed tcl tcl-devel tk tk-devel
 
