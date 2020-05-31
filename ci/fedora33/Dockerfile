@@ -98,7 +98,6 @@ RUN yum -y install ruby-devel
 
 # Required in redhat/graphviz.spec.fedora.in
 RUN yum -y install libXaw-devel
-RUN yum -y install glade3-libgladeui-devel
 RUN yum -y install libglade2-devel
 RUN yum -y install mono-core
 
