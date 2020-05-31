@@ -27,7 +27,7 @@ dotty: $(top_srcdir)/cmd/dotty/dotty.sh
 endif
 
 dotty.1.pdf: $(srcdir)/dotty.1
-	- @GROFF@ -Tps -man $(srcdir)/dotty.1 | @PS2PDF@ - - >dotty.1.pdf
+	@GROFF@ -Tps -man $(srcdir)/dotty.1 | @PS2PDF@ - - >dotty.1.pdf
 
 EXTRA_DIST = $(lefty_DATA) $(man_MANS) $(pdf_DATA) \
 	dotty.bsh dotty.ksh dotty.sh \

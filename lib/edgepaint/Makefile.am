@@ -30,7 +30,7 @@ liblab_gamut_la_LDFLAGS = -version-info $(LAB_GAMUT_VERSION)
 liblab_gamut_la_SOURCES = lab_gamut.c
 
 lab_gamut.3.pdf: $(srcdir)/lab_gamut.3
-	- @GROFF@ -Tps -man $(srcdir)/lab_gamut.3 | @PS2PDF@ - - >lab_gamut.3.pdf
+	@GROFF@ -Tps -man $(srcdir)/lab_gamut.3 | @PS2PDF@ - - >lab_gamut.3.pdf
 
 EXTRA_DIST =  $(man_MANS) $(pdf_DATA) edgepaintlib.vcxproj* lab_gamut.vcxproj* lab_gamut.def
  

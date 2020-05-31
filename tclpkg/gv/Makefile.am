@@ -422,43 +422,43 @@ $(man): gv.i gv_doc_writer.tcl gv_doc_template.tcl gv_doc_langs.tcl
 	$(TCLSH) $(srcdir)/gv_doc_writer.tcl "$(srcdir)"
 
 gv.3sharp.pdf: gv.3sharp
-	- $(GROFF) -Tps -man gv.3sharp | $(PS2PDF) - - >gv.3sharp.pdf
+	@GROFF@ -Tps -man gv.3sharp | @PS2PDF@ - - >gv.3sharp.pdf
 
 gv.3go.pdf: gv.3go
-	- $(GROFF) -Tps -man gv.3go | $(PS2PDF) - - >gv.3go.pdf
+	@GROFF@ -Tps -man gv.3go | @PS2PDF@ - - >gv.3go.pdf
 
 gv.3guile.pdf: gv.3guile
-	- $(GROFF) -Tps -man gv.3guile | $(PS2PDF) - - >gv.3guile.pdf
+	@GROFF@ -Tps -man gv.3guile | @PS2PDF@ - - >gv.3guile.pdf
 
 gv.3io.pdf: gv.3io
-	- $(GROFF) -Tps -man gv.3io | $(PS2PDF) - - >gv.3io.pdf
+	@GROFF@ -Tps -man gv.3io | @PS2PDF@ - - >gv.3io.pdf
 
 gv.3java.pdf: gv.3java
-	- $(GROFF) -Tps -man gv.3java | $(PS2PDF) - - >gv.3java.pdf
+	@GROFF@ -Tps -man gv.3java | @PS2PDF@ - - >gv.3java.pdf
 
 gv.3lua.pdf: gv.3lua
-	- $(GROFF) -Tps -man gv.3lua | $(PS2PDF) - - >gv.3lua.pdf
+	@GROFF@ -Tps -man gv.3lua | @PS2PDF@ - - >gv.3lua.pdf
 
 gv.3ocaml.pdf: gv.3ocaml
-	- $(GROFF) -Tps -man gv.3ocaml | $(PS2PDF) - - >gv.3ocaml.pdf
+	@GROFF@ -Tps -man gv.3ocaml | @PS2PDF@ - - >gv.3ocaml.pdf
 
 gv.3perl.pdf: gv.3perl
-	- $(GROFF) -Tps -man gv.3perl | $(PS2PDF) - - >gv.3perl.pdf
+	@GROFF@ -Tps -man gv.3perl | @PS2PDF@ - - >gv.3perl.pdf
 
 gv.3php.pdf: gv.3php
-	- $(GROFF) -Tps -man gv.3php | $(PS2PDF) - - >gv.3php.pdf
+	@GROFF@ -Tps -man gv.3php | @PS2PDF@ - - >gv.3php.pdf
 
 gv.3python.pdf: gv.3python
-	- $(GROFF) -Tps -man gv.3python | $(PS2PDF) - - >gv.3python.pdf
+	@GROFF@ -Tps -man gv.3python | @PS2PDF@ - - >gv.3python.pdf
 
 gv.3r.pdf: gv.3r
-	- $(GROFF) -Tps -man gv.3r | $(PS2PDF) - - >gv.3r.pdf
+	@GROFF@ -Tps -man gv.3r | @PS2PDF@ - - >gv.3r.pdf
 
 gv.3ruby.pdf: gv.3ruby
-	- $(GROFF) -Tps -man gv.3ruby | $(PS2PDF) - - >gv.3ruby.pdf
+	@GROFF@ -Tps -man gv.3ruby | @PS2PDF@ - - >gv.3ruby.pdf
 
 gv.3tcl.pdf: gv.3tcl
-	- $(GROFF) -Tps -man gv.3tcl | $(PS2PDF) - - >gv.3tcl.pdf
+	@GROFF@ -Tps -man gv.3tcl | @PS2PDF@ - - >gv.3tcl.pdf
 
 install-data-hook:
 if WITH_JAVA

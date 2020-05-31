@@ -36,7 +36,7 @@ libgvpr_C_la_DEPENDENCIES = \
 	$(top_builddir)/lib/ingraphs/libingraphs_C.la
 
 gvpr.3.pdf: $(srcdir)/gvpr.3
-	- @GROFF@ -Tps -man $(srcdir)/gvpr.3 | @PS2PDF@ - - >gvpr.3.pdf
+	@GROFF@ -Tps -man $(srcdir)/gvpr.3 | @PS2PDF@ - - >gvpr.3.pdf
 
 
 libgvpr_la_LDFLAGS = -version-info $(GVPR_VERSION) -no-undefined

@@ -60,7 +60,7 @@ attrs.txt: $(top_srcdir)/doc/infosrc/attrs
 	cp $(top_srcdir)/doc/infosrc/attrs attrs.txt
 
 gvedit.1.pdf: $(srcdir)/gvedit.1
-	- $(GROFF) -Tps -man $(srcdir)/gvedit.1 | @PS2PDF@ - - >gvedit.1.pdf
+	@GROFF@ -Tps -man $(srcdir)/gvedit.1 | @PS2PDF@ - - >gvedit.1.pdf
 
 EXTRA_DIST = gvedit.vcxproj* gvedit.pro.in mdi.qrc $(mans) $(pdfs)
 

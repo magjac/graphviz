@@ -25,7 +25,7 @@ lneato: ${top_srcdir}/cmd/lneato/lneato.sh
 endif
 
 lneato.1.pdf: $(srcdir)/lneato.1
-	- @GROFF@ -Tps -man $(srcdir)/lneato.1 | @PS2PDF@ - - >lneato.1.pdf
+	@GROFF@ -Tps -man $(srcdir)/lneato.1 | @PS2PDF@ - - >lneato.1.pdf
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) lneato.bsh lneato.ksh lneato.sh \
 	mswin32 lneato.vcxproj*

@@ -68,10 +68,10 @@ $(top_builddir)/lib/inkpot/inkpot_lib_brewer.dat: inkpot_lib_brewer.tcl data/bre
 	$(TCLSH) inkpot_lib_brewer.tcl data/brewer_colors
 
 inkpot.1.pdf: inkpot.1
-	- $(GROFF) -Tps -man inkpot.1 | $(PS2PDF) - - > inkpot.1.pdf
+	@GROFF@ -Tps -man inkpot.1 | @PS2PDF@ - - > inkpot.1.pdf
 
 inkpot.3.pdf: inkpot.3
-	- $(GROFF) -Tps -man inkpot.3 | $(PS2PDF) - - > inkpot.3.pdf
+	@GROFF@ -Tps -man inkpot.3 | @PS2PDF@ - - > inkpot.3.pdf
 
 CLEANFILES = inkpot_lib_*.dat
 

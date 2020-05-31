@@ -25,7 +25,7 @@ libcdt_la_LDFLAGS = -version-info $(CDT_VERSION) -no-undefined
 libcdt_la_SOURCES = $(libcdt_C_la_SOURCES)
 
 cdt.3.pdf: $(srcdir)/cdt.3
-	- @GROFF@ -Tps -man $(srcdir)/cdt.3 | @PS2PDF@ - - >cdt.3.pdf
+	@GROFF@ -Tps -man $(srcdir)/cdt.3 | @PS2PDF@ - - >cdt.3.pdf
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) cdt.vcxproj*
 

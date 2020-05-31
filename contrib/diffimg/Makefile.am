@@ -19,7 +19,7 @@ diffimg_SOURCES = diffimg.c
 diffimg_LDADD = @GDLIB_LIBS@ @MATH_LIBS@
 
 diffimg.1.pdf: $(srcdir)/diffimg.1
-	- $(GROFF) -Tps -man $(srcdir)/diffimg.1 | $(PS2PDF) - - >diffimg.1.pdf
+	@GROFF@ -Tps -man $(srcdir)/diffimg.1 | @PS2PDF@ - - >diffimg.1.pdf
 
 GRAPH = "digraph G { hello -> world }"
 

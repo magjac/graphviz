@@ -81,7 +81,7 @@ smyrna_static_LDADD = $(top_builddir)/lib/cgraph/libcgraph_C.la \
 		$(GTK_LIBS) $(GLUT_LIBS) $(GTKGLEXT_LIBS) $(GLADE_LIBS) $(X_LIBS) $(EXPAT_LIBS) $(GTS_LIBS) $(MATH_LIBS)
 
 smyrna.1.pdf: $(srcdir)/smyrna.1
-	- @GROFF@ -Tps -man $(srcdir)/smyrna.1 | @PS2PDF@ - - >smyrna.1.pdf
+	@GROFF@ -Tps -man $(srcdir)/smyrna.1 | @PS2PDF@ - - >smyrna.1.pdf
 
 EXTRA_DIST = smyrna.vcxproj* $(man_MANS) $(pdf_DATA) smyrna.1
 

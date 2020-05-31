@@ -63,7 +63,7 @@ gxl2gv_LDADD = \
 	$(top_builddir)/lib/cdt/libcdt.la @EXPAT_LIBS@ 
 
 gxl2gv.1.pdf: $(srcdir)/gxl2gv.1
-	- @GROFF@ -Tps -man $(srcdir)/gxl2gv.1 | @PS2PDF@ - - >gxl2gv.1.pdf
+	@GROFF@ -Tps -man $(srcdir)/gxl2gv.1 | @PS2PDF@ - - >gxl2gv.1.pdf
 
 sccmap_SOURCES = sccmap.c
 

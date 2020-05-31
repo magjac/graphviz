@@ -35,7 +35,7 @@ mingle_LDADD = \
 	$(ANN_LIBS) -lstdc++ -lm 
 
 mingle.1.pdf: $(srcdir)/mingle.1
-	- @GROFF@ -e -Tps -man -t $(srcdir)/mingle.1 | @PS2PDF@ - - >mingle.1.pdf
+	@GROFF@ -e -Tps -man -t $(srcdir)/mingle.1 | @PS2PDF@ - - >mingle.1.pdf
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) mingle.vcxproj*
 

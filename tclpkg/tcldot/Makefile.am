@@ -109,7 +109,7 @@ pkgIndex.tcl: libtcldot.la
 endif
 
 tcldot.3tcl.pdf: $(srcdir)/tcldot.3tcl
-	- $(GROFF) -Tps -man $(srcdir)/tcldot.3tcl | $(PS2PDF) - - >tcldot.3tcl.pdf
+	@GROFF@ -Tps -man $(srcdir)/tcldot.3tcl | @PS2PDF@ - - >tcldot.3tcl.pdf
 
 EXTRA_DIST = $(man) $(pdf) $(html) README README.Tkspline
 

@@ -59,13 +59,13 @@ cluster_LDADD = \
 gvmap.sh :
 
 gvmap.1.pdf: $(srcdir)/gvmap.1
-	- @GROFF@ -Tps -man $(srcdir)/gvmap.1 | @PS2PDF@ - - >gvmap.1.pdf
+	@GROFF@ -Tps -man $(srcdir)/gvmap.1 | @PS2PDF@ - - >gvmap.1.pdf
 
 cluster.1.pdf: $(srcdir)/cluster.1
-	- @GROFF@ -Tps -man $(srcdir)/cluster.1 | @PS2PDF@ - - >cluster.1.pdf
+	@GROFF@ -Tps -man $(srcdir)/cluster.1 | @PS2PDF@ - - >cluster.1.pdf
 
 gvmap.sh.1.pdf: $(srcdir)/gvmap.sh.1
-	- @GROFF@ -Tps -man $(srcdir)/gvmap.sh.1 | @PS2PDF@ - - >gvmap.sh.1.pdf
+	@GROFF@ -Tps -man $(srcdir)/gvmap.sh.1 | @PS2PDF@ - - >gvmap.sh.1.pdf
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) gvmap.vcxproj*
 

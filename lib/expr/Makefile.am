@@ -74,7 +74,7 @@ y.output: $(top_srcdir)/lib/expr/exparse.y
 	@YACC@ -dtv $(top_srcdir)/lib/expr/exparse.y
 
 expr.3.pdf: $(srcdir)/expr.3
-	- @GROFF@ -Tps -man $(srcdir)/expr.3 | @PS2PDF@ - - >expr.3.pdf
+	@GROFF@ -Tps -man $(srcdir)/expr.3 | @PS2PDF@ - - >expr.3.pdf
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) \
 	Makefile.nmake Makefile.orig \

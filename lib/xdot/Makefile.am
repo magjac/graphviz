@@ -20,7 +20,7 @@ libxdot_la_LDFLAGS = -version-info $(XDOT_VERSION) -no-undefined
 libxdot_la_SOURCES = $(libxdot_C_la_SOURCES)
 
 xdot.3.pdf: $(srcdir)/xdot.3
-	- @GROFF@ -Tps -man $(srcdir)/xdot.3 | @PS2PDF@ - - >xdot.3.pdf
+	@GROFF@ -Tps -man $(srcdir)/xdot.3 | @PS2PDF@ - - >xdot.3.pdf
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) xdot.vcxproj*
 
