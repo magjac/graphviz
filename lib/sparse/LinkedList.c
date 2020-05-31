@@ -13,10 +13,7 @@
 
 #include "LinkedList.h"
 #include "memory.h"
-#define MALLOC gmalloc
-#define REALLOC grealloc
 #define FREE free
-#define MEMCPY memcpy
 
 
 

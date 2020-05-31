@@ -18,8 +18,6 @@
 #include "assert.h"
 #define MALLOC gmalloc
 #define REALLOC grealloc
-#define FREE free
-#define MEMCPY memcpy
 
 int mm_get_type(MM_typecode typecode)
 {
