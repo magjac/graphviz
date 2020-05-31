@@ -28,7 +28,7 @@ GENERATE=              # If set, generate test data
 VERBOSE=               # If set, give verbose output
 NOOP=                  # If set, just print list of tests
 DOT=${DOT-$(whence dot)} # should be $(top_builddir)/cmd/dot/dot_static
-DIFFIMG=../contrib/diffimg/diffimg # build tree version
+DIFFIMG=${DIFFIMG-$(whence diffimg)}
 
 TESTNAME=   # name of test
 GRAPH=      # graph specification
