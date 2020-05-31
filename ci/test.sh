@@ -31,7 +31,8 @@ else
 fi
 cd graphviz-${GV_VERSION}
 if command -v python3; then
-    python3 -m pytest --junitxml=report.xml tests
+    python=python3
 else
-    python2 -m pytest --junitxml=report.xml tests
+    python=python2
 fi
+$python -m pytest --junitxml=report.xml tests
