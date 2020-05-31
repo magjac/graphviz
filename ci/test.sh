@@ -35,4 +35,4 @@ if command -v python3; then
 else
     python=python2
 fi
-$python -m pytest --junitxml=report.xml tests
+$python -m pytest --junitxml=report.xml tests rtest
