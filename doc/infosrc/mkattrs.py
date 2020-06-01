@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-# Filter taking a list of attribute descriptions as stdin
-# and producing a summary table, followed by a list of
-# attribute descriptions.
-# Uses `templates/attrs.html.j2`
-# See `attrs` file for format documentation.
+# Generator taking a list of attribute descriptions as argv[1] and attribute
+# type descriptions as argv[2] and producing a summary table, followed by a
+# list of attribute descriptions and attribute types. Uses
+# `templates/attrs.html.j2`.
+# See `attrs` and `types` files for format documentation.
 
 from dataclasses import dataclass
 import jinja2
@@ -12,14 +12,20 @@ import re
 import sys
 from typing import List, Dict
 
+##
+# Parse `attrs` file
+##
+
+
 @dataclass
 class Term:
-  """ One <dt> item. """
-  name: str
-  # Anchor (<a name="#">) for definition
-  d_anchor: str = ""
-  # Anchor (<a name="#">) for table at the top
-  a_anchor: str = ""
+    """ One <dt> item. """
+    name: str
+    # Anchor (<a name="#">) for definition
+    d_anchor: str = ""
+    # Anchor (<a name="#">) for table at the top
+    a_anchor: str = ""
+
 
 @dataclass
 class Attribute:
@@ -32,65 +38,108 @@ class Attribute:
     defaults: List[str]
     minimums: List[str]
 
-attrs : List[Attribute] = []
 
-for line in sys.stdin:
-    # Skip comment lines.
-    if line.startswith('#'):
-        continue
+attrs: List[Attribute] = []
 
-    if line.startswith(':'):
-        # This is a header line. Grab out the values.
-        #    :name:uses:kind[:dflt[:minv]];  [notes]
-        headers, _, flags = line.rpartition(';')
-        parts = headers.split(':')
+with open(sys.argv[1]) as attrs_in:
+    for line in attrs_in:
+        # Skip comment lines.
+        if line.startswith('#'):
+            continue
 
-        attr = Attribute(
-            terms=[Term(name=name) for name in parts[1].split('/')],
-            uses=parts[2],
-            kinds=parts[3].split('/'),
-            flags=[flag for flag in flags.strip().split(',') if flag],
-            # Set an empty string html description, ready to append to.
-            html_description='',
-            # Remaining fields are optional.
-            # First, check for default value: this has format :dflt1[/dflt2]*
-            defaults=parts[4].split('/') if len(parts) >= 5 else [],
-            # Check for minimum value: this has format /min1[/min2]*
-            minimums=parts[5].split('/') if len(parts) >= 6 else [],
-        )
-        attrs.append(attr)
+        if line.startswith(':'):
+            # This is a header line. Grab out the values.
+            #    :name:uses:kind[:dflt[:minv]];  [notes]
+            headers, _, flags = line.rpartition(';')
+            parts = headers.split(':')
 
-    else:
-        # This is an HTML line, possibly a continuation of a previous HTML line.
-        attr.html_description += '  ' + line
+            attr = Attribute(
+                terms=[Term(name=name) for name in parts[1].split('/')],
+                uses=parts[2],
+                kinds=parts[3].split('/'),
+                flags=[flag for flag in flags.strip().split(',') if flag],
+                # Set an empty string html description, ready to append to.
+                html_description='',
+                # Remaining fields are optional.
+                # First, check for default value: this has format :dflt1[/dflt2]*
+                defaults=parts[4].split('/') if len(parts) >= 5 else [],
+                # Check for minimum value: this has format /min1[/min2]*
+                minimums=parts[5].split('/') if len(parts) >= 6 else [],
+            )
+            attrs.append(attr)
+
+        else:
+            # This is an HTML line, possibly a continuation of a previous HTML line.
+            attr.html_description += '  ' + line
 
 
 attrs.sort(key=lambda attr: ''.join(term.name for term in attr.terms))
 
 for attr in attrs:
-  attr.html_description = markupsafe.Markup(attr.html_description)
+    attr.html_description = markupsafe.Markup(attr.html_description)
 
 # The specification allows items with the same attribute name.
 # This creates unique anchor keys, which are n copies of 'a' and 'd'.
 a_anchors_used = set()
 d_anchors_used = set()
 for attr in attrs:
-  for term in attr.terms:
-    a_key = 'a'
-    d_key = 'd'
-    a_anchor = a_key + ':' + term.name
-    d_anchor = d_key + ':' + term.name
-    while a_anchor in a_anchors_used:
-      a_key += 'a'
-      a_anchor = a_key + ':' + term.name
-    while d_anchor in d_anchors_used:
-      d_key += 'd'
-      d_anchor = d_key + ':' + term.name
-    a_anchors_used.add(a_anchor)
-    d_anchors_used.add(d_anchor)
-    term.a_anchor = a_anchor
-    term.d_anchor = d_anchor
+    for term in attr.terms:
+        a_key = 'a'
+        d_key = 'd'
+        a_anchor = a_key + ':' + term.name
+        d_anchor = d_key + ':' + term.name
+        while a_anchor in a_anchors_used:
+            a_key += 'a'
+            a_anchor = a_key + ':' + term.name
+        while d_anchor in d_anchors_used:
+            d_key += 'd'
+            d_anchor = d_key + ':' + term.name
+        a_anchors_used.add(a_anchor)
+        d_anchors_used.add(d_anchor)
+        term.a_anchor = a_anchor
+        term.d_anchor = d_anchor
 
+##
+# Parse `types` file
+##
+
+
+@dataclass
+class Type:
+    name: str
+    html_description: str
+
+
+types: List[Type] = []
+
+with open(sys.argv[2]) as types_in:
+    for line in types_in:
+        # Skip comment lines.
+        if line.startswith('#'):
+            continue
+        if line.startswith(':'):
+            # This is a header line. Grab out the values.
+            types.append(Type(
+                name=line[1:].rstrip(),
+                html_description=''
+            ))
+        else:
+            # This is an HTML line, possibly a continuation of a previous HTML line.
+            t = types[-1]
+            # This is purely so the diffs look the same porting from ksh, could
+            # delete this later.
+            if t.html_description != '':
+                t.html_description += '  '
+            t.html_description += line
+
+types.sort(key=lambda t: t.name)
+
+for t in types:
+    t.html_description = markupsafe.Markup(t.html_description)
+
+##
+# Output HTML
+##
 
 env = jinja2.Environment(
     # Load template files from ./templates/
@@ -104,4 +153,4 @@ env = jinja2.Environment(
     undefined=jinja2.StrictUndefined,
 )
 template = env.get_template('attrs.html.j2')
-print(template.render(attrs=attrs))
+print(template.render(attrs=attrs, types=types))
