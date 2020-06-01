@@ -3,7 +3,7 @@
     if { [info exists ::env(SOURCE_DATE_EPOCH) ] } {
          set buildtime $::env(SOURCE_DATE_EPOCH)
     }
-    clock format $buildtime -format "%d %B %Y"]\"
+    clock format $buildtime -gmt True -format "%d %B %Y"]\"
 
 .SH NAME
 
