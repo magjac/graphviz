@@ -91,7 +91,7 @@ Style of arrowhead on the head node of an edge.
 This will only appear if the <A HREF=#d:dir>dir</A> attribute
 is "forward" or "both".
 See the <A HREF=#h:undir_note>limitation</A>.
-:arrowsize (E_arrowsz):E:double:1.0:0.0;
+:arrowsize:E:double:1.0:0.0;
 Multiplicative scale factor for arrowheads.
 :arrowtail:E:arrowType:normal;
 Style of arrowhead on the tail node of an edge.
@@ -227,7 +227,7 @@ If true, use edge concentrators.
 This merges multiedges into a single edge and causes partially parallel
 edges to share part of their paths. The latter feature is not yet available
 outside of dot.
-:constraint (E_constr):E:bool:true;  dot
+:constraint:E:bool:true;  dot
 If false, the edge is not used in ranking the nodes. For example,
 in the graph
 <PRE>
@@ -338,7 +338,7 @@ for setting the gradient angle.
 Note that a cluster inherits the root graph's attributes if defined.
 Thus, if the root graph has defined a <B>fillcolor</B>, this will override a
 <B>color</B> or <B>bgcolor</B> attribute set for the cluster.
-:fixedsize  (N_fixed):N:bool/string:false;
+:fixedsize:N:bool/string:false;
 If <tt>false</tt>, the size of a node is determined by smallest width and height
 needed to contain its label and image, if any, with a margin specified by
 the <A HREF=#d:margin><TT>margin</TT></A> attribute. The width
@@ -596,7 +596,7 @@ If a node's <A HREF=#d:shape>shape</A> is record, then the label can
 have a <A HREF=shapes.html#record>special format</A>
 which describes the record layout.
 <P>
-Note that a node's default label is "\&#92;N", so the node's name or ID becomes
+Note that a node's default label is "&#92;N", so the node's name or ID becomes
 its label. Technically, a node's name can be an HTML string but this will not
 mean that the node's label will be interpreted as an <a href="shapes.html#html">HTML-like label</a>. This is
 because the node's actual label is an ordinary string, which will be replaced 
@@ -623,7 +623,7 @@ Multiplicative scaling factor adjusting the distance that
 the headlabel(taillabel) is from the head(tail) node.
 The default distance is 10 points. See <A HREF=#d:labelangle>labelangle</A>
 for more details.
-:labelfloat (E_label_float):E:bool:false;
+:labelfloat:E:bool:false;
 If true, allows edge labels to be less constrained in position.
 In particular, it may appear on top of other edges.
 :labelfontcolor:E:color:black;
@@ -754,7 +754,7 @@ the cluster bounding box. By default, this is 8 points.
 <P>
 For nodes, this attribute specifies space left around the node's label.
 By default, the value is <TT>0.11,0.055</TT>.
-:maxiter:G:int:100 &#42; # nodes(mode == KK)/200(mode == major)/30(mode == sgd)/600(fdp);  neato,fdp
+:maxiter:G:int:100 * # nodes(mode == KK)/200(mode == major)/30(mode == sgd)/600(fdp);  neato,fdp
 Sets the number of iterations used.
 :mclimit:G:double:1.0;  dot
 Multiplicative scale factor used to alter the MinQuit (default = 8)
