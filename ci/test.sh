@@ -12,7 +12,6 @@ else
 fi
 GV_VERSION=$( cat VERSION )
 COLLECTION=$( cat COLLECTION )
-tar xfz graphviz-${GV_VERSION}.tar.gz
 DIR=Packages/${COLLECTION}/${ID}/${VERSION_ID}
 ARCH=$( uname -m )
 if [ "${ID_LIKE}" = "debian" ]; then
@@ -29,7 +28,6 @@ else
         ${DIR}/os/${ARCH}/graphviz-plugins-gd-${GV_VERSION}*.rpm \
         ${DIR}/os/${ARCH}/graphviz-nox-${GV_VERSION}*.rpm
 fi
-cd graphviz-${GV_VERSION}
 if command -v python3; then
     python=python3
 else
