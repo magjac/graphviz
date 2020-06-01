@@ -119,9 +119,9 @@ sdlshapes.ps : sdlshapes.dot
 sdlshapes.png : sdlshapes.ps
 	./ps_to_png.sh sdlshapes.ps sdlshapes.png
 
-attrs.html : attrs types mkattrs.py mktypes.sh templates/attrs.html.j2
+attrs.html : attrs types mkattrs.py mktypes.py templates/attrs.html.j2
 	./mkattrs.py < attrs > $@
-	./mktypes.sh < types >> $@
+	./mktypes.py < types >> $@
 
 colors.html : colors.1 colors.n ../../lib/common/color_names ../../lib/common/svgcolor_names ../../lib/common/brewer_colors mkcolors.awk brewer.awk svg.awk
 	mkdir -p colortmp
@@ -216,7 +216,7 @@ distclean : clean
 	(for s in $$(cat shapelist); do rm -f $$s.gif; done)
 
 EXTRA_DIST = $(XGIF) mklang.y mkarrows.sh mkattrs.py mkshapes.sh mkstyles.sh mktapers.sh \
-             mktypes.sh mkarrowtbl.sh mkoutput.py mkshhtml.sh \
+             mktypes.py mkarrowtbl.sh mkoutput.py mkshhtml.sh \
 	           ps_to_png.sh arrow_grammar grammar html_grammar \
              shapelist attrs.1 colors.1 colors.n \
              output.1 output.2 html.1 html.2 html1.dot html.3 \
