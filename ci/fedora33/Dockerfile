@@ -13,6 +13,9 @@ RUN yum -y install libtool-ltdl-devel
 RUN yum -y install ksh
 RUN yum -y install cmake
 
+# Option xpat
+RUN yum -y install expat-devel
+
 # Option glut
 RUN yum -y install freeglut-devel
 
@@ -30,7 +33,7 @@ RUN yum -y install swig
 # Command smyra
 
 # Command gvedit
-RUN yum -y install qt5-devel
+RUN yum -y install qt5-qtbase-devel
 RUN yum -y install ncurses-devel
 
 # Plugin library devil
