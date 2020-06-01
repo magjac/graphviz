@@ -119,9 +119,8 @@ sdlshapes.ps : sdlshapes.dot
 sdlshapes.png : sdlshapes.ps
 	./ps_to_png.sh sdlshapes.ps sdlshapes.png
 
-attrs.html : attrs.1 attrs types mkattrs.py mktypes.sh
-	cat attrs.1 > $@
-	./mkattrs.py < attrs >> $@
+attrs.html : attrs types mkattrs.py mktypes.sh templates/attrs.html.j2
+	./mkattrs.py < attrs > $@
 	./mktypes.sh < types >> $@
 
 colors.html : colors.1 colors.n ../../lib/common/color_names ../../lib/common/svgcolor_names ../../lib/common/brewer_colors mkcolors.awk brewer.awk svg.awk
