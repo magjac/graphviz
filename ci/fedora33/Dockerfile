@@ -13,6 +13,9 @@ RUN yum -y install libtool-ltdl-devel
 RUN yum -y install ksh
 RUN yum -y install cmake
 
+# Option xpat
+RUN yum -y install expat-devel
+
 # Option glut
 RUN yum -y install freeglut-devel
 
