@@ -150,3 +150,19 @@ of the layout programs.
 {% endfor %}
 </DL>
 <HR>
+<H1>Attribute Type Descriptions</H1>
+The following list gives the legal strings corresponding to values of
+the given types.
+The syntax for describing legal type strings is a mixture of literal strings,
+stdio encodings (e.g., <TT>%f</TT> for a double), and regular expressions.
+For regular expressions, <TT>(...)*</TT> indicates 0 or more copies of the expression
+enclosed in the parentheses,  <TT>(...)+</TT> indicates 1 or more, and
+<TT>(...)?</TT> denotes 0 or 1 copy.
+<DL>
+{% for t in types %}
+<DT><A NAME=k:{{t.name}}><STRONG>{{t.name}}</STRONG></A>
+<DD>{{t.html_description}}
+{% endfor %}
+</DL>
+</BODY>
+</HTML>
