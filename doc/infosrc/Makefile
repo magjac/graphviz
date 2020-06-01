@@ -156,9 +156,9 @@ shapes : shapelist mkshapes.sh
 	./mkshapes.sh
 	touch shapes
  
-shapes.html : shapes shapes.1 mkshhtml.sh shapes.2 html.html shapes.3 record.gif record2.gif sdlshapes.png
+shapes.html : shapes shapes.1 mkshhtml.py shapes.2 html.html shapes.3 record.gif record2.gif sdlshapes.png templates/shapes.html.j2
 	cat shapes.1 > shapes.html
-	./mkshhtml.sh >> shapes.html
+	./mkshhtml.py < shapelist >> shapes.html
 	cat shapes.2 >> shapes.html
 	cat html.html >> shapes.html
 	cat shapes.3 >> shapes.html
@@ -215,7 +215,7 @@ distclean : clean
 	(for s in $$(cat shapelist); do rm -f $$s.gif; done)
 
 EXTRA_DIST = $(XGIF) mklang.y mkarrows.sh mkattrs.py mkshapes.sh mkstyles.sh mktapers.sh \
-             mkarrowtbl.sh mkoutput.py mkshhtml.sh \
+             mkarrowtbl.sh mkoutput.py mkshhtml.py \
 	           ps_to_png.sh arrow_grammar grammar html_grammar \
              shapelist attrs.1 colors.1 colors.n \
              output.1 output.2 html.1 html.2 html1.dot html.3 \

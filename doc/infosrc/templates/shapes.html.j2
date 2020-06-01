@@ -1,0 +1,12 @@
+{% for row in rows %}
+  <TR ALIGN=CENTER>
+  {% for shape in row %}
+    <TD><IMG SRC={{shape}}.gif>
+  {% endfor %}
+  </TR>
+  <TR ALIGN=CENTER>
+  {% for shape in row %}
+    <TD><A NAME=d:{{shape}}>{{shape}}</A>
+  {% endfor %}
+  </TR>
+{% endfor %}
