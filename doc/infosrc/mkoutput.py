@@ -3,11 +3,11 @@
 # Uses `templates/output.html.j2`
 # See `outputs` file for format documentation.
 
-import jinja2
 import markupsafe
 import re
 import sys
 from typing import Dict, Tuple
+import templates
 
 HEADER_RE = re.compile(r'^:(?P<params>[^:]+):(?P<format>.*)')
 
@@ -42,18 +42,7 @@ for line in sys.stdin:
         html_descriptions[params] += line
 
 
-env = jinja2.Environment(
-    # Load template files from ./templates/
-    loader=jinja2.FileSystemLoader('templates'),
-    # Auto-HTML-escape any html or xml files.
-    autoescape=jinja2.select_autoescape(['html', 'xml', 'html.j2', 'xml.j2']),
-    # Whitespace control
-    trim_blocks=True,
-    lstrip_blocks=True,
-    # Raise exception on any attempt to access undefined variables.
-    undefined=jinja2.StrictUndefined,
-)
-template = env.get_template('output.html.j2')
+template = templates.env().get_template('output.html.j2')
 print(template.render(
     formats=formats,
     # Vouch for the HTML descriptions as being safe and not needing auto-HTML-escaping.

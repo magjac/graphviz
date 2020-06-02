@@ -6,11 +6,10 @@
 # See `attrs` and `types` files for format documentation.
 
 from dataclasses import dataclass
-import jinja2
 import markupsafe
-import re
 import sys
 from typing import List, Dict
+import templates
 
 ##
 # Parse `attrs` file
@@ -141,16 +140,5 @@ for t in types:
 # Output HTML
 ##
 
-env = jinja2.Environment(
-    # Load template files from ./templates/
-    loader=jinja2.FileSystemLoader('templates'),
-    # Auto-HTML-escape any html or xml files.
-    autoescape=jinja2.select_autoescape(['html', 'xml', 'html.j2', 'xml.j2']),
-    # Whitespace control
-    trim_blocks=True,
-    lstrip_blocks=True,
-    # Raise exception on any attempt to access undefined variables.
-    undefined=jinja2.StrictUndefined,
-)
-template = env.get_template('attrs.html.j2')
+template = templates.env().get_template('attrs.html.j2')
 print(template.render(attrs=attrs, types=types))
