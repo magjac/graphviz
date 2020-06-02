@@ -1,18 +1,15 @@
 #!/usr/bin/env python3
+# Generates shapes.html. Takes path to an html.html file to include as argv[1],
+# and a shapelist on stdin.
 
-from dataclasses import dataclass
 import jinja2
 import markupsafe
-import re
 import sys
-from typing import List, Dict
+from typing import List
 
-N_PER_ROW=4
+N_PER_ROW = 4
 
-shapes = []
-for line in sys.stdin:
-  shape = line.strip()
-  shapes.append(shape)
+shapes = [line.strip() for line in sys.stdin]
 
 # From https://stackoverflow.com/a/312464/171898
 def chunks(lst, n):
@@ -35,4 +32,7 @@ env = jinja2.Environment(
     undefined=jinja2.StrictUndefined,
 )
 template = env.get_template('shapes.html.j2')
-print(template.render(rows=chunks(shapes, N_PER_ROW)))
+print(template.render(
+    html=markupsafe.Markup(open(sys.argv[1]).read()),
+    rows=chunks(shapes, N_PER_ROW),
+))
