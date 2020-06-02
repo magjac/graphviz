@@ -156,10 +156,8 @@ shapes : shapelist mkshapes.sh
 	./mkshapes.sh
 	touch shapes
  
-shapes.html : shapes shapes.1 mkshhtml.py shapes.2 html.html shapes.3 record.gif record2.gif sdlshapes.png templates/shapes.html.j2
-	cat shapes.1 > shapes.html
-	./mkshhtml.py < shapelist >> shapes.html
-	cat shapes.2 >> shapes.html
+shapes.html : shapes mkshhtml.py html.html shapes.3 record.gif record2.gif sdlshapes.png templates/shapes.html.j2
+	./mkshhtml.py < shapelist > shapes.html
 	cat html.html >> shapes.html
 	cat shapes.3 >> shapes.html
 
