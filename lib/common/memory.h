@@ -45,6 +45,7 @@ extern "C" {
 
     extern void *zmalloc(size_t);
     extern void *zrealloc(void *, size_t, size_t, size_t);
+    extern void *gcalloc(size_t nmemb, size_t size);
     extern void *gmalloc(size_t);
 	extern void *grealloc(void *, size_t);
 #undef extern
