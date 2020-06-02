@@ -14,6 +14,7 @@
 #include "config.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "memory.h"
 
@@ -32,7 +33,7 @@ void *zrealloc(void *ptr, size_t size, size_t elt, size_t osize)
     void *p = realloc(ptr, size * elt);
     if (p == NULL && size) {
 	fprintf(stderr, "out of memory\n");
-	return p;
+	exit(EXIT_FAILURE);
     }
     if (osize < size)
 	memset((char *) p + (osize * elt), '\0', (size - osize) * elt);
@@ -47,6 +48,7 @@ void *gmalloc(size_t nbytes)
     rv = malloc(nbytes);
     if (rv == NULL) {
 	fprintf(stderr, "out of memory\n");
+	exit(EXIT_FAILURE);
     }
     return rv;
 }
@@ -56,6 +58,7 @@ void *grealloc(void *ptr, size_t size)
     void *p = realloc(ptr, size);
     if (p == NULL && size) {
 	fprintf(stderr, "out of memory\n");
+	exit(EXIT_FAILURE);
     }
     return p;
 }
