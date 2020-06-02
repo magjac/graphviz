@@ -1,13 +1,13 @@
 FROM fedora:30
 # Development tools
 RUN yum -y groupinstall 'Development Tools' \
-&& ln -s /usr/lib64/libedit.so.0 /usr/lib64/libedit.so \
 && yum -y install rpm-build \
 bison \
 byacc \
 flex \
 # Centos build utilities
 libtool-ltdl-devel \
+libedit-devel \
 ksh \
 cmake \
 # Option glut
