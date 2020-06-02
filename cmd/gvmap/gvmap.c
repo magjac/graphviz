@@ -40,32 +40,6 @@ enum {maxlen = 10000000};
 enum {MAX_GRPS = 10000};
 static char swork[maxlen];
 
-#if 0
-void *gmalloc(size_t nbytes)
-{
-    char *rv;
-    if (nbytes == 0)
-        return NULL;
-    rv = malloc(nbytes);
-    if (rv == NULL) {
-        fprintf(stderr, "out of memory\n");
-        abort();
-    }
-    return rv;
-}
-
-void *grealloc(void *ptr, size_t size)
-{
-    void *p = realloc(ptr, size);
-    if (p == NULL && size) {
-        fprintf(stderr, "out of memory\n");
-        abort();
-    }
-    return p;
-}
-
-#endif
-
 typedef struct {
     char* cmd;
     char **infiles; 
