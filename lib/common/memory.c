@@ -20,12 +20,9 @@
 
 void *zmalloc(size_t nbytes)
 {
-    char *rv;
     if (nbytes == 0)
 	return 0;
-    rv = gmalloc(nbytes);
-    memset(rv, 0, nbytes);
-    return rv;
+    return gcalloc(1, nbytes);
 }
 
 void *zrealloc(void *ptr, size_t size, size_t elt, size_t osize)
