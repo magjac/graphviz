@@ -54,32 +54,6 @@ typedef struct {
   int clustering_method;
 } opts_t;
 
-#if 0
-void *gmalloc(size_t nbytes)
-{
-    char *rv;
-    if (nbytes == 0)
-        return NULL;
-    rv = malloc(nbytes);
-    if (rv == NULL) {
-        fprintf(stderr, "out of memory\n");
-        abort();
-    }
-    return rv;
-}
-
-void *grealloc(void *ptr, size_t size)
-{
-    void *p = realloc(ptr, size);
-    if (p == NULL && size) {
-        fprintf(stderr, "out of memory\n");
-        abort();
-    }
-    return p;
-}
-
-#endif
-
 static char* usestr =
 "    -C k - generate no more than k clusters (0)\n\
        0 : no limit\n\
