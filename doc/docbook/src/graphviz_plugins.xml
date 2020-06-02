@@ -323,7 +323,7 @@ The following files should be changed to suit:
 <programlisting>
         graphviz-cairo/
         AUTHORS
-        ChangeLog
+        CHANGELOG.md
         NEWS README
         configure.ac
         Makefile.am

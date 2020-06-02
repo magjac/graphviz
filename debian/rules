@@ -234,7 +234,7 @@ binary-indep: build install
 	dh_testroot -i
 	dh_installdocs -i
 	dh_installmenu -i
-	dh_installchangelogs ChangeLog -i
+	dh_installchangelogs CHANGELOG.md -i
 	dh_perl -i
 	dh_link -i
 	dh_strip -i
@@ -256,7 +256,7 @@ binary-arch: build install
 	dh_installexamples -a
 	dh_installmenu -a
 	dh_installman -a
-	dh_installchangelogs ChangeLog -a
+	dh_installchangelogs CHANGELOG.md -a
 	dh_perl -a
 	dh_python2 -a
 	dh_link -a
