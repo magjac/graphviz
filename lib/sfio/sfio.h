@@ -320,7 +320,6 @@ extern "C" {
     extern Sfio_t *sfpool(Sfio_t *, Sfio_t *, int);
     extern ssize_t sfread(Sfio_t *, void *, size_t);
     extern ssize_t sfwrite(Sfio_t *, const void *, size_t);
-    extern Sfoff_t sfmove(Sfio_t *, Sfio_t *, Sfoff_t, int);
     extern int sfclose(Sfio_t *);
     extern Sfoff_t sftell(Sfio_t *);
     extern Sfoff_t sfseek(Sfio_t *, Sfoff_t, int);
