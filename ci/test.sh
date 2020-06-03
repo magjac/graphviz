@@ -28,9 +28,4 @@ else
         ${DIR}/os/${ARCH}/graphviz-plugins-gd-${GV_VERSION}*.rpm \
         ${DIR}/os/${ARCH}/graphviz-nox-${GV_VERSION}*.rpm
 fi
-if command -v python3; then
-    python=python3
-else
-    python=python2
-fi
-$python -m pytest --junitxml=report.xml tests rtest
+python3 -m pytest --junitxml=report.xml tests rtest
