@@ -1,3 +1,7 @@
+June 2, 2020
+    - Fixed:
+        - Neato's hier mode is broken since v2.44.0 #1726
+
 April 9, 2020
     - applied RH patches (from graphviz-2.42.2-8.fc32.src.rpm)
 		graphviz-2.42.2-coverity-scan-fixes.patch

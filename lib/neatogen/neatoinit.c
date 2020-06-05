@@ -1351,10 +1351,10 @@ neatoLayout(Agraph_t * mg, Agraph_t * g, int layoutMode, int layoutModel,
 	MaxIter = atoi(str);
     else if (layoutMode == MODE_MAJOR)
 	MaxIter = DFLT_ITERATIONS;
-    else if (layoutMode == MODE_KK)
-	MaxIter = 100 * agnnodes(g);
     else if (layoutMode == MODE_SGD)
 	MaxIter = 30;
+    else
+	MaxIter = 100 * agnnodes(g);
 
     nG = scan_graph_mode(g, layoutMode);
     if ((nG < 2) || (MaxIter < 0))
