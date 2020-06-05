@@ -2,12 +2,12 @@ FROM centos:8
 
 # Development tools
 RUN yum -y groupinstall 'Development Tools'
-RUN ln -s /usr/lib64/libedit.so.0 /usr/lib64/libedit.so
 RUN dnf config-manager --set-enabled PowerTools
 
 # Centos build utilities
 RUN yum -y install \
 libtool-ltdl-devel \
+libedit-devel \
 ksh \
 cmake \
 # Option glut
