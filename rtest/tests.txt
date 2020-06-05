@@ -4,9 +4,9 @@
 #  testname
 #  Test input (one-line graph or name of .gv file or =)
 #    In the last case, the input file is taken as testname.gv
-#  One or more subtests of the form: 
+#  One or more subtests of the form:
 #     layout_alg output_format additional_flags
-#  
+#
 # For example, the test
 #   Shapes
 #   shapes.gv
@@ -51,18 +51,18 @@ decorate
 dot png
 
 record
-= 
-dot gv 
-dot ps 
+=
+dot gv
+dot ps
 
-html 
-= 
-dot gv 
-dot ps 
+html
+=
+dot gv
+dot ps
 
-html2 
-= 
-dot gv 
+html2
+=
+dot gv
 dot ps
 dot svg
 
@@ -103,22 +103,22 @@ dot png
 clustlabel
 =
 dot ps -Glabelloc=t -Glabeljust=r
-dot ps -Glabelloc=b -Glabeljust=r 
-dot ps -Glabelloc=t -Glabeljust=l 
-dot ps -Glabelloc=b -Glabeljust=l 
-dot ps -Glabelloc=t -Glabeljust=c 
-dot ps -Glabelloc=b -Glabeljust=c 
+dot ps -Glabelloc=b -Glabeljust=r
+dot ps -Glabelloc=t -Glabeljust=l
+dot ps -Glabelloc=b -Glabeljust=l
+dot ps -Glabelloc=t -Glabeljust=c
+dot ps -Glabelloc=b -Glabeljust=c
 dot ps -Glabelloc=t
 dot ps -Glabelloc=b
 
 rootlabel
 =
 dot ps -Glabelloc=t -Glabeljust=r
-dot ps -Glabelloc=b -Glabeljust=r 
-dot ps -Glabelloc=t -Glabeljust=l 
-dot ps -Glabelloc=b -Glabeljust=l 
-dot ps -Glabelloc=t -Glabeljust=c 
-dot ps -Glabelloc=b -Glabeljust=c 
+dot ps -Glabelloc=b -Glabeljust=r
+dot ps -Glabelloc=t -Glabeljust=l
+dot ps -Glabelloc=b -Glabeljust=l
+dot ps -Glabelloc=t -Glabeljust=c
+dot ps -Glabelloc=b -Glabeljust=c
 dot ps -Glabelloc=t
 dot ps -Glabelloc=b
 
@@ -149,8 +149,8 @@ dot ps:cairo
 # bug
 ordering
 =
-dot gv -Gordering=in 
-dot gv -Gordering=out 
+dot gv -Gordering=in
+dot gv -Gordering=out
 
 overlap
 =
@@ -264,9 +264,9 @@ circo gv
 
 cairo
 =
-dot ps:cairo 
-dot png:cairo 
-dot svg:cairo 
+dot ps:cairo
+dot png:cairo
+dot svg:cairo
 
 flatedge
 =
@@ -284,9 +284,10 @@ sq_rules
 =
 dot png
 
-fdp_clus
-fdp.gv
-fdp png
+# FIXME: Re-enable when https://gitlab.com/graphviz/graphviz/-/issues/1690 is fixed
+#fdp_clus
+#fdp.gv
+#fdp png
 
 japanese
 =

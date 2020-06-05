@@ -7,8 +7,7 @@ digraph G {
 		graph [bb=""];
 		node [label=""];
 		edge [dir=back,
-			samehead=ahead,
-			samearrowhead=1];
+			samehead=ahead];
 		a [pos="18,306", height="0.5"];
 		Z [pos="450,162", height="0.5"];
 		b [pos="72,306", height="0.5"];
@@ -49,8 +48,7 @@ digraph G {
 		graph [bb=""];
 		node [label=""];
 		edge [dir=forward,
-			sametail=atail,
-			samearrowtail=1];
+			sametail=atail];
 		A [pos="18,18", height="0.5"];
 		B [pos="72,18", height="0.5"];
 		C [pos="126,18", height="0.5"];

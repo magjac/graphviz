@@ -17,7 +17,7 @@ then
   exit 1
 fi
 # csh, ksh88 filter
-(( 1.5 == 1 )) && { echo "Graphviz test suite requires ksh93"; exit 1; } 
+#(( 1.5 == 1 )) && { echo "Graphviz test suite requires ksh93"; exit 1; }
 
 TESTFILE=tests.txt     # Test specifications
 GRAPHDIR=graphs        # Directory of input graphs and data
@@ -28,7 +28,7 @@ GENERATE=              # If set, generate test data
 VERBOSE=               # If set, give verbose output
 NOOP=                  # If set, just print list of tests
 DOT=${DOT-$(whence dot)} # should be $(top_builddir)/cmd/dot/dot_static
-DIFFIMG=../contrib/diffimg/diffimg # build tree version
+DIFFIMG=${DIFFIMG-$(whence diffimg)}
 
 TESTNAME=   # name of test
 GRAPH=      # graph specification
@@ -153,6 +153,11 @@ function doDiff
       then
           print -u 2 "Test $1:$2 : == Failed == $OUTFILE"
           (( DIFF_CNT+=1 ))
+      else
+          if [[ -n "$VERBOSE" ]]
+          then
+             print -u 2 "Test $1:$2 : == OK == $OUTFILE"
+          fi
       fi
       ;;
     svg )
@@ -163,6 +168,11 @@ function doDiff
       then
           print -u 2 "Test $1:$2 : == Failed == $OUTFILE"
           (( DIFF_CNT+=1 ))
+      else
+          if [[ -n "$VERBOSE" ]]
+          then
+              print -u 2 "Test $1:$2 : == OK == $OUTFILE"
+          fi
       fi
       ;;
     png )
@@ -178,6 +188,10 @@ function doDiff
           print -u 2 "Test $1:$2 : == Failed == $OUTFILE"
           (( DIFF_CNT+=1 ))
       else
+          if [[ -n "$VERBOSE" ]]
+          then
+              print -u 2 "Test $1:$2 : == OK == $OUTFILE"
+          fi
 	  rm $OUTHTML/dif_$OUTFILE
       fi
       ;;
@@ -187,6 +201,11 @@ function doDiff
       then
           print -u 2 "Test $1:$2 : == Failed == $OUTFILE"
           (( DIFF_CNT+=1 ))
+      else
+          if [[ -n "$VERBOSE" ]]
+          then
+              print -u 2 "Test $1:$2 : == OK == $OUTFILE"
+          fi
       fi
       ;;
     esac
@@ -431,3 +450,5 @@ print -u 2 "No. tests: $TOT_CNT Layout failures: $CRASH_CNT"
 else
 print -u 2 "No. tests: $TOT_CNT Layout failures: $CRASH_CNT Changes: $DIFF_CNT"
 fi
+(( EXIT_STATUS=CRASH_CNT+DIFF_CNT ))
+exit $EXIT_STATUS
