@@ -41,26 +41,6 @@ static struct {			/* directory list state           */
 } state;
 
 /*
- * append dir to pathfind() include list
- */
-
-int pathinclude(const char *dir)
-{
-    register Dir_t *dp;
-
-    if (dir && *dir && !streq(dir, ".")) {
-	if (!(dp = oldof(0, Dir_t, 1, strlen(dir))))
-	    return -1;
-	strcpy(dp->dir, dir);
-	if (state.tail)
-	    state.tail = state.tail->next = dp;
-	else
-	    state.head = state.tail = dp;
-    }
-    return 0;
-}
-
-/*
  * return path to name using pathinclude() list
  * path placed in <buf,size>
  * if lib!=0 then pathpath() attempted after include search
