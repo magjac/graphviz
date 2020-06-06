@@ -10,6 +10,7 @@
 #include "general.h"
 #include "QuadTree.h"
 #include "furtherest_point.h"
+#include <string.h>
 
 static real dist(int dim, real *x, real *y){
   int k;
@@ -87,7 +88,7 @@ void furtherest_point(int k, int dim, real *wgt, real *pts, real *center, real w
 
   qt->total_weight = *dist_max = distance_to_group(k, dim, wgt, pts, center, usr_dist);/* store distance in total_weight */
   if (!(*argmax)) *argmax = MALLOC(sizeof(real)*dim);
-  MEMCPY(*argmax, center, sizeof(real)*dim);
+  memcpy(*argmax, center, sizeof(real)*dim);
 
   candidates = MALLOC(sizeof(qt)*ncandidates_max);
   candidates2 = MALLOC(sizeof(qt)*ncandidates2_max);
@@ -95,7 +96,7 @@ void furtherest_point(int k, int dim, real *wgt, real *pts, real *center, real w
   ncandidates = 1;
 
   /* idea: maintain the current best point and best (largest) distance. check the list of candidate. Subdivide each into quadrants, if any quadrant gives better distance, update, and put on the candidate
-     list. If we can not prune a quadrant (a auadrant can be pruned if the distance of its center to the group of points pts, plus that from the center to the corner of the quadrant, is smaller than the best), we
+     list. If we can not prune a quadrant (a quadrant can be pruned if the distance of its center to the group of points pts, plus that from the center to the corner of the quadrant, is smaller than the best), we
      also put it down on the candidate list. We then recurse on the candidate list, unless the max level is reached. */
   while (level++ < max_level){ 
     if (Verbose > 10) {
@@ -128,7 +129,7 @@ void furtherest_point(int k, int dim, real *wgt, real *pts, real *center, real w
 	    for (j = 0; j < dim; j++) fprintf(stderr,"%f, ", qt->qts[ii]->center[j]);
 	    fprintf(stderr,"}\n");
  	  }
-	  MEMCPY(*argmax, qt->qts[ii]->center, sizeof(real)*dim);
+	  memcpy(*argmax, qt->qts[ii]->center, sizeof(real)*dim);
 	} else if (distance + wmax*sqrt(((real) dim))*(qt->width)/2 < *dist_max){
 	  pruned = TRUE;
 	}
@@ -193,15 +194,15 @@ void furtherest_point_in_list(int k, int dim, real *wgt, real *pts, QuadTree qt,
      width: the width of the root
      max_level: max level to go down
      usr_dist: the distance function. If NULL, assume Euclidean. If NULL, set to Euclidean.
-     argmax: on entry, if NULL, will be allocated, iotherwise must be an array of size >= dim which will hold the furtherest point. 
+     argmax: on entry, if NULL, will be allocated, otherwise must be an array of size >= dim which will hold the furtherest point. 
 
      Return: the point (argmax) furtherest away from the group, and the distance dist_max.
    */
 
   int ncandidates = 10, ncandidates_max = 10, ntmp;
-  QuadTree *candidates, *ctmp;/* a cadidate array of quadtrees */
+  QuadTree *candidates, *ctmp;/* a candidate array of quadtrees */
   int ncandidates2 = 10, ncandidates2_max = 10;
-  QuadTree *candidates2;/* a cadidate array of quadtrees */
+  QuadTree *candidates2;/* a candidate array of quadtrees */
   real distance;
   int level = 0;
   int i, ii, j, pruned;
@@ -219,7 +220,7 @@ void furtherest_point_in_list(int k, int dim, real *wgt, real *pts, QuadTree qt,
   average = qt->average;
   qt->total_weight = *dist_max = distance_to_group(k, dim, wgt, pts, average, usr_dist);/* store distance in total_weight */
   if (!(*argmax)) *argmax = MALLOC(sizeof(real)*dim);
-  MEMCPY(*argmax, average, sizeof(real)*dim);
+  memcpy(*argmax, average, sizeof(real)*dim);
 
   candidates = MALLOC(sizeof(qt)*ncandidates_max);
   candidates2 = MALLOC(sizeof(qt)*ncandidates2_max);
@@ -227,7 +228,7 @@ void furtherest_point_in_list(int k, int dim, real *wgt, real *pts, QuadTree qt,
   ncandidates = 1;
 
   /* idea: maintain the current best point and best (largest) distance. check the list of candidate. Subdivide each into quadrants, if any quadrant gives better distance, update, and put on the candidate
-     list. If we can not prune a quadrant (a auadrant can be pruned if the distance of its center to the group of points pts, plus that from the center to the corner of the quadrant, is smaller than the best), we
+     list. If we can not prune a quadrant (a quadrant can be pruned if the distance of its center to the group of points pts, plus that from the center to the corner of the quadrant, is smaller than the best), we
      also put it down on the candidate list. We then recurse on the candidate list, unless the max level is reached. */
   while (level++ < max_level){ 
     if (Verbose > 10) {
@@ -260,7 +261,7 @@ void furtherest_point_in_list(int k, int dim, real *wgt, real *pts, QuadTree qt,
 	    for (j = 0; j < dim; j++) fprintf(stderr,"%f, ", qt->qts[ii]->average[j]);
 	    fprintf(stderr,"}\n");
  	  }
-	  MEMCPY(*argmax, qt->qts[ii]->average, sizeof(real)*dim);
+	  memcpy(*argmax, qt->qts[ii]->average, sizeof(real)*dim);
 	} else if (distance + wmax*sqrt(((real) dim))*(qt->width) < *dist_max){/* average feasible point in this square is too close to the point set */
 	  pruned = TRUE;
 	}

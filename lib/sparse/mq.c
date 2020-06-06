@@ -63,6 +63,7 @@
 #include "SparseMatrix.h"
 #include "mq.h"
 #include "LinkedList.h"
+#include <string.h>
 
 static real get_mq(SparseMatrix A, int *assignment, int *ncluster0, real *mq_in0, real *mq_out0, real **dout0){
   /* given a symmetric matrix representation of a graph and an assignment of nodes into clusters, calculate the modularity quality.
@@ -340,7 +341,7 @@ Multilevel_MQ_Clustering Multilevel_MQ_Clustering_establish(Multilevel_MQ_Cluste
 	double mq2, mq_in2, mq_out2, *dout2;
 	int *matching2, nc2 = nc;
 	matching2 = MALLOC(sizeof(int)*A->m);
-	matching2 = MEMCPY(matching2, matching, sizeof(real)*A->m);
+	memcpy(matching2, matching, sizeof(real)*A->m);
 	if (jc != UNMATCHED) {
 	  matching2[i] = jc;
 	} else {

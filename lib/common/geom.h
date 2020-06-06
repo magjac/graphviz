@@ -71,12 +71,10 @@ typedef struct { pointf LL, UR; } boxf;
 #define B2BF(b,bf)		(P2PF((b).LL,(bf).LL),P2PF((b).UR,(bf).UR))
 #define BF2B(bf,b)		(PF2P((bf).LL,(b).LL),PF2P((bf).UR,(b).UR))
 
-#define APPROXEQ(a,b,tol)	(ABS((a) - (b)) < (tol))
 #define APPROXEQPT(p,q,tol)	(DIST2((p),(q)) < SQR(tol))
 
-/* some common tolerance values */
+/* common tolerance value */
 #define MILLIPOINT .001
-#define MICROPOINT .000001
 
 #ifdef __cplusplus
 }

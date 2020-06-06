@@ -18,6 +18,7 @@
 #include "ink.h"
 #include "agglomerative_bundling.h"
 #include "nearest_neighbor_graph.h"
+#include <string.h>
 
 #if OPENGL
 #include "gl.h"
@@ -132,8 +133,8 @@ static Agglomerative_Ink_Bundling Agglomerative_Ink_Bundling_establish(Agglomera
 	if (ip && jp){/* not the first level */
 	  ni = (ip[i+1] - ip[i]);/* number of edges represented by i */
 	  nj = (ip[jj+1] - ip[jj]);/* number of edges represented by jj */
-	  MEMCPY(pick, &(jp[ip[i]]), sizeof(int)*ni);
-	  MEMCPY(pick+ni, &(jp[ip[jj]]), sizeof(int)*nj);
+	  memcpy(pick, &(jp[ip[i]]), sizeof(int)*ni);
+	  memcpy(pick+ni, &(jp[ip[jj]]), sizeof(int)*nj);
 	} else {/* first level */
 	  pick[0] = i; pick[1] = jj;
 	  ni = nj = 1;
@@ -145,7 +146,7 @@ static Agglomerative_Ink_Bundling Agglomerative_Ink_Bundling_establish(Agglomera
 	if (Verbose && DEBUG) fprintf(stderr, "ink(%d)=%f, ink(%d->%d)=%f", i, inki, jj, jc, inkj);
 	if (ip) {
 	  ni = (ip[i+1] - ip[i]);/* number of edges represented by i */
-	  MEMCPY(pick, &(jp[ip[i]]), sizeof(int)*ni);
+	  memcpy(pick, &(jp[ip[i]]), sizeof(int)*ni);
 	} else {
 	  ni = 1; pick[0] = i; 
 	}
@@ -359,8 +360,8 @@ static Agglomerative_Ink_Bundling Agglomerative_Ink_Bundling_aggressive_establis
 	  if (ip && jp){/* not the first level */
 	    ni = (ip[i+1] - ip[i]);/* number of edges represented by i */
 	    nj = (ip[jj+1] - ip[jj]);/* number of edges represented by jj */
-	    MEMCPY(pick, &(jp[ip[i]]), sizeof(int)*ni);
-	    MEMCPY(pick+ni, &(jp[ip[jj]]), sizeof(int)*nj);
+	    memcpy(pick, &(jp[ip[i]]), sizeof(int)*ni);
+	    memcpy(pick+ni, &(jp[ip[jj]]), sizeof(int)*nj);
 	  } else {/* first level */
 	    pick[0] = i; pick[1] = jj;
 	    ni = nj = 1;
@@ -372,7 +373,7 @@ static Agglomerative_Ink_Bundling Agglomerative_Ink_Bundling_aggressive_establis
 	  if (Verbose && DEBUG) fprintf(stderr, "ink(%d)=%f, ink(%d->%d)=%f", i, inki, jj, jc, inkj);
 	  if (ip) {
 	    ni = (ip[i+1] - ip[i]);/* number of edges represented by i */
-	    MEMCPY(pick, &(jp[ip[i]]), sizeof(int)*ni);
+	    memcpy(pick, &(jp[ip[i]]), sizeof(int)*ni);
 	  } else {
 	    ni = 1; pick[0] = i; 
 	  }

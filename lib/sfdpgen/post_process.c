@@ -822,7 +822,7 @@ real StressMajorizationSmoother_smooth(StressMajorizationSmoother sm, int dim, r
   x0 = N_GNEW(dim*m,real);
   if (!x0) goto RETURN;
 
-  x0 = MEMCPY(x0, x, sizeof(real)*dim*m);
+  memcpy(x0, x, sizeof(real)*dim*m);
   y = N_GNEW(dim*m,real);
   if (!y) goto RETURN;
 
@@ -989,7 +989,7 @@ real StressMajorizationSmoother_smooth(StressMajorizationSmoother sm, int dim, r
 #endif
 
 
-    MEMCPY(x, y, sizeof(real)*m*dim);
+    memcpy(x, y, sizeof(real)*m*dim);
   }
 
 #ifdef DEBUG

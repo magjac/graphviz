@@ -933,7 +933,7 @@ static SparseMatrix SparseMatrix_from_coordinate_arrays_internal(int nz, int m, 
       ia[irn[i]+1]++;
     }
     for (i = 0; i < m; i++) ia[i+1] += ia[i];
-    MEMCPY(A->a, val0, A->size*((size_t)nz));
+    memcpy(A->a, val0, A->size*((size_t)nz));
     for (i = 0; i < nz; i++){
       ja[ia[irn[i]]++] = jcn[i];
     }
@@ -1102,7 +1102,7 @@ static void dense_transpose(real *v, int m, int n){
   int i, j;
   real *u;
   u = MALLOC(sizeof(real)*((size_t) m)*((size_t) n));
-  MEMCPY(u,v, sizeof(real)*((size_t) m)*((size_t) n));
+  memcpy(u,v, sizeof(real)*((size_t) m)*((size_t) n));
 
   for (i = 0; i < m; i++){
     for (j = 0; j < n; j++){
@@ -1978,9 +1978,9 @@ SparseMatrix SparseMatrix_coordinate_form_add_entries(SparseMatrix A, int nentri
      nzmax = MAX(10, (int) 0.2*nzmax) + nzmax;
     A = SparseMatrix_realloc(A, nzmax);
   }
-  MEMCPY((char*) A->ia + ((size_t)nz)*sizeof(int)/sizeof(char), irn, sizeof(int)*((size_t)nentries));
-  MEMCPY((char*) A->ja + ((size_t)nz)*sizeof(int)/sizeof(char), jcn, sizeof(int)*((size_t)nentries));
-  if (A->size) MEMCPY((char*) A->a + ((size_t)nz)*A->size/sizeof(char), val, A->size*((size_t)nentries));
+  memcpy((char*) A->ia + ((size_t)nz)*sizeof(int)/sizeof(char), irn, sizeof(int)*((size_t)nentries));
+  memcpy((char*) A->ja + ((size_t)nz)*sizeof(int)/sizeof(char), jcn, sizeof(int)*((size_t)nentries));
+  if (A->size) memcpy((char*) A->a + ((size_t)nz)*A->size/sizeof(char), val, A->size*((size_t)nentries));
   for (i = 0; i < nentries; i++) {
     if (irn[i] >= A->m) A->m = irn[i]+1;
     if (jcn[i] >= A->n) A->n = jcn[i]+1;
@@ -2223,8 +2223,8 @@ SparseMatrix SparseMatrix_get_real_adjacency_matrix_symmetrized(SparseMatrix A){
 
   B = SparseMatrix_new(m, n, nz, MATRIX_TYPE_PATTERN, FORMAT_CSR);
 
-  MEMCPY(B->ia, ia, sizeof(int)*((size_t)(m+1)));
-  MEMCPY(B->ja, ja, sizeof(int)*((size_t)nz));
+  memcpy(B->ia, ia, sizeof(int)*((size_t)(m+1)));
+  memcpy(B->ja, ja, sizeof(int)*((size_t)nz));
   B->nz = A->nz;
 
   A = SparseMatrix_symmetrize(B, TRUE);
@@ -2472,9 +2472,9 @@ SparseMatrix SparseMatrix_copy(SparseMatrix A){
   SparseMatrix B;
   if (!A) return A;
   B = SparseMatrix_general_new(A->m, A->n, A->nz, A->type, A->size, A->format);
-  MEMCPY(B->ia, A->ia, sizeof(int)*((size_t)(A->m+1)));
-  MEMCPY(B->ja, A->ja, sizeof(int)*((size_t)(A->ia[A->m])));
-  if (A->a) MEMCPY(B->a, A->a, A->size*((size_t)A->nz));
+  memcpy(B->ia, A->ia, sizeof(int)*((size_t)(A->m+1)));
+  memcpy(B->ja, A->ja, sizeof(int)*((size_t)(A->ia[A->m])));
+  if (A->a) memcpy(B->a, A->a, A->size*((size_t)A->nz));
   B->property = A->property;
   B->nz = A->nz;
   return B;
@@ -2987,8 +2987,8 @@ SparseMatrix SparseMatrix_get_augmented(SparseMatrix A){
   if (A->a){
     assert(A->size != 0 && nz > 0);
     val = MALLOC(A->size*2*((size_t)nz));
-    MEMCPY(val, A->a, A->size*((size_t)nz));
-    MEMCPY((void*)(((char*) val) + ((size_t)nz)*A->size), A->a, A->size*((size_t)nz));
+    memcpy(val, A->a, A->size*((size_t)nz));
+    memcpy((void*)(((char*) val) + ((size_t)nz)*A->size), A->a, A->size*((size_t)nz));
   }
 
   nz = 0;
@@ -4178,7 +4178,7 @@ void SparseMatrix_page_rank(SparseMatrix A, real teleport_probablity, int weight
     res = 0;
     for (i = 0; i < n; i++) res += ABS(x[i] - y[i]);
     if (Verbose) fprintf(stderr,"page rank iter -- %d, res = %f\n",iter, res);
-    MEMCPY(x, y, sizeof(real)*n);
+    memcpy(x, y, sizeof(real)*n);
   } while (res > epsilon);
 
   FREE(y);

@@ -14,6 +14,7 @@
 #include "lab.h"
 #include "furtherest_point.h"
 #include "color_palette.h"
+#include <string.h>
 
 #ifndef _WIN32
 inline 
@@ -140,7 +141,7 @@ static void node_distinct_coloring_internal2(int scheme, QuadTree qt, int weight
       k = 0;
       for (j = ia[i]; j < ia[i+1]; j++){
 	if (ja[j] == i) continue;
-	MEMCPY(&(x[k*cdim]), &(colors[ja[j]*cdim]), sizeof(real)*cdim);
+	memcpy(&(x[k*cdim]), &(colors[ja[j]*cdim]), sizeof(real)*cdim);
 	if (wgt && a) wgt[k] = a[j];
 	k++;
       }
@@ -307,7 +308,7 @@ void node_distinct_coloring(char *color_scheme, char *lightness, int weightedQ, 
 
     for (j = comps_ptr[i]; j < comps_ptr[i+1]; j++){
       jj = j - comps_ptr[i];
-      MEMCPY(&((*colors)[comps[j]*cdim]), &(ctmp[jj*cdim]), cdim*sizeof(real));
+      memcpy(&((*colors)[comps[j]*cdim]), &(ctmp[jj*cdim]), cdim*sizeof(real));
     }
     SparseMatrix_delete(B);
   }
