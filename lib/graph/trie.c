@@ -16,10 +16,6 @@
 #include "parser.h"
 #include "triefa.h"
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 TrieState TrieStateTbl[34] = {
     {-1, 0, 0x42058}
     ,

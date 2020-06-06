@@ -19,10 +19,6 @@
 #include "pathutil.h"
 #include "tri.h"
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 typedef struct lvertex_2_t {
     double x, y;
 } lvertex_2_t;

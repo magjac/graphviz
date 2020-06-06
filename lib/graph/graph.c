@@ -15,10 +15,6 @@
 
 #include "libgraph.h"
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 Dtdisc_t agNamedisc = {
     offsetof(Agnode_t, name),
     -1,

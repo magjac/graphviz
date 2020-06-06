@@ -16,10 +16,6 @@
 #define EXTERN
 #include "libgraph.h"
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 Agdict_t *agdictof(void *obj)
 {
     Agdict_t *d = NULL;

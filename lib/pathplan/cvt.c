@@ -15,10 +15,6 @@
 #include <stdio.h>
 #include "vis.h"
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 typedef Ppoint_t ilcoord_t;
 
 #ifdef DEBUG

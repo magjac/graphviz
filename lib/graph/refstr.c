@@ -18,10 +18,6 @@
 static unsigned int HTML_BIT;
 static unsigned int CNT_BITS;
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 typedef struct refstr_t {
     Dtlink_t link;
     unsigned int refcnt;

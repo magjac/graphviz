@@ -19,10 +19,6 @@
 #include "triefa.cP"
 #include "agxbuf.h"
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 #define InfileName (InputFile?InputFile:"<unknown>")
 
 static FILE *Lexer_fp;
