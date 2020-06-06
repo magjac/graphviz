@@ -101,9 +101,6 @@
     <ClCompile Include="sfextern.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sffcvt.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="sffilbuf.c">
       <Filter>Source Files</Filter>
     </ClCompile>
