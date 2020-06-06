@@ -559,7 +559,7 @@ void spring_electrical_embedding_fast(int dim, SparseMatrix A0, spring_electrica
 #endif
 
     iter++;
-    xold = MEMCPY(xold, x, sizeof(real)*dim*n);
+    memcpy(xold, x, sizeof(real)*dim*n);
     Fnorm0 = Fnorm;
     Fnorm = 0.;
 
@@ -764,7 +764,7 @@ void spring_electrical_embedding_slow(int dim, SparseMatrix A0, spring_electrica
     for (i = 0; i < dim*n; i++) force[i] = 0;
 
     iter++;
-    xold = MEMCPY(xold, x, sizeof(real)*dim*n);
+    memcpy(xold, x, sizeof(real)*dim*n);
     Fnorm0 = Fnorm;
     Fnorm = 0.;
     nsuper_avg = 0;
@@ -1046,7 +1046,7 @@ void spring_electrical_embedding(int dim, SparseMatrix A0, spring_electrical_con
 #endif
 
     iter++;
-    xold = MEMCPY(xold, x, sizeof(real)*dim*n);
+    memcpy(xold, x, sizeof(real)*dim*n);
     Fnorm0 = Fnorm;
     Fnorm = 0.;
     nsuper_avg = 0;
@@ -1364,7 +1364,7 @@ void spring_maxent_embedding(int dim, SparseMatrix A0, SparseMatrix D, spring_el
   xold = MALLOC(sizeof(real)*dim*n);
   do {
     iter++;
-    xold = MEMCPY(xold, x, sizeof(real)*dim*n);
+    memcpy(xold, x, sizeof(real)*dim*n);
     Fnorm0 = Fnorm;
     Fnorm = 0.;
     nsuper_avg = 0;
@@ -1604,7 +1604,7 @@ void spring_electrical_spring_embedding(int dim, SparseMatrix A0, SparseMatrix D
   xold = MALLOC(sizeof(real)*dim*n);
   do {
     iter++;
-    xold = MEMCPY(xold, x, sizeof(real)*dim*n);
+    memcpy(xold, x, sizeof(real)*dim*n);
     Fnorm0 = Fnorm;
     Fnorm = 0.;
     nsuper_avg = 0;

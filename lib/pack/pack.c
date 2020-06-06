@@ -53,7 +53,7 @@ typedef struct {
  * quadratic equation al^2 +bl + c, where a, b and
  * c are defined below.
  */
-static int computeStep(int ng, boxf* bbs, int margin)
+static int computeStep(int ng, boxf* bbs, unsigned int margin)
 {
     double l1, l2;
     double a, b, c, d, r;
@@ -224,7 +224,8 @@ fillEdge(Agedge_t * e, point p, PointSet * ps, int dx, int dy,
  * the graph.
  */
 static void
-genBox(boxf bb0, ginfo * info, int ssize, int margin, point center, char* s)
+genBox(boxf bb0, ginfo * info, int ssize, unsigned int margin, point center,
+	char* s)
 {
     PointSet *ps;
     int W, H;
@@ -289,7 +290,7 @@ genPoly(Agraph_t * root, Agraph_t * g, ginfo * info,
     int x, y;
     int dx, dy;
     graph_t *subg;
-    int margin = pinfo->margin;
+    unsigned int margin = pinfo->margin;
     int doSplines = pinfo->doSplines;
     box bb;
 
@@ -488,7 +489,7 @@ placeFixed(ginfo * info, PointSet * ps, point * place, point center)
  */
 static void
 placeGraph(int i, ginfo * info, PointSet * ps, point * place, int step,
-	   int margin, boxf* bbs)
+	   unsigned int margin, boxf* bbs)
 {
     int x, y;
     int W, H;
@@ -1401,7 +1402,7 @@ getPackInfo(Agraph_t * g, pack_mode dflt, int dfltMargin, pack_info* pinfo)
 
     pinfo->margin = getPack(g, dfltMargin, dfltMargin);
     if (Verbose) {
-	fprintf (stderr, "  margin %d\n", pinfo->margin);
+	fprintf (stderr, "  margin %u\n", pinfo->margin);
     }
     pinfo->doSplines = 0;
     pinfo->fixed = 0;
