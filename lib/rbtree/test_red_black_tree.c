@@ -30,11 +30,11 @@ void IntPrint(const void* a) {
   printf("%i",*(int*)a);
 }
 
-void InfoPrint(void* a) {
+static void InfoPrint(void* a) {
   ;
 }
 
-void InfoDest(void *a){
+static void InfoDest(void *a){
   ;
 }
 

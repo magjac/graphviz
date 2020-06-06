@@ -25,7 +25,7 @@ Agnode_t *agfindnode_by_id(Agraph_t * g, IDTYPE id)
     return sn ? sn->node : NILnode;
 }
 
-Agnode_t *agfindnode_by_name(Agraph_t * g, char *name)
+static Agnode_t *agfindnode_by_name(Agraph_t * g, char *name)
 {
     IDTYPE id;
 
@@ -271,7 +271,7 @@ Agnode_t *agsubnode(Agraph_t * g, Agnode_t * n0, int cflag)
     return n;
 }
 
-int agsubnodeidcmpf(Dict_t * d, void *arg0, void *arg1, Dtdisc_t * disc)
+static int agsubnodeidcmpf(Dict_t * d, void *arg0, void *arg1, Dtdisc_t * disc)
 {
     Agsubnode_t *sn0, *sn1;
 
@@ -283,7 +283,7 @@ int agsubnodeidcmpf(Dict_t * d, void *arg0, void *arg1, Dtdisc_t * disc)
     return 0; 
 }
 
-int agsubnodeseqcmpf(Dict_t * d, void *arg0, void *arg1, Dtdisc_t * disc)
+static int agsubnodeseqcmpf(Dict_t * d, void *arg0, void *arg1, Dtdisc_t * disc)
 {
     Agsubnode_t *sn0, *sn1;
 
@@ -335,7 +335,7 @@ Dtdisc_t Ag_subnode_seq_disc = {
     NIL(Dtevent_f)
 };
 
-void agnodesetfinger(Agraph_t * g, Agnode_t * n, void *ignored)
+static void agnodesetfinger(Agraph_t * g, Agnode_t * n, void *ignored)
 {
     static Agsubnode_t template;
 	template.node = n;
@@ -343,7 +343,7 @@ void agnodesetfinger(Agraph_t * g, Agnode_t * n, void *ignored)
     NOTUSED(ignored);
 }
 
-void agnoderenew(Agraph_t * g, Agnode_t * n, void *ignored)
+static void agnoderenew(Agraph_t * g, Agnode_t * n, void *ignored)
 {
     dtrenew(g->n_seq, dtfinger(g->n_seq));
     NOTUSED(n);
