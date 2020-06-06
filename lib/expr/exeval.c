@@ -690,7 +690,7 @@ addItem (Dt_t* arr, Extype_t v, char* tok)
  * break string into possibly empty fields and store in array
  * return number of fields
  */
-Extype_t
+static Extype_t
 exsplit(Expr_t * ex, register Exnode_t * expr, void *env)
 {
 	Extype_t v;
@@ -742,7 +742,7 @@ exsplit(Expr_t * ex, register Exnode_t * expr, void *env)
  * tokenize string and store in array
  * return number of tokens
  */
-Extype_t
+static Extype_t
 extokens(Expr_t * ex, register Exnode_t * expr, void *env)
 {
 	Extype_t v;
@@ -781,7 +781,7 @@ extokens(Expr_t * ex, register Exnode_t * expr, void *env)
 /* exsub:
  * return string after pattern substitution
  */
-Extype_t
+static Extype_t
 exsub(Expr_t * ex, register Exnode_t * expr, void *env, int global)
 {
 	char *str;

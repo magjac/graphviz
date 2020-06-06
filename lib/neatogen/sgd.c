@@ -7,7 +7,7 @@
 #include <stdlib.h>
 
 
-float calculate_stress(float *pos, term_sgd *terms, int n_terms) {
+static float calculate_stress(float *pos, term_sgd *terms, int n_terms) {
     float stress = 0;
     int ij;
     for (ij=0; ij<n_terms; ij++) {
@@ -34,7 +34,7 @@ static void fisheryates_shuffle(term_sgd *terms, int n_terms) {
 }
 
 // graph_sgd data structure exists only to make dijkstras faster
-graph_sgd * extract_adjacency(graph_t *G, int model) {
+static graph_sgd * extract_adjacency(graph_t *G, int model) {
     node_t *np;
     edge_t *ep;
     int n_nodes = 0, n_edges = 0;
@@ -132,7 +132,7 @@ graph_sgd * extract_adjacency(graph_t *G, int model) {
     }
     return graph;
 }
-void free_adjacency(graph_sgd *graph) {
+static void free_adjacency(graph_sgd *graph) {
     free(graph->sources);
     free(graph->pinneds);
     free(graph->targets);

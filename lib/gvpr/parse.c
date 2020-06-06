@@ -141,7 +141,7 @@ static int readc(Sfio_t * str, Sfio_t * ostr)
  * push character back onto stream;
  * if newline, reduce lineno.
  */
-void unreadc(Sfio_t * str, int c)
+static void unreadc(Sfio_t * str, int c)
 {
     sfungetc(str, c);
     if (c == '\n')

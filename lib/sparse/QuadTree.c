@@ -42,24 +42,24 @@ static node_data node_data_new(int dim, real weight, real *coord, int id){
   return nd;
 }
 
-void node_data_delete(void *d){
+static void node_data_delete(void *d){
   node_data nd = (node_data) d;
   FREE(nd->coord);
   /*delete outside   if (nd->data) FREE(nd->data);*/
   FREE(nd);
 }
 
-real node_data_get_weight(void *d){
+static real node_data_get_weight(void *d){
   node_data nd = (node_data) d;
   return nd->node_weight;
 }
 
-real* node_data_get_coord(void *d){
+static real* node_data_get_coord(void *d){
   node_data nd = (node_data) d;
   return nd->coord;
 }
 
-int node_data_get_id(void *d){
+static int node_data_get_id(void *d){
   node_data nd = (node_data) d;
   return nd->id;
 }
@@ -67,7 +67,7 @@ int node_data_get_id(void *d){
 #define node_data_get_data(d) (((node_data) (d))->data)
 
 
-void check_or_realloc_arrays(int dim, int *nsuper, int *nsupermax, real **center, real **supernode_wgts, real **distances){
+static void check_or_realloc_arrays(int dim, int *nsuper, int *nsupermax, real **center, real **supernode_wgts, real **distances){
   
   if (*nsuper >= *nsupermax) {
     *nsupermax = *nsuper + MAX(10, (int) 0.2*(*nsuper));
@@ -77,7 +77,7 @@ void check_or_realloc_arrays(int dim, int *nsuper, int *nsupermax, real **center
   }
 }
 
-void QuadTree_get_supernodes_internal(QuadTree qt, real bh, real *point, int nodeid, int *nsuper, int *nsupermax, real **center, real **supernode_wgts, real **distances, real *counts, int *flag){
+static void QuadTree_get_supernodes_internal(QuadTree qt, real bh, real *point, int nodeid, int *nsuper, int *nsupermax, real **center, real **supernode_wgts, real **distances, real *counts, int *flag){
   SingleLinkedList l;
   real *coord, dist;
   int dim, i;

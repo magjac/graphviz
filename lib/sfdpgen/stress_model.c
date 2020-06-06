@@ -4,7 +4,7 @@
 #include "post_process.h"
 #include "stress_model.h"
 
-void stress_model_core(int dim, SparseMatrix B, real **x, int edge_len_weighted, int maxit_sm, real tol, int *flag){
+static void stress_model_core(int dim, SparseMatrix B, real **x, int edge_len_weighted, int maxit_sm, real tol, int *flag){
   int m;
   SparseStressMajorizationSmoother sm;
   real lambda = 0;
