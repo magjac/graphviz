@@ -14,12 +14,14 @@ else
 fi
 GV_VERSION=$( cat VERSION )
 COLLECTION=$( cat COLLECTION )
+META_DATA_DIR=Metadata/${COLLECTION}/${ID}/${VERSION_ID}
+mkdir -p ${META_DATA_DIR}
 if [ "${ID_LIKE}" = "debian" ]; then
     tar xfz graphviz-${GV_VERSION}.tar.gz
-    (cd graphviz-${GV_VERSION}; fakeroot make -f debian/rules binary)
+    (cd graphviz-${GV_VERSION}; fakeroot make -f debian/rules binary) | tee >(ci/extract-configure-log.sh >${META_DATA_DIR}/configure.log)
 else
     rm -rf ${HOME}/rpmbuild
-    rpmbuild -ta graphviz-${GV_VERSION}.tar.gz
+    rpmbuild -ta graphviz-${GV_VERSION}.tar.gz | tee >(ci/extract-configure-log.sh >${META_DATA_DIR}/configure.log)
 fi
 DIR=Packages/${COLLECTION}/${ID}/${VERSION_ID}
 ARCH=$( uname -m )
