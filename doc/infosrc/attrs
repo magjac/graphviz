@@ -312,7 +312,7 @@ This is used only if the edge has a <A HREF=#d:URL>URL</A>
 or <A HREF=#d:edgeURL>edgeURL</A> attribute.
 :epsilon:G:double:.0001 * # nodes(mode == KK)/.0001(mode == major)/.01(mode == sgd);  neato
 Terminating condition. If the length squared of all energy gradients are
-< <B>epsilon</B>, the algorithm stops.
+&lt; <B>epsilon</B>, the algorithm stops.
 :esep:G:addDouble/addPoint:+3; notdot
 Margin used around polygons for purposes of spline edge routing.
 The interpretation is the same as given for <A HREF=#d:sep>sep</A>.
@@ -771,7 +771,7 @@ Technique for optimizing the layout. For neato, if <B>mode</B> is <TT>"major"</T
 neato uses stress majorization. If <B>mode</B> is <TT>"KK"</TT>,
 neato uses a version of the gradient descent method. The only advantage
 to the latter technique is that it is sometimes appreciably faster for
-small (number of nodes < 100) graphs. A significant disadvantage is that
+small (number of nodes &lt; 100) graphs. A significant disadvantage is that
 it may cycle. If <B>mode</B> is <TT>"sgd"</TT>, neato uses a version of the
 stochastic gradient descent method. The advantage of sgd is faster and more
 reliable convergence than both the previous methods, while the disadvantage
