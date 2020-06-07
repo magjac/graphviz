@@ -370,6 +370,7 @@ Examples of tapered line styles are given below.
 Examples of linear and radial gradient fill can be seen under  <A HREF=#k:colorList>colorList</A>.
 <P>
   <TABLE border=1>
+    <CAPTION>Basic style settings for nodes</CAPTION>
     <TR><TD align="center"><tt>solid</tt> <TD><IMG SRC="n_solid.png">
        <TD align="center"><tt>dashed</tt> <TD><IMG SRC="n_dashed.png">
        <TD align="center"><tt>dotted</tt> <TD><IMG SRC="n_dotted.png"> </TR>
@@ -379,18 +380,18 @@ Examples of linear and radial gradient fill can be seen under  <A HREF=#k:colorL
     <TR><TD align="center"><tt>filled</tt> <TD><IMG SRC="n_filled.png">
        <TD align="center"><tt>striped</tt> <TD><IMG SRC="n_striped.png">
        <TD align="center"><tt>wedged</tt> <TD><IMG SRC="n_wedged.png"></TR>
-    <CAPTION>Basic style settings for nodes</CAPTION>
   </TABLE>
 <P>
   <TABLE border=1>
+    <CAPTION>Basic style settings for edges</CAPTION>
     <TR><TD align="center"><tt>solid</tt> <TD><IMG SRC="e_solid.png"> 
         <TD align="center"><tt>dashed</tt> <TD><IMG SRC="e_dashed.png"> </TR>
     <TR><TD align="center"><tt>dotted</tt> <TD><IMG SRC="e_dotted.png">
         <TD align="center"><tt>bold</tt> <TD><IMG SRC="e_bold.png"></TR> <TR>
-    <CAPTION>Basic style settings for edges</CAPTION>
   </TABLE>
 <P>
   <TABLE border=1>
+    <CAPTION>Basic style settings for clusters</CAPTION>
     <TR><TD align="center"><tt>solid</tt> <TD><IMG SRC="c_solid.png"> 
         <TD align="center"><tt>dashed</tt> <TD><IMG SRC="c_dashed.png">
         <TD align="center"><tt>dotted</tt> <TD><IMG SRC="c_dotted.png">
@@ -398,7 +399,6 @@ Examples of linear and radial gradient fill can be seen under  <A HREF=#k:colorL
     <TR><TD align="center"><tt>rounded</tt> <TD><IMG SRC="c_rounded.png">
         <TD align="center"><tt>filled</tt> <TD><IMG SRC="c_filled.png">
         <TD align="center"><tt>striped</tt> <TD><IMG SRC="c_striped.png"></TR>
-    <CAPTION>Basic style settings for clusters</CAPTION>
   </TABLE>
 <P>
 The effect of <tt>style=tapered</tt> depends on the <A HREF=#d:penwidth>penwidth</A>,
