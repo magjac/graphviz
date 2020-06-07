@@ -844,16 +844,16 @@ is placed left and right of the object.
 <LI>CENTER aligns the object in the center. (Default) </LI>
 <LI>LEFT aligns the object on the left.</LI>
 <LI>RIGHT aligns the object on the right.  </LI>
-<LI>(<T>&lt;TD&gt;</T> only) TEXT aligns lines of text using the full
+<LI>(<CODE>&lt;TD&gt;</CODE> only) TEXT aligns lines of text using the full
 cell width. The alignment of a line is determined by its (possibly
-implicit) associated <T>&lt;BR&gt;</T> element.</LI> 
+implicit) associated <CODE>&lt;BR&gt;</CODE> element.</LI> 
 </ul>
 <P>
 The contents of a cell are normally aligned as a block. In particular,
 lines of text are first aligned as a text block based on the width of
-the widest line and the corresponding <T>&lt;BR&gt;</T> elements. Then,
+the widest line and the corresponding <CODE>&lt;BR&gt;</CODE> elements. Then,
 the entire text block is aligned within a cell. If, however, the
-cell's <B><I>ALIGN</I></B> value is <T>"TEXT"</T>, and the cell contains
+cell's <B><I>ALIGN</I></B> value is <CODE>"TEXT"</CODE>, and the cell contains
 lines of text, then the lines are justified using the entire available
 width of the cell. If the cell does not contain text, then the contained
 image or table is centered.
@@ -861,8 +861,8 @@ image or table is centered.
 
 <B><I><FONT SIZE=-1>BALIGN</FONT> </I></B>
 <BLOCKQUOTE>
-specifies the default alignment of <T>&lt;BR&gt;</T> elements contained
-in the cell. That is, if a <T>&lt;BR&gt;</T> element has no
+specifies the default alignment of <CODE>&lt;BR&gt;</CODE> elements contained
+in the cell. That is, if a <CODE>&lt;BR&gt;</CODE> element has no
 explicit <B><I>ALIGN</I></B> attribute, the attribute value is specified
 by the value of <B><I>BALIGN</I></B>.
 </BLOCKQUOTE>

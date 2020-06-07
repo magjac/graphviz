@@ -158,7 +158,7 @@ and uses the HTML
 Note that the name given in the USEMAP attribute must be the same
 as the ID attribute of the MAP element. The Graphviz renderer
 uses the name of the graph as the ID. Thus, in the example above,
-where the graph's name is <T>mainmap</T>, we have <T>USEMAP="#mainmap"</T>
+where the graph's name is <CODE>mainmap</CODE>, we have <CODE>USEMAP="#mainmap"</CODE>
 in the IMG attribute, and x.map will look like
 <XMP>
 <map id="mainmap" name="mainmap">
