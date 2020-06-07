@@ -167,6 +167,9 @@ node_t *UF_union(node_t * u, node_t * v)
 	ND_UF_size(v) = 1;
     } else
 	v = UF_find(v);
+	/* if we have two copies of the same node, their union is just that node */
+    if (u == v)
+	return u;
     if (ND_id(u) > ND_id(v)) {
 	ND_UF_parent(u) = v;
 	ND_UF_size(v) += ND_UF_size(u);
