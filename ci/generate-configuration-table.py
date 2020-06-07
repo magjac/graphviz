@@ -19,6 +19,13 @@ def main():
     parser.add_option('-v', '--verbose', action='store_true',
                       dest='verbose', default=False,
                       help='Log info about what is going on')
+    parser.add_option('-c', '--color', action='store_const',
+                      dest='colors', const = 'green:red', default=None,
+                      help='Color output using default coloring. Yes is colored \
+                      green and No is colored red')
+    parser.add_option('--colors', action='store',
+                      dest='colors', default=None,
+                      help='Color output using specifed COLORS. The format is <Yes-color>:<No-color>')
     parser.add_option('-s', '--short', action='store_true',
                       dest='short', default=False,
                       help='Output only Yes or No')
@@ -33,6 +40,28 @@ def main():
         print('Error:', opts.output_format, 'output format is not supported', file=sys.stderr)
         parser.print_help(file=sys.stderr)
         exit(1)
+
+    if opts.colors == None:
+        styles = {
+            'Yes': '',
+            'No': '',
+        }
+    else:
+        if opts.colors == '':
+            yes_color = 'green'
+            no_color = 'red'
+        else:
+            colors = opts.colors.split(':')
+            if len(colors) == 2:
+                yes_color, no_color = colors
+            else:
+                print('Error:', opts.colors, 'color specification is illegal', file=sys.stderr)
+                parser.print_help(file=sys.stderr)
+                exit(1)
+        styles = {
+            'Yes': ' style="color: ' + yes_color + ';"',
+            'No': ' style="color: ' + no_color + ';"',
+        }
 
     table = {}
     table_sections = []
@@ -114,7 +143,9 @@ def main():
                 print(indent + '<td>' + component_name + '</td>')
                 for platform in platforms:
                     component_value = table[section_name][component_name][platform]
-                    print(indent + '<td>' + component_value + '</td>')
+                    short_value = re.sub('(Yes|No).*', '\\1', component_value)
+                    color_style = styles[short_value]
+                    print(indent + '<td' + color_style + '>' + component_value + '</td>')
                 indent = indent[:-2]
                 print(indent + '</tr>')
             print(indent + '<tr><th colspan="' + colspan + '">&nbsp;</th></tr>')
