@@ -5,10 +5,12 @@ from optparse import OptionParser
 import os
 import json
 import sys
+import re
 
 def main():
     supported_output_formats = [
         'JSON',
+        'HTML',
     ]
     parser = OptionParser(usage='usage: %prog [options] files...')
     parser.description = 'Generate a table of the Graphviz compile ' \
@@ -61,6 +63,63 @@ def main():
 
     if opts.output_format.upper() == 'JSON':
         print(json.dumps(table, indent=4))
+    elif opts.output_format.upper() == 'HTML':
+        colspan = str(len(platforms) + 1)
+        indent = ''
+        print(indent + '<!DOCTYPE html>')
+        print(indent + '<html>')
+        indent += '  '
+        print(indent + '<head>')
+        indent += '  '
+        print(indent + '<meta charset="utf-8">')
+        print(indent + '<style>')
+        indent += '  '
+        print(indent + 'table {text-align: left; white-space: nowrap; position: relative;}')
+        print(indent + 'thead tr th {padding-right: 1em; padding-bottom: 5px; position: sticky; top: 0px;  background-color: white;}')
+        print(indent + 'td, th {padding-left: 1.5em;}')
+        indent = indent[:-2]
+        print(indent + '</style>')
+        indent = indent[:-2]
+        print(indent + '</head>')
+        print(indent + '<body>')
+        indent += '  '
+        header = table_sections[0].replace('will be', 'was')
+        print(indent + '<h1>' + header + ':</h1>')
+        print(indent + '<table>')
+        indent += '  '
+        print(indent + '<thead>')
+        indent += '  '
+        print(indent + '<tr>')
+        indent += '  '
+        print(indent + '<th></th>')
+        for platform in platforms:
+            print(indent + '<th>' + platform + '</th>')
+        indent = indent[:-2]
+        print(indent + '</tr>')
+        print(indent + '</thead>')
+        print(indent + '<tbody>')
+        indent += '  '
+        indent = indent[:-2]
+        for section_name in table_sections[1:]:
+            print(indent + '<tr><th colspan="' + colspan + '">' + section_name + ':</th></tr>')
+            for component_name in component_names[section_name]:
+                print(indent + '<tr>')
+                indent += '  '
+                print(indent + '<td>' + component_name + '</td>')
+                for platform in platforms:
+                    component_value = table[section_name][component_name][platform]
+                    print(indent + '<td>' + component_value + '</td>')
+                indent = indent[:-2]
+                print(indent + '</tr>')
+            print(indent + '<tr><th colspan="' + colspan + '">&nbsp;</th></tr>')
+        indent = indent[:-2]
+        print(indent + '</tbody>')
+        indent = indent[:-2]
+        print(indent + '</table>')
+        indent = indent[:-2]
+        print(indent + '</body>')
+        indent = indent[:-2]
+        print(indent + '</html>')
 
 # Python trick to get a main routine
 if __name__ == "__main__":
