@@ -19,6 +19,9 @@ def main():
     parser.add_option('-v', '--verbose', action='store_true',
                       dest='verbose', default=False,
                       help='Log info about what is going on')
+    parser.add_option('-s', '--short', action='store_true',
+                      dest='short', default=False,
+                      help='Output only Yes or No')
     parser.add_option('--output-format', action='store',
                       dest='output_format', default='JSON',
                       help='Set output format. Supported formats are ' +
@@ -56,6 +59,9 @@ def main():
                         component_names[section_name] = []
                 else:
                     component_name, component_value = item;
+                    short_value = re.sub('(Yes|No).*', '\\1', component_value)
+                    if opts.short:
+                        component_value = short_value
                     if component_name not in table[section_name]:
                         table[section_name][component_name] = {};
                         component_names[section_name].append(component_name)
