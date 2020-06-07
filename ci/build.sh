@@ -1,6 +1,8 @@
 #!/bin/bash
 
 set -x
+set -e
+set -o pipefail
 
 if test -f /etc/os-release; then
     cat /etc/os-release
