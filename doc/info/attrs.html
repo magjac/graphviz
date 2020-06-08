@@ -817,7 +817,7 @@ of the layout programs.
 
 <DT><A NAME=d:epsilon HREF=#a:epsilon><STRONG>epsilon</STRONG></A>
 <DD>  Terminating condition. If the length squared of all energy gradients are
-  < <B>epsilon</B>, the algorithm stops.
+  &lt; <B>epsilon</B>, the algorithm stops.
 
 <DT><A NAME=d:esep HREF=#a:esep><STRONG>esep</STRONG></A>
 <DD>  Margin used around polygons for purposes of spline edge routing.
@@ -1332,7 +1332,7 @@ of the layout programs.
   neato uses stress majorization. If <B>mode</B> is <TT>"KK"</TT>,
   neato uses a version of the gradient descent method. The only advantage
   to the latter technique is that it is sometimes appreciably faster for
-  small (number of nodes < 100) graphs. A significant disadvantage is that
+  small (number of nodes &lt; 100) graphs. A significant disadvantage is that
   it may cycle. If <B>mode</B> is <TT>"sgd"</TT>, neato uses a version of the
   stochastic gradient descent method. The advantage of sgd is faster and more
   reliable convergence than both the previous methods, while the disadvantage
@@ -2193,7 +2193,7 @@ enclosed in the parentheses,  <TT>(...)+</TT> indicates 1 or more, and
 <DD>Colors can be specified using one of four formats.
          <TABLE><TR><TD>"#%2x%2x%2x"<TD>Red-Green-Blue (RGB)</TR>
          <TR><TD>"#%2x%2x%2x%2x"<TD>Red-Green-Blue-Alpha (RGBA)</TR>
-         <TR><TD>"H[,&#160;]+S[,&#160;]+V"<TD>Hue-Saturation-Value (HSV) 0.0 <= H,S,V <= 1.0</TR>
+         <TR><TD>"H[,&#160;]+S[,&#160;]+V"<TD>Hue-Saturation-Value (HSV) 0.0 &lt;= H,S,V &lt;= 1.0</TR>
          <TR><TD>string<TD><A HREF=colors.html>color name</A></TR></TABLE>
    The specification for the RGB and RGBA formats are the format strings used by
    <TT>sscanf</TT> to scan the color value. Thus, these values have the form
@@ -2561,6 +2561,7 @@ enclosed in the parentheses,  <TT>(...)+</TT> indicates 1 or more, and
   Examples of linear and radial gradient fill can be seen under  <A HREF=#k:colorList>colorList</A>.
   <P>
     <TABLE border=1>
+      <CAPTION>Basic style settings for nodes</CAPTION>
       <TR><TD align="center"><tt>solid</tt> <TD><IMG SRC="n_solid.png">
          <TD align="center"><tt>dashed</tt> <TD><IMG SRC="n_dashed.png">
          <TD align="center"><tt>dotted</tt> <TD><IMG SRC="n_dotted.png"> </TR>
@@ -2570,18 +2571,18 @@ enclosed in the parentheses,  <TT>(...)+</TT> indicates 1 or more, and
       <TR><TD align="center"><tt>filled</tt> <TD><IMG SRC="n_filled.png">
          <TD align="center"><tt>striped</tt> <TD><IMG SRC="n_striped.png">
          <TD align="center"><tt>wedged</tt> <TD><IMG SRC="n_wedged.png"></TR>
-      <CAPTION>Basic style settings for nodes</CAPTION>
     </TABLE>
   <P>
     <TABLE border=1>
+      <CAPTION>Basic style settings for edges</CAPTION>
       <TR><TD align="center"><tt>solid</tt> <TD><IMG SRC="e_solid.png"> 
           <TD align="center"><tt>dashed</tt> <TD><IMG SRC="e_dashed.png"> </TR>
       <TR><TD align="center"><tt>dotted</tt> <TD><IMG SRC="e_dotted.png">
           <TD align="center"><tt>bold</tt> <TD><IMG SRC="e_bold.png"></TR> <TR>
-      <CAPTION>Basic style settings for edges</CAPTION>
     </TABLE>
   <P>
     <TABLE border=1>
+      <CAPTION>Basic style settings for clusters</CAPTION>
       <TR><TD align="center"><tt>solid</tt> <TD><IMG SRC="c_solid.png"> 
           <TD align="center"><tt>dashed</tt> <TD><IMG SRC="c_dashed.png">
           <TD align="center"><tt>dotted</tt> <TD><IMG SRC="c_dotted.png">
@@ -2589,7 +2590,6 @@ enclosed in the parentheses,  <TT>(...)+</TT> indicates 1 or more, and
       <TR><TD align="center"><tt>rounded</tt> <TD><IMG SRC="c_rounded.png">
           <TD align="center"><tt>filled</tt> <TD><IMG SRC="c_filled.png">
           <TD align="center"><tt>striped</tt> <TD><IMG SRC="c_striped.png"></TR>
-      <CAPTION>Basic style settings for clusters</CAPTION>
     </TABLE>
   <P>
   The effect of <tt>style=tapered</tt> depends on the <A HREF=#d:penwidth>penwidth</A>,

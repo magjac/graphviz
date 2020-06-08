@@ -1895,7 +1895,7 @@ int make_map_internal(int exclude_random, int include_OK_points,
       int *grouping2;
       nzok0 = nzok = *nrandom - 1;/* points that are within tolerance of real or artificial points */
       grouping2 = MALLOC(sizeof(int)*(n + *nrandom));
-      MEMCPY(grouping2, grouping, sizeof(int)*n);
+      memcpy(grouping2, grouping, sizeof(int)*n);
       grouping = grouping2;
     }
     nn = n;
@@ -1996,7 +1996,7 @@ int make_map_internal(int exclude_random, int include_OK_points,
       for (i = nh; i < n; i++){
 	grouping[i] = 2;
       }
-      MEMCPY(*xcombined, xtemp, n*dim*sizeof(real));
+      memcpy(*xcombined, xtemp, n*dim*sizeof(real));
       *nrandom = *nrandom + n - nh;/* count everything except cluster HIGHLIGHT_SET as random */
       n = nh;
       if (Verbose) fprintf(stderr,"nh = %d\n",nh);

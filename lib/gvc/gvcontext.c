@@ -103,6 +103,7 @@ int gvFreeContext(GVC_t * gvc)
     for (i = 0; i != num_apis; ++i) {
 	for (api = gvc->apis[i]; api != NULL; api = api_next) {
 	    api_next = api->next;
+	    free(api->typestr);
 	    free(api);
 	}
     }

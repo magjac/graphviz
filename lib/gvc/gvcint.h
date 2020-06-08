@@ -49,7 +49,7 @@ extern "C" {
 
     struct gvplugin_available_s {
 	gvplugin_available_t *next;     /* next plugin in linked list, or NULL */
-	const char *typestr;		/* type string, e.g. "png" or "ps" */
+	char *typestr;		/* type string, e.g. "png" or "ps" */
 	int quality;			/* Programmer assigned quality ranking within type (+ve or -ve int).
 					First implementation of type should be given "0" quality */
 	gvplugin_package_t *package;	/* details of library containing plugin */

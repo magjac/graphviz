@@ -735,16 +735,7 @@ extern "C" {
 
 /* note that MEMCPY advances the associated pointers */
 #define MEMCPY(to,fr,n) \
-	switch(n) \
-	{ default : memcpy((void*)to,(void*)fr,n); to += n; fr += n; break; \
-	  case  7 : *to++ = *fr++; \
-	  case  6 : *to++ = *fr++; \
-	  case  5 : *to++ = *fr++; \
-	  case  4 : *to++ = *fr++; \
-	  case  3 : *to++ = *fr++; \
-	  case  2 : *to++ = *fr++; \
-	  case  1 : *to++ = *fr++; \
-	}
+	do { memcpy((void*)to,(void*)fr,n); to += n; fr += n; } while (0)
 
     extern Sfextern_t _Sfextern;
     extern Sftab_t _Sftable;

@@ -54,7 +54,7 @@ portable-source:
         - ci/test.sh
     artifacts:
         reports:
-            junit: graphviz-*/report.xml
+            junit: ./report.xml
 
 centos6-build:
     <<: *rpm_build_definition
@@ -119,14 +119,6 @@ ubuntu18-04-build:
     tags:
         - linux
     image: "graphviz/graphviz:ubuntu-18.04"
-
-        # FIXME: Ubuntu 18.10 is End of Life. Docker image cannot be created. Fix or remove
-        #ubuntu18-10-build:
-        #<<: *deb_build_definition
-        #tags:
-        #- graphviz,ubuntu18-10
-        #only:
-        #- master@graphviz/graphviz
 
 ubuntu19-10-build:
     <<: *deb_build_definition
