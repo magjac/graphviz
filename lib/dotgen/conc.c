@@ -150,7 +150,7 @@ static void rebuild_vlists(graph_t * g)
 	infuse(g, n);
 	for (e = agfstout(g, n); e; e = agnxtout(g, e)) {
 	    for (rep = e; ED_to_virt(rep); rep = ED_to_virt(rep));
-	    while (ND_rank(aghead(rep)) < ND_rank(aghead(e))) {
+	    while (rep != NULL && ND_rank(aghead(rep)) < ND_rank(aghead(e))) {
 		infuse(g, aghead(rep));
 		rep = ND_out(aghead(rep)).list[0];
 	    }

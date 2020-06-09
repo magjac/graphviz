@@ -1,3 +1,6 @@
+June 8, 2020
+    - Fixed:
+        - Segmentation fault (core dumped) #1436
 June 2, 2020
     - Fixed:
         - Neato's hier mode is broken since v2.44.0 #1726
