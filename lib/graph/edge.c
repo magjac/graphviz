@@ -15,10 +15,6 @@
 
 #include "libgraph.h"
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 #if 0
 /* graphs_of_e() is never used - suppress compiler warnings. */
 static void graphs_of_e(Agedge_t * e, Dict_t * g_e, Agraph_t * g)

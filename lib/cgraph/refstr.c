@@ -13,10 +13,6 @@
 
 #include <cghdr.h>
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 /*
  * reference counted strings.
  */

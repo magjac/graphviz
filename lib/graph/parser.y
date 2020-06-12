@@ -15,10 +15,6 @@
 
 #include	"libgraph.h"
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 static char		*Port;
 static char		In_decl,In_edge_stmt;
 static int		Current_class,Agraph_type;

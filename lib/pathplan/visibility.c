@@ -14,10 +14,6 @@
 
 #include "vis.h"
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 	/* TRANSPARENT means router sees past colinear obstacles */
 #ifdef TRANSPARENT
 #define INTERSECT(a,b,c,d,e) intersect1((a),(b),(c),(d),(e))

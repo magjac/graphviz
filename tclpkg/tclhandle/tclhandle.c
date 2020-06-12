@@ -44,11 +44,6 @@
 /* Added 2000-09-19 by KG for memcpy, ... decls */
 #include <string.h>
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
-
 /*
  * Variable set to contain the alignment factor (in bytes) for this machine.
  * It is set on the first table initialization.

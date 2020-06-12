@@ -16,10 +16,6 @@
 #include <math.h>
 #include "solvers.h"
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 #ifndef HAVE_CBRT
 #define cbrt(x) ((x < 0) ? (-1*pow(-x, 1.0/3.0)) : pow (x, 1.0/3.0))
 #endif

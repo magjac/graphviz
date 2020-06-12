@@ -14,10 +14,6 @@
 
 #include "vis.h"
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 static COORD unseen = (double) INT_MAX;
 
 /* shortestPath:

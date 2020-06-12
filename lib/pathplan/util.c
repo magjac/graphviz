@@ -16,10 +16,6 @@
 #include <stdlib.h>
 #include "pathutil.h"
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 #define ALLOC(size,ptr,type) (ptr? (type*)realloc(ptr,(size)*sizeof(type)):(type*)malloc((size)*sizeof(type)))
 
 Ppoly_t copypoly(Ppoly_t argpoly)
