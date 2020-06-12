@@ -9,9 +9,9 @@ noinst_HEADERS = sfhdr.h sfio.h sfio_t.h vthread.h
 noinst_LTLIBRARIES = libsfio_C.la
 
 libsfio_C_la_SOURCES = sfclose.c sfclrlock.c sfcvt.c sfdisc.c \
-	sfdlen.c sfexcept.c sfexit.c sfextern.c sffcvt.c sffilbuf.c \
+	sfdlen.c sfexcept.c sfexit.c sfextern.c sffilbuf.c \
 	sfflsbuf.c sfgetd.c sfgetl.c sfgetm.c sfgetr.c sfgetu.c \
-	sfllen.c sfmode.c sfmove.c sfmutex.c sfnew.c sfnotify.c \
+	sfllen.c sfmode.c sfmutex.c sfnew.c sfnotify.c \
 	sfnputc.c sfopen.c sfpkrd.c sfpoll.c sfpool.c sfpopen.c \
 	sfprintf.c sfprints.c sfpurge.c sfputd.c sfputl.c sfputm.c \
 	sfputr.c sfputu.c sfraise.c sfrd.c sfread.c sfreserve.c \

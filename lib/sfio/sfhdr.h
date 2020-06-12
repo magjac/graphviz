@@ -493,23 +493,6 @@ extern "C" {
 /* number of pages to memory map at a time */
 #define SF_NMAP		8
 
-/* set/unset sequential states for mmap */
-#if defined(_lib_madvise) && defined(MADV_SEQUENTIAL) && defined(MADV_NORMAL)
-#define SFMMSEQON(f,a,s)	(void)(madvise((caddr_t)(a),(size_t)(s),MADV_SEQUENTIAL) )
-#define SFMMSEQOFF(f,a,s)	(void)(madvise((caddr_t)(a),(size_t)(s),MADV_NORMAL) )
-#else
-#define SFMMSEQON(f,a,s)
-#define SFMMSEQOFF(f,a,s)
-#endif
-
-#define SFMUNMAP(f,a,s)		(munmap((caddr_t)(a),(size_t)(s)), \
-				 ((f)->endb = (f)->endr = (f)->endw = (f)->next = \
-				  (f)->data = NIL(uchar*)) )
-
-#ifndef MAP_VARIABLE
-#define MAP_VARIABLE	0
-#endif
-
 /* the bottomless bit bucket */
 #define DEVNULL		"/dev/null"
 #define SFSETNULL(f)	((f)->extent = (Sfoff_t)(-1), (f)->bits |= SF_NULL)
