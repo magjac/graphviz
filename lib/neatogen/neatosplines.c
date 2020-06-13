@@ -27,6 +27,7 @@ extern double drand48(void);
 #include <ortho.h>
 #endif
 
+extern void printvis(vconfig_t * cp);
 extern int in_poly(Ppoly_t argpoly, Ppoint_t q);
 
 

@@ -248,7 +248,7 @@ real get_full_stress(SparseMatrix A, int dim, real *x, int weighting_scheme){
 #endif
 
 
-static SparseMatrix ideal_distance_matrix(SparseMatrix A, int dim, real *x){
+SparseMatrix ideal_distance_matrix(SparseMatrix A, int dim, real *x){
   /* find the ideal distance between edges, either 1, or |N[i] \Union N[j]| - |N[i] \Intersection N[j]|
    */
   SparseMatrix D;

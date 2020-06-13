@@ -1200,7 +1200,7 @@ static void init_mincross(graph_t * g)
     GlobalMaxRank = GD_maxrank(g);
 }
 
-static void flat_rev(Agraph_t * g, Agedge_t * e)
+void flat_rev(Agraph_t * g, Agedge_t * e)
 {
     int j;
     Agedge_t *rev;

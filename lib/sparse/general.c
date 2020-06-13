@@ -155,7 +155,7 @@ void vector_float_take(int n, float *v, int m, int *p, float **u){
   
 }
 
-static int comp_ascend(const void *s1, const void *s2){
+int comp_ascend(const void *s1, const void *s2){
   real *ss1, *ss2;
   ss1 = (real*) s1;
   ss2 = (real*) s2;
@@ -168,7 +168,7 @@ static int comp_ascend(const void *s1, const void *s2){
   return 0;
 }
 
-static int comp_descend(const void *s1, const void *s2){
+int comp_descend(const void *s1, const void *s2){
   real *ss1, *ss2;
   ss1 = (real*) s1;
   ss2 = (real*) s2;
@@ -180,7 +180,7 @@ static int comp_descend(const void *s1, const void *s2){
   }
   return 0;
 }
-static int comp_descend_int(const void *s1, const void *s2){
+int comp_descend_int(const void *s1, const void *s2){
   int *ss1, *ss2;
   ss1 = (int*) s1;
   ss2 = (int*) s2;
@@ -193,7 +193,7 @@ static int comp_descend_int(const void *s1, const void *s2){
   return 0;
 }
 
-static int comp_ascend_int(const void *s1, const void *s2){
+int comp_ascend_int(const void *s1, const void *s2){
   int *ss1, *ss2;
   ss1 = (int*) s1;
   ss2 = (int*) s2;

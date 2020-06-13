@@ -828,7 +828,7 @@ void free_html_text(htmltxt_t * t)
     free(t);
 }
 
-static void free_html_img(htmlimg_t * ip)
+void free_html_img(htmlimg_t * ip)
 {
     free(ip->src);
     free(ip);
@@ -1333,7 +1333,7 @@ static int processTbl(graph_t * g, htmltbl_t * tbl, htmlenv_t * env)
  * A cell spanning columns contributes proportionately to each column
  * it is in.
  */
-static void sizeLinearArray(htmltbl_t * tbl)
+void sizeLinearArray(htmltbl_t * tbl)
 {
     htmlcell_t *cp;
     htmlcell_t **cells;
@@ -1375,7 +1375,7 @@ static char *nnames[] = {
 /* nToName:
  * Convert int to its decimal string representation.
  */
-static char *nToName(int c)
+char *nToName(int c)
 {
     static char name[100];
 
@@ -1453,7 +1453,7 @@ checkEdge (graph_t* g, node_t* t, node_t* h, int sz)
  * Ditto for rows.
  *
  */
-static void makeGraphs(htmltbl_t * tbl, graph_t * rowg, graph_t * colg)
+void makeGraphs(htmltbl_t * tbl, graph_t * rowg, graph_t * colg)
 {
     htmlcell_t *cp;
     htmlcell_t **cells;
@@ -1510,7 +1510,7 @@ static void makeGraphs(htmltbl_t * tbl, graph_t * rowg, graph_t * colg)
  * give the coordinate, so to get the width/height, we have
  * to subtract the previous value.
  */
-static void setSizes(htmltbl_t * tbl, graph_t * rowg, graph_t * colg)
+void setSizes(htmltbl_t * tbl, graph_t * rowg, graph_t * colg)
 {
     int i;
     node_t *n;
@@ -1538,7 +1538,7 @@ static void setSizes(htmltbl_t * tbl, graph_t * rowg, graph_t * colg)
  * a dag on a chain. We then run network simplex, using
  * LR_balance.
  */
-static void sizeArray(htmltbl_t * tbl)
+void sizeArray(htmltbl_t * tbl)
 {
     graph_t *rowg;
     graph_t *colg;

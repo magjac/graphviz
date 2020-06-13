@@ -912,7 +912,7 @@ typedef struct _tag_vec
     size_t _capelems;
 } vec;
 
-static vec* vec_new(void)
+static vec* vec_new()
 {
     vec* pvec = (vec*)malloc(sizeof(vec));
     pvec->_capelems = 10;

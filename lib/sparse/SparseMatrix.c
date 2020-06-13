@@ -417,7 +417,7 @@ void SparseMatrix_delete(SparseMatrix A){
   if (A->a) FREE(A->a);
   FREE(A);
 }
-static void SparseMatrix_print_csr(char *c, SparseMatrix A){
+void SparseMatrix_print_csr(char *c, SparseMatrix A){
   int *ia, *ja;
   real *a;
   int *ai;
@@ -478,7 +478,7 @@ static void SparseMatrix_print_csr(char *c, SparseMatrix A){
 
 
 
-static void SparseMatrix_print_coord(char *c, SparseMatrix A){
+void SparseMatrix_print_coord(char *c, SparseMatrix A){
   int *ia, *ja;
   real *a;
   int *ai;
@@ -2492,7 +2492,7 @@ int SparseMatrix_has_diagonal(SparseMatrix A){
   return FALSE;
 }
 
-static void SparseMatrix_level_sets_internal(int khops, SparseMatrix A, int root, int *nlevel, int **levelset_ptr, int **levelset, int **mask, int reinitialize_mask){
+void SparseMatrix_level_sets_internal(int khops, SparseMatrix A, int root, int *nlevel, int **levelset_ptr, int **levelset, int **mask, int reinitialize_mask){
   /* mask is assumed to be initialized to negative if provided.
      . On exit, mask = levels for visited nodes (1 for root, 2 for its neighbors, etc), 
      . unless reinitialize_mask = TRUE, in which case mask = -1.

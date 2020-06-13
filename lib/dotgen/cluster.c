@@ -161,7 +161,7 @@ make_interclust_chain(graph_t * g, node_t * from, node_t * to, edge_t * orig)
  * attach and install edges between clusters.
  * essentially, class2() for interclust edges.
  */
-static void interclexp(graph_t * subg)
+void interclexp(graph_t * subg)
 {
     graph_t *g;
     node_t *n;

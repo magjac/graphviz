@@ -650,7 +650,7 @@ char *cat_string(char *s1, char *s2){
   return s;
 }
 
-static char *cat_string3(char *s1, char *s2, char *s3, int id){
+char *cat_string3(char *s1, char *s2, char *s3, int id){
   char *s;
   char sid[1000];
   sprintf(sid,"%d",id);

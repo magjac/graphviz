@@ -85,7 +85,7 @@ static int open_intersect(Ppoint_t a, Ppoint_t b, Ppoint_t c, Ppoint_t d)
 /* inBetween:
  * Return true if c is in (a,b), assuming a,b,c are collinear.
  */
-static int inBetween(Ppoint_t a, Ppoint_t b, Ppoint_t c)
+int inBetween(Ppoint_t a, Ppoint_t b, Ppoint_t c)
 {
     if (a.x != b.x)		/* not vertical */
 	return (((a.x < c.x) && (c.x < b.x))

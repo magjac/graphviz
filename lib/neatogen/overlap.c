@@ -107,18 +107,18 @@ static int comp_scan_points(const void *p, const void *q){
 }
 
 
-static void NodeDest(void* a) {
+void NodeDest(void* a) {
   /*  free((int*)a);*/
 }
 
 
 
-static int NodeComp(const void* a,const void* b) {
+int NodeComp(const void* a,const void* b) {
   return comp_scan_points(a,b);
 
 }
 
-static void NodePrint(const void* a) {
+void NodePrint(const void* a) {
   scan_point *aa;
 
   aa = (scan_point *) a;
@@ -126,11 +126,11 @@ static void NodePrint(const void* a) {
 
 }
 
-static void InfoPrint(void* a) {
+void InfoPrint(void* a) {
   ;
 }
 
-static void InfoDest(void *a){
+void InfoDest(void *a){
   ;
 }
 
