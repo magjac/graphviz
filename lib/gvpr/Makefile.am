@@ -35,9 +35,11 @@ libgvpr_C_la_DEPENDENCIES = \
 	$(top_builddir)/lib/common/libcommon_C.la \
 	$(top_builddir)/lib/ingraphs/libingraphs_C.la
 
-gvpr.3.pdf: $(srcdir)/gvpr.3
-	@GROFF@ -Tps -man $(srcdir)/gvpr.3 | @PS2PDF@ - - >gvpr.3.pdf
+gvpr.3.pdf: gvpr.3.ps
+	@PS2PDF@ $< $@
 
+gvpr.3.ps: $(srcdir)/gvpr.3
+	@GROFF@ -Tps -man $< >$@
 
 libgvpr_la_LDFLAGS = -version-info $(GVPR_VERSION) -no-undefined
 libgvpr_la_SOURCES = $(libgvpr_C_la_SOURCES)
@@ -61,4 +63,4 @@ gdefs.h: $(top_srcdir)/lib/gvpr/gprdata mkdefs$(EXEEXT)
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) gprdata mkdefs.c gdefs.h trie.c gvprlib.vcxproj*
 
-DISTCLEANFILES = $(pdf_DATA) gdefs.h mkdefs$(EXEEXT)
+DISTCLEANFILES = $(pdf_DATA) gdefs.h mkdefs$(EXEEXT) gvpr.3.ps

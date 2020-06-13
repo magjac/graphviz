@@ -88,9 +88,12 @@ lefty_LDADD = $(top_builddir)/cmd/lefty/dot2l/libdot2l.la \
 	-lXt -lXmu -lXext -lX11 @SOCKET_LIBS@ @MATH_LIBS@
 endif
 
-lefty.1.pdf: $(srcdir)/lefty.1
-	@GROFF@ -Tps -man $(srcdir)/lefty.1 | @PS2PDF@ - - >lefty.1.pdf
+lefty.1.pdf: lefty.1.ps
+	@PS2PDF@ $< $@
+
+lefty.1.ps: $(srcdir)/lefty.1
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = $(lefty_DATA) $(man_MANS) $(pdf_DATA) lefty.vcxproj* colors.txt aix_mods cs2l/*
 
-DISTCLEANFILES = $(pdf_DATA)
+DISTCLEANFILES = $(pdf_DATA) lefty.1.ps

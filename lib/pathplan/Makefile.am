@@ -26,9 +26,12 @@ libpathplan_la_LDFLAGS = -version-info $(PATHPLAN_VERSION) -no-undefined
 libpathplan_la_SOURCES = $(libpathplan_C_la_SOURCES)
 libpathplan_la_LIBADD = @MATH_LIBS@
 
-pathplan.3.pdf: $(srcdir)/pathplan.3
-	@GROFF@ -Tps -man $(srcdir)/pathplan.3 | @PS2PDF@ - - >pathplan.3.pdf
+pathplan.3.pdf: pathplan.3.ps
+	@PS2PDF@ $< $@
+
+pathplan.3.ps: $(srcdir)/pathplan.3
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) path.lefty Pathplan.vcxproj* pathplan.def
 
-DISTCLEANFILES = $(pdf_DATA)
+DISTCLEANFILES = $(pdf_DATA) pathplan.3.ps

@@ -67,11 +67,17 @@ $(top_builddir)/lib/inkpot/inkpot_lib_tk.dat: inkpot_lib_tk.tcl data/xcolors.c
 $(top_builddir)/lib/inkpot/inkpot_lib_brewer.dat: inkpot_lib_brewer.tcl data/brewer_colors
 	$(TCLSH) inkpot_lib_brewer.tcl data/brewer_colors
 
-inkpot.1.pdf: inkpot.1
-	@GROFF@ -Tps -man inkpot.1 | @PS2PDF@ - - > inkpot.1.pdf
+inkpot.1.pdf: inkpot.1.ps
+	@PS2PDF@ $< $@
 
-inkpot.3.pdf: inkpot.3
-	@GROFF@ -Tps -man inkpot.3 | @PS2PDF@ - - > inkpot.3.pdf
+inkpot.1.ps: inkpot.1
+	@GROFF@ -Tps -man $< >$@
+
+inkpot.3.pdf: inkpot.3.ps
+	@PS2PDF@ $< $@
+
+inkpot.3.ps: inkpot.3
+	@GROFF@ -Tps -man $< >$@
 
 CLEANFILES = inkpot_lib_*.dat
 
@@ -79,4 +85,5 @@ EXTRA_DIST = $(man_MANS) $(pdf_DATA) *.tcl data/* \
 	inkpot_lib_define.h inkpot_lib_value.h inkpot_lib_scheme.h inkpot_lib_string.h
 
 DISTCLEANFILES = $(pdf_DATA) \
-	inkpot_lib_define.h inkpot_lib_value.h inkpot_lib_scheme.h inkpot_lib_string.h
+	inkpot_lib_define.h inkpot_lib_value.h inkpot_lib_scheme.h inkpot_lib_string.h \
+	inkpot.1.ps inkpot.3.ps

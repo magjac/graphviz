@@ -20,10 +20,13 @@ prune_LDADD = $(top_builddir)/lib/ingraphs/libingraphs_C.la \
 	$(top_builddir)/lib/cgraph/libcgraph.la \
 	$(top_builddir)/lib/cdt/libcdt.la
 
-prune.1.pdf: prune.1
-	@GROFF@ -Tps -man $< | @PS2PDF@ - - >$@
+prune.1.pdf: prune.1.ps
+	@PS2PDF@ $< $@
+
+prune.1.ps: prune.1
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) README test.gv prune.vcxproj*
 
 
-DISTCLEANFILES = $(pdf_DATA)
+DISTCLEANFILES = $(pdf_DATA) prune.1.ps
