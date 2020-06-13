@@ -40,7 +40,7 @@ pkgIndex.tcl: libtkspline.la
 endif
 
 tkspline.3tk.pdf: $(srcdir)/tkspline.3tk
-	- @GROFF@ -Tps -man $(srcdir)/tkspline.3tk | @PS2PDF@ - - >tkspline.3tk.pdf
+	@GROFF@ -Tps -man $(srcdir)/tkspline.3tk | @PS2PDF@ - - >tkspline.3tk.pdf
 
 EXTRA_DIST = $(man) $(pdf) dllEntry.c
 
