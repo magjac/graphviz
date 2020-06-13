@@ -312,7 +312,7 @@ static int irrelevant_subgraph(Agraph_t * g)
     return TRUE;
 }
 
-int node_in_subg(Agraph_t * g, Agnode_t * n)
+static int node_in_subg(Agraph_t * g, Agnode_t * n)
 {
     Agraph_t *subg;
 

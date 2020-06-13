@@ -497,7 +497,7 @@ static int clMarkFn (Agnode_t* n, int v)
  * with both endpoints in g.
  * Returns the number of edges added.
  */
-int node_induce(Agraph_t * g, Agraph_t* eg)
+static int node_induce(Agraph_t * g, Agraph_t* eg)
 {
     Agnode_t *n;
     Agedge_t *e;

@@ -239,7 +239,7 @@ int agdegree(Agraph_t * g, Agnode_t * n, int want_in, int want_out)
 	return rv;
 }
 
-int agraphidcmpf(Dict_t * d, void *arg0, void *arg1, Dtdisc_t * disc)
+static int agraphidcmpf(Dict_t * d, void *arg0, void *arg1, Dtdisc_t * disc)
 {
     ptrdiff_t	v;
     Agraph_t *sg0, *sg1;

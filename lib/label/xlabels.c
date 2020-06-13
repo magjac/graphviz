@@ -119,7 +119,7 @@ static int floorLog2(unsigned int n)
  * determine the order(depth) of the hilbert sfc so that we satisfy the
  * precondition of hd_hil_s_from_xy()
  */
-unsigned int xlhorder(XLabels_t * xlp)
+static unsigned int xlhorder(XLabels_t * xlp)
 {
     double maxx = xlp->params->bb.UR.x, maxy = xlp->params->bb.UR.y;
     return floorLog2(maxx > maxy ? maxx : maxy) + 1;

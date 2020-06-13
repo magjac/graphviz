@@ -103,13 +103,13 @@ void UniformStressSmoother_delete(UniformStressSmoother sm){
 
 }
 
-real UniformStressSmoother_smooth(UniformStressSmoother sm, int dim, real *x, int maxit_sm) {
+static real UniformStressSmoother_smooth(UniformStressSmoother sm, int dim, real *x, int maxit_sm) {
 
   return StressMajorizationSmoother_smooth(sm, dim, x, maxit_sm, 0.001);
 
 }
 
-SparseMatrix get_distance_matrix(SparseMatrix A, real scaling){
+static SparseMatrix get_distance_matrix(SparseMatrix A, real scaling){
   /* get a distance matrix from a graph, at the moment we just symmetrize the matrix. At the moment if the matrix is not real,
    we just assume distance of 1 among edges. Then we apply scaling to the entire matrix */
   SparseMatrix B;
