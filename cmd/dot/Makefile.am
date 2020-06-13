@@ -67,13 +67,13 @@ uninstall-hook:
 	(cd $(DESTDIR)$(libdir); rm -f config;)
 
 dot.1.pdf: $(srcdir)/dot.1
-	@GROFF@-Tps -man $(srcdir)/dot.1 | @PS2PDF@ - - >dot.1.pdf
+	@GROFF@ -Tps -man $(srcdir)/dot.1 | @PS2PDF@ - - >dot.1.pdf
 
 osage.1.pdf: $(srcdir)/osage.1
-	@GROFF@-Tps -man $(srcdir)/osage.1 | @PS2PDF@ - - >osage.1.pdf
+	@GROFF@ -Tps -man $(srcdir)/osage.1 | @PS2PDF@ - - >osage.1.pdf
 
 patchwork.1.pdf: $(srcdir)/patchwork.1
-	@GROFF@-Tps -man $(srcdir)/patchwork.1 | @PS2PDF@ - - >patchwork.1.pdf
+	@GROFF@ -Tps -man $(srcdir)/patchwork.1 | @PS2PDF@ - - >patchwork.1.pdf
 
 dot_static_SOURCES = dot.c dot_builtins.c
 dot_static_CPPFLAGS = $(AM_CPPFLAGS) -DDEMAND_LOADING=0
