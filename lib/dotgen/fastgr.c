@@ -237,7 +237,7 @@ void delete_fast_node(graph_t * g, node_t * n)
 	GD_nlist(g) = ND_next(n);
 }
 
-node_t *named_virtual_node(graph_t * g, char *s)
+static node_t *named_virtual_node(graph_t * g, char *s)
 {
     node_t *n;
 

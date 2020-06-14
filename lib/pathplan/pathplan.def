@@ -9,7 +9,6 @@ dist2
 freepoly
 freePath
 in_poly
-inBetween
 intersect
 make_polyline
 makePath
@@ -22,7 +21,6 @@ Proutespline
 Pshortestpath
 Ptriangulate
 ptVis
-shortestPath
 solve1
 solve2
 solve3

@@ -451,7 +451,7 @@ void solve_model(graph_t * G, int nG)
 	      MaxIter, agnameof(G));
 }
 
-void update_arrays(graph_t * G, int nG, int i)
+static void update_arrays(graph_t * G, int nG, int i)
 {
     int j, k;
     double del[MAXDIM], dist, old;

@@ -100,7 +100,7 @@ static node_t *makeDerivedNode(graph_t * dg, char *name, int isNode,
  * Each component has its blocks as subgraphs.
  * FIX: Check that blocks are disjoint.
  */
-Agraph_t **circomps(Agraph_t * g, int *cnt)
+static Agraph_t **circomps(Agraph_t * g, int *cnt)
 {
     int c_cnt;
     Agraph_t **ccs;
