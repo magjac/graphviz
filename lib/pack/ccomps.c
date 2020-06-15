@@ -175,7 +175,7 @@ setPrefix (char* pfx, int* lenp, char* buf, int buflen)
     if (len + 25 <= buflen)
         name = buf;
     else {
-        if (!(name = (char *) gmalloc(len + 25))) return NULL;
+        name = (char *) gmalloc(len + 25);
     }
     strcpy(name, pfx);
     *lenp = len;
