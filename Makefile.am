@@ -8,7 +8,7 @@ export TAR_OPTIONS = --owner=0 --group=0 --exclude=windows/dependencies/*/*
 txtdir = $(pkgdatadir)/doc
 htmldir = $(pkgdatadir)/doc/html
 
-txt = AUTHORS COPYING ChangeLog NEWS cpl1.0.txt
+txt = AUTHORS COPYING CHANGELOG.md NEWS cpl1.0.txt
 html =
 
 txt_DATA = $(txt)
