@@ -1,10 +1,6 @@
 
 # prompt> make
 # builds everything and links in test program test_rb
-#
-# prompt> make mem_check
-# Rebuilds everything using dmalloc and does memory testing.
-# Only works if you have dmalloc installed (see http://dmalloc.com).
 
 SRCS = test_red_black_tree.c red_black_tree.c stack.c misc.c
 
@@ -18,35 +14,12 @@ CFLAGS = -g -Wall -pedantic
 
 PROGRAM = test_rb
 
-.PHONY:	mem_check clean
+.PHONY:	clean
 
 all: $(PROGRAM)
 
 $(PROGRAM): 	$(OBJS)
-		$(CC) $(CFLAGS) $(OBJS) -o $(PROGRAM) $(DMALLOC_LIB)
-
-mem_check:	
-		@if [ -e makefile.txt ] ; then \
-			echo "Using makefile.txt" ; \
-			$(MAKE) clean -f makefile.txt ; \
-			$(MAKE) $(PROGRAM) "CFLAGS=$(CFLAGS) -DDMALLOC" "DMALLOC_LIB=-ldmalloc" -f makefile.txt ; \
-		else \
-			echo "Using default makefile (i.e. no -f flag)." ; \
-			$(MAKE) clean ; \
-			$(MAKE) $(PROGRAM) "CFLAGS=$(CFLAGS) -DDMALLOC" "DMALLOC_LIB=-ldmalloc" ; \
-		fi
-		./simple_test.sh
-		@if [ -s unfreed.txt ] ; then \
-			echo " " ; \
-			echo "Leaked some memory.  See logfile for details." ;\
-		else \
-			echo " " ; \
-			echo "No memory leaks detected. " ;\
-			echo " " ; \
-			echo "Test passed. " ; \
-			echo " " ; \
-		fi
-
+		$(CC) $(CFLAGS) $(OBJS) -o $(PROGRAM)
 
 test_red_black_tree.o:	test_red_black_tree.c red_black_tree.c stack.c stack.h red_black_tree.h misc.h
 

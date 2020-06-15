@@ -402,7 +402,7 @@ Agedge_t *agsubedge(Agraph_t * g, Agedge_t * e, int cflag)
 }
 
 /* edge comparison.  AGTYPE(e) == 0 means ID is a wildcard. */
-int agedgeidcmpf(Dict_t * d, void *arg_e0, void *arg_e1, Dtdisc_t * disc)
+static int agedgeidcmpf(Dict_t * d, void *arg_e0, void *arg_e1, Dtdisc_t * disc)
 {
     Agedge_t *e0, *e1;
 
@@ -422,7 +422,7 @@ int agedgeidcmpf(Dict_t * d, void *arg_e0, void *arg_e1, Dtdisc_t * disc)
 }
 
 /* edge comparison.  for ordered traversal. */
-int agedgeseqcmpf(Dict_t * d, void *arg_e0, void *arg_e1, Dtdisc_t * disc)
+static int agedgeseqcmpf(Dict_t * d, void *arg_e0, void *arg_e1, Dtdisc_t * disc)
 {
     Agedge_t *e0, *e1;
 

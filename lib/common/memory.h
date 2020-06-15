@@ -23,15 +23,6 @@
 extern "C" {
 #endif
 
-#ifdef DMALLOC
-#define NEW(t)           (t*)calloc(1,sizeof(t))
-#define N_NEW(n,t)       (t*)calloc((n),sizeof(t))
-#define GNEW(t)          (t*)malloc(sizeof(t))
-#define N_GNEW(n,t)      (t*)malloc((n)*sizeof(t))
-#define ALLOC(size,ptr,type) (ptr? (type*)realloc(ptr,(size)*sizeof(type)):(type*)malloc((size)*sizeof(type)))
-#define RALLOC(size,ptr,type) ((type*)realloc(ptr,(size)*sizeof(type)))
-#define ZALLOC(size,ptr,type,osize) (ptr? (type*)recalloc(ptr,(size)*sizeof(type)):(type*)calloc((size),sizeof(type)))
-#else
 #define NEW(t)           (t*)zmalloc(sizeof(t))
 #define N_NEW(n,t)       (t*)zmalloc((n)*sizeof(t))
 #define GNEW(t)          (t*)gmalloc(sizeof(t))
@@ -41,7 +32,6 @@ extern "C" {
 #define ALLOC(size,ptr,type) (ptr? (type*)grealloc(ptr,(size)*sizeof(type)):(type*)gmalloc((size)*sizeof(type)))
 #define RALLOC(size,ptr,type) ((type*)grealloc(ptr,(size)*sizeof(type)))
 #define ZALLOC(size,ptr,type,osize) (ptr? (type*)zrealloc(ptr,size,sizeof(type),osize):(type*)zmalloc((size)*sizeof(type)))
-#endif
 #ifdef GVDLL
 #define extern __declspec(dllexport)
 #else

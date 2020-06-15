@@ -24,7 +24,7 @@ Agnode_t *agfindnode_by_id(Agraph_t * g, unsigned long id)
     return n;
 }
 
-Agnode_t *agfindnode_by_name(Agraph_t * g, char *name)
+static Agnode_t *agfindnode_by_name(Agraph_t * g, char *name)
 {
     unsigned long id;
 

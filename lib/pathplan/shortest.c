@@ -22,10 +22,6 @@
 #include <math.h>
 #include "pathutil.h"
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 #define ISCCW 1
 #define ISCW  2
 #define ISON  3

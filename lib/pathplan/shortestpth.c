@@ -14,10 +14,6 @@
 
 #include "vis.h"
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 static COORD unseen = (double) INT_MAX;
 
 /* shortestPath:
@@ -32,7 +28,7 @@ static COORD unseen = (double) INT_MAX;
  * This implementation only uses the lower left triangle of the
  * adjacency matrix, i.e., the values a[i][j] where i >= j.
  */
-int *shortestPath(int root, int target, int V, array2 wadj)
+static int *shortestPath(int root, int target, int V, array2 wadj)
 {
     int *dad;
     COORD *vl;

@@ -316,14 +316,14 @@ static real update_step(int adaptive_cooling, real step, real Fnorm, real Fnorm0
 
 #define node_degree(i) (ia[(i)+1] - ia[(i)])
 
-void check_real_array_size(real **a, int len, int *lenmax){
+static void check_real_array_size(real **a, int len, int *lenmax){
   if (len >= *lenmax){
     *lenmax = len + MAX((int) 0.2*len, 10);
     *a = REALLOC(*a, sizeof(real)*(*lenmax));
   }
 
 }
-void check_int_array_size(int **a, int len, int *lenmax){
+static void check_int_array_size(int **a, int len, int *lenmax){
   if (len >= *lenmax){
     *lenmax = len + MAX((int) 0.2*len, 10);
     *a = REALLOC(*a, sizeof(int)*(*lenmax));
@@ -331,7 +331,7 @@ void check_int_array_size(int **a, int len, int *lenmax){
 
 }
 
-real get_angle(real *x, int dim, int i, int j){
+static real get_angle(real *x, int dim, int i, int j){
   /* between [0, 2Pi)*/
   int k;
   real y[2], res;
@@ -352,7 +352,7 @@ real get_angle(real *x, int dim, int i, int j){
   return res;
 }
 
-int comp_real(const void *x, const void *y){
+static int comp_real(const void *x, const void *y){
   real *xx = (real*) x;
   real *yy = (real*) y;
 
@@ -683,7 +683,7 @@ void spring_electrical_embedding_fast(int dim, SparseMatrix A0, spring_electrica
 }
 
 
-void spring_electrical_embedding_slow(int dim, SparseMatrix A0, spring_electrical_control ctrl, real *node_weights, real *x, int *flag){
+static void spring_electrical_embedding_slow(int dim, SparseMatrix A0, spring_electrical_control ctrl, real *node_weights, real *x, int *flag){
   /* a version that does vertex moves in one go, instead of one at a time, use for debugging the fast version. Quadtree is not used. */
   /* x is a point to a 1D array, x[i*dim+j] gives the coordinate of the i-th node at dimension j.  */
   SparseMatrix A = A0;
@@ -1255,7 +1255,7 @@ static real dmean_get(int n, int *id, int *jd, real* d){
   return dmean/((real) id[n]);
 }
 
-void spring_maxent_embedding(int dim, SparseMatrix A0, SparseMatrix D, spring_electrical_control ctrl, real *node_weights, real *x, real rho, int *flag){
+static void spring_maxent_embedding(int dim, SparseMatrix A0, SparseMatrix D, spring_electrical_control ctrl, real *node_weights, real *x, real rho, int *flag){
   /* x is a point to a 1D array, x[i*dim+j] gives the coordinate of the i-th node at dimension j.
 
      Minimize \Sum_{(i,j)\in E} w_ij (||x_i-x_j||-d_ij)^2 - \rho \Sum_{(i,j)\NotIn E} Log ||x_i-x_j||

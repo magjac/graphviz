@@ -171,7 +171,7 @@ of graphs (as in nodes and edges, not as in bar-charts).
 %if %{LICENSE}
 %license COPYING
 %endif
-%doc COPYING AUTHORS ChangeLog NEWS README
+%doc COPYING AUTHORS CHANGELOG.md NEWS README
 
 #-- graphviz-nox rpm --------------------------------------------------
 %package nox
@@ -201,7 +201,7 @@ LD_LIBRARY_PATH=%{_libdir} %{_bindir}/dot -c
 %if %{LICENSE}
 %license COPYING
 %endif
-%doc COPYING AUTHORS ChangeLog NEWS README
+%doc COPYING AUTHORS CHANGELOG.md NEWS README
 %exclude %{_bindir}/dot_builtins
 %{_bindir}/acyclic
 %{_bindir}/bcomps
@@ -350,7 +350,7 @@ Graphviz commands with X11 dependencies
 %if %{LICENSE}
 %license COPYING
 %endif
-%doc COPYING AUTHORS ChangeLog NEWS README
+%doc COPYING AUTHORS CHANGELOG.md NEWS README
 %{_bindir}/lefty
 %{_bindir}/lneato
 %{_bindir}/dotty

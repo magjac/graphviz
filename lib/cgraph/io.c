@@ -128,7 +128,7 @@ memiofread(void *chan, char *buf, int bufsize)
 
 static Agiodisc_t memIoDisc = {memiofread, 0, 0};
 
-Agraph_t *agmemread0(Agraph_t *arg_g, const char *cp)
+static Agraph_t *agmemread0(Agraph_t *arg_g, const char *cp)
 {
     Agraph_t* g;
     rdr_t rdr;

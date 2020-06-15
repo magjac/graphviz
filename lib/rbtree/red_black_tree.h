@@ -12,9 +12,6 @@
 extern "C" {
 #endif
 
-#ifdef DMALLOC
-#include <dmalloc.h>
-#endif
 #include "misc.h"
 #include "stack.h"
 

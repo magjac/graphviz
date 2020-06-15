@@ -22,10 +22,6 @@
 #include "vispath.h"
 #include "pathutil.h"
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 int in_poly(Ppoly_t poly, Ppoint_t q)
 {
     int i, i1;			/* point index; i1 = i-1 mod n */

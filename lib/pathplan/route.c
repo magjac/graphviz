@@ -22,10 +22,6 @@
 #include "pathutil.h"
 #include "solvers.h"
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 #define EPSILON1 1E-3
 #define EPSILON2 1E-6
 

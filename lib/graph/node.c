@@ -15,10 +15,6 @@
 
 #include "libgraph.h"
 
-#ifdef DMALLOC
-#include "dmalloc.h"
-#endif
-
 Agnode_t *agfindnode(Agraph_t * g, char *name)
 {
     Agnode_t *rv;
