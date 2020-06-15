@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - graphviz-2.42.2-ocaml-allow-const-cast.patch
 - some allocation failures that could previously allow memory corruption now exit
 
+### Changed
+- Windows binaries available at https://www2.graphviz.org/Packages/ instead of
+  https://ci.appveyor.com/project/ellson/graphviz-pl238
+
 ### Fixed
 - Released Ubuntu packages does not contain language bindings for Python3 #1737
 - Neato's hier mode is broken since v2.44.0 #1726
