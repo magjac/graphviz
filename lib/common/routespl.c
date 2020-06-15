@@ -16,6 +16,7 @@
 #include "render.h"
 #include "pathplan.h"
 #include <setjmp.h>
+#include <stdlib.h>
 
 #ifdef UNUSED
 static box *bs = NULL;
@@ -288,7 +289,7 @@ int
 routesplinesinit()
 {
     if (++routeinit > 1) return 0;
-    if (!(ps = N_GNEW(PINC, pointf))) {
+    if (!(ps = calloc(PINC, sizeof(pointf)))) {
 	agerr(AGERR, "routesplinesinit: cannot allocate ps\n");
 	return 1;
     }
