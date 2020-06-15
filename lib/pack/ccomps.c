@@ -14,6 +14,7 @@
 
 #include <ctype.h>
 #include <setjmp.h>
+#include <stdlib.h>
 #include "render.h"
 #include "pack.h"
 
@@ -74,7 +75,7 @@ static void push(stk_t* sp, Agnode_t * np)
 {
     if (sp->curp == sp->curblk->endp) {
 	if (sp->curblk->next == NULL) {
-	    blk_t *bp = GNEW(blk_t);
+	    blk_t *bp = malloc(sizeof(blk_t));
 	    if (bp == 0) {
 		agerr(AGERR, "gc: Out of memory\n");
 		longjmp(jbuf, 1);
