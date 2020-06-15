@@ -16,6 +16,7 @@
 #include <time.h>
 #include <string.h>
 #include <math.h>
+#include <stdlib.h>
 
 #include "types.h"
 #include "memory.h"
@@ -819,11 +820,11 @@ real StressMajorizationSmoother_smooth(StressMajorizationSmoother sm, int dim, r
 
   Lwdd = SparseMatrix_copy(Lwd);
   m = Lw->m;
-  x0 = N_GNEW(dim*m,real);
+  x0 = calloc(dim*m, sizeof(real));
   if (!x0) goto RETURN;
 
   memcpy(x0, x, sizeof(real)*dim*m);
-  y = N_GNEW(dim*m,real);
+  y = calloc(dim*m, sizeof(real));
   if (!y) goto RETURN;
 
   id = Lwd->ia; jd = Lwd->ja;

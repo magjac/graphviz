@@ -82,7 +82,7 @@ static void push(stk_t* sp, Agnode_t * np)
 	    }
 	    bp->prev = sp->curblk;
 	    bp->next = NULL;
-	    bp->data = N_GNEW(BIGBUF, Agnode_t *);
+	    bp->data = calloc(BIGBUF, sizeof(Agnode_t *));
 	    if (bp->data == 0) {
 		agerr(AGERR, "gc: Out of memory\n");
 		longjmp(jbuf, 1);
