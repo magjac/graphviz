@@ -202,5 +202,14 @@ int main(int argc, char *argv[])
 
     fprintf(fp, "\n#endif\n");
     fclose(fp);
+
+    /* clean up */
+    for (recp = vals.next; recp; recp = vals.next) {
+      free(recp->data);
+      vals.next = recp->next;
+      free(recp);
+    }
+    free(buf);
+
     exit(0);
 }
