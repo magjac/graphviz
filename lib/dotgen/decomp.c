@@ -102,9 +102,6 @@ static void push(stk_t* sp, node_t * np)
             bp->prev = sp->curblk;
             bp->next = NULL;
             bp->data = N_NEW(BIGBUF, Agnode_t *);
-            if (bp->data == 0) {
-                agerr(AGERR, "dot: Out of memory\n");
-            }
             bp->endp = bp->data + BIGBUF;
             sp->curblk->next = bp;
         }
