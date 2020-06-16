@@ -24,11 +24,11 @@ extern "C" {
 #endif
 
 #define NEW(t)           (t*)zmalloc(sizeof(t))
-#define N_NEW(n,t)       (t*)zmalloc((n)*sizeof(t))
+#define N_NEW(n,t)       (t*)gcalloc((n),sizeof(t))
 #define GNEW(t)          (t*)gmalloc(sizeof(t))
 
-#define N_GNEW(n,t)      (t*)gmalloc((n)*sizeof(t))
-#define N_GGNEW(n,t)      (t*)malloc((n)*sizeof(t))
+#define N_GNEW(n,t)      (t*)gcalloc((n),sizeof(t))
+#define N_GGNEW(n,t)      (t*)calloc((n),sizeof(t))
 #define ALLOC(size,ptr,type) (ptr? (type*)grealloc(ptr,(size)*sizeof(type)):(type*)gmalloc((size)*sizeof(type)))
 #define RALLOC(size,ptr,type) ((type*)grealloc(ptr,(size)*sizeof(type)))
 #define ZALLOC(size,ptr,type,osize) (ptr? (type*)zrealloc(ptr,size,sizeof(type),osize):(type*)zmalloc((size)*sizeof(type)))

@@ -18,7 +18,7 @@
 #define SMALLBUF    128
 
 #define NEW(t)      (t*)malloc(sizeof(t))
-#define N_NEW(n,t)  (t*)malloc((n)*sizeof(t))
+#define N_NEW(n,t)  (t*)calloc((n),sizeof(t))
 #define EMPTY(s)	((s == 0) || (*s == '\0'))
 #define SLEN(s)     (sizeof(s)-1)
 
