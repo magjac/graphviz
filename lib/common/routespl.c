@@ -847,7 +847,7 @@ static int mkspacep(int size)
 {
     if (size > maxpn) {
 	int newmax = maxpn + (size / PINC + 1) * PINC;
-	ps = RALLOC(newmax, ps, pointf);
+	ps = realloc(ps, newmax * sizeof(pointf));
 	if (!ps) {
 	    agerr(AGERR, "cannot re-allocate ps\n");
 	    return 1;
