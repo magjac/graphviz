@@ -99,9 +99,6 @@ static void push(stk_t* sp, node_t * np)
     if (sp->curp == sp->curblk->endp) {
         if (sp->curblk->next == NULL) {
             blk_t *bp = NEW(blk_t);
-            if (bp == 0) {
-                agerr(AGERR, "gc: Out of memory\n");
-            }
             bp->prev = sp->curblk;
             bp->next = NULL;
             bp->data = N_NEW(BIGBUF, Agnode_t *);
