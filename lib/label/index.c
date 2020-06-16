@@ -468,14 +468,3 @@ RTreeDelete2(RTree_t * rtp, Rect_t * r, void *data, Node_t * n,
 	return 1;
     }
 }
-
-#ifdef UNUSED
-/* Allocate space for a node in the list used in DeletRect to
-** store Nodes that are too empty.
-*/
-struct ListNode *NewListNode()
-{
-    return (struct ListNode *) NEW(sizeof(struct ListNode));
-}
-
-#endif
