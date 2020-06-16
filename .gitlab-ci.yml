@@ -50,6 +50,77 @@ portable-source:
     except:
         - tags
 
+.build_template: &windows_build_definition
+    stage: build
+    script:
+        # Retrieve submodules, dependencies are stored there.
+        - git submodule update --init
+        # Install and set PATH
+        - choco install -y activeperl
+        - choco install -y python3
+        - $Env:Path += ";C:\Python38"
+        - $Env:Path += ";$env:CI_PROJECT_DIR\windows\dependencies\graphviz-build-utilities"
+        - $Env:Path += ";C:\Program Files\CMake\bin"
+        - $Env:Path += ";C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin"
+        - $Env:Path += ";C:\Program Files (x86)\NSIS\Bin"
+        - $Env:graphviz_install_dir = "C:\Graphviz"
+        # Build
+        - >-
+            if($env:build_system -eq "cmake") {
+              choco install -y cmake;
+              choco install -y NSIS;
+              mkdir build;
+              cd build;
+              cmake -G "$env:generator" -A $Env:platform ..;
+              cmake --build . --config $env:configuration;
+            }
+            elseif($env:build_system -eq "msbuild") {
+              msbuild /p:Configuration=$env:configuration
+            }
+        # Package
+        - >-
+            if($env:configuration -eq "Release") {
+              if($env:build_system -eq "cmake") {
+                C:\"Program Files"\CMake\bin\cpack
+              }
+              elseif($env:build_system -eq "msbuild") {
+                rm Release\Graphviz\bin\*.lastcodeanalysissucceeded;
+                rm Release\Graphviz\bin\*.iobj;
+                rm Release\Graphviz\bin\*.ipdb;
+                rm Release\Graphviz\bin\*.ilk;
+              }
+            }
+        # Test
+        - >-
+            if($env:build_system -eq "cmake" -and $env:configuration -eq "Release") {
+              mv Graphviz-*.exe Graphviz-install.exe;
+              # Install using installer and add bin directory to path.
+              # Piping the output of the installer to Out-Null, makes the script wait
+              # for the .exe to exit, instead continuing to the next command (which
+              # will then fail because the install hasn't finished)
+              ./Graphviz-install.exe /S /D=$env:graphviz_install_dir | Out-Null;
+              $env:Path += ";" + $env:graphviz_install_dir + "\bin"
+              dot -c;
+              ctest -C $env:configuration;
+            }
+            elseif($env:build_system -eq "msbuild") {
+              # Append build destination to the PATH, configure dot and execute regression tests
+              # The following is per https://gitlab.com/graphviz/graphviz/-/merge_requests/1345
+              $env:Path = $env:CI_PROJECT_DIR + "\" + $env:configuration + "\Graphviz\bin" + ";" + $env:Path;
+              dot -c;
+              cd tests\regression_tests;
+              ./regression_tests.ps1;
+            }
+    artifacts:
+        when: on_success
+        expire_in: 1 week
+        paths:
+        - Release
+        - Debug
+        - build/Graphviz-install.exe
+    tags:
+        - windows
+
 .test_template: &test_definition
     stage: test
     script:
@@ -134,6 +205,50 @@ ubuntu20-04-build:
         - linux
     image: "graphviz/graphviz:ubuntu-20.04"
 
+windows-cmake-Win32-release-build:
+    <<: *windows_build_definition
+    before_script:
+        - $Env:generator = "Visual Studio 16 2019"
+        - $Env:platform = "Win32"
+        - $Env:configuration = "Release"
+        - $Env:build_system = "cmake"
+
+windows-cmake-Win32-debug-build:
+    <<: *windows_build_definition
+    before_script:
+        - $Env:generator = "Visual Studio 16 2019"
+        - $Env:platform = "Win32"
+        - $Env:configuration = "Debug"
+        - $Env:build_system = "cmake"
+
+windows-cmake-x64-release-build:
+    <<: *windows_build_definition
+    before_script:
+        - $Env:generator = "Visual Studio 16 2019"
+        - $Env:platform = "x64"
+        - $Env:configuration = "Release"
+        - $Env:build_system = "cmake"
+
+windows-cmake-x64-debug-build:
+    <<: *windows_build_definition
+    before_script:
+        - $Env:generator = "Visual Studio 16 2019"
+        - $Env:platform = "x64"
+        - $Env:configuration = "Debug"
+        - $Env:build_system = "cmake"
+
+windows-msbuild-Win32-release-build:
+    <<: *windows_build_definition
+    before_script:
+        - $Env:configuration = "Release"
+        - $Env:build_system = "msbuild"
+
+windows-msbuild-Win32-debug-build:
+    <<: *windows_build_definition
+    before_script:
+        - $Env:configuration = "Debug"
+        - $Env:build_system = "msbuild"
+
 meta-data:
     stage: test
     script:
@@ -145,7 +260,6 @@ meta-data:
     artifacts:
         paths:
             - configuration-*.html
-
 ubuntu18-04-test:
     <<: *test_definition
     needs:
