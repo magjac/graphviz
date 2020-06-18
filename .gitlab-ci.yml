@@ -58,6 +58,7 @@ portable-source:
         # Install and set PATH
         - choco install --no-progress -y activeperl
         - choco install --no-progress -y python3
+        - choco install --no-progress -y grep
         - $Env:Path += ";C:\Python38"
         - $Env:Path += ";$env:CI_PROJECT_DIR\windows\dependencies\graphviz-build-utilities"
         - $Env:Path += ";C:\Program Files\CMake\bin"
