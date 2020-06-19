@@ -20,11 +20,10 @@ noinst_HEADERS =  edge_distinct_coloring.h  furtherest_point.h  intersection.h  
 noinst_LTLIBRARIES = libedgepaint_C.la
 lib_LTLIBRARIES = liblab_gamut.la
 pkgconfig_DATA = liblab_gamut.pc
-man_MANS = lab_gamut.3
 
 libedgepaint_C_la_SOURCES = edge_distinct_coloring.c  furtherest_point.c  intersection.c  lab.c  node_distinct_coloring.c
 
 liblab_gamut_la_LDFLAGS = -version-info $(LAB_GAMUT_VERSION)
 liblab_gamut_la_SOURCES = lab_gamut.c
 
-EXTRA_DIST =  $(man_MANS) edgepaintlib.vcxproj* lab_gamut.vcxproj* lab_gamut.def
+EXTRA_DIST = edgepaintlib.vcxproj* lab_gamut.vcxproj* lab_gamut.def
