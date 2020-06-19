@@ -222,7 +222,6 @@ double *lab_gamut(const char *lightness, int *n){
   if (Verbose)
     fprintf(stderr,"LAB color lightness range = %d,%d\n", l1, l2);
 
-  /* m = sizeof(lab_gamut_data)/sizeof(lab_gamut_data[0]); */
   m = lab_gamut_data_size; 
 
   if (Verbose)
