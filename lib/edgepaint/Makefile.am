@@ -3,7 +3,6 @@
 
 LAB_GAMUT_VERSION="1:0:0"
 
-pdfdir = $(pkgdatadir)/doc/pdf
 pkgconfigdir = $(libdir)/pkgconfig
 
 AM_CPPFLAGS = \
@@ -22,19 +21,10 @@ noinst_LTLIBRARIES = libedgepaint_C.la
 lib_LTLIBRARIES = liblab_gamut.la
 pkgconfig_DATA = liblab_gamut.pc
 man_MANS = lab_gamut.3
-pdf_DATA = lab_gamut.3.pdf
 
 libedgepaint_C_la_SOURCES = edge_distinct_coloring.c  furtherest_point.c  intersection.c  lab.c  node_distinct_coloring.c
 
 liblab_gamut_la_LDFLAGS = -version-info $(LAB_GAMUT_VERSION)
 liblab_gamut_la_SOURCES = lab_gamut.c
 
-lab_gamut.3.pdf: lab_gamut.3.ps
-	@PS2PDF@ $< $@
-
-lab_gamut.3.ps: $(srcdir)/lab_gamut.3
-	@GROFF@ -Tps -man $< >$@
-
-EXTRA_DIST =  $(man_MANS) $(pdf_DATA) edgepaintlib.vcxproj* lab_gamut.vcxproj* lab_gamut.def
- 
-DISTCLEANFILES = $(pdf_DATA) lab_gamut.3.ps
+EXTRA_DIST =  $(man_MANS) edgepaintlib.vcxproj* lab_gamut.vcxproj* lab_gamut.def
