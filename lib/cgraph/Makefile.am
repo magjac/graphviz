@@ -49,11 +49,14 @@ y.tab.c y.tab.h: y.output
 y.output: $(top_srcdir)/lib/cgraph/grammar.y
 	@YACC@ -dv $(top_srcdir)/lib/cgraph/grammar.y
 
-cgraph.3.pdf: $(srcdir)/cgraph.3
-	@GROFF@ -Tps -man $(srcdir)/cgraph.3 | @PS2PDF@ - - >cgraph.3.pdf
+cgraph.3.pdf: cgraph.3.ps
+	@PS2PDF@ $< $@
+
+cgraph.3.ps: $(srcdir)/cgraph.3
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) cmpnd.c \
 	main.c tester.c grammar.c grammar.h scan.c \
 	y.tab.c y.tab.h y.output cgraph.vcxproj*
 
-DISTCLEANFILES = $(pdf_DATA) grammar.[ch] scan.c y.output y.tab.[ch]
+DISTCLEANFILES = $(pdf_DATA) grammar.[ch] scan.c y.output y.tab.[ch] cgraph.3.ps

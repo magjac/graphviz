@@ -12,7 +12,7 @@ AM_CPPFLAGS = \
 bin_PROGRAMS = prune
 noinst_HEADERS = generic_list.h
 man_MANS = prune.1
-pdf_DATA = prune.pdf
+pdf_DATA = prune.1.pdf
 
 prune_SOURCES = generic_list.c prune.c
 
@@ -20,10 +20,13 @@ prune_LDADD = $(top_builddir)/lib/ingraphs/libingraphs_C.la \
 	$(top_builddir)/lib/cgraph/libcgraph.la \
 	$(top_builddir)/lib/cdt/libcdt.la
 
-.1.pdf:
-	@GROFF@ -Tps -man $< | @PS2PDF@ - - >$@
+prune.1.pdf: prune.1.ps
+	@PS2PDF@ $< $@
+
+prune.1.ps: prune.1
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) README test.gv prune.vcxproj*
 
 
-DISTCLEANFILES = $(pdf_DATA)
+DISTCLEANFILES = $(pdf_DATA) prune.1.ps

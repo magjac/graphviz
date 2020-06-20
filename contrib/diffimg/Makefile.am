@@ -18,8 +18,11 @@ diffimg_SOURCES = diffimg.c
 
 diffimg_LDADD = @GDLIB_LIBS@ @MATH_LIBS@
 
-diffimg.1.pdf: $(srcdir)/diffimg.1
-	@GROFF@ -Tps -man $(srcdir)/diffimg.1 | @PS2PDF@ - - >diffimg.1.pdf
+diffimg.1.pdf: diffimg.1.ps
+	@PS2PDF@ $< $@
+
+diffimg.1.ps: $(srcdir)/diffimg.1
+	@GROFF@ -Tps -man $< >$@
 
 GRAPH = "digraph G { hello -> world }"
 
@@ -32,4 +35,4 @@ test: diffimg
 
 CLEANFILES = *.png
 EXTRA_DIST = diffimg.vcxproj* diffimg.1 diffimg.1.pdf
-DISTCLEANFILES = diffimg.1.pdf
+DISTCLEANFILES = diffimg.1.pdf diffimg.1.ps

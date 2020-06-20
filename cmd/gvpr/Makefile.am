@@ -30,8 +30,11 @@ gvpr_SOURCES = gvprmain.c
 gvpr_CPPFLAGS = $(AM_CPPFLAGS)
 gvpr_LDADD = $(top_builddir)/lib/gvpr/libgvpr.la
 
-gvpr.1.pdf: $(srcdir)/gvpr.1
-	@GROFF@ -Tps -man -t $(srcdir)/gvpr.1 | @PS2PDF@ - - >gvpr.1.pdf
+gvpr.1.pdf: gvpr.1.ps
+	@PS2PDF@ $< $@
+
+gvpr.1.ps: $(srcdir)/gvpr.1
+	@GROFF@ -Tps -man -t $< >$@
 
 gvpr_static_SOURCES = gvprmain.c
 gvpr_static_CPPFLAGS = $(AM_CPPFLAGS)
@@ -48,4 +51,4 @@ gvpr_static_LDADD = \
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) lib gvpr.vcxproj*
 
-DISTCLEANFILES = $(pdf_DATA)
+DISTCLEANFILES = $(pdf_DATA) gvpr.1.ps

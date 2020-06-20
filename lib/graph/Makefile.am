@@ -43,11 +43,14 @@ y.output: $(top_srcdir)/lib/graph/parser.y
 # trie.c : trie_input
 #       triegen  < trie_input > trie.c
 
-graph.3.pdf: $(srcdir)/graph.3
-	@GROFF@ -Tps -man $(srcdir)/graph.3 | @PS2PDF@ - - > graph.3.pdf
+graph.3.pdf: graph.3.ps
+	@PS2PDF@ $< $@
+
+graph.3.ps: $(srcdir)/graph.3
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) triefa.cP \
 	parser.c parser.h \
 	y.tab.c y.tab.h y.output graph.vcxproj* graph.def
 
-DISTCLEANFILES = y.output parser.c parser.h y.tab.[ch] $(pdf_DATA)
+DISTCLEANFILES = y.output parser.c parser.h y.tab.[ch] $(pdf_DATA) graph.3.ps

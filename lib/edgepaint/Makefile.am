@@ -29,9 +29,12 @@ libedgepaint_C_la_SOURCES = edge_distinct_coloring.c  furtherest_point.c  inters
 liblab_gamut_la_LDFLAGS = -version-info $(LAB_GAMUT_VERSION)
 liblab_gamut_la_SOURCES = lab_gamut.c
 
-lab_gamut.3.pdf: $(srcdir)/lab_gamut.3
-	@GROFF@ -Tps -man $(srcdir)/lab_gamut.3 | @PS2PDF@ - - >lab_gamut.3.pdf
+lab_gamut.3.pdf: lab_gamut.3.ps
+	@PS2PDF@ $< $@
+
+lab_gamut.3.ps: $(srcdir)/lab_gamut.3
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST =  $(man_MANS) $(pdf_DATA) edgepaintlib.vcxproj* lab_gamut.vcxproj* lab_gamut.def
  
-DISTCLEANFILES = $(pdf_DATA)
+DISTCLEANFILES = $(pdf_DATA) lab_gamut.3.ps
