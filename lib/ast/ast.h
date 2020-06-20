@@ -21,7 +21,6 @@ extern "C" {
 #include <sfio.h>
 #include <stdlib.h>
 #include <stddef.h>
-#include <align.h>
 #ifdef sun
 #include <string.h>
 #endif
