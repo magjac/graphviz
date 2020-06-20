@@ -73,12 +73,15 @@ y.tab.c y.tab.h: y.output
 y.output: $(top_srcdir)/lib/expr/exparse.y
 	@YACC@ -dtv $(top_srcdir)/lib/expr/exparse.y
 
-expr.3.pdf: $(srcdir)/expr.3
-	@GROFF@ -Tps -man $(srcdir)/expr.3 | @PS2PDF@ - - >expr.3.pdf
+expr.3.pdf: expr.3.ps
+	@PS2PDF@ $< $@
+
+expr.3.ps: $(srcdir)/expr.3
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) \
 	Makefile.nmake Makefile.orig \
 	exparse.c exparse.h exop.h \
 	y.tab.c y.tab.h y.output expr.vcxproj*
 
-DISTCLEANFILES = $(pdf_DATA) exparse.[ch] exop.h y.tab.[ch] y.output
+DISTCLEANFILES = $(pdf_DATA) exparse.[ch] exop.h y.tab.[ch] y.output expr.3.ps

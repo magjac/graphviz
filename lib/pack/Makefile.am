@@ -24,10 +24,13 @@ pdf_DATA = pack.3.pdf
 
 libpack_C_la_SOURCES = ccomps.c pack.c
 
-pack.3.pdf: $(srcdir)/pack.3
-	@GROFF@ -Tps -man $(srcdir)/pack.3 | @PS2PDF@ - - >pack.3.pdf
+pack.3.pdf: pack.3.ps
+	@PS2PDF@ $< $@
+
+pack.3.ps: $(srcdir)/pack.3
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) ptest.c
 
-DISTCLEANFILES = $(pdf_DATA)
+DISTCLEANFILES = $(pdf_DATA) pack.3.ps
 

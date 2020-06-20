@@ -68,9 +68,12 @@ if WITH_WIN32
 libgvc_la_LDFLAGS += -export-symbols $(top_srcdir)/lib/gvc.def
 endif
 
-gvc.3.pdf: $(srcdir)/gvc.3
-	@GROFF@ -Tps -man $(srcdir)/gvc.3 | @PS2PDF@ - - > gvc.3.pdf
+gvc.3.pdf: gvc.3.ps
+	@PS2PDF@ $< $@
+
+gvc.3.ps: $(srcdir)/gvc.3
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA)
 
-DISTCLEANFILES = $(pdf_DATA)
+DISTCLEANFILES = $(pdf_DATA) gvc.3.ps

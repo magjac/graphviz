@@ -39,7 +39,7 @@ void rgb2hex(float r, float g, float b, char *cstring, char *opacity){
   }
 }
 
-real Hue2RGB(real v1, real v2, real H) {
+static real Hue2RGB(real v1, real v2, real H) {
   if(H < 0.0) H += 1.0;
   if(H > 1.0) H -= 1.0;
   if((6.0*H) < 1.0) return (v1 + (v2 - v1) * 6.0 * H);

@@ -257,7 +257,7 @@ static void core_loadimage_tk(GVJ_t * job, usershape_t *us, boxf b, boolean fill
 	us->name, (b.UR.x + b.LL.x) / 2, (b.UR.y + b.LL.y) / 2);
 }
 
-void core_loadimage_null(GVJ_t *gvc, usershape_t *us, boxf b, boolean filled)
+static void core_loadimage_null(GVJ_t *gvc, usershape_t *us, boxf b, boolean filled)
 {
     /* null function - basically suppress the missing loader message */
 }

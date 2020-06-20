@@ -61,8 +61,11 @@ gxl2gv_LDADD = \
 	$(top_builddir)/lib/cgraph/libcgraph.la \
 	$(top_builddir)/lib/cdt/libcdt.la @EXPAT_LIBS@ 
 
-gxl2gv.1.pdf: $(srcdir)/gxl2gv.1
-	@GROFF@ -Tps -man $(srcdir)/gxl2gv.1 | @PS2PDF@ - - >gxl2gv.1.pdf
+gxl2gv.1.pdf: gxl2gv.1.ps
+	@PS2PDF@ $< $@
+
+gxl2gv.1.ps: $(srcdir)/gxl2gv.1
+	@GROFF@ -Tps -man $< >$@
 
 sccmap_SOURCES = sccmap.c
 
@@ -70,8 +73,11 @@ sccmap_LDADD = \
 	$(top_builddir)/lib/ingraphs/libingraphs_C.la \
 	$(top_builddir)/lib/cgraph/libcgraph.la @EXPAT_LIBS@ 
 
-sccmap.1.pdf: $(srcdir)/sccmap.1
-	- @GROFF@ -Tps -man $(srcdir)/sccmap.1 | @PS2PDF@ - - >sccmap.1.pdf
+sccmap.1.pdf: sccmap.1.ps
+	@PS2PDF@ $< $@
+
+sccmap.1.ps: $(srcdir)/sccmap.1
+	@GROFF@ -Tps -man $< >$@
 
 ccomps_SOURCES = ccomps.c
 
@@ -79,8 +85,11 @@ ccomps_LDADD = \
 	$(top_builddir)/lib/ingraphs/libingraphs_C.la \
 	$(top_builddir)/lib/cgraph/libcgraph.la
 
-ccomps.1.pdf: $(srcdir)/ccomps.1
-	- @GROFF@ -Tps -man $(srcdir)/ccomps.1 | @PS2PDF@ - - >ccomps.1.pdf
+ccomps.1.pdf: ccomps.1.ps
+	@PS2PDF@ $< $@
+
+ccomps.1.ps: $(srcdir)/ccomps.1
+	@GROFF@ -Tps -man $< >$@
 
 #tred2_SOURCES = tred2.c
 #
@@ -96,8 +105,11 @@ tred_LDADD = \
 	$(top_builddir)/lib/ingraphs/libingraphs_C.la \
 	$(top_builddir)/lib/cgraph/libcgraph.la
 
-tred.1.pdf: $(srcdir)/tred.1
-	- @GROFF@ -Tps -man $(srcdir)/tred.1 | @PS2PDF@ - - >tred.1.pdf
+tred.1.pdf: tred.1.ps
+	@PS2PDF@ $< $@
+
+tred.1.ps: $(srcdir)/tred.1
+	@GROFF@ -Tps -man $< >$@
 
 unflatten_SOURCES = unflatten.c
 
@@ -105,8 +117,11 @@ unflatten_LDADD = \
 	$(top_builddir)/lib/ingraphs/libingraphs_C.la \
 	$(top_builddir)/lib/cgraph/libcgraph.la
 
-unflatten.1.pdf: $(srcdir)/unflatten.1
-	- @GROFF@ -Tps -man $(srcdir)/unflatten.1 | @PS2PDF@ - - >unflatten.1.pdf
+unflatten.1.pdf: unflatten.1.ps
+	@PS2PDF@ $< $@
+
+unflatten.1.ps: $(srcdir)/unflatten.1
+	@GROFF@ -Tps -man $< >$@
 
 acyclic_SOURCES = acyclic.c
 
@@ -114,8 +129,11 @@ acyclic_LDADD = \
 	$(top_builddir)/lib/ingraphs/libingraphs_C.la \
 	$(top_builddir)/lib/cgraph/libcgraph.la
 
-acyclic.1.pdf: $(srcdir)/acyclic.1
-	- @GROFF@ -Tps -man $(srcdir)/acyclic.1 | @PS2PDF@ - - >acyclic.1.pdf
+acyclic.1.pdf: acyclic.1.ps
+	@PS2PDF@ $< $@
+
+acyclic.1.ps: $(srcdir)/acyclic.1
+	@GROFF@ -Tps -man $< >$@
 
 nop_SOURCES = nop.c
 
@@ -123,8 +141,11 @@ nop_LDADD = \
 	$(top_builddir)/lib/ingraphs/libingraphs_C.la \
 	$(top_builddir)/lib/cgraph/libcgraph.la
 
-nop.1.pdf: $(srcdir)/nop.1
-	- @GROFF@ -Tps -man $(srcdir)/nop.1 | @PS2PDF@ - - >nop.1.pdf
+nop.1.pdf: nop.1.ps
+	@PS2PDF@ $< $@
+
+nop.1.ps: $(srcdir)/nop.1
+	@GROFF@ -Tps -man $< >$@
 
 gvcolor_SOURCES = gvcolor.c colxlate.c colortbl.h
 
@@ -132,8 +153,11 @@ gvcolor_LDADD = \
 	$(top_builddir)/lib/ingraphs/libingraphs_C.la \
 	$(top_builddir)/lib/cgraph/libcgraph.la
 
-gvcolor.1.pdf: $(srcdir)/gvcolor.1
-	- @GROFF@ -Tps -man $(srcdir)/gvcolor.1 | @PS2PDF@ - - >gvcolor.1.pdf
+gvcolor.1.pdf: gvcolor.1.ps
+	@PS2PDF@ $< $@
+
+gvcolor.1.ps: $(srcdir)/gvcolor.1
+	@GROFF@ -Tps -man $< >$@
 
 bcomps_SOURCES = bcomps.c
 
@@ -141,8 +165,11 @@ bcomps_LDADD = \
 	$(top_builddir)/lib/ingraphs/libingraphs_C.la \
 	$(top_builddir)/lib/cgraph/libcgraph.la
 
-bcomps.1.pdf: $(srcdir)/bcomps.1
-	- @GROFF@ -Tps -man $(srcdir)/bcomps.1 | @PS2PDF@ - - >bcomps.1.pdf
+bcomps.1.pdf: bcomps.1.ps
+	@PS2PDF@ $< $@
+
+bcomps.1.ps: $(srcdir)/bcomps.1
+	@GROFF@ -Tps -man $< >$@
 
 gc_SOURCES = gc.c
 
@@ -150,8 +177,11 @@ gc_LDADD = \
 	$(top_builddir)/lib/ingraphs/libingraphs_C.la \
 	$(top_builddir)/lib/cgraph/libcgraph.la
 
-gc.1.pdf: $(srcdir)/gc.1
-	- @GROFF@ -Tps -man $(srcdir)/gc.1 | @PS2PDF@ - - >gc.1.pdf
+gc.1.pdf: gc.1.ps
+	@PS2PDF@ $< $@
+
+gc.1.ps: $(srcdir)/gc.1
+	@GROFF@ -Tps -man $< >$@
 
 gvpack_SOURCES = gvpack.c
 gvpack_CPPFLAGS = $(AM_CPPFLAGS) -DDEMAND_LOADING=0
@@ -178,8 +208,11 @@ endif
 
 #$(PANGOCAIRO_LIBS) $(PANGOFT2_LIBS) $(GTS_LIBS) $(EXPAT_LIBS) $(Z_LIBS) $(_LIBS) $(SOCKET_LIBS) $(IPSEPCOLA_LIBS) $(MATH_LIBS)
 
-gvpack.1.pdf: $(srcdir)/gvpack.1
-	- @GROFF@ -Tps -man $(srcdir)/gvpack.1 | @PS2PDF@ - - >gvpack.1.pdf
+gvpack.1.pdf: gvpack.1.ps
+	@PS2PDF@ $< $@
+
+gvpack.1.ps: $(srcdir)/gvpack.1
+	@GROFF@ -Tps -man $< >$@
 
 mm2gv_SOURCES = mm2gv.c matrix_market.c mmio.c
 
@@ -190,8 +223,11 @@ mm2gv_LDADD = \
     $(top_builddir)/lib/pathplan/libpathplan_C.la \
 	$(top_builddir)/lib/cgraph/libcgraph.la @MATH_LIBS@
 
-mm2gv.1.pdf: mm2gv.1
-	-  @GROFF@ -Tps -man -e -t mm2gv.1 | @PS2PDF@ - - >mm2gv.1.pdf
+mm2gv.1.pdf: mm2gv.1.ps
+	@PS2PDF@ $< $@
+
+mm2gv.1.ps: mm2gv.1
+	@GROFF@ -Tps -man -e -t $< >$@
 
 gv2gml_SOURCES = gv2gml.c
 
@@ -227,8 +263,11 @@ gml2gv_LDADD = \
 	$(top_builddir)/lib/cgraph/libcgraph.la \
 	$(top_builddir)/lib/cdt/libcdt.la @MATH_LIBS@
 
-gml2gv.1.pdf: gml2gv.1
-	- @GROFF@ -Tps -man gml2gv.1 | @PS2PDF@ - - >gml2gv.1.pdf
+gml2gv.1.pdf: gml2gv.1.ps
+	@PS2PDF@ $< $@
+
+gml2gv.1.ps: gml2gv.1
+	@GROFF@ -Tps -man $< >$@
 
 graphml2gv_SOURCES = graphml2gv.c
 
@@ -237,8 +276,11 @@ graphml2gv_LDADD = \
 	$(top_builddir)/lib/cgraph/libcgraph.la \
 	$(top_builddir)/lib/cdt/libcdt.la @EXPAT_LIBS@ 
 
-graphml2gv.1.pdf: $(srcdir)/graphml2gv.1
-	- @GROFF@ -Tps -man $(srcdir)/graphml2gv.1 | @PS2PDF@ - - >graphml2gv.1.pdf
+graphml2gv.1.pdf: graphml2gv.1.ps
+	@PS2PDF@ $< $@
+
+graphml2gv.1.ps: $(srcdir)/graphml2gv.1
+	@GROFF@ -Tps -man $< >$@
 
 dijkstra_SOURCES = dijkstra.c
 
@@ -247,16 +289,22 @@ dijkstra_LDADD = \
 	$(top_builddir)/lib/cgraph/libcgraph.la \
 	$(top_builddir)/lib/cdt/libcdt.la
 
-dijkstra.1.pdf: $(srcdir)/dijkstra.1
-	- @GROFF@ -Tps -man $(srcdir)/dijkstra.1 | @PS2PDF@ - - >dijkstra.1.pdf
+dijkstra.1.pdf: dijkstra.1.ps
+	@PS2PDF@ $< $@
+
+dijkstra.1.ps: $(srcdir)/dijkstra.1
+	@GROFF@ -Tps -man $< >$@
 
 gvgen_SOURCES = gvgen.c graph_generator.c
 
 gvgen_LDADD = \
 	$(top_builddir)/lib/cgraph/libcgraph.la @MATH_LIBS@
 
-gvgen.1.pdf: $(srcdir)/gvgen.1
-	- @GROFF@ -Tps -man $(srcdir)/gvgen.1 | @PS2PDF@ - - >gvgen.1.pdf
+gvgen.1.pdf: gvgen.1.ps
+	@PS2PDF@ $< $@
+
+gvgen.1.ps: $(srcdir)/gvgen.1
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) bcomps.vcxproj* \
 	acyclic.vcxproj* bcomps.vcxproj* ccomps.vcxproj* dijkstra.vcxproj* gc.vcxproj* \
@@ -270,4 +318,7 @@ EXTRA_DIST = $(man_MANS) $(pdf_DATA) bcomps.vcxproj* \
 		
 CLEANFILES = stamp.h 
 
-DISTCLEANFILES = $(pdf_DATA) gmlparse.[ch] gmlscan.c y.output y.tab.[ch]
+DISTCLEANFILES = $(pdf_DATA) gmlparse.[ch] gmlscan.c y.output y.tab.[ch] \
+	gxl2gv.1.ps sccmap.1.ps ccomps.1.ps tred.1.ps unflatten.1.ps acyclic.1.ps \
+	nop.1.ps gvcolor.1.ps bcomps.1.ps gc.1.ps gvpack.1.ps mm2gv.1.ps gml2gv.1.ps \
+	graphml2gv.1.ps dijkstra.1.ps gvgen.1.ps

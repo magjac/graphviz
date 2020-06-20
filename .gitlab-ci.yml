@@ -32,6 +32,7 @@ portable-source:
         paths:
             - Packages/*/*/*/*/*/*.rpm
             - Packages/*/*/*/*/*.rpm
+            - Metadata/*/*/*/configure.log
     except:
         - tags
 
@@ -45,6 +46,7 @@ portable-source:
         paths:
             - Packages/*/*/*/*/*/*deb
             - Packages/*/*/*/*/*.gz
+            - Metadata/*/*/*/configure.log
     except:
         - tags
 
@@ -131,6 +133,18 @@ ubuntu20-04-build:
     tags:
         - linux
     image: "graphviz/graphviz:ubuntu-20.04"
+
+meta-data:
+    stage: test
+    script:
+        - CONFIGURE_LOGS=Metadata/*/*/*/configure.log
+        - ci/generate-configuration-table.py --output-format html ${CONFIGURE_LOGS} > configuration-long-no-color.html
+        - ci/generate-configuration-table.py --output-format html --short ${CONFIGURE_LOGS} > configuration-short-no-color.html
+        - ci/generate-configuration-table.py --output-format html --short --color ${CONFIGURE_LOGS} > configuration-short-color-green-red.html
+        - ci/generate-configuration-table.py --output-format html --short --colors black:red ${CONFIGURE_LOGS} > configuration-short-color-red-only.html
+    artifacts:
+        paths:
+            - configuration-*.html
 
 ubuntu18-04-test:
     <<: *test_definition

@@ -812,7 +812,7 @@ static void maximal_independent_edge_set_heavest_edge_pernode_scaled(SparseMatri
   }
 }
 
-SparseMatrix DistanceMatrix_restrict_cluster(int ncluster, int *clusterp, int *cluster, SparseMatrix P, SparseMatrix R, SparseMatrix D){
+static SparseMatrix DistanceMatrix_restrict_cluster(int ncluster, int *clusterp, int *cluster, SparseMatrix P, SparseMatrix R, SparseMatrix D){
 #if 0
   /* this construct a distance matrix of a coarse graph, for a coarsen give by merging all nodes in each cluster */
   SparseMatrix cD = NULL;
@@ -932,13 +932,13 @@ SparseMatrix DistanceMatrix_restrict_cluster(int ncluster, int *clusterp, int *c
   return NULL;
 }
 
-SparseMatrix DistanceMatrix_restrict_matching(int *matching, SparseMatrix D){
+static SparseMatrix DistanceMatrix_restrict_matching(int *matching, SparseMatrix D){
   if (!D) return NULL;
   assert(0);/* not yet implemented! */
   return NULL;
 }
 
-SparseMatrix DistanceMatrix_restrict_filtering(int *mask, int is_C, int is_F, SparseMatrix D){
+static SparseMatrix DistanceMatrix_restrict_filtering(int *mask, int is_C, int is_F, SparseMatrix D){
   /* max independent vtx set based coarsening. Coarsen nodes has mask >= is_C. Fine nodes == is_F. */
   if (!D) return NULL;
   assert(0);/* not yet implemented! */

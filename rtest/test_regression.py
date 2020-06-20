@@ -31,3 +31,17 @@ def test_regression_failure():
     assert "Layout failures: 0" in str(text)
 # FIXME: re-enable when all tests pass on all platforms
 #    assert result.returncode == 0
+
+def test_1436():
+    '''
+    test a segfault from https://gitlab.com/graphviz/graphviz/-/issues/1436 has
+    not reappeared
+    '''
+
+    # locate our associated test case in this directory
+    input = os.path.join(os.path.dirname(__file__), '1436.dot')
+    assert os.path.exists(input), 'unexpectedly missing test case'
+
+    # ask Graphviz to process it, which should generate a segfault if this bug
+    # has been reintroduced
+    subprocess.check_call(['dot', '-Tsvg', '-o', os.devnull, input])

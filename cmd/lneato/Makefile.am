@@ -24,10 +24,13 @@ lneato: ${top_srcdir}/cmd/lneato/lneato.sh
 	chmod +x lneato
 endif
 
-lneato.1.pdf: $(srcdir)/lneato.1
-	@GROFF@ -Tps -man $(srcdir)/lneato.1 | @PS2PDF@ - - >lneato.1.pdf
+lneato.1.pdf: lneato.1.ps
+	@PS2PDF@ $< $@
+
+lneato.1.ps: $(srcdir)/lneato.1
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) lneato.bsh lneato.ksh lneato.sh \
 	mswin32 lneato.vcxproj*
 
-DISTCLEANFILES = lneato $(pdf_DATA)
+DISTCLEANFILES = lneato $(pdf_DATA) lneato.1.ps

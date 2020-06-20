@@ -108,8 +108,7 @@ static int cmpf(const void *X, const void *Y)
  * Mark cells crossed by line from cell p to cell q.
  * Bresenham's algorithm, from Graphics Gems I, pp. 99-100.
  */
-/* static  */
-void fillLine(pointf p, pointf q, PointSet * ps)
+static void fillLine(pointf p, pointf q, PointSet * ps)
 {
     int x1 = ROUND(p.x);
     int y1 = ROUND(p.y);

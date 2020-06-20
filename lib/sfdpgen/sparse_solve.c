@@ -34,7 +34,7 @@ void Operator_uniform_stress_matmul_delete(Operator o){
   FREE(o->data);
 }
 
-real *Operator_uniform_stress_matmul_apply(Operator o, real *x, real *y){
+static real *Operator_uniform_stress_matmul_apply(Operator o, real *x, real *y){
   struct uniform_stress_matmul_data *d = (struct uniform_stress_matmul_data*) (o->data);
   SparseMatrix A = d->A;
   real alpha = d->alpha;
@@ -66,13 +66,13 @@ Operator Operator_uniform_stress_matmul(SparseMatrix A, real alpha){
 }
 
 
-real *Operator_matmul_apply(Operator o, real *x, real *y){
+static real *Operator_matmul_apply(Operator o, real *x, real *y){
   SparseMatrix A = (SparseMatrix) o->data;
   SparseMatrix_multiply_vector(A, x, &y, FALSE);
   return y;
 }
 
-Operator Operator_matmul_new(SparseMatrix A){
+static Operator Operator_matmul_new(SparseMatrix A){
   Operator o;
 
   o = GNEW(struct Operator_struct);
@@ -82,12 +82,12 @@ Operator Operator_matmul_new(SparseMatrix A){
 }
 
 
-void Operator_matmul_delete(Operator o){
+static void Operator_matmul_delete(Operator o){
   if (o) FREE(o);  
 }
 
 
-real* Operator_diag_precon_apply(Operator o, real *x, real *y){
+static real* Operator_diag_precon_apply(Operator o, real *x, real *y){
   int i, m;
   real *diag = (real*) o->data;
   m = (int) diag[0];
@@ -126,7 +126,7 @@ Operator Operator_uniform_stress_diag_precon_new(SparseMatrix A, real alpha){
 }
 
 
-Operator Operator_diag_precon_new(SparseMatrix A){
+static Operator Operator_diag_precon_new(SparseMatrix A){
   Operator o;
   real *diag;
   int i, j, m = A->m, *ia = A->ia, *ja = A->ja;
@@ -154,7 +154,7 @@ Operator Operator_diag_precon_new(SparseMatrix A){
   return o;
 }
 
-void Operator_diag_precon_delete(Operator o){
+static void Operator_diag_precon_delete(Operator o){
   if (o->data) FREE(o->data);
   if (o) FREE(o);
 }
@@ -246,7 +246,7 @@ real cg(Operator Ax, Operator precond, int n, int dim, real *x0, real *rhs, real
 
 }
 
-real* jacobi(SparseMatrix A, int dim, real *x0, real *rhs, int maxit, int *flag){
+static real* jacobi(SparseMatrix A, int dim, real *x0, real *rhs, int maxit, int *flag){
   /* maxit iteration of jacobi */
   real *x, *y, *b, sum, diag, *a;
   int k, i, j, n = A->n, *ia, *ja, iter;

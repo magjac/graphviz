@@ -5964,8 +5964,8 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_243D267285184B3E97811A66F51C325E"
             {
-            "SourcePath" = "8:..\\..\\release\\share\\graphviz\\doc\\pdf\\prune.pdf"
-            "TargetName" = "8:prune.pdf"
+            "SourcePath" = "8:..\\..\\release\\share\\graphviz\\doc\\pdf\\prune.1.pdf"
+            "TargetName" = "8:prune.1.pdf"
             "Tag" = "8:"
             "Folder" = "8:_AA21810D168D4D91A51B8EAF461B6858"
             "Condition" = "8:"
@@ -13064,8 +13064,8 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A45B640DCDC14C2F8B5EC2B9FB6AC833"
             {
-            "SourcePath" = "8:..\\..\\release\\share\\graphviz\\doc\\ChangeLog"
-            "TargetName" = "8:ChangeLog"
+            "SourcePath" = "8:..\\..\\release\\share\\graphviz\\doc\\CHANGELOG.md"
+            "TargetName" = "8:CHANGELOG.md"
             "Tag" = "8:"
             "Folder" = "8:_EA2EA6B45DEE4C35ACA33AA91E799532"
             "Condition" = "8:"
@@ -18389,7 +18389,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_22D46F5B06EB47F289AC4644ECD5136C"
             {
-            "Name" = "8:Shortcut to prune.pdf"
+            "Name" = "8:Shortcut to prune.1.pdf"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"

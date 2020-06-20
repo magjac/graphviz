@@ -26,11 +26,14 @@ dotty: $(top_srcdir)/cmd/dotty/dotty.sh
 	chmod +x dotty
 endif
 
-dotty.1.pdf: $(srcdir)/dotty.1
-	@GROFF@ -Tps -man $(srcdir)/dotty.1 | @PS2PDF@ - - >dotty.1.pdf
+dotty.1.pdf: dotty.1.ps
+	@PS2PDF@ $< $@
+
+dotty.1.ps: $(srcdir)/dotty.1
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = $(lefty_DATA) $(man_MANS) $(pdf_DATA) \
 	dotty.bsh dotty.ksh dotty.sh \
 	notes mswin32 dotty.vcxproj*
 
-DISTCLEANFILES = $(pdf_DATA) dotty
+DISTCLEANFILES = $(pdf_DATA) dotty dotty.1.ps

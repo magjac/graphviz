@@ -62,7 +62,7 @@ static real dist(int dim, real *x, real *y){
   return sqrt(d);
 }
 
-real point_line_distance(real *p, real *q, real *r){
+static real point_line_distance(real *p, real *q, real *r){
   /* distance between point p and line q--r */
   enum {dim = 2};
   real t = 0, b = 0;
