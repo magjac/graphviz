@@ -76,7 +76,6 @@
     <Lib />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="align.h" />
     <ClInclude Include="ast.h" />
     <ClInclude Include="compat_unistd.h" />
     <ClInclude Include="error.h" />
