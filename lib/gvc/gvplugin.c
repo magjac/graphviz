@@ -499,7 +499,7 @@ Agraph_t *gvplugin_graph(GVC_t * gvc)
     Agedge_t *e;
     Agsym_t *a;
     gvplugin_package_t *package;
-    gvplugin_available_t **pnext;
+    const gvplugin_available_t *pnext;
     char bufa[100], *buf1, *buf2, bufb[100], *p, *q, *lq, *t;
     int api, neededge_loadimage, neededge_device;
 
@@ -541,9 +541,9 @@ Agraph_t *gvplugin_graph(GVC_t * gvc)
             agxset(ssg, a, "same");
             strcat(buf1, "_");
             buf2 = bufa + strlen(bufa);
-            for (pnext = &(gvc->apis[api]); *pnext; pnext = &((*pnext)->next)) {
-                if ((*pnext)->package == package) {
-                    t = q = strdup((*pnext)->typestr);
+            for (pnext = gvc->apis[api]; pnext; pnext = pnext->next) {
+                if (pnext->package == package) {
+                    t = q = strdup(pnext->typestr);
                     if ((p = strchr(q, ':')))
                         *p++ = '\0';
                     /* Now p = renderer, e.g. "gd"
@@ -717,9 +717,9 @@ Agraph_t *gvplugin_graph(GVC_t * gvc)
             strcpy(buf1, api_names[api]);
             strcat(buf1, "_");
             buf2 = bufa + strlen(bufa);
-            for (pnext = &(gvc->apis[api]); *pnext; pnext = &((*pnext)->next)) {
-                if ((*pnext)->package == package) {
-                    t = q = strdup((*pnext)->typestr);
+            for (pnext = gvc->apis[api]; pnext; pnext = pnext->next) {
+                if (pnext->package == package) {
+                    t = q = strdup(pnext->typestr);
                     if ((p = strchr(q, ':')))
                         *p++ = '\0';
                     /* Now p = renderer, e.g. "gd"
