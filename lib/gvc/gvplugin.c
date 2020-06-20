@@ -266,7 +266,7 @@ gvplugin_library_t *gvplugin_library_load(GVC_t * gvc, char *path)
 */
 gvplugin_available_t *gvplugin_load(GVC_t * gvc, api_t api, const char *str)
 {
-    gvplugin_available_t **pnext, *rv;
+    gvplugin_available_t *pnext, *rv;
     gvplugin_library_t *library;
     gvplugin_api_t *apis;
     gvplugin_installed_t *types;
@@ -293,8 +293,8 @@ gvplugin_available_t *gvplugin_load(GVC_t * gvc, api_t api, const char *str)
         reqpkg = NULL;
 
     /* iterate the linked list of plugins for this api */
-    for (pnext = &(gvc->apis[api]); *pnext; pnext = &((*pnext)->next)) {
-        strncpy(typ, (*pnext)->typestr, TYPBUFSIZ - 1);
+    for (pnext = gvc->apis[api]; pnext; pnext = pnext->next) {
+        strncpy(typ, pnext->typestr, TYPBUFSIZ - 1);
         dep = strchr(typ, ':');
         if (dep)
             *dep++ = '\0';
@@ -302,7 +302,7 @@ gvplugin_available_t *gvplugin_load(GVC_t * gvc, api_t api, const char *str)
             continue;           /* types empty or mismatched */
         if (dep && reqdep && strcmp(dep, reqdep))
             continue;           /* dependencies not empty, but mismatched */
-        if (!reqpkg || strcmp(reqpkg, (*pnext)->package->name) == 0) {
+        if (!reqpkg || strcmp(reqpkg, pnext->package->name) == 0) {
             /* found with no packagename constraints, or with required matching packagname */
 
             if (dep && (apidep != api)) /* load dependency if needed, continue if can't find */
@@ -311,7 +311,7 @@ gvplugin_available_t *gvplugin_load(GVC_t * gvc, api_t api, const char *str)
             break;
         }
     }
-    rv = *pnext;
+    rv = pnext;
 
     if (rv && rv->typeptr == NULL) {
         library = gvplugin_library_load(gvc, rv->package->path);
