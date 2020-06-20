@@ -142,20 +142,20 @@ boolean gvplugin_install(GVC_t * gvc, api_t api, const char *typestr,
 static boolean gvplugin_activate(GVC_t * gvc, api_t api,
                                  const char *typestr, char *name, char *path, gvplugin_installed_t * typeptr)
 {
-    gvplugin_available_t **pnext;
+    gvplugin_available_t *pnext;
 
     /* point to the beginning of the linked list of plugins for this api */
-    pnext = &(gvc->apis[api]);
+    pnext = gvc->apis[api];
 
-    while (*pnext) {
-        if ((strcasecmp(typestr, (*pnext)->typestr) == 0)
-            && (strcasecmp(name, (*pnext)->package->name) == 0)
-            && ((*pnext)->package->path != 0)
-            && (strcasecmp(path, (*pnext)->package->path) == 0)) {
-            (*pnext)->typeptr = typeptr;
+    while (pnext) {
+        if ((strcasecmp(typestr, pnext->typestr) == 0)
+            && (strcasecmp(name, pnext->package->name) == 0)
+            && (pnext->package->path != 0)
+            && (strcasecmp(path, pnext->package->path) == 0)) {
+            pnext->typeptr = typeptr;
             return TRUE;
         }
-        pnext = &((*pnext)->next);
+        pnext = pnext->next;
     }
     return FALSE;
 }
