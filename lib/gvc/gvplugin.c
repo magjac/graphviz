@@ -432,7 +432,7 @@ char *gvplugin_list(GVC_t * gvc, api_t api, const char *str)
 char **gvPluginList(GVC_t * gvc, const char *kind, int *sz, const char *str)
 {
     int api;
-    gvplugin_available_t **pnext, **plugin;
+    const gvplugin_available_t *pnext, *plugin;
     int cnt = 0;
     char **list = NULL;
     char *p, *q, *typestr_last;
@@ -449,11 +449,11 @@ char **gvPluginList(GVC_t * gvc, const char *kind, int *sz, const char *str)
     }
 
     /* point to the beginning of the linked list of plugins for this api */
-    plugin = &(gvc->apis[api]);
+    plugin = gvc->apis[api];
     typestr_last = NULL;
-    for (pnext = plugin; *pnext; pnext = &((*pnext)->next)) {
+    for (pnext = plugin; pnext; pnext = pnext->next) {
         /* list only one instance of type */
-        q = strdup((*pnext)->typestr);
+        q = strdup(pnext->typestr);
         if ((p = strchr(q, ':')))
             *p++ = '\0';
         if (!typestr_last || strcasecmp(typestr_last, q) != 0) {
