@@ -347,7 +347,7 @@ gvplugin_available_t *gvplugin_load(GVC_t * gvc, api_t api, const char *str)
 char *gvplugin_list(GVC_t * gvc, api_t api, const char *str)
 {
     static int first = 1;
-    gvplugin_available_t **pnext, **plugin;
+    const gvplugin_available_t *pnext, *plugin;
     char *bp;
     char *s, *p, *q, *typestr_last;
     boolean new = TRUE;
@@ -369,21 +369,21 @@ char *gvplugin_list(GVC_t * gvc, api_t api, const char *str)
         *p++ = '\0';
 
     /* point to the beginning of the linked list of plugins for this api */
-    plugin = &(gvc->apis[api]);
+    plugin = gvc->apis[api];
 
     if (p) {                    /* if str contains a ':', and if we find a match for the type,
                                    then just list the alternative paths for the plugin */
-        for (pnext = plugin; *pnext; pnext = &((*pnext)->next)) {
-            q = strdup((*pnext)->typestr);
+        for (pnext = plugin; pnext; pnext = pnext->next) {
+            q = strdup(pnext->typestr);
             if ((p = strchr(q, ':')))
                 *p++ = '\0';
             /* list only the matching type, or all types if s is an empty string */
             if (!s[0] || strcasecmp(s, q) == 0) {
                 /* list each member of the matching type as "type:path" */
                 agxbputc(&xb, ' ');
-                agxbput(&xb, (*pnext)->typestr);
+                agxbput(&xb, pnext->typestr);
                 agxbputc(&xb, ':');
-                agxbput(&xb, (*pnext)->package->name);
+                agxbput(&xb, pnext->package->name);
                 new = FALSE;
             }
             free(q);
@@ -393,9 +393,9 @@ char *gvplugin_list(GVC_t * gvc, api_t api, const char *str)
     if (new) {                  /* if the type was not found, or if str without ':',
                                    then just list available types */
         typestr_last = NULL;
-        for (pnext = plugin; *pnext; pnext = &((*pnext)->next)) {
+        for (pnext = plugin; pnext; pnext = pnext->next) {
             /* list only one instance of type */
-            q = strdup((*pnext)->typestr);
+            q = strdup(pnext->typestr);
             if ((p = strchr(q, ':')))
                 *p++ = '\0';
             if (!typestr_last || strcasecmp(typestr_last, q) != 0) {
