@@ -228,14 +228,14 @@ double *lab_gamut(const char *lightness, int *n){
   if (Verbose)
     fprintf(stderr,"size of lab gamut = %d\n", m);
 
-  x = malloc(sizeof(double)*3*m);
+  x = malloc(sizeof(double)*m);
   xx = x;
   *n = 0;
-  for (i = 0; i < m; i++){
-    if (lab_gamut_data[i].l >= l1 && lab_gamut_data[i].l <= l2){
-      xx[0] = lab_gamut_data[i].l;
-      xx[1] = lab_gamut_data[i].a;
-      xx[2] = lab_gamut_data[i].b;
+  for (i = 0; i < m; i += 3){
+    if (lab_gamut_data[i] >= l1 && lab_gamut_data[i] <= l2){
+      xx[0] = lab_gamut_data[i];
+      xx[1] = lab_gamut_data[i+1];
+      xx[2] = lab_gamut_data[i+2];
       xx += 3;
       (*n)++;
     }

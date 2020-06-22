@@ -15,17 +15,13 @@
 extern "C" {
 #endif
 
-typedef struct {
-  signed char l, a, b;/* l: 0 to 100, a,b: -128 tp 128 */
-} char_color_lab;
-
 /*visual studio*/
 #if defined(_WIN32) && !defined(LAB_GAMUT_EXPORTS)
 #define extern __declspec(dllimport)
 #endif
 /*end visual studio*/
 
-extern const char_color_lab lab_gamut_data[];
+extern const signed char lab_gamut_data[];
 extern int lab_gamut_data_size;
 
 #undef extern
