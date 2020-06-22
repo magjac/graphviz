@@ -11,7 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - graphviz-2.42.2-coverity-scan-fixes.patch
   - graphviz-2.42.2-dotty-menu-fix.patch
   - graphviz-2.42.2-ocaml-allow-const-cast.patch
-- some allocation failures that could previously allow memory corruption now exit
 
 ### Fixed
 - Released Ubuntu packages does not contain language bindings for Python3 #1737

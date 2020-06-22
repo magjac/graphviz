@@ -26,6 +26,8 @@
 #include <pango/pangofc-font.h>
 #endif
 
+#define N_NEW(n,t)      (t*)malloc((n)*sizeof(t))
+
 static void pango_free_layout (void *layout)
 {
     g_object_unref((PangoLayout*)layout);

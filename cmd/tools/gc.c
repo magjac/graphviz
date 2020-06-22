@@ -25,7 +25,7 @@
 #include <string.h>
 
 #define NEW(t)           (t*)malloc(sizeof(t))
-#define N_NEW(n,t)       (t*)calloc((n),sizeof(t))
+#define N_NEW(n,t)       (t*)malloc((n)*sizeof(t))
 
 #include "cgraph.h"
 #include "cghdr.h"

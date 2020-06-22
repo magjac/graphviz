@@ -23,7 +23,7 @@
 #include <stdlib.h>
 #include "cgraph.h"
 
-#define N_NEW(n,t)       (t*)calloc((n),sizeof(t))
+#define N_NEW(n,t)       (t*)malloc((n)*sizeof(t))
 #define NEW(t)           (t*)malloc(sizeof(t))
 
 typedef struct {

@@ -17,7 +17,7 @@
 #include <string.h>
 #include <agxbuf.h>
 
-#define N_GNEW(n,t)	 (t*)calloc((n),sizeof(t))
+#define N_GNEW(n,t)	 (t*)malloc((n)*sizeof(t))
 
 /* agxbinit:
  * Assume if init is non-null, hint = sizeof(init[])

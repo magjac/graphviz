@@ -14,15 +14,17 @@
 #include "config.h"
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include "memory.h"
 
 void *zmalloc(size_t nbytes)
 {
+    char *rv;
     if (nbytes == 0)
 	return 0;
-    return gcalloc(1, nbytes);
+    rv = gmalloc(nbytes);
+    memset(rv, 0, nbytes);
+    return rv;
 }
 
 void *zrealloc(void *ptr, size_t size, size_t elt, size_t osize)
@@ -30,21 +32,11 @@ void *zrealloc(void *ptr, size_t size, size_t elt, size_t osize)
     void *p = realloc(ptr, size * elt);
     if (p == NULL && size) {
 	fprintf(stderr, "out of memory\n");
-	exit(EXIT_FAILURE);
+	return p;
     }
     if (osize < size)
 	memset((char *) p + (osize * elt), '\0', (size - osize) * elt);
     return p;
-}
-
-void *gcalloc(size_t nmemb, size_t size)
-{
-    char *rv = calloc(nmemb, size);
-    if (rv == NULL) {
-	fprintf(stderr, "out of memory\n");
-	exit(EXIT_FAILURE);
-    }
-    return rv;
 }
 
 void *gmalloc(size_t nbytes)
@@ -55,7 +47,6 @@ void *gmalloc(size_t nbytes)
     rv = malloc(nbytes);
     if (rv == NULL) {
 	fprintf(stderr, "out of memory\n");
-	exit(EXIT_FAILURE);
     }
     return rv;
 }
@@ -65,7 +56,6 @@ void *grealloc(void *ptr, size_t size)
     void *p = realloc(ptr, size);
     if (p == NULL && size) {
 	fprintf(stderr, "out of memory\n");
-	exit(EXIT_FAILURE);
     }
     return p;
 }

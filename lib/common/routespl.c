@@ -16,7 +16,6 @@
 #include "render.h"
 #include "pathplan.h"
 #include <setjmp.h>
-#include <stdlib.h>
 
 #ifdef UNUSED
 static box *bs = NULL;
@@ -289,7 +288,7 @@ int
 routesplinesinit()
 {
     if (++routeinit > 1) return 0;
-    if (!(ps = calloc(PINC, sizeof(pointf)))) {
+    if (!(ps = N_GNEW(PINC, pointf))) {
 	agerr(AGERR, "routesplinesinit: cannot allocate ps\n");
 	return 1;
     }
@@ -847,7 +846,7 @@ static int mkspacep(int size)
 {
     if (size > maxpn) {
 	int newmax = maxpn + (size / PINC + 1) * PINC;
-	ps = realloc(ps, newmax * sizeof(pointf));
+	ps = RALLOC(newmax, ps, pointf);
 	if (!ps) {
 	    agerr(AGERR, "cannot re-allocate ps\n");
 	    return 1;
