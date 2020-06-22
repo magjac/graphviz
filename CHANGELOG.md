@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Windows binaries available at https://www2.graphviz.org/Packages/ instead of
   https://ci.appveyor.com/project/ellson/graphviz-pl238
+- Retarget Windows builds to Visual Studio 2019 and toolset v142
 
 ### Fixed
 - Released Ubuntu packages does not contain language bindings for Python3 #1737

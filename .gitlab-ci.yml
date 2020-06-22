@@ -73,6 +73,7 @@ portable-source:
               cd build;
               cmake -G "$env:generator" -A $Env:platform ..;
               cmake --build . --config $env:configuration;
+              cd ..;
             }
             elseif($env:build_system -eq "msbuild") {
               msbuild /p:Configuration=$env:configuration
@@ -81,7 +82,9 @@ portable-source:
         - >-
             if($env:configuration -eq "Release") {
               if($env:build_system -eq "cmake") {
+                cd build;
                 C:\"Program Files"\CMake\bin\cpack
+                cd ..;
               }
               elseif($env:build_system -eq "msbuild") {
                 rm Release\Graphviz\bin\*.lastcodeanalysissucceeded;
@@ -93,6 +96,7 @@ portable-source:
         # Test
         - >-
             if($env:build_system -eq "cmake" -and $env:configuration -eq "Release") {
+              cd build;
               mv Graphviz-*.exe Graphviz-install.exe;
               # Install using installer and add bin directory to path.
               # Piping the output of the installer to Out-Null, makes the script wait
@@ -102,6 +106,7 @@ portable-source:
               $env:Path += ";" + $env:graphviz_install_dir + "\bin"
               dot -c;
               ctest -C $env:configuration;
+              cd ..;
             }
             elseif($env:build_system -eq "msbuild") {
               # Append build destination to the PATH, configure dot and execute regression tests
@@ -110,14 +115,26 @@ portable-source:
               dot -c;
               cd tests\regression_tests;
               ./regression_tests.ps1;
+              cd ..\..;
+            }
+        # Create artifacts to archive
+        - $ID = "windows"
+        - $VERSION_ID = "10"
+        - $COLLECTION = $( cat COLLECTION )
+        - $DIR = "Packages\${COLLECTION}\${ID}\${VERSION_ID}\$env:build_system\$env:configuration\$Env:platform"
+        - mkdir -p $DIR
+        - >-
+            if($env:build_system -eq "cmake") {
+                mv "build\*.exe" $DIR;
+            } else {
+                Compress-Archive -Path "$env:configuration\*" -DestinationPath "$DIR\graphviz.zip";
             }
     artifacts:
         when: on_success
         expire_in: 1 week
         paths:
-        - Release
-        - Debug
-        - build/Graphviz-install.exe
+        - Packages/*/*/*/*/*/*/*.exe
+        - Packages/*/*/*/*/*/*/*.zip
     tags:
         - windows
 
@@ -240,12 +257,14 @@ windows-cmake-x64-debug-build:
 windows-msbuild-Win32-release-build:
     <<: *windows_build_definition
     before_script:
+        - $Env:platform = "Win32"
         - $Env:configuration = "Release"
         - $Env:build_system = "msbuild"
 
 windows-msbuild-Win32-debug-build:
     <<: *windows_build_definition
     before_script:
+        - $Env:platform = "Win32"
         - $Env:configuration = "Debug"
         - $Env:build_system = "msbuild"
 
@@ -260,6 +279,7 @@ meta-data:
     artifacts:
         paths:
             - configuration-*.html
+
 ubuntu18-04-test:
     <<: *test_definition
     needs:
@@ -395,7 +415,7 @@ deployment:
         - chmod -R o-rwx Packages
         - chmod -R g-wx Packages
         - chmod -R g+X Packages
-        - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'rm -rf Packages/'"$COLLECTION"'/{fedora,centos,ubuntu}'
+        - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'rm -rf Packages/'"$COLLECTION"'/{fedora,centos,ubuntu,windows}'
         - scp -r Packages/* "$DEPLOY_USER"@"$DEPLOY_HOST"':'Packages/
         - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" 'for i in Packages/'"$COLLECTION"'/{fedora,centos}/*/{source,os/*,debug/*}; do createrepo $i; done'
         - scp graphviz-fedora.repo graphviz-centos.repo "$DEPLOY_USER"@"$DEPLOY_HOST"':'Packages/
