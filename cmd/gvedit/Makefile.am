@@ -59,14 +59,17 @@ qMakefile: gvedit.pro
 attrs.txt: $(top_srcdir)/doc/infosrc/attrs
 	cp $(top_srcdir)/doc/infosrc/attrs attrs.txt
 
-gvedit.1.pdf: $(srcdir)/gvedit.1
-	@GROFF@ -Tps -man $(srcdir)/gvedit.1 | @PS2PDF@ - - >gvedit.1.pdf
+gvedit.1.pdf: gvedit.1.ps
+	@PS2PDF@ $< $@
+
+gvedit.1.ps: $(srcdir)/gvedit.1
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = gvedit.vcxproj* gvedit.pro.in mdi.qrc $(mans) $(pdfs)
 
 CLEANFILES = moc_csettings.cpp moc_imageviewer.cpp moc_mainwindow.cpp moc_mdichild.cpp qrc_mdi.cpp
 	
-DISTCLEANFILES = attrs.txt $(pdf_DATA) qMakefile
+DISTCLEANFILES = attrs.txt $(pdf_DATA) qMakefile gvedit.1.ps
 
 clean-local:
 	-$(MAKE) -f qMakefile clean

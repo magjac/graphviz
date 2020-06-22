@@ -27,8 +27,11 @@ endif
 man_MANS = vimdot.1
 pdf_DATA = vimdot.1.pdf
 
-vimdot.1.pdf: $(srcdir)/vimdot.1
-	@GROFF@ -Tps -man $(srcdir)/vimdot.1 | @PS2PDF@ - - >vimdot.1.pdf
+vimdot.1.pdf: vimdot.1.ps
+	@PS2PDF@ $< $@
+
+vimdot.1.ps: $(srcdir)/vimdot.1
+	@GROFF@ -Tps -man $< >$@
 
 libgvplugin_xlib_C_la_SOURCES = \
 	gvplugin_xlib.c \
@@ -52,4 +55,4 @@ vimdot: $(top_srcdir)/plugin/xlib/vimdot.sh
 
 EXTRA_DIST = vimdot.sh vimdot.1 vimdot.1.pdf
 
-DISTCLEANFILES = vimdot vimdot.1.pdf
+DISTCLEANFILES = vimdot vimdot.1.pdf vimdot.1.ps

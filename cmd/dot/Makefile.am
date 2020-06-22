@@ -66,14 +66,23 @@ uninstall-hook:
 	(cd $(DESTDIR)$(bindir); for i in $(linkedprogram); do rm -f $$i; done;)
 	(cd $(DESTDIR)$(libdir); rm -f config;)
 
-dot.1.pdf: $(srcdir)/dot.1
-	@GROFF@-Tps -man $(srcdir)/dot.1 | @PS2PDF@ - - >dot.1.pdf
+dot.1.pdf: dot.1.ps
+	@PS2PDF@ $< $@
 
-osage.1.pdf: $(srcdir)/osage.1
-	@GROFF@-Tps -man $(srcdir)/osage.1 | @PS2PDF@ - - >osage.1.pdf
+dot.1.ps: $(srcdir)/dot.1
+	@GROFF@ -Tps -man $< >$@
 
-patchwork.1.pdf: $(srcdir)/patchwork.1
-	@GROFF@-Tps -man $(srcdir)/patchwork.1 | @PS2PDF@ - - >patchwork.1.pdf
+osage.1.pdf: osage.1.ps
+	@PS2PDF@ $< $@
+
+osage.1.ps: $(srcdir)/osage.1
+	@GROFF@ -Tps -man $< >$@
+
+patchwork.1.pdf: patchwork.1.ps
+	@PS2PDF@ $< $@
+
+patchwork.1.ps: $(srcdir)/patchwork.1
+	@GROFF@ -Tps -man $< >$@
 
 dot_static_SOURCES = dot.c dot_builtins.c
 dot_static_CPPFLAGS = $(AM_CPPFLAGS) -DDEMAND_LOADING=0
@@ -132,4 +141,4 @@ endif
 
 EXTRA_DIST = dot.1 dot.1.pdf osage.1 osage.1.pdf patchwork.1 patchwork.1.pdf dot.vcxproj*
 
-DISTCLEANFILES = dot.1.pdf osage.1.pdf
+DISTCLEANFILES = dot.1.pdf osage.1.pdf dot.1.ps osage.1.ps patchwork.1.ps

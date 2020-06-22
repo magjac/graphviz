@@ -34,9 +34,12 @@ mingle_LDADD = \
 	$(top_builddir)/lib/cdt/libcdt.la \
 	$(ANN_LIBS) -lstdc++ -lm 
 
-mingle.1.pdf: $(srcdir)/mingle.1
-	@GROFF@ -e -Tps -man -t $(srcdir)/mingle.1 | @PS2PDF@ - - >mingle.1.pdf
+mingle.1.pdf: mingle.1.ps
+	@PS2PDF@ $< $@
+
+mingle.1.ps: $(srcdir)/mingle.1
+	@GROFF@ -e -Tps -man -t $< >$@
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) mingle.vcxproj*
 
-DISTCLEANFILES = $(pdf_DATA)
+DISTCLEANFILES = $(pdf_DATA) mingle.1.ps

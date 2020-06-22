@@ -24,9 +24,12 @@ libcdt_C_la_SOURCES = dtclose.c dtdisc.c dtextract.c dtflatten.c \
 libcdt_la_LDFLAGS = -version-info $(CDT_VERSION) -no-undefined
 libcdt_la_SOURCES = $(libcdt_C_la_SOURCES)
 
-cdt.3.pdf: $(srcdir)/cdt.3
-	@GROFF@ -Tps -man $(srcdir)/cdt.3 | @PS2PDF@ - - >cdt.3.pdf
+cdt.3.pdf: cdt.3.ps
+	@PS2PDF@ $< $@
+
+cdt.3.ps: $(srcdir)/cdt.3
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) cdt.vcxproj*
 
-DISTCLEANFILES = $(pdf_DATA)
+DISTCLEANFILES = $(pdf_DATA) cdt.3.ps

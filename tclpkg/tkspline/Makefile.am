@@ -39,11 +39,14 @@ pkgIndex.tcl: libtkspline.la
 	sh $(top_srcdir)/tclpkg/mkpkgindex.sh libtkspline.la Tkspline $(VERSION)
 endif
 
-tkspline.3tk.pdf: $(srcdir)/tkspline.3tk
-	- @GROFF@ -Tps -man $(srcdir)/tkspline.3tk | @PS2PDF@ - - >tkspline.3tk.pdf
+tkspline.3tk.pdf: tkspline.3tk.ps
+	@PS2PDF@ $< $@
+
+tkspline.3tk.ps: $(srcdir)/tkspline.3tk
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = $(man) $(pdf) dllEntry.c
 
 CLEANFILES = pkgIndex.tcl
 
-DISTCLEANFILES = $(pdf)
+DISTCLEANFILES = $(pdf) tkspline.3tk.ps

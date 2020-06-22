@@ -47,11 +47,14 @@ test:
 endif
 endif
 
-gdtclft.3tcl.pdf: $(srcdir)/gdtclft.3tcl
-	@GROFF@ -Tps -man $(srcdir)/gdtclft.3tcl | @PS2PDF@ - - >gdtclft.3tcl.pdf
+gdtclft.3tcl.pdf: gdtclft.3tcl.ps
+	@PS2PDF@ $< $@
+
+gdtclft.3tcl.ps: $(srcdir)/gdtclft.3tcl
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = $(man) $(pdf)
 
 CLEANFILES = pkgIndex.tcl
 
-DISTCLEANFILES = $(pdf)
+DISTCLEANFILES = $(pdf) gdtclft.3tcl.ps

@@ -33,9 +33,12 @@ edgepaint_LDADD = \
 	$(top_builddir)/lib/cdt/libcdt.la \
 	$(ANN_LIBS) -lstdc++ -lm
 
-edgepaint.1.pdf: $(srcdir)/edgepaint.1
-	@GROFF@ -e -Tps -man -t $(srcdir)/edgepaint.1 | @PS2PDF@ - - >edgepaint.1.pdf
+edgepaint.1.pdf: edgepaint.1.ps
+	@PS2PDF@ $< $@
+
+edgepaint.1.ps: $(srcdir)/edgepaint.1
+	@GROFF@ -e -Tps -man -t $< >$@
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) edgepaint.vcxproj*
 
-DISTCLEANFILES = $(pdf_DATA)
+DISTCLEANFILES = $(pdf_DATA) edgepaint.1.ps

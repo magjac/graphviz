@@ -108,11 +108,14 @@ pkgIndex.tcl: libtcldot.la
 	sh $(top_srcdir)/tclpkg/mkpkgindex.sh libtcldot.la Tcldot $(VERSION)
 endif
 
-tcldot.3tcl.pdf: $(srcdir)/tcldot.3tcl
-	@GROFF@ -Tps -man $(srcdir)/tcldot.3tcl | @PS2PDF@ - - >tcldot.3tcl.pdf
+tcldot.3tcl.pdf: tcldot.3tcl.ps
+	@PS2PDF@ $< $@
+
+tcldot.3tcl.ps: $(srcdir)/tcldot.3tcl
+	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = $(man) $(pdf) $(html) README README.Tkspline
 
 CLEANFILES = pkgIndex.tcl
 
-DISTCLEANFILES = $(pdf)
+DISTCLEANFILES = $(pdf) tcldot.3tcl.ps
