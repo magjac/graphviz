@@ -114,6 +114,7 @@ G_selectedfillcolor
 G_selectedpencolor    
 G_visitedfillcolor    
 G_visitedpencolor    
+gcalloc
 getdouble    
 getPack    
 getPackMode    
