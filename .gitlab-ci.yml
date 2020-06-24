@@ -56,8 +56,8 @@ portable-source:
         # Retrieve submodules, dependencies are stored there.
         - git submodule update --init
         # Install and set PATH
-        - choco install -y activeperl
-        - choco install -y python3
+        - choco install --no-progress -y activeperl
+        - choco install --no-progress -y python3
         - $Env:Path += ";C:\Python38"
         - $Env:Path += ";$env:CI_PROJECT_DIR\windows\dependencies\graphviz-build-utilities"
         - $Env:Path += ";C:\Program Files\CMake\bin"
@@ -67,8 +67,8 @@ portable-source:
         # Build
         - >-
             if($env:build_system -eq "cmake") {
-              choco install -y cmake;
-              choco install -y NSIS;
+              choco install --no-progress -y cmake;
+              choco install --no-progress -y NSIS;
               mkdir build;
               cd build;
               cmake -G "$env:generator" -A $Env:platform ..;
