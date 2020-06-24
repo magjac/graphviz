@@ -27,6 +27,7 @@ doxygen:
 
 dist-hook:
 	echo "@VERSION@" >VERSION
+	echo "@GRAPHVIZ_VERSION_DATE@" >DATE
 	echo "@GRAPHVIZ_COLLECTION@" >COLLECTION
 #	find $(distdir) -name CVS -type d -prune -exec rm -rf {} \;
 #	rm -f ToPAS
