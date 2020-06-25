@@ -927,6 +927,12 @@ static size_t vec_length(const vec* pvec)
     return pvec->_elems;
 }
 
+static void* vec_get(vec* pvec, size_t index)
+{
+    assert(index < pvec->_elems);
+    return pvec->_mem[index];
+}
+
 static void vec_delete(vec* pvec)
 {
     free(pvec->_mem);
@@ -940,12 +946,6 @@ static void vec_push_back(vec* pvec, void* data)
 		pvec->_mem = (void**)realloc(pvec->_mem, pvec->_capelems * sizeof(void*));
 	}
     pvec->_mem[pvec->_elems++] = data;  
-}
-
-static void* vec_get(vec* pvec, size_t index)
-{
-    assert(index < pvec->_elems);
-    return pvec->_mem[index];
 }
 
 static void* vec_pop(vec* pvec)
