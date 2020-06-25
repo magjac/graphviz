@@ -57,7 +57,7 @@ Development version examples:
 [master pipeline](https://gitlab.com/graphviz/graphviz/-/pipelines?ref=master)
 is green
 
-1. Edit `autogen.sh` and `CMakeLists.txt`:
+1. Edit `autogen.sh`:
 
    Incement patch version with 1 *or* minor version to the next *even* number.
 
@@ -104,7 +104,7 @@ to run for the new commit and check that it succeeds
 
    Create a new tag *without* the `stable_release_` prefix: `2.44.0`
 
-1. Edit `autogen.sh` and `CMakeLists.txt`.
+1. Edit `autogen.sh`:
 
    Update the release again for the next devevelopment series. If
    minor release, increment minor version to the next odd number and
