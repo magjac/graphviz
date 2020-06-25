@@ -57,7 +57,7 @@ Development version examples:
 [master pipeline](https://gitlab.com/graphviz/graphviz/-/pipelines?ref=master)
 is green
 
-1. Edit `autogen.sh`, `appveyor.yml` and `CMakeLists.txt`:
+1. Edit `autogen.sh` and `CMakeLists.txt`:
 
    Incement patch version with 1 *or* minor version to the next *even* number.
 
@@ -104,7 +104,7 @@ to run for the new commit and check that it succeeds
 
    Create a new tag *without* the `stable_release_` prefix: `2.44.0`
 
-1. Edit `autogen.sh`, `appveyor.yml` and `CMakeLists.txt`.
+1. Edit `autogen.sh` and `CMakeLists.txt`.
 
    Update the release again for the next devevelopment series. If
    minor release, increment minor version to the next odd number and
@@ -127,16 +127,6 @@ to run for the new commit and check that it succeeds
 1. Push:
 
     `git push graphviz master`
-
-1. Update the links to the release on the **Downloads** web page through
-[Edit this page](https://gitlab.com/graphviz/graphviz.gitlab.io/-/edit/master/_pages/10_download.md):
-   - Visit the
-   [Appveyor history](https://ci.appveyor.com/project/ellson/graphviz-pl238/history)
-   and find the URL to the Windows release build.
-   - In the **Windows** section, for the **Stable 2.44 Windows install packages** link:
-     - Update the text with the new version number.
-     - Update the link with the new URL.
-     Example: [23bf8be297b9b4d11d345020acbe823f76bee267](https://gitlab.com/graphviz/graphviz.gitlab.io/-/commit/23bf8be297b9b4d11d345020acbe823f76bee267).
 
 1. Update the links to the released source code package files on the
 **Sources** web page through [Edit this
