@@ -79,6 +79,13 @@ portable-source:
               msbuild /p:Configuration=$env:configuration
             }
         # Package
+        - $GV_VERSION=$( cat VERSION )
+        - >-
+            if($env:platform -eq "x64") {
+                $API = "win64";
+            } else {
+                $API = "win32";
+            }
         - >-
             if($env:configuration -eq "Release") {
               if($env:build_system -eq "cmake") {
@@ -97,12 +104,16 @@ portable-source:
         - >-
             if($env:build_system -eq "cmake" -and $env:configuration -eq "Release") {
               cd build;
-              mv Graphviz-*.exe Graphviz-install.exe;
+              dir;
+              $FILENAME = & invoke-Expression "Get-ChildItem Graphviz*.exe";
+              mv $FILENAME graphviz-install.exe;
+              dir;
               # Install using installer and add bin directory to path.
               # Piping the output of the installer to Out-Null, makes the script wait
               # for the .exe to exit, instead continuing to the next command (which
               # will then fail because the install hasn't finished)
-              ./Graphviz-install.exe /S /D=$env:graphviz_install_dir | Out-Null;
+              ./graphviz-install.exe /S /D=$env:graphviz_install_dir | Out-Null;
+              mv graphviz-install.exe graphviz-install-$GV_VERSION-$API.exe;
               $env:Path += ";" + $env:graphviz_install_dir + "\bin"
               dot -c;
               ctest -C $env:configuration;
@@ -127,7 +138,7 @@ portable-source:
             if($env:build_system -eq "cmake") {
                 mv "build\*.exe" $DIR;
             } else {
-                Compress-Archive -Path "$env:configuration\*" -DestinationPath "$DIR\graphviz.zip";
+                Compress-Archive -Path "$env:configuration\*" -DestinationPath "$DIR\graphviz-$GV_VERSION-$API.zip";
             }
     artifacts:
         when: on_success
