@@ -138,9 +138,9 @@ to run for the new commit and check that it succeeds
      - Update the link with the new URL.
      Example: [23bf8be297b9b4d11d345020acbe823f76bee267](https://gitlab.com/graphviz/graphviz.gitlab.io/-/commit/23bf8be297b9b4d11d345020acbe823f76bee267).
 
-1. Update the links to the released source code package files on the **Sources** web
-page through
-[Edit this page](https://gitlab.com/graphviz/graphviz.gitlab.io/-/edit/master/download/source/index.md):
+1. Update the links to the released source code package files on the
+**Sources** web page through [Edit this
+page](https://gitlab.com/graphviz/graphviz.gitlab.io/-/edit/master/download/source/index.md):
    - Visit the
    [portable_source](https://www2.graphviz.org/Packages/stable/portable_source/)
    directory
