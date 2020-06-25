@@ -922,7 +922,7 @@ static vec* vec_new(void)
     return pvec;
 }
 
-static size_t vec_length(vec* pvec)
+static size_t vec_length(const vec* pvec)
 {
     return pvec->_elems;
 }
