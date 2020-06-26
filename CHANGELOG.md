@@ -11,9 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - graphviz-2.42.2-coverity-scan-fixes.patch
   - graphviz-2.42.2-dotty-menu-fix.patch
   - graphviz-2.42.2-ocaml-allow-const-cast.patch
+- some allocation failures that could previously allow memory corruption now exit
 - lab_gamut.3.pdf is no longer included in release archives
 
 ### Fixed
+- Released Ubuntu packages does not contain language bindings for Python3 #1737
 - Neato's hier mode is broken since v2.44.0 #1726
 - Segmentation fault (core dumped) #1436
 

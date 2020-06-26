@@ -148,16 +148,6 @@ char *fmtquote(const char *as, const char *qb, const char *qe, size_t n,
 
 /*
  * escape the usual suspects and quote chars in qs
- * in length n string as
- */
-
-char *fmtnesq(const char *as, const char *qs, size_t n)
-{
-    return fmtquote(as, NiL, qs, n, 0);
-}
-
-/*
- * escape the usual suspects and quote chars in qs
  */
 
 char *fmtesq(const char *as, const char *qs)

@@ -3,7 +3,7 @@
 
 AM_CPPFLAGS = -I$(top_srcdir)/lib/sfio
 
-noinst_HEADERS = align.h ast.h error.h hashkey.h
+noinst_HEADERS = ast.h error.h hashkey.h
 noinst_LTLIBRARIES = libast_C.la
 
 libast_C_la_SOURCES = pathpath.c sfstr.h chresc.c chrtoi.c error.c \

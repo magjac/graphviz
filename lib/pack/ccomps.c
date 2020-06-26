@@ -14,6 +14,7 @@
 
 #include <ctype.h>
 #include <setjmp.h>
+#include <stdlib.h>
 #include "render.h"
 #include "pack.h"
 
@@ -74,14 +75,14 @@ static void push(stk_t* sp, Agnode_t * np)
 {
     if (sp->curp == sp->curblk->endp) {
 	if (sp->curblk->next == NULL) {
-	    blk_t *bp = GNEW(blk_t);
+	    blk_t *bp = malloc(sizeof(blk_t));
 	    if (bp == 0) {
 		agerr(AGERR, "gc: Out of memory\n");
 		longjmp(jbuf, 1);
 	    }
 	    bp->prev = sp->curblk;
 	    bp->next = NULL;
-	    bp->data = N_GNEW(BIGBUF, Agnode_t *);
+	    bp->data = calloc(BIGBUF, sizeof(Agnode_t *));
 	    if (bp->data == 0) {
 		agerr(AGERR, "gc: Out of memory\n");
 		longjmp(jbuf, 1);
@@ -174,7 +175,7 @@ setPrefix (char* pfx, int* lenp, char* buf, int buflen)
     if (len + 25 <= buflen)
         name = buf;
     else {
-        if (!(name = (char *) gmalloc(len + 25))) return NULL;
+        name = (char *) gmalloc(len + 25);
     }
     strcpy(name, pfx);
     *lenp = len;

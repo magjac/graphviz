@@ -22,7 +22,7 @@ LeafList_t *RTreeNewLeafList(Leaf_t * lp)
 {
     LeafList_t *llp;
 
-    if ((llp = NEW(LeafList_t))) {
+    if ((llp = calloc(1, sizeof(LeafList_t)))) {
 	llp->leaf = lp;
 	llp->next = 0;
     }
@@ -57,7 +57,7 @@ void RTreeLeafListFree(LeafList_t * llp)
  */
 static struct ListNode *RTreeNewListNode(void)
 {
-    return NEW(struct ListNode);
+    return calloc(1, sizeof(struct ListNode));
 }
 
 #if UNUSED
@@ -86,7 +86,7 @@ RTree_t *RTreeOpen()
 {
     RTree_t *rtp;
 
-    if ((rtp = NEW(RTree_t)))
+    if ((rtp = calloc(1, sizeof(RTree_t))))
 	rtp->root = RTreeNewIndex(rtp);
     return rtp;
 }
@@ -468,14 +468,3 @@ RTreeDelete2(RTree_t * rtp, Rect_t * r, void *data, Node_t * n,
 	return 1;
     }
 }
-
-#ifdef UNUSED
-/* Allocate space for a node in the list used in DeletRect to
-** store Nodes that are too empty.
-*/
-struct ListNode *NewListNode()
-{
-    return (struct ListNode *) NEW(sizeof(struct ListNode));
-}
-
-#endif
