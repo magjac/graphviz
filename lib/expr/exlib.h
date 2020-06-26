@@ -25,7 +25,6 @@ extern "C" {
 #ifndef _EXLIB_H
 #define _EXLIB_H
 
-#include <align.h>
 #include <ast.h>
 
 #define sfstrseek(f,p,m) \
