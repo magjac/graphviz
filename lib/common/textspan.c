@@ -175,7 +175,7 @@ static PostscriptAlias postscript_alias[] = {
 
 static int fontcmpf(const void *a, const void *b)
 {
-    return (strcasecmp(((PostscriptAlias*)a)->name, ((PostscriptAlias*)b)->name));
+    return (strcasecmp(((const PostscriptAlias*)a)->name, ((const PostscriptAlias*)b)->name));
 }
 
 static PostscriptAlias* translate_postscript_fontname(char* fontname)

@@ -98,8 +98,8 @@ static int computeStep(int ng, boxf* bbs, unsigned int margin)
  */
 static int cmpf(const void *X, const void *Y)
 {
-    ginfo *x = *(ginfo **) X;
-    ginfo *y = *(ginfo **) Y;
+    const ginfo *x = *(ginfo *const *) X;
+    const ginfo *y = *(ginfo *const *) Y;
     /* flip order to get descending array */
     return (y->perim - x->perim);
 }
@@ -569,8 +569,8 @@ static packval_t* userVals;
  */
 static int ucmpf(const void *X, const void *Y)
 {
-    ainfo* x = *(ainfo **) X;
-    ainfo* y = *(ainfo **) Y;
+    const ainfo* x = *(ainfo *const *) X;
+    const ainfo* y = *(ainfo *const *) Y;
 
     int dX = userVals[x->index];
     int dY = userVals[y->index];
@@ -584,8 +584,8 @@ static int ucmpf(const void *X, const void *Y)
  */
 static int acmpf(const void *X, const void *Y)
 {
-    ainfo* x = *(ainfo **) X;
-    ainfo* y = *(ainfo **) Y;
+    const ainfo* x = *(ainfo *const *) X;
+    const ainfo* y = *(ainfo *const *) Y;
 #if 0
     if (x->height < y->height) return 1;
     else if (x->height > y->height) return -1;

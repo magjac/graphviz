@@ -588,8 +588,8 @@ static graph_t *deriveGraph(graph_t * g, layout_info * infop)
  */
 static int ecmp(const void *v1, const void *v2)
 {
-    erec *e1 = (erec *) v1;
-    erec *e2 = (erec *) v2;
+    const erec *e1 = (const erec *) v1;
+    const erec *e2 = (const erec *) v2;
     if (e1->alpha > e2->alpha)
 	return 1;
     else if (e1->alpha < e2->alpha)
