@@ -14,10 +14,9 @@
 #ifndef INGRAPHS_H
 #define INGRAPHS_H
 
-/* The ingraphs library works with both libagraph and with 
- * libgraph, with all user-supplied data. For this to work,
- * the include file relies upon its context to supply a
- * definition of Agraph_t.
+/* The ingraphs library works with libcgraph with all user-supplied data. For
+ * this to work, the include file relies upon its context to supply a definition
+ * of Agraph_t.
  */
 
 #include <stdio.h>

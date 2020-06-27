@@ -41,7 +41,7 @@ generic_list_t *addnode(generic_list_t * l, char *n);
 
 int verbose = 0;		/* Flag to indicate verbose message output */
 
-/* wrapper to match libagraph conventions with libingraph */
+/* wrapper to match libcgraph conventions with libingraph */
 Agraph_t *gread(FILE * fp);
 
 #define NDNAME "mk"
@@ -251,7 +251,7 @@ Options:\n\
 Both options `-n' and `-N' can be used multiple times on the command line.\n", progname);
 }
 
-/* wrapper to match libagraph conventions with libingraph */
+/* wrapper to match libcgraph conventions with libingraph */
 Agraph_t *gread(FILE * fp)
 {
     return agread(fp, (Agdisc_t *) 0);
