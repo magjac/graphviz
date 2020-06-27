@@ -18,7 +18,7 @@
  * 'demo', you will need to rename it as one of the installed layout engines such
  * as dot, neato, sfdp, etc. 
  */
-#include <gvc.h>
+#include <graphviz/gvc.h>
 
 int main(int argc, char **argv)
 {
