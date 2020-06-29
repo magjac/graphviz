@@ -727,7 +727,7 @@ static char *svg_knowncolors[] = {
     "saddlebrown", "salmon", "sandybrown", "seagreen", "seashell",
     "sienna", "silver", "skyblue", "slateblue", "slategray",
     "slategrey", "snow", "springgreen", "steelblue",
-    "tan", "teal", "thistle", "tomato", "turquoise",
+    "tan", "teal", "thistle", "tomato", "transparent", "turquoise",
     "violet",
     "wheat", "white", "whitesmoke",
     "yellow", "yellowgreen"

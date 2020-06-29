@@ -45,3 +45,21 @@ def test_1436():
     # ask Graphviz to process it, which should generate a segfault if this bug
     # has been reintroduced
     subprocess.check_call(['dot', '-Tsvg', '-o', os.devnull, input])
+
+def test_1449():
+    '''
+    using the SVG color scheme should not cause warnings
+    https://gitlab.com/graphviz/graphviz/-/issues/1449
+    '''
+
+    # start Graphviz
+    p = subprocess.Popen(['dot', '-Tsvg', '-o', os.devnull],
+      stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+      universal_newlines=True)
+
+    # pass it some input that uses the SVG color scheme
+    stdout, stderr = p.communicate('graph g { colorscheme="svg"; }')
+
+    assert p.returncode == 0, 'Graphviz exited with non-zero status'
+
+    assert stderr.strip() == '', 'SVG color scheme use caused warnings'
