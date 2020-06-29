@@ -155,8 +155,12 @@ else()
 endif()
 
 # Set GRAPHVIZ_VERSION_BUILD to time of last commit, or to 0 if that fails.
+if (DEFINED ENV{TZ})
+  set(TZ_ORIG $ENV{TZ})
+endif()
+set(ENV{TZ} UTC)
 execute_process(
-    COMMAND           "${GIT_EXECUTABLE}" log -n 1 --format=%cd --date=format:%Y%m%d.%H%M
+    COMMAND           "${GIT_EXECUTABLE}" log -n 1 --format=%cd --date=format-local:%Y%m%d.%H%M
     WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
     RESULT_VARIABLE   git_result
     OUTPUT_VARIABLE   GRAPHVIZ_VERSION_BUILD
@@ -164,6 +168,7 @@ execute_process(
     OUTPUT_STRIP_TRAILING_WHITESPACE
     ERROR_STRIP_TRAILING_WHITESPACE
 )
+set(ENV{TZ} ${TZ_ORIG})
 if(NOT git_result EQUAL 0)
     message(WARNING "Failed to set build version: ${git_error}")
     set(GRAPHVIZ_VERSION_BUILD 0)
