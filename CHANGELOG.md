@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.44.1] - 2020-06-29
+
 ### Added
 - applied RH patches (from graphviz-2.42.2-8.fc32.src.rpm)
   - graphviz-2.42.2-coverity-scan-fixes.patch
@@ -1236,7 +1238,8 @@ March 13, 2000: Use AM_PROG_LIBTOOL instead of AC_PROG_LIBTOOL
    in configure.in.  John Ellson <ellson@graphviz.org>
 ```
 
-[Unreleased]: https://gitlab.com/graphviz/graphviz/compare/2.44.0...master
+[Unreleased]: https://gitlab.com/graphviz/graphviz/compare/2.44.1...master
+[2.44.1]: https://gitlab.com/graphviz/graphviz/compare/2.44.0...2.44.1
 [2.44.0]: https://gitlab.com/graphviz/graphviz/compare/2.42.4...2.44.0
 [2.42.4]: https://gitlab.com/graphviz/graphviz/compare/2.42.3...2.42.4
 [2.42.3]: https://gitlab.com/graphviz/graphviz/compare/2.42.2...2.42.3
