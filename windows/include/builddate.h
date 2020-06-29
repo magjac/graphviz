@@ -1,1 +1,1 @@
-#define BUILDDATE "20200629.0800"
+#define BUILDDATE "2020????.????"  /* FIXME: https://gitlab.com/graphviz/graphviz/-/issues/1745 */
