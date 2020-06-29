@@ -300,7 +300,7 @@
 #define PACKAGE_NAME "graphviz"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "graphviz 2.44.1 (20200629.0800)" /* 08:00 is approximate */
+#define PACKAGE_STRING "graphviz 2.45.2020????.???? (2020????.????)" /* FIXME: https://gitlab.com/graphviz/graphviz/-/issues/1745 */
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "graphviz"
@@ -309,7 +309,7 @@
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "2.44.1"
+#define PACKAGE_VERSION "2.45.2020????.????" /* FIXME: https://gitlab.com/graphviz/graphviz/-/issues/1745 */
 
 /* Path separator character. */
 #define PATHSEPARATOR ":"
