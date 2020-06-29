@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - some allocation failures that could previously allow memory corruption now exit
 - lab_gamut.3.pdf is no longer included in release archives
 
+### Changed
+- Windows binaries available at https://www2.graphviz.org/Packages/ instead of
+  https://ci.appveyor.com/project/ellson/graphviz-pl238
+- Retarget Windows builds to Visual Studio 2019 and toolset v142
+
 ### Fixed
 - Released Ubuntu packages does not contain language bindings for Python3 #1737
 - Neato's hier mode is broken since v2.44.0 #1726
