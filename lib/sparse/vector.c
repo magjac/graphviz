@@ -111,9 +111,6 @@ Vector IntegerVector_reset(Vector v, int content, int pos){
 
 /*---------------- string vector --------------- */
 
-static void nulldealloactor(void *v){
-  return;
-}
 static void strdealloactor(void *v){
   char **s;
   s = (char**) v;
@@ -123,7 +120,7 @@ static void strdealloactor(void *v){
 Vector StringVector_new(int len, int delete_element_strings){
   /* delete_element_strings decides whether we need to delete each string in the vector or leave it to be cleaned by other handles */
   if (!delete_element_strings){
-    return Vector_new(len, sizeof(char*), nulldealloactor);
+    return Vector_new(len, sizeof(char*), NULL);
   } else {
     return Vector_new(len, sizeof(char*), strdealloactor);
   }
