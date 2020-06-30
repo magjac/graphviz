@@ -18,6 +18,8 @@
 Vector Vector_new(int maxlen, size_t size_of_elem, void (*deallocator)(void *v)){
   Vector v;
   v = malloc(sizeof(struct vector_struct));
+  if (v == NULL)
+    return NULL;
   if (maxlen <= 0) maxlen = 1;
   v->maxlen = maxlen;
   v->len = 0;
