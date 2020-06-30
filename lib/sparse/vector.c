@@ -79,11 +79,8 @@ int Vector_get_length(Vector v){
 
 /*---------------- integer vector --------------- */
 
-static void intdealloactor(void *v){
-}
-
 Vector IntegerVector_new(int len){
-  return Vector_new(len, sizeof(int), intdealloactor);
+  return Vector_new(len, sizeof(int), NULL);
 
 }
 Vector IntegerVector_add(Vector v, int i){
