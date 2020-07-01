@@ -922,8 +922,23 @@ static vec* vec_new(void)
     return pvec;
 }
 
+static size_t vec_length(const vec* pvec)
+{
+    return pvec->_elems;
+}
+
+static void* vec_get(vec* pvec, size_t index)
+{
+    assert(index < pvec->_elems);
+    return pvec->_mem[index];
+}
+
 static void vec_delete(vec* pvec)
 {
+    size_t i;
+    for (i = 0; i < vec_length(pvec); ++i) {
+      vec_delete(vec_get(pvec, i));
+    }
     free(pvec->_mem);
     free(pvec);
 }
@@ -935,17 +950,6 @@ static void vec_push_back(vec* pvec, void* data)
 		pvec->_mem = (void**)realloc(pvec->_mem, pvec->_capelems * sizeof(void*));
 	}
     pvec->_mem[pvec->_elems++] = data;  
-}
-
-static size_t vec_length(vec* pvec)
-{
-    return pvec->_elems;
-}
-
-static void* vec_get(vec* pvec, size_t index)
-{
-    assert(index < pvec->_elems);
-    return pvec->_mem[index];
 }
 
 static void* vec_pop(vec* pvec)
@@ -1112,10 +1116,6 @@ static pointf get_cycle_centroid(graph_t *g, edge_t* edge)
 	if (cycles == 0 || ref_g != g) {
 		//free the memory we're using to hold the previous cycles
 		if (cycles != 0) {
-			size_t i;
-			for (i=0; i < vec_length(cycles); ++i) {
-				vec_delete(vec_get(cycles, i));
-			}
 			vec_delete(cycles);
 		}
 		cycles = find_all_cycles(g);
