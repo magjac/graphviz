@@ -197,10 +197,10 @@ static int makeInfo(Agraph_t * graph)
 /* sort sites on y, then x, coord */
 static int scomp(const void *S1, const void *S2)
 {
-    Site *s1, *s2;
+    const Site *s1, *s2;
 
-    s1 = *(Site **) S1;
-    s2 = *(Site **) S2;
+    s1 = *(Site *const *) S1;
+    s2 = *(Site *const *) S2;
     if (s1->coord.y < s2->coord.y)
 	return (-1);
     if (s1->coord.y > s2->coord.y)

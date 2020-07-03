@@ -1342,7 +1342,7 @@ safe_dcl(graph_t * g, int obj_kind, char *name, char *def)
 }
 
 static int comp_entities(const void *e1, const void *e2) {
-  return strcmp(((struct entities_s *)e1)->name, ((struct entities_s *)e2)->name);
+  return strcmp(((const struct entities_s *)e1)->name, ((const struct entities_s *)e2)->name);
 }
 
 #define MAXENTLEN 8

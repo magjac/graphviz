@@ -763,7 +763,7 @@ static md5_state_t pms;
 
 static int append_to_md5(void *chan, const char *str)
 {
-    md5_append(&pms, (unsigned char *) str, (int) strlen(str));
+    md5_append(&pms, (const unsigned char *) str, (int) strlen(str));
     return 1;
 
 }

@@ -29,7 +29,7 @@ int chrtoi(register const char *s)
 
     c = 0;
     for (n = 0; n < sizeof(int) * CHAR_BIT; n += CHAR_BIT) {
-	switch (x = *((unsigned char *) s++)) {
+	switch (x = *((const unsigned char *) s++)) {
 	case '\\':
 	    x = chresc(s - 1, &p);
 	    s = (const char *) p;

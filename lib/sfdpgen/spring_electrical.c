@@ -353,8 +353,8 @@ static real get_angle(real *x, int dim, int i, int j){
 }
 
 static int comp_real(const void *x, const void *y){
-  real *xx = (real*) x;
-  real *yy = (real*) y;
+  const real *xx = (const real*) x;
+  const real *yy = (const real*) y;
 
   if (*xx > *yy){
     return 1;

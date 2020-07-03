@@ -210,8 +210,8 @@ void print_attr_list(attr_list * l)
 
 int attr_compare(const void *a, const void *b)
 {
-    attr_t *a1 = *(attr_t **) a;
-    attr_t *a2 = *(attr_t **) b;
+    const attr_t *a1 = *(attr_t *const *) a;
+    const attr_t *a2 = *(attr_t *const *) b;
     return STRCASECMP(a1->name, a2->name);
 }
 

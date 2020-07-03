@@ -42,7 +42,7 @@ void setTraceLevel (int i) { error_info.trace = i; }
 
 void errorv(const char *id, int level, va_list ap)
 {
-    char *s;
+    const char *s;
     int flags;
 
     if (level < error_info.trace) return;
@@ -52,7 +52,7 @@ void errorv(const char *id, int level, va_list ap)
 	flags = level & ~ERROR_LEVEL;
 	level &= ERROR_LEVEL;
     }
-    if (level && ((s = error_info.id) || (s = (char *) id))) {
+    if (level && ((s = error_info.id) || (s = id))) {
 	if (flags & ERROR_USAGE)
 	    sfprintf(sfstderr, "Usage: %s ", s);
 	else

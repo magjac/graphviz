@@ -214,7 +214,7 @@ size_t gvwrite (GVJ_t * job, const char *s, size_t len)
 	    }
 	}
 
-	crc = crc32(crc, (unsigned char*)s, len);
+	crc = crc32(crc, (const unsigned char*)s, len);
 
 	z->next_in = (unsigned char*)s;
 	z->avail_in = len;

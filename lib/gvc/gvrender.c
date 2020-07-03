@@ -185,7 +185,7 @@ pointf *gvrender_ptf_A(GVJ_t * job, pointf * af, pointf * AF, int n)
 
 static int gvrender_comparestr(const void *s1, const void *s2)
 {
-    return strcmp(*(char **) s1, *(char **) s2);
+    return strcmp(*(char *const *) s1, *(char *const *) s2);
 }
 
 /* gvrender_resolve_color:

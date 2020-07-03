@@ -498,7 +498,7 @@ startElementHandler(void *userData, const char *name, const char **atts)
 	    head = tname;
 
         if (G == 0)
-            fprintf(stderr,"edge source %s target %s outside graph, ignored\n",(char*)tail,(char*)head);
+            fprintf(stderr,"edge source %s target %s outside graph, ignored\n",tail,head);
         else {
             bind_edge(tail, head);
 

@@ -35,8 +35,8 @@
 char *fmtquote(const char *as, const char *qb, const char *qe, size_t n,
 	       int flags)
 {
-    register unsigned char *s = (unsigned char *) as;
-    register unsigned char *e = s + n;
+    register const unsigned char *s = (const unsigned char *) as;
+    register const unsigned char *e = s + n;
     register char *b;
     register int c;
     register int escaped;
@@ -47,9 +47,9 @@ char *fmtquote(const char *as, const char *qb, const char *qe, size_t n,
 
     c = 4 * (n + 1);
     if (qb)
-	c += strlen((char *) qb);
+	c += strlen(qb);
     if (qe)
-	c += strlen((char *) qe);
+	c += strlen(qe);
     b = buf = fmtbuf(c);
     shell = 0;
     if (qb) {
@@ -152,7 +152,7 @@ char *fmtquote(const char *as, const char *qb, const char *qe, size_t n,
 
 char *fmtesq(const char *as, const char *qs)
 {
-    return fmtquote(as, NiL, qs, strlen((char *) as), 0);
+    return fmtquote(as, NiL, qs, strlen(as), 0);
 }
 
 /*
@@ -161,5 +161,5 @@ char *fmtesq(const char *as, const char *qs)
 
 char *fmtesc(const char *as)
 {
-    return fmtquote(as, NiL, NiL, strlen((char *) as), 0);
+    return fmtquote(as, NiL, NiL, strlen(as), 0);
 }

@@ -74,14 +74,14 @@ Sfio_t *sfopen(reg Sfio_t * f, const char *file, const char *mode)
 #endif
     if (sflags & SF_STRING) {
 	f = sfnew(f, (char *) file,
-		  file ? (size_t) strlen((char *) file) : (size_t)
+		  file ? (size_t) strlen(file) : (size_t)
 		  SF_UNBOUND, -1, sflags);
     } else {
 	if (!file)
 	    return NIL(Sfio_t *);
 
 #if _has_oflags			/* open the file */
-	while ((fd = open((char *) file, oflags, SF_CREATMODE)) < 0
+	while ((fd = open(file, oflags, SF_CREATMODE)) < 0
 	       && errno == EINTR)
 	    errno = 0;
 #else

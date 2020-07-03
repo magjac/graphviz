@@ -407,9 +407,9 @@ constrained_majorization_new(CMajEnv * e, float *b, float **coords,
 static float *place;
 static int compare_incr(const void *a, const void *b)
 {
-    if (place[*(int *) a] > place[*(int *) b]) {
+    if (place[*(const int *) a] > place[*(const int *) b]) {
 	return 1;
-    } else if (place[*(int *) a] < place[*(int *) b]) {
+    } else if (place[*(const int *) a] < place[*(const int *) b]) {
 	return -1;
     }
     return 0;

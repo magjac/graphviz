@@ -139,7 +139,7 @@ static void rgb2cmyk(double r, double g, double b, double *c, double *m,
 
 static int colorcmpf(const void *p0, const void *p1)
 {
-    return strcasecmp(((hsvrgbacolor_t *) p0)->name, ((hsvrgbacolor_t *) p1)->name);
+    return strcasecmp(((const hsvrgbacolor_t *) p0)->name, ((const hsvrgbacolor_t *) p1)->name);
 }
 
 char *canontoken(char *str)

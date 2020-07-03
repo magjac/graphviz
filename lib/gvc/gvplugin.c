@@ -207,7 +207,7 @@ gvplugin_library_t *gvplugin_library_load(GVC_t * gvc, char *path)
             agerr(AGWARN, "Could not load \"%s\" - %s\n", p, "It was found, so perhaps one of its dependents was not.  Try ldd.");
         }
         else {
-            agerr(AGWARN, "Could not load \"%s\" - %s\n", p, (char *) lt_dlerror());
+            agerr(AGWARN, "Could not load \"%s\" - %s\n", p, lt_dlerror());
         }
         return NULL;
     }

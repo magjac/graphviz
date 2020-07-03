@@ -629,9 +629,9 @@ static void maximal_independent_edge_set_heavest_edge_pernode_supernodes_first(S
 }
 
 static int scomp(const void *s1, const void *s2){
-  real *ss1, *ss2;
-  ss1 = (real*) s1;
-  ss2 = (real*) s2;
+  const real *ss1, *ss2;
+  ss1 = (const real*) s1;
+  ss2 = (const real*) s2;
 
   if ((ss1)[1] > (ss2)[1]){
     return -1;

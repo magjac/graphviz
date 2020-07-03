@@ -94,7 +94,7 @@ int SFcompareEntries (const void *vp, const void *vq) {
 }
 #else /* def SEL_FILE_IGNORE_CASE */
 int SFcompareEntries (const void *vp, const void *vq) {
-    SFEntry *p = (SFEntry *) vp, *q = (SFEntry *) vq;
+    const SFEntry *p = (const SFEntry *) vp, *q = (const SFEntry *) vq;
 
     return strcmp (p->real, q->real);
 }
