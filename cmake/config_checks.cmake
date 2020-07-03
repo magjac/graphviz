@@ -3,7 +3,6 @@ include(CheckIncludeFile)
 
 check_include_file( crt_externs.h       HAVE_CRT_EXTERNS_H      )
 check_include_file( fcntl .h            HAVE_FCNTL_H            )
-check_include_file( malloc.h            HAVE_MALLOC_H           )
 check_include_file( search.h            HAVE_SEARCH_H           )
 check_include_file( stat.h              HAVE_STAT_H             )
 check_include_file( strings.h           HAVE_STRINGS_H          )
