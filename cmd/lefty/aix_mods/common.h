@@ -39,7 +39,6 @@ extern "C" {
 #ifdef _WIN32
 #include <windows.h>
 #include <commdlg.h>
-#include <malloc.h>
 #endif
 
 #define POS __FILE__, __LINE__
