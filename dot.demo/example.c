@@ -1,4 +1,4 @@
-#include <gvc.h>
+#include <graphviz/gvc.h>
 
 #define NO_LAYOUT_OR_RENDERING
 
@@ -17,10 +17,10 @@ int main(int argc, char **argv)
 #endif
 
     /* Create a simple digraph */
-    g = agopen("g", AGDIGRAPH);
-    n = agnode(g, "n");
-    m = agnode(g, "m");
-    e = agedge(g, n, m);
+    g = agopen("g", Agdirected, 0);
+    n = agnode(g, "n", 1);
+    m = agnode(g, "m", 1);
+    e = agedge(g, n, m, 0, 1);
 
     /* Set an attribute - in this case one that affects the visible rendering */
     agsafeset(n, "color", "red", "");
