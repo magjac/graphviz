@@ -10,8 +10,8 @@
  * Contributors: See CVS logs. Details at http://www.graphviz.org/
  *************************************************************************/
 
-#include <gvc.h>
-#include <pack.h>
+#include <graphviz/gvc.h>
+#include <graphviz/pack.h>
 
 int main (int argc, char* argv[])
 {
