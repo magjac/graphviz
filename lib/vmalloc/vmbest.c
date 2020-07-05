@@ -924,73 +924,6 @@ static long bestsize(Vmalloc_t * vm, void * addr)
     return size;
 }
 
-static int bestcompact(Vmalloc_t * vm)
-{
-    reg Seg_t *seg, *next;
-    reg Block_t *bp, *t;
-    reg size_t size, segsize;
-    reg Vmdata_t *vd = vm->data;
-
-    if (!(vd->mode & VM_TRUST)) {
-	if (ISLOCK(vd, 0))
-	    return -1;
-	SETLOCK(vd, 0);
-    }
-
-    bestreclaim(vd, NIL(Block_t *), 0);
-    /**/ ASSERT(!vd->root || vmchktree(vd->root));
-
-    for (seg = vd->seg; seg; seg = next) {
-	next = seg->next;
-
-	bp = BLOCK(seg->baddr);
-	if (!ISPFREE(SIZE(bp)))
-	    continue;
-
-	bp = LAST(bp);
-	/**/ ASSERT(!ISBUSY(SIZE(bp)) && vmisfree(vd, bp));
-	size = SIZE(bp);
-	if (bp == vd->wild)
-	    vd->wild = NIL(Block_t *);
-	else
-	    REMOVE(vd, bp, INDEX(size), t, bestsearch);
-	CLRPFREE(SIZE(NEXT(bp)));
-
-	if (size < (segsize = seg->size))
-	    size += sizeof(Head_t);
-
-	if ((*_Vmtruncate) (vm, seg, size, 1) >= 0) {
-	    if (size >= segsize)	/* entire segment deleted */
-		continue;
-
-	    if ((size =
-		 (seg->baddr - ((Vmuchar_t *) bp) - sizeof(Head_t))) > 0)
-		SIZE(bp) = size - sizeof(Head_t);
-	    else
-		bp = NIL(Block_t *);
-	}
-	/**/ ASSERT(!vd->root || vmchktree(vd->root));
-
-	if (bp) {
-	    /**/ ASSERT(SIZE(bp) >= TINYSIZE);
-	     /**/ ASSERT(SEGWILD(bp));
-	     /**/ ASSERT(!vd->root || !vmintree(vd->root, bp));
-	    SIZE(bp) |= BUSY | JUNK;
-	    LINK(bp) = CACHE(vd)[C_INDEX(SIZE(bp))];
-	    CACHE(vd)[C_INDEX(SIZE(bp))] = bp;
-	}
-	/**/ ASSERT(!vd->root || vmchktree(vd->root));
-    }
-    /**/ ASSERT(!vd->root || vmchktree(vd->root));
-
-    if (_Vmtrace && (vd->mode & VM_TRACE) && VMETHOD(vd) == VM_MTBEST)
-	(*_Vmtrace) (vm, (Vmuchar_t *) 0, (Vmuchar_t *) 0, 0, 0);
-
-    CLRLOCK(vd, 0);
-
-    return 0;
-}
-
 static void *bestalign(Vmalloc_t * vm, size_t size, size_t align)
 {
     reg Vmuchar_t *data;
@@ -1148,7 +1081,6 @@ static Vmethod_t _Vmbest = {
     bestfree,
     bestaddr,
     bestsize,
-    bestcompact,
     bestalign,
     VM_MTBEST
 };
@@ -1169,7 +1101,6 @@ static Vmalloc_t _Vmheap = {
      bestfree,
      bestaddr,
      bestsize,
-     bestcompact,
      bestalign,
      VM_MTBEST},
     NIL(char *),		/* file         */

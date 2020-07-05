@@ -63,7 +63,6 @@ extern "C" {
 	int (*freef) (Vmalloc_t *, void *);
 	long (*addrf) (Vmalloc_t *, void *);
 	long (*sizef) (Vmalloc_t *, void *);
-	int (*compactf) (Vmalloc_t *);
 	void *(*alignf) (Vmalloc_t *, size_t, size_t);
 	unsigned short meth;
     };
@@ -113,7 +112,6 @@ extern "C" {
     extern Vmalloc_t *vmopen(Vmdisc_t *, Vmethod_t *, int);
     extern int vmclose(Vmalloc_t *);
     extern int vmclear(Vmalloc_t *);
-    extern int vmcompact(Vmalloc_t *);
 
     extern void *vmalloc(Vmalloc_t *, size_t);
     extern void *vmalign(Vmalloc_t *, size_t, size_t);
@@ -160,7 +158,6 @@ extern "C" {
 #endif
 #define vmaddr(vm,addr)		(*(_VM_(vm)->meth.addrf))((vm),(void*)(addr))
 #define vmsize(vm,addr)		(*(_VM_(vm)->meth.sizef))((vm),(void*)(addr))
-#define vmcompact(vm)		(*(_VM_(vm)->meth.compactf))((vm))
 #define vmoldof(v,p,t,n,x)	(t*)vmresize((v), (p), sizeof(t)*(n)+(x), \
 					(VM_RSMOVE) )
 #define vmnewof(v,p,t,n,x)	(t*)vmresize((v), (p), sizeof(t)*(n)+(x), \
