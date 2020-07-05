@@ -13,7 +13,6 @@ add_library(vmalloc STATIC
     vmdebug.c
     vmdisc.c
     vmopen.c
-    vmpool.c
     vmprivate.c
     vmregion.c
     vmsegment.c

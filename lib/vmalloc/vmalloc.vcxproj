@@ -103,7 +103,6 @@
     <ClCompile Include="vmdebug.c" />
     <ClCompile Include="vmdisc.c" />
     <ClCompile Include="vmopen.c" />
-    <ClCompile Include="vmpool.c" />
     <ClCompile Include="vmprivate.c" />
     <ClCompile Include="vmregion.c" />
     <ClCompile Include="vmsegment.c" />

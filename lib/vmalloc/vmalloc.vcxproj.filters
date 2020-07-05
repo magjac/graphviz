@@ -44,9 +44,6 @@
     <ClCompile Include="vmopen.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vmpool.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="vmprivate.c">
       <Filter>Source Files</Filter>
     </ClCompile>
