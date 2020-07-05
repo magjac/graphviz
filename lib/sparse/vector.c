@@ -18,6 +18,8 @@
 Vector Vector_new(int maxlen, size_t size_of_elem, void (*deallocator)(void *v)){
   Vector v;
   v = malloc(sizeof(struct vector_struct));
+  if (v == NULL)
+    return NULL;
   if (maxlen <= 0) maxlen = 1;
   v->maxlen = maxlen;
   v->len = 0;
@@ -77,11 +79,8 @@ int Vector_get_length(Vector v){
 
 /*---------------- integer vector --------------- */
 
-static void intdealloactor(void *v){
-}
-
 Vector IntegerVector_new(int len){
-  return Vector_new(len, sizeof(int), intdealloactor);
+  return Vector_new(len, sizeof(int), NULL);
 
 }
 Vector IntegerVector_add(Vector v, int i){
@@ -112,9 +111,6 @@ Vector IntegerVector_reset(Vector v, int content, int pos){
 
 /*---------------- string vector --------------- */
 
-static void nulldealloactor(void *v){
-  return;
-}
 static void strdealloactor(void *v){
   char **s;
   s = (char**) v;
@@ -124,7 +120,7 @@ static void strdealloactor(void *v){
 Vector StringVector_new(int len, int delete_element_strings){
   /* delete_element_strings decides whether we need to delete each string in the vector or leave it to be cleaned by other handles */
   if (!delete_element_strings){
-    return Vector_new(len, sizeof(char*), nulldealloactor);
+    return Vector_new(len, sizeof(char*), NULL);
   } else {
     return Vector_new(len, sizeof(char*), strdealloactor);
   }
@@ -183,73 +179,3 @@ StringVector StringVector_part(StringVector v, int n, int *selected_list){
   }
   return u;
 }
-
-
-
-
-
-
-/*
-#include <stdio.h>
-int main(){
-  IntegerVector v;
-  StringVector vs;
-  int i, *j;
-  char *s;
-  char **sp;
-
-  for (;;){
-    v = IntegerVector_new(1);
-    for (i = 0; i < 10; i++){
-      IntegerVector_add(v, i);
-    }
-    
-    for (i = 0; i < Vector_get_length(v); i++){
-      j = IntegerVector_get(v, i);
-      if (j) printf("element %d = %d\n",i,*j);
-    }
-    for (i = 0; i < 12; i++){
-      IntegerVector_reset(v, i+10, i);
-    }
-
-    for (i = 0; i < Vector_get_length(v); i++){
-      j = IntegerVector_get(v, i);
-      if (j) printf("element %d = %d\n",i,*j);
-    }
-
-    IntegerVector_delete(v);
-  }
-
-  for (;;){
-
-
-    v = StringVector_new(1, TRUE);
-    for (i = 0; i < 10; i++){
-      s = malloc(sizeof(char)*2);
-      s[0] = '1';
-      s[1] = '1'+i;
-      StringVector_add(v, s);
-    }
-    
-    for (i = 0; i < Vector_get_length(v); i++){
-      sp = StringVector_get(v, i);
-      if (sp) printf("element %d = %s\n",i,*sp);
-    }
-    for (i = 0; i < 10; i++){
-      s = malloc(sizeof(char)*2);
-      s[0] = '1';
-      s[1] = '2'+i;
-      StringVector_reset(v, s, i);
-    }
-
-    for (i = 0; i < Vector_get_length(v); i++){
-      sp = StringVector_get(v, i);
-      if (sp) printf("element %d = %s\n",i,*sp);
-    }
-
-    StringVector_delete(v);
-
-  }
-}
-*/
-

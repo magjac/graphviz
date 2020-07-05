@@ -200,7 +200,6 @@ static void init(int argc, char *argv[], real *angle, real *accuracy, char **inf
 
 
 static int clarify(Agraph_t* g, real angle, real accuracy, char *infile, int check_edges_with_same_endpoint, int seed, char *color_scheme, char *lightness){
-  enum {buf_len = 10000};
 
   if (checkG(g)) {
     agerr (AGERR, "Graph %s contains loops or multiedges\n", agnameof(g));
