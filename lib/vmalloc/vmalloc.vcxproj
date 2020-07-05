@@ -102,7 +102,6 @@
     <ClCompile Include="vmdcheap.c" />
     <ClCompile Include="vmopen.c" />
     <ClCompile Include="vmprivate.c" />
-    <ClCompile Include="vmset.c" />
     <ClCompile Include="vmstat.c" />
     <ClCompile Include="vmstrdup.c" />
     <ClCompile Include="vmwalk.c" />

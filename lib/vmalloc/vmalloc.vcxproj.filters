@@ -41,9 +41,6 @@
     <ClCompile Include="vmprivate.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vmset.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="vmstat.c">
       <Filter>Source Files</Filter>
     </ClCompile>

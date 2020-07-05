@@ -12,7 +12,6 @@ add_library(vmalloc STATIC
     vmdcheap.c
     vmopen.c
     vmprivate.c
-    vmset.c
     vmstat.c
     vmstrdup.c
     vmwalk.c
