@@ -117,11 +117,6 @@ extern "C" {
 
     extern long vmaddr(Vmalloc_t *, void *);
 
-    extern void *vmdbwatch(void *);
-    extern int vmdbcheck(Vmalloc_t *);
-
-    extern int vmprofile(Vmalloc_t *, int);
-
     extern int vmwalk(Vmalloc_t *,
 			     int (*)(Vmalloc_t *, void *, size_t,
 				     Vmdisc_t *));
