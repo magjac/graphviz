@@ -115,8 +115,6 @@ extern "C" {
     extern int vmclear(Vmalloc_t *);
     extern int vmcompact(Vmalloc_t *);
 
-    extern Vmdisc_t *vmdisc(Vmalloc_t *, Vmdisc_t *);
-
     extern void *vmalloc(Vmalloc_t *, size_t);
     extern void *vmalign(Vmalloc_t *, size_t, size_t);
     extern void *vmresize(Vmalloc_t *, void *, size_t, int);

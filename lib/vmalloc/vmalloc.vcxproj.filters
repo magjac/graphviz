@@ -35,9 +35,6 @@
     <ClCompile Include="vmdcheap.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vmdisc.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="vmopen.c">
       <Filter>Source Files</Filter>
     </ClCompile>

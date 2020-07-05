@@ -10,7 +10,6 @@ add_library(vmalloc STATIC
     vmclear.c
     vmclose.c
     vmdcheap.c
-    vmdisc.c
     vmopen.c
     vmprivate.c
     vmregion.c
