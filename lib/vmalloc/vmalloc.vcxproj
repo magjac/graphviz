@@ -106,7 +106,6 @@
     <ClCompile Include="vmset.c" />
     <ClCompile Include="vmstat.c" />
     <ClCompile Include="vmstrdup.c" />
-    <ClCompile Include="vmtrace.c" />
     <ClCompile Include="vmwalk.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

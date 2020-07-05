@@ -16,6 +16,5 @@ add_library(vmalloc STATIC
     vmset.c
     vmstat.c
     vmstrdup.c
-    vmtrace.c
     vmwalk.c
 )
