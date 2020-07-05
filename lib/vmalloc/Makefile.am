@@ -6,7 +6,7 @@ noinst_LTLIBRARIES = libvmalloc_C.la
 
 libvmalloc_C_la_SOURCES = vmbest.c vmclear.c vmclose.c vmdcheap.c \
 	vmopen.c vmprivate.c \
-	vmstat.c vmstrdup.c \
+	vmstrdup.c \
 	vmwalk.c
 
 EXTRA_DIST = README vmalloc.vcxproj*

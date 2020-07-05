@@ -122,8 +122,6 @@ extern "C" {
 
     extern int vmprofile(Vmalloc_t *, int);
 
-    extern int vmstat(Vmalloc_t *, Vmstat_t *);
-
     extern int vmwalk(Vmalloc_t *,
 			     int (*)(Vmalloc_t *, void *, size_t,
 				     Vmdisc_t *));
