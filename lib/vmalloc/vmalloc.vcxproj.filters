@@ -53,9 +53,6 @@
     <ClCompile Include="vmprivate.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vmprofile.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="vmregion.c">
       <Filter>Source Files</Filter>
     </ClCompile>

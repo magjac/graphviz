@@ -106,7 +106,6 @@ extern "C" {
     extern Vmethod_t *Vmlast;	/* last-block allocation        */
     extern Vmethod_t *Vmpool;	/* pool allocation              */
     extern Vmethod_t *Vmdebug;	/* allocation with debugging    */
-    extern Vmethod_t *Vmprofile;	/* profiling memory usage       */
 
     extern Vmdisc_t *Vmdcheap;	/* heap discipline              */
     extern Vmdisc_t *Vmdcsbrk;	/* sbrk discipline              */
