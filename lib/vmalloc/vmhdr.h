@@ -38,9 +38,6 @@ extern "C" {
 #   include <sys/types.h>
 #endif // HAVE_SYS_TYPES_H
 
-#undef free
-#undef malloc
-#undef realloc
 #undef BITS
 
     typedef unsigned char Vmuchar_t;
@@ -244,11 +241,6 @@ extern "C" {
 	Vmalloc_t*	next;	/* linked list of regions               */
 
 #include	"vmalloc.h"
-
-/* we don't use these here and they interfere with some local names */
-#undef malloc
-#undef free
-#undef realloc
 
 /* segment structure */
     struct _seg_s {
