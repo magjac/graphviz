@@ -117,7 +117,6 @@ extern "C" {
 
     extern long vmaddr(Vmalloc_t *, void *);
 
-    extern Vmalloc_t *vmregion(void *);
     extern int vmset(Vmalloc_t *, int, int);
 
     extern void *vmdbwatch(void *);

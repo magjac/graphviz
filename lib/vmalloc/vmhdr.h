@@ -321,7 +321,6 @@ extern "C" {
 **	file:	the file where it was created.
 **	size:	the true byte count of the block
 **	seg_:	should be the same as the previous seg_.
-**		This allows the function vmregion() to work.
 **	magi:	magic bytes to detect overwrites.
 **	data:	the actual data block.
 **	magi:	more magic bytes.
