@@ -63,7 +63,6 @@ extern "C" {
 	int (*freef) (Vmalloc_t *, void *);
 	long (*addrf) (Vmalloc_t *, void *);
 	long (*sizef) (Vmalloc_t *, void *);
-	void *(*alignf) (Vmalloc_t *, size_t, size_t);
 	unsigned short meth;
     };
 
@@ -114,7 +113,6 @@ extern "C" {
     extern int vmclear(Vmalloc_t *);
 
     extern void *vmalloc(Vmalloc_t *, size_t);
-    extern void *vmalign(Vmalloc_t *, size_t, size_t);
     extern void *vmresize(Vmalloc_t *, void *, size_t, int);
     extern int vmfree(Vmalloc_t *, void *);
 
@@ -152,9 +150,6 @@ extern "C" {
 #endif
 #ifndef vmfree
 #define vmfree(vm,d)		(*(_VM_(vm)->meth.freef))((vm),(void*)(d))
-#endif
-#ifndef vmalign
-#define vmalign(vm,sz,align)	(*(_VM_(vm)->meth.alignf))((vm),(sz),(align))
 #endif
 #define vmaddr(vm,addr)		(*(_VM_(vm)->meth.addrf))((vm),(void*)(addr))
 #define vmsize(vm,addr)		(*(_VM_(vm)->meth.sizef))((vm),(void*)(addr))

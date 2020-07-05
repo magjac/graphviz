@@ -924,99 +924,6 @@ static long bestsize(Vmalloc_t * vm, void * addr)
     return size;
 }
 
-static void *bestalign(Vmalloc_t * vm, size_t size, size_t align)
-{
-    reg Vmuchar_t *data;
-    reg Block_t *tp, *np;
-    reg Seg_t *seg;
-    reg size_t s, orgsize = 0, orgalign = 0, extra;
-    reg int local;
-    reg Vmdata_t *vd = vm->data;
-
-    if (size <= 0 || align <= 0)
-	return NIL(void *);
-
-    if (!(local = vd->mode & VM_TRUST)) {
-	GETLOCAL(vd, local);
-	if (ISLOCK(vd, local))
-	    return NIL(void *);
-	SETLOCK(vd, local);
-	orgsize = size;
-	orgalign = align;
-    }
-
-    size = size <= TINYSIZE ? TINYSIZE : ROUND(size, ALIGN);
-    align = MULTIPLE(align, ALIGN);
-
-    /* hack so that dbalign() can store header data */
-    if (VMETHOD(vd) != VM_MTDEBUG)
-	extra = 0;
-    else {
-	extra = DB_HEAD;
-	while (align < extra || (align - extra) < sizeof(Block_t))
-	    align *= 2;
-    }
-
-    /* reclaim all free blocks now to avoid fragmentation */
-    bestreclaim(vd, NIL(Block_t *), 0);
-
-    s = size + 2 * (align + sizeof(Head_t) + extra);
-    if (!(data = (Vmuchar_t *) KPVALLOC(vm, s, bestalloc)))
-	goto done;
-
-    tp = BLOCK(data);
-    seg = SEG(tp);
-
-    /* get an aligned address that we can live with */
-    if ((s = (size_t) ((VLONG(data) + extra) % align)) != 0)
-	data += align - s;
-    /**/ ASSERT(((VLONG(data) + extra) % align) == 0);
-
-    if ((np = BLOCK(data)) != tp) {	/* need to free left part */
-	if (((Vmuchar_t *) np - (Vmuchar_t *) tp) <
-	    (ssize_t) (sizeof(Block_t) + extra)) {
-	    data += align;
-	    np = BLOCK(data);
-	}
-	/**/ ASSERT(((VLONG(data) + extra) % align) == 0);
-
-	s = (Vmuchar_t *) np - (Vmuchar_t *) tp;
-	SIZE(np) = ((SIZE(tp) & ~BITS) - s) | BUSY;
-	SEG(np) = seg;
-
-	SIZE(tp) = (s - sizeof(Head_t)) | (SIZE(tp) & BITS) | JUNK;
-	 /**/ ASSERT(SIZE(tp) >= sizeof(Body_t));
-	LINK(tp) = CACHE(vd)[C_INDEX(SIZE(tp))];
-	CACHE(vd)[C_INDEX(SIZE(tp))] = tp;
-    }
-
-    /* free left-over if too big */
-    if ((s = SIZE(np) - size) >= sizeof(Block_t)) {
-	SIZE(np) = size;
-
-	tp = NEXT(np);
-	SIZE(tp) = ((s & ~BITS) - sizeof(Head_t)) | BUSY | JUNK;
-	SEG(tp) = seg;
-	LINK(tp) = CACHE(vd)[C_INDEX(SIZE(tp))];
-	CACHE(vd)[C_INDEX(SIZE(tp))] = tp;
-
-	SIZE(np) |= s & BITS;
-    }
-
-    bestreclaim(vd, NIL(Block_t *), 0);	/* coalesce all free blocks */
-
-    if (!local && !(vd->mode & VM_TRUST) && _Vmtrace
-	&& (vd->mode & VM_TRACE))
-	(*_Vmtrace) (vm, NIL(Vmuchar_t *), data, orgsize, orgalign);
-
-  done:
-    CLRLOCK(vd, local);
-
-     /**/ ASSERT(!vd->root || vmchktree(vd->root));
-
-    return (void *) data;
-}
-
 /*	A discipline to get memory using sbrk() or VirtualAlloc on win32 */
 /**
  * @param vm region doing allocation from
@@ -1081,7 +988,6 @@ static Vmethod_t _Vmbest = {
     bestfree,
     bestaddr,
     bestsize,
-    bestalign,
     VM_MTBEST
 };
 
@@ -1101,7 +1007,6 @@ static Vmalloc_t _Vmheap = {
      bestfree,
      bestaddr,
      bestsize,
-     bestalign,
      VM_MTBEST},
     NIL(char *),		/* file         */
     0,				/* line         */
