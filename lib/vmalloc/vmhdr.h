@@ -429,13 +429,6 @@ extern "C" {
 #undef cfree
 #include	<string.h>
 
-/* for malloc.c */
-#ifndef _WIN32
-    extern int creat(const char *, int);
-    extern int close(int);
-#endif
-    extern int getpid(void);
-
 /* for vmexit.c */
 #ifndef _WIN32
     extern int onexit(void(*)(void));

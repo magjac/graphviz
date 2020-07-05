@@ -6,7 +6,6 @@ add_library(vmalloc STATIC
     vmhdr.h
 
     # Source files
-    malloc.c
     vmbest.c
     vmclear.c
     vmclose.c
