@@ -103,7 +103,6 @@
     <ClCompile Include="vmopen.c" />
     <ClCompile Include="vmprivate.c" />
     <ClCompile Include="vmstrdup.c" />
-    <ClCompile Include="vmwalk.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

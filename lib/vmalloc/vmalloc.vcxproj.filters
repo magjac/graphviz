@@ -44,8 +44,5 @@
     <ClCompile Include="vmstrdup.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vmwalk.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

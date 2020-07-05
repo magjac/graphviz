@@ -117,9 +117,6 @@ extern "C" {
 
     extern long vmaddr(Vmalloc_t *, void *);
 
-    extern int vmwalk(Vmalloc_t *,
-			     int (*)(Vmalloc_t *, void *, size_t,
-				     Vmdisc_t *));
     extern char *vmstrdup(Vmalloc_t *, const char *);
 
 
