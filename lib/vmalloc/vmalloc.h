@@ -151,26 +151,6 @@ extern "C" {
 
 /* to coerce any value to a Vmalloc_t*, make ANSI happy */
 #define _VM_(vm)	((Vmalloc_t*)(vm))
-/* enable recording of where a call originates from */
-#if defined(VMFL) && defined(__FILE__) && defined(__LINE__)
-#define _VMFL_(vm)		(_VM_(vm)->file = __FILE__, _VM_(vm)->line = __LINE__)
-#define vmalloc(vm,sz)		(_VMFL_(vm), \
-				 (*(_VM_(vm)->meth.allocf))((vm),(sz)) )
-#define vmresize(vm,d,sz,type)	(_VMFL_(vm), \
-				 (*(_VM_(vm)->meth.resizef))\
-					((vm),(void*)(d),(sz),(type)) )
-#define vmfree(vm,d)		(_VMFL_(vm), \
-				 (*(_VM_(vm)->meth.freef))((vm),(void*)(d)) )
-#define vmalign(vm,sz,align)	(_VMFL_(vm), \
-				 (*(_VM_(vm)->meth.alignf))((vm),(sz),(align)) )
-#define malloc(s)		(_VMFL_(Vmregion), malloc((size_t)(s)) )
-#define realloc(d,s)		(_VMFL_(Vmregion), realloc((void*)(d),(size_t)(s)) )
-#define calloc(n,s)		(_VMFL_(Vmregion), calloc((size_t)n, (size_t)(s)) )
-#define free(d)			(_VMFL_(Vmregion), free((void*)(d)) )
-#define memalign(a,s)		(_VMFL_(Vmregion), memalign((size_t)(a),(size_t)(s)) )
-#define valloc(s)		(_VMFL_(Vmregion), valloc((size_t)(s) )
-#define cfree(d)		free(d)
-#endif				/*defined(VMFL) && defined(__FILE__) && defined(__LINE__) */
 /* non-debugging/profiling allocation calls */
 #ifndef vmalloc
 #define vmalloc(vm,sz)		(*(_VM_(vm)->meth.allocf))((vm),(sz))
