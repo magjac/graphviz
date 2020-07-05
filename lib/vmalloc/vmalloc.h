@@ -103,7 +103,6 @@ extern "C" {
 
 
     extern Vmethod_t *Vmbest;	/* best allocation              */
-    extern Vmethod_t *Vmdebug;	/* allocation with debugging    */
 
     extern Vmdisc_t *Vmdcheap;	/* heap discipline              */
     extern Vmdisc_t *Vmdcsbrk;	/* sbrk discipline              */
