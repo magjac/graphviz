@@ -881,49 +881,6 @@ static void *bestresize(Vmalloc_t * vm, void * data, reg size_t size,
     return data;
 }
 
-/**
- * @param vm region allocating from
- * @param addr address to check
- */
-static long bestsize(Vmalloc_t * vm, void * addr)
-{
-    reg Seg_t *seg;
-    reg Block_t *b, *endb;
-    reg long size;
-    reg Vmdata_t *vd = vm->data;
-
-    if (!(vd->mode & VM_TRUST)) {
-	if (ISLOCK(vd, 0))
-	    return -1L;
-	SETLOCK(vd, 0);
-    }
-
-    size = -1L;
-    for (seg = vd->seg; seg; seg = seg->next) {
-	b = SEGBLOCK(seg);
-	endb = (Block_t *) (seg->baddr - sizeof(Head_t));
-	if ((Vmuchar_t *) addr <= (Vmuchar_t *) b ||
-	    (Vmuchar_t *) addr >= (Vmuchar_t *) endb)
-	    continue;
-	while (b < endb) {
-	    if (addr == DATA(b)) {
-		if (!ISBUSY(SIZE(b)) || ISJUNK(SIZE(b)))
-		    size = -1L;
-		else
-		    size = (long) SIZE(b) & ~BITS;
-		goto done;
-	    } else if ((Vmuchar_t *) addr <= (Vmuchar_t *) b)
-		break;
-
-	    b = (Block_t *) ((Vmuchar_t *) DATA(b) + (SIZE(b) & ~BITS));
-	}
-    }
-
-  done:
-    CLRLOCK(vd, 0);
-    return size;
-}
-
 /*	A discipline to get memory using sbrk() or VirtualAlloc on win32 */
 /**
  * @param vm region doing allocation from
@@ -987,7 +944,6 @@ static Vmethod_t _Vmbest = {
     bestresize,
     bestfree,
     bestaddr,
-    bestsize,
     VM_MTBEST
 };
 
@@ -1006,7 +962,6 @@ static Vmalloc_t _Vmheap = {
      bestresize,
      bestfree,
      bestaddr,
-     bestsize,
      VM_MTBEST},
     NIL(char *),		/* file         */
     0,				/* line         */
