@@ -47,9 +47,6 @@
     <ClCompile Include="vmregion.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vmsegment.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="vmset.c">
       <Filter>Source Files</Filter>
     </ClCompile>

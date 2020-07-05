@@ -104,7 +104,6 @@
     <ClCompile Include="vmopen.c" />
     <ClCompile Include="vmprivate.c" />
     <ClCompile Include="vmregion.c" />
-    <ClCompile Include="vmsegment.c" />
     <ClCompile Include="vmset.c" />
     <ClCompile Include="vmstat.c" />
     <ClCompile Include="vmstrdup.c" />

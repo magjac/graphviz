@@ -126,7 +126,6 @@ extern "C" {
     extern long vmsize(Vmalloc_t *, void *);
 
     extern Vmalloc_t *vmregion(void *);
-    extern void *vmsegment(Vmalloc_t *, void *);
     extern int vmset(Vmalloc_t *, int, int);
 
     extern void *vmdbwatch(void *);
