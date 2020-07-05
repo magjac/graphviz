@@ -134,19 +134,6 @@ static void trtrace(Vmalloc_t * vm,
     write(Trfile, buf, (bufp - buf));
 }
 
-int vmtrace(int file)
-{
-    int fd;
-
-    _Vmstrcpy = trstrcpy;
-    _Vmitoa = tritoa;
-    _Vmtrace = trtrace;
-
-    fd = Trfile;
-    Trfile = file;
-    return fd;
-}
-
 int vmtrbusy(Vmalloc_t * vm)
 {
     Seg_t *seg;
