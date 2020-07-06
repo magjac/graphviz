@@ -61,6 +61,8 @@ portable-source:
         - choco install --no-progress -y python3
         - choco install --no-progress -y grep
         - $Env:Path += ";C:\Python38"
+        - $Env:Path += ";C:\Python38\Scripts"
+        - pip install pytest
         - $Env:Path += ";$env:CI_PROJECT_DIR\windows\dependencies\graphviz-build-utilities"
         - $Env:Path += ";C:\Program Files\CMake\bin"
         - $Env:Path += ";C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin"
