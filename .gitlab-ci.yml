@@ -54,6 +54,13 @@ portable-source:
 .build_template: &windows_build_definition
     stage: build
     script:
+        # Toolchain definitions
+        - if($env:platform -eq "x64") {
+            $TARGET_ARCH = "x64";
+          }
+          else {
+            $TARGET_ARCH = "x86";
+          }
         # Retrieve submodules, dependencies are stored there.
         - git submodule update --init
         # Install and set PATH
@@ -122,6 +129,15 @@ portable-source:
               dot -c;
               ctest -C $env:configuration;
               cd ..;
+              cmd.exe /c "call `"C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvarsall.bat`" $TARGET_ARCH && set > %temp%\vcvars.txt";
+              Get-Content "$env:temp\vcvars.txt" | Foreach-Object {
+                if ($_ -match "^(.*?)=(.*)$") {
+                  Set-Content "env:\$($matches[1])" $matches[2];
+                }
+              }
+              $Env:INCLUDE += ";C:\Graphviz\include";
+              $Env:LIB += ";C:\Graphviz\lib";
+              pytest rtest\test_examples.py;
             }
             elseif($env:build_system -eq "msbuild") {
               # Append build destination to the PATH, configure dot and execute regression tests
