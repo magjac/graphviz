@@ -19,7 +19,7 @@ def test_compile_example(src):
 
     # construct an absolute path to the example
     filepath = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-      '../dot.demo', src)
+      '..', 'dot.demo', src)
 
     cc = c_compiler()
 
