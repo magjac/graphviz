@@ -1,7 +1,6 @@
 # Graphviz - Graph Visualization Tools
 
-[![Linux build status](https://img.shields.io/travis/ellson/graphviz/master.svg?label=Linux)](https://travis-ci.org/ellson/graphviz)
-[![Windows Build Status](https://img.shields.io/appveyor/ci/ellson/graphviz/master.svg?label=Windows)](https://ci.appveyor.com/project/ellson/graphviz/branch/master)
+[![build status](https://gitlab.com/graphviz/graphviz/badges/master/pipeline.svg)](https://gitlab.com/graphviz/graphviz/-/pipelines/)
 
 from AT&T Research and Lucent Bell Labs
 
