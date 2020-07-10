@@ -137,6 +137,11 @@ add_library(common STATIC
     ${BISON_HTMLparse_OUTPUTS}
 )
 
+# From https://gitlab.com/graphviz/graphviz/-/issues/1613 @mdwies 20093010
+if(APPLE)
+    target_compile_options(common PRIVATE "-fno-common")
+endif(APPLE)
+
 # Specify headers to be installed
 install(
     FILES
