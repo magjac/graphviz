@@ -40,8 +40,7 @@ static PangoLayout *get_pango_layout(char *markup_text,
     PangoAttrList *attr_list;
     cairo_font_options_t *options;
     fontmap = pango_cairo_font_map_get_default();
-    context =
-	pango_cairo_font_map_create_context(PANGO_CAIRO_FONT_MAP(fontmap));
+    context = pango_font_map_create_context(fontmap);
     options = cairo_font_options_create();
 
     cairo_font_options_set_antialias(options, CAIRO_ANTIALIAS_GRAY);

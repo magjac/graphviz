@@ -706,7 +706,8 @@ static void TB_balance(void)
     }
     Tree_node.size = ii;
     qsort(Tree_node.list, Tree_node.size, sizeof(Tree_node.list[0]),
-        adj > 1? decreasingrankcmpf : increasingrankcmpf);
+        adj > 1? (int(*)(const void*,const void*))decreasingrankcmpf
+               : (int(*)(const void*,const void*))increasingrankcmpf);
     for (i = 0; i < Tree_node.size; i++) {
         n = Tree_node.list[i];
         if (ND_node_type(n) == NORMAL)
