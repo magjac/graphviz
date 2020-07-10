@@ -64,7 +64,6 @@ extern "C" {
 #endif
 
 #ifdef FEATURE_MS
-#include <malloc.h>
 #define printf gprintf
 #endif
 

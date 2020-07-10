@@ -15,9 +15,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <setjmp.h>
-#ifdef HAVE_MALLOC_H
-#include <malloc.h>
-#endif
+#include <stdlib.h>
 #include <limits.h>
 #include <math.h>
 #include "pathutil.h"
