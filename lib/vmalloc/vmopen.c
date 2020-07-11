@@ -18,15 +18,10 @@
 */
 
 /**
- * @param disc ignored
  * @param meth method to manage space
- * @param mode ignored type of region
  */
-Vmalloc_t *vmopen(Vmdisc_t *disc, Vmethod_t *meth, int mode) {
+Vmalloc_t *vmopen(Vmethod_t *meth) {
   Vmalloc_t *vm;
-
-  (void)disc;
-  (void)mode;
 
   vm = malloc(sizeof(*vm));
   if (vm == NULL) {
