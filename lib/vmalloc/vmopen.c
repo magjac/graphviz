@@ -18,17 +18,21 @@
 */
 
 /**
- * @param meth method to manage space
+ * @param meth ignored
  */
 Vmalloc_t *vmopen(Vmethod_t *meth) {
   Vmalloc_t *vm;
+
+  (void)meth;
 
   vm = malloc(sizeof(*vm));
   if (vm == NULL) {
     return NULL;
   }
 
-  vm->meth = *meth;
+  vm->meth.allocf = bestalloc;
+  vm->meth.resizef = bestresize;
+  vm->meth.freef = bestfree;
 
   vm->data = calloc(1, sizeof(*vm->data));
   if (vm->data == NULL) {
