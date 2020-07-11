@@ -32,9 +32,6 @@
     <ClCompile Include="vmclose.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vmdcheap.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="vmopen.c">
       <Filter>Source Files</Filter>
     </ClCompile>

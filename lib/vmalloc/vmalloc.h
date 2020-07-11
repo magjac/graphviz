@@ -101,7 +101,6 @@ extern "C" {
 
     extern Vmethod_t *Vmbest;	/* best allocation              */
 
-    extern Vmdisc_t *Vmdcheap;	/* heap discipline              */
     extern Vmdisc_t *Vmdcsbrk;	/* sbrk discipline              */
 
     extern Vmalloc_t *Vmheap;	/* heap region                  */

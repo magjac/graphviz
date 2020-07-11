@@ -4,7 +4,7 @@
 noinst_HEADERS = vmalloc.h vmhdr.h
 noinst_LTLIBRARIES = libvmalloc_C.la
 
-libvmalloc_C_la_SOURCES = vmbest.c vmclear.c vmclose.c vmdcheap.c \
+libvmalloc_C_la_SOURCES = vmbest.c vmclear.c vmclose.c \
 	vmopen.c \
 	vmstrdup.c
 
