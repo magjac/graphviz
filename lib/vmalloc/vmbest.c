@@ -127,33 +127,3 @@ void *bestresize(Vmalloc_t *vm, void *data, size_t size, int type) {
   /* the pointer the caller gave us was not allocated by us */
   return NULL;
 }
-
-/* The heap region */
-static Vmdata_t _Vmdata = {
-    VM_MTBEST | VM_TRUST,	/* mode         */
-    0,				/* incr         */
-    0,				/* pool         */
-    NIL(Seg_t *),		/* seg          */
-    NIL(Block_t *),		/* free         */
-    NIL(Block_t *),		/* wild         */
-    NIL(Block_t *),		/* root         */
-    { NULL },			/* tiny         */
-    { NULL },			/* cache        */
-    NULL,			/* allocated    */
-    0,				/* size         */
-    0,				/* capacity     */
-};
-static Vmalloc_t _Vmheap = {
-    {bestalloc,
-     bestresize,
-     bestfree,
-     0,
-     VM_MTBEST},
-    NIL(char *),		/* file         */
-    0,				/* line         */
-    NULL,			/* disc         */
-    &_Vmdata,			/* data         */
-    NIL(Vmalloc_t *)		/* next             */
-};
-
-Vmalloc_t* Vmheap = &_Vmheap;

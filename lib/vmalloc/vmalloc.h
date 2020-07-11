@@ -99,8 +99,6 @@ extern "C" {
 #define VM_DISC		4	/* discipline being changed     */
 
 
-    extern Vmalloc_t *Vmheap;	/* heap region                  */
-
     extern Vmalloc_t *vmopen(void);
     extern int vmclose(Vmalloc_t *);
     extern int vmclear(Vmalloc_t *);
