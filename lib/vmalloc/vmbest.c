@@ -217,7 +217,7 @@ static Vmalloc_t _Vmheap = {
      VM_MTBEST},
     NIL(char *),		/* file         */
     0,				/* line         */
-    &_Vmdcsbrk,			/* disc         */
+    NULL,			/* disc         */
     &_Vmdata,			/* data         */
     NIL(Vmalloc_t *)		/* next             */
 };
