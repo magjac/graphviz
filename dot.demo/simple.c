@@ -11,7 +11,7 @@
  * Contributors: See CVS logs. Details at http://www.graphviz.org/
  *************************************************************************/
 
-#include <gvc.h>
+#include <graphviz/gvc.h>
 
 int main(int argc, char **argv)
 {
