@@ -91,13 +91,3 @@ void agfree(Agraph_t * g, void *ptr)
     if (ptr)
 	(AGDISC(g, mem)->free) (AGCLOS(g, mem), ptr);
 }
-
-#ifndef _VMALLOC_H
-struct _vmalloc_s {
-    char unused;
-};
-#endif
-struct _vmalloc_s *agheap(Agraph_t * g)
-{
-    return AGCLOS(g, mem);
-}
