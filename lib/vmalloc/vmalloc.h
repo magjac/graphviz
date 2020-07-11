@@ -99,8 +99,6 @@ extern "C" {
 #define VM_DISC		4	/* discipline being changed     */
 
 
-    extern Vmethod_t *Vmbest;	/* best allocation              */
-
     extern Vmalloc_t *Vmheap;	/* heap region                  */
     extern Vmalloc_t *Vmregion;	/* malloc region                */
 

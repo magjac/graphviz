@@ -128,14 +128,6 @@ void *bestresize(Vmalloc_t *vm, void *data, size_t size, int type) {
   return NULL;
 }
 
-static Vmethod_t _Vmbest = {
-    bestalloc,
-    bestresize,
-    bestfree,
-    0,
-    VM_MTBEST
-};
-
 /* The heap region */
 static Vmdata_t _Vmdata = {
     VM_MTBEST | VM_TRUST,	/* mode         */
@@ -166,4 +158,3 @@ static Vmalloc_t _Vmheap = {
 
 Vmalloc_t* Vmheap = &_Vmheap;
 Vmalloc_t* Vmregion = &_Vmheap;
-Vmethod_t* Vmbest = &_Vmbest;
