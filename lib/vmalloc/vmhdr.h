@@ -232,6 +232,10 @@ extern "C" {
 	Block_t *root;		/* root of free tree                    */
 	Block_t *tiny[S_TINY];	/* small blocks                         */
 	Block_t *cache[S_CACHE + 1];	/* delayed free blocks                */
+
+	void **allocated;	/* pointers we have given out           */
+	size_t size;	/* used entries in `allocated`          */
+	size_t capacity;	/* available entries in `allocated`     */
     } Vmdata_t;
 
 /* private parts of Vmalloc_t */
@@ -385,26 +389,6 @@ extern "C" {
 
 /* external symbols for internal use by vmalloc */
     typedef Block_t *(*Vmsearch_f) (Vmdata_t *, size_t, Block_t *);
-    typedef struct _vmextern_ {
-	Block_t *(*vm_extend) (Vmalloc_t *, size_t, Vmsearch_f);
-	int (*vm_truncate) (Vmalloc_t *, Seg_t *, size_t, int);
-	size_t vm_pagesize;
-	char *(*vm_strcpy) (char *, char *, int);
-	char *(*vm_itoa) (Vmulong_t, int);
-	void (*vm_trace) (Vmalloc_t *,
-				Vmuchar_t *, Vmuchar_t *, size_t, size_t);
-	void (*vm_pfclose) (Vmalloc_t *);
-    } Vmextern_t;
-
-#define _Vmextend	(_Vmextern.vm_extend)
-#define _Vmtruncate	(_Vmextern.vm_truncate)
-#define _Vmpagesize	(_Vmextern.vm_pagesize)
-#define _Vmstrcpy	(_Vmextern.vm_strcpy)
-#define _Vmitoa		(_Vmextern.vm_itoa)
-#define _Vmtrace	(_Vmextern.vm_trace)
-#define _Vmpfclose	(_Vmextern.vm_pfclose)
-
-     extern Vmextern_t _Vmextern;
 
     extern size_t getpagesize(void);
 
