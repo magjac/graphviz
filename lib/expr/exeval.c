@@ -482,6 +482,7 @@ scformat(Sfio_t* sp, void* vp, Sffmt_t* dp)
 			node->data.variable.symbol->value->data.constant.value.string = 0;
 		fmt->fmt.size = 1024;
 		*((void**)vp) = node->data.variable.symbol->value->data.constant.value.string = vmnewof(fmt->expr->vm, node->data.variable.symbol->value->data.constant.value.string, char, fmt->fmt.size, 0);
+		memset(node->data.variable.symbol->value->data.constant.value.string, 0, sizeof(char) * (size_t)fmt->fmt.size);
 		break;
 	case 'c':
 		if (node->type != CHARACTER) {
