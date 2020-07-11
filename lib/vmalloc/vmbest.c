@@ -157,4 +157,3 @@ static Vmalloc_t _Vmheap = {
 };
 
 Vmalloc_t* Vmheap = &_Vmheap;
-Vmalloc_t* Vmregion = &_Vmheap;

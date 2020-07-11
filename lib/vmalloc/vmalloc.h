@@ -100,7 +100,6 @@ extern "C" {
 
 
     extern Vmalloc_t *Vmheap;	/* heap region                  */
-    extern Vmalloc_t *Vmregion;	/* malloc region                */
 
     extern Vmalloc_t *vmopen(void);
     extern int vmclose(Vmalloc_t *);
