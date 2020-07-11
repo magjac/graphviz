@@ -128,64 +128,6 @@ static void *bestresize(Vmalloc_t *vm, void *data, reg size_t size, int type) {
   return NULL;
 }
 
-/*	A discipline to get memory using sbrk() or VirtualAlloc on win32 */
-/**
- * @param vm region doing allocation from
- * @param caddr current address
- * @param csize current size
- * @param nsize new size
- * @param disc discipline structure
- */
-static void *sbrkmem(Vmalloc_t * vm, void * caddr,
-		       size_t csize, size_t nsize, Vmdisc_t * disc)
-{
-#if _BLD_INSTRUMENT || cray
-    NOTUSED(vm);
-    NOTUSED(disc);
-
-    if (csize == 0)
-	return (void *) malloc(nsize);
-    if (nsize == 0)
-	free(caddr);
-    return NIL(void *);
-#else
-#if defined(_WIN32)
-    NOTUSED(vm);
-    NOTUSED(disc);
-
-    if (csize == 0)
-	return (void *) VirtualAlloc(NIL(LPVOID), nsize, MEM_COMMIT,
-				       PAGE_READWRITE);
-    else if (nsize == 0)
-	return VirtualFree((LPVOID) caddr, 0,
-			   MEM_RELEASE) ? caddr : NIL(void *);
-    else
-	return NIL(void *);
-#else
-    reg Vmuchar_t *addr;
-    reg ssize_t size;
-    NOTUSED(vm);
-    NOTUSED(disc);
-
-    /* sbrk, see if still own current address */
-    if (csize > 0 && sbrk(0) != (Vmuchar_t *) caddr + csize)
-	return NIL(void *);
-
-    /* do this because sbrk() uses 'ssize_t' argument */
-    size =
-	nsize >
-	csize ? (ssize_t) (nsize - csize) : -(ssize_t) (csize - nsize);
-
-    if ((addr = sbrk(size)) == (Vmuchar_t *) (-1))
-	return NIL(void *);
-    else
-	return csize == 0 ? (void *) addr : caddr;
-#endif
-#endif
-}
-
-static Vmdisc_t _Vmdcsbrk = { sbrkmem, NIL(Vmexcept_f), 0 };
-
 static Vmethod_t _Vmbest = {
     bestalloc,
     bestresize,
@@ -225,4 +167,3 @@ static Vmalloc_t _Vmheap = {
 Vmalloc_t* Vmheap = &_Vmheap;
 Vmalloc_t* Vmregion = &_Vmheap;
 Vmethod_t* Vmbest = &_Vmbest;
-Vmdisc_t* Vmdcsbrk = &_Vmdcsbrk;
