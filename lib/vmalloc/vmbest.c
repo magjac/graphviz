@@ -43,7 +43,7 @@ static bool make_space(Vmdata_t *vd) {
  * @param vm region allocating from
  * @param size desired block size
  */
-static void *bestalloc(Vmalloc_t *vm, size_t size) {
+void *bestalloc(Vmalloc_t *vm, size_t size) {
   Vmdata_t *vd = vm->data;
   void *p;
 
@@ -62,7 +62,7 @@ static void *bestalloc(Vmalloc_t *vm, size_t size) {
   return p;
 }
 
-static int bestfree(Vmalloc_t *vm, void *data) {
+int bestfree(Vmalloc_t *vm, void *data) {
   Vmdata_t *vd = vm->data;
   size_t i;
 
@@ -96,7 +96,7 @@ static int bestfree(Vmalloc_t *vm, void *data) {
  * @param size new size
  * @param type ignored
  */
-static void *bestresize(Vmalloc_t *vm, void *data, size_t size, int type) {
+void *bestresize(Vmalloc_t *vm, void *data, size_t size, int type) {
   Vmdata_t *vd = vm->data;
   size_t i;
 

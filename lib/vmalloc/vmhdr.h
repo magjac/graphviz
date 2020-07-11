@@ -416,6 +416,10 @@ extern "C" {
     extern Vmuchar_t *sbrk(ssize_t);
 #endif
 
+void *bestalloc(Vmalloc_t * vm, size_t size);
+int bestfree(Vmalloc_t * vm, void * data);
+void *bestresize(Vmalloc_t * vm, void * data, size_t size, int type);
+
 #endif				/* _VMHDR_H */
 #ifdef __cplusplus
 }
