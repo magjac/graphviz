@@ -18,17 +18,16 @@
 */
 int vmclear(Vmalloc_t *vm) {
   size_t i;
-  Vmdata_t *vd = vm->data;
 
   /* free all allocated pointers */
-  for (i = 0; i < vd->size; ++i) {
-    free(vd->allocated[i]);
+  for (i = 0; i < vm->size; ++i) {
+    free(vm->allocated[i]);
   }
 
   /* reset our metadata */
-  free(vd->allocated);
-  vd->allocated = NULL;
-  vd->size = vd->capacity = 0;
+  free(vm->allocated);
+  vm->allocated = NULL;
+  vm->size = vm->capacity = 0;
 
   return 0;
 }

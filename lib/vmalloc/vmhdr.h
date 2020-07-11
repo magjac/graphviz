@@ -232,10 +232,6 @@ extern "C" {
 	Block_t *root;		/* root of free tree                    */
 	Block_t *tiny[S_TINY];	/* small blocks                         */
 	Block_t *cache[S_CACHE + 1];	/* delayed free blocks                */
-
-	void **allocated;	/* pointers we have given out           */
-	size_t size;	/* used entries in `allocated`          */
-	size_t capacity;	/* available entries in `allocated`     */
     } Vmdata_t;
 
 /* private parts of Vmalloc_t */

@@ -72,6 +72,10 @@ extern "C" {
 #ifdef _VM_PRIVATE_
 	 _VM_PRIVATE_
 #endif
+
+	void **allocated;	/* pointers we have given out           */
+	size_t size;	/* used entries in `allocated`          */
+	size_t capacity;	/* available entries in `allocated`     */
     };
 
 #define VM_TRUST	0000001	/* forgo some security checks   */

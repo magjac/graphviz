@@ -17,7 +17,6 @@
 **	Written by Kiem-Phong Vo, kpv@research.att.com, 01/16/94.
 */
 int vmclose(Vmalloc_t *vm) {
-  Vmdata_t *vd = vm->data;
   int r;
 
   /* clear the region */
@@ -27,7 +26,6 @@ int vmclose(Vmalloc_t *vm) {
   }
 
   /* free the allocator itself */
-  free(vd);
   free(vm);
 
   return 0;

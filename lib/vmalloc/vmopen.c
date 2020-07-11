@@ -20,7 +20,7 @@
 Vmalloc_t *vmopen(void) {
   Vmalloc_t *vm;
 
-  vm = malloc(sizeof(*vm));
+  vm = calloc(1, sizeof(*vm));
   if (vm == NULL) {
     return NULL;
   }
@@ -28,12 +28,6 @@ Vmalloc_t *vmopen(void) {
   vm->meth.allocf = bestalloc;
   vm->meth.resizef = bestresize;
   vm->meth.freef = bestfree;
-
-  vm->data = calloc(1, sizeof(*vm->data));
-  if (vm->data == NULL) {
-    free(vm);
-    return NULL;
-  }
 
   return vm;
 }
