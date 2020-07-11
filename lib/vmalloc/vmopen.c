@@ -17,13 +17,8 @@
 **	Written by Kiem-Phong Vo, kpv@research.att.com, 01/16/94.
 */
 
-/**
- * @param meth ignored
- */
-Vmalloc_t *vmopen(Vmethod_t *meth) {
+Vmalloc_t *vmopen(void) {
   Vmalloc_t *vm;
-
-  (void)meth;
 
   vm = malloc(sizeof(*vm));
   if (vm == NULL) {
