@@ -1941,7 +1941,7 @@ char *exstring(Expr_t * ex, char *s)
  */
 void *exstralloc(Expr_t * ex, void *p, size_t sz)
 {
-    return vmresize(ex->ve, p, sz, VM_RSCOPY | VM_RSMOVE);
+    return vmresize(ex->ve, p, sz);
 }
 
 /* exstrfree:

@@ -414,7 +414,7 @@ extern "C" {
 
 void *bestalloc(Vmalloc_t * vm, size_t size);
 int bestfree(Vmalloc_t * vm, void * data);
-void *bestresize(Vmalloc_t * vm, void * data, size_t size, int type);
+void *bestresize(Vmalloc_t * vm, void * data, size_t size);
 
 #endif				/* _VMHDR_H */
 #ifdef __cplusplus

@@ -59,7 +59,7 @@ extern "C" {
 
     struct _vmethod_s {
 	void *(*allocf) (Vmalloc_t *, size_t);
-	void *(*resizef) (Vmalloc_t *, void *, size_t, int);
+	void *(*resizef) (Vmalloc_t *, void *, size_t);
 	int (*freef) (Vmalloc_t *, void *);
 	long (*addrf) (Vmalloc_t *, void *);
 	unsigned short meth;
@@ -108,7 +108,7 @@ extern "C" {
     extern int vmclear(Vmalloc_t *);
 
     extern void *vmalloc(Vmalloc_t *, size_t);
-    extern void *vmresize(Vmalloc_t *, void *, size_t, int);
+    extern void *vmresize(Vmalloc_t *, void *, size_t);
     extern int vmfree(Vmalloc_t *, void *);
 
     extern long vmaddr(Vmalloc_t *, void *);
@@ -123,17 +123,15 @@ extern "C" {
 #define vmalloc(vm,sz)		(*(_VM_(vm)->meth.allocf))((vm),(sz))
 #endif
 #ifndef vmresize
-#define vmresize(vm,d,sz,type)	(*(_VM_(vm)->meth.resizef))\
-					((vm),(void*)(d),(sz),(type))
+#define vmresize(vm,d,sz)	(*(_VM_(vm)->meth.resizef))\
+					((vm),(void*)(d),(sz))
 #endif
 #ifndef vmfree
 #define vmfree(vm,d)		(*(_VM_(vm)->meth.freef))((vm),(void*)(d))
 #endif
 #define vmaddr(vm,addr)		(*(_VM_(vm)->meth.addrf))((vm),(void*)(addr))
-#define vmoldof(v,p,t,n,x)	(t*)vmresize((v), (p), sizeof(t)*(n)+(x), \
-					(VM_RSMOVE) )
-#define vmnewof(v,p,t,n,x)	(t*)vmresize((v), (p), sizeof(t)*(n)+(x), \
-					(VM_RSMOVE|VM_RSCOPY|VM_RSZERO) )
+#define vmoldof(v,p,t,n,x)	(t*)vmresize((v), (p), sizeof(t)*(n)+(x))
+#define vmnewof(v,p,t,n,x)	(t*)vmresize((v), (p), sizeof(t)*(n)+(x))
 #endif				/* _VMALLOC_H */
 #ifdef __cplusplus
 }

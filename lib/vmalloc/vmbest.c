@@ -92,13 +92,9 @@ int bestfree(Vmalloc_t *vm, void *data) {
  * @param vm region allocation from
  * @param data old block of data
  * @param size new size
- * @param type ignored
  */
-void *bestresize(Vmalloc_t *vm, void *data, size_t size, int type) {
+void *bestresize(Vmalloc_t *vm, void *data, size_t size) {
   size_t i;
-
-  /* ignore type */
-  (void)type;
 
   if (!data) {
     return bestalloc(vm, size);
