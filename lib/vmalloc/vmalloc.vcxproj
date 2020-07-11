@@ -100,20 +100,9 @@
     <ClCompile Include="vmclear.c" />
     <ClCompile Include="vmclose.c" />
     <ClCompile Include="vmdcheap.c" />
-    <ClCompile Include="vmdebug.c" />
-    <ClCompile Include="vmdisc.c" />
-    <ClCompile Include="vmlast.c" />
     <ClCompile Include="vmopen.c" />
-    <ClCompile Include="vmpool.c" />
     <ClCompile Include="vmprivate.c" />
-    <ClCompile Include="vmprofile.c" />
-    <ClCompile Include="vmregion.c" />
-    <ClCompile Include="vmsegment.c" />
-    <ClCompile Include="vmset.c" />
-    <ClCompile Include="vmstat.c" />
     <ClCompile Include="vmstrdup.c" />
-    <ClCompile Include="vmtrace.c" />
-    <ClCompile Include="vmwalk.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

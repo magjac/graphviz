@@ -38,9 +38,6 @@ extern "C" {
 #   include <sys/types.h>
 #endif // HAVE_SYS_TYPES_H
 
-#undef free
-#undef malloc
-#undef realloc
 #undef BITS
 
     typedef unsigned char Vmuchar_t;
@@ -245,11 +242,6 @@ extern "C" {
 
 #include	"vmalloc.h"
 
-/* we don't use these here and they interfere with some local names */
-#undef malloc
-#undef free
-#undef realloc
-
 /* segment structure */
     struct _seg_s {
 	Vmalloc_t *vm;		/* the region that holds this   */
@@ -329,7 +321,6 @@ extern "C" {
 **	file:	the file where it was created.
 **	size:	the true byte count of the block
 **	seg_:	should be the same as the previous seg_.
-**		This allows the function vmregion() to work.
 **	magi:	magic bytes to detect overwrites.
 **	data:	the actual data block.
 **	magi:	more magic bytes.
@@ -428,13 +419,6 @@ extern "C" {
 #include	<stdlib.h>
 #undef cfree
 #include	<string.h>
-
-/* for malloc.c */
-#ifndef _WIN32
-    extern int creat(const char *, int);
-    extern int close(int);
-#endif
-    extern int getpid(void);
 
 /* for vmexit.c */
 #ifndef _WIN32

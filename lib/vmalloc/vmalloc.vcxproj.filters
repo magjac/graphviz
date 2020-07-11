@@ -35,46 +35,13 @@
     <ClCompile Include="vmdcheap.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vmdebug.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vmdisc.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vmlast.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="vmopen.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vmpool.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="vmprivate.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="vmprofile.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vmregion.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vmsegment.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vmset.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vmstat.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="vmstrdup.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vmtrace.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="vmwalk.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
