@@ -63,3 +63,22 @@ def test_1449():
     assert p.returncode == 0, 'Graphviz exited with non-zero status'
 
     assert stderr.strip() == '', 'SVG color scheme use caused warnings'
+
+def test_1594():
+    '''
+    GVPR should give accurate line numbers in error messages
+    https://gitlab.com/graphviz/graphviz/-/issues/1594
+    '''
+
+    # locate our associated test case in this directory
+    input = os.path.join(os.path.dirname(__file__), '1594.gvpr')
+
+    # run GVPR with our (malformed) input program
+    p = subprocess.Popen(['gvpr', '-f', input], stdin=subprocess.PIPE,
+      stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+    _, stderr = p.communicate()
+
+    assert p.returncode != 0, 'GVPR did not reject malformed program'
+
+    assert 'line 3:' in stderr, \
+      'GVPR did not identify correct line of syntax error'
