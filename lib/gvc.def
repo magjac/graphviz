@@ -116,6 +116,7 @@ G_visitedfillcolor
 G_visitedpencolor    
 gcalloc
 getdouble    
+pack_graph
 getPack    
 getPackMode    
 getsplinepoints    
