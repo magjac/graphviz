@@ -683,7 +683,8 @@ void remove_overlap(int dim, SparseMatrix A, real *x, real *label_sizes, int ntr
 #else
 #include "types.h"
 #include "SparseMatrix.h"
-void remove_overlap(int dim, SparseMatrix A, int m, real *x, real *label_sizes, int ntry, real initial_scaling, int do_shrinking, int *flag)
+void remove_overlap(int dim, SparseMatrix A, real *x, real *label_sizes, int ntry, real initial_scaling,
+		    int edge_labeling_scheme, int n_constr_nodes, int *constr_nodes, SparseMatrix A_constr, int do_shrinking, int *flag)
 {
     static int once;
 
