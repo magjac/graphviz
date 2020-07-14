@@ -12,11 +12,11 @@
  *************************************************************************/
 
 #include "config.h"
+#include "overlap.h"
 
 #if ((defined(HAVE_GTS) || defined(HAVE_TRIANGLE)) && defined(SFDP))
 
 #include "SparseMatrix.h"
-#include "overlap.h"
 #include "call_tri.h"
 #include "red_black_tree.h"
 #include "types.h"
