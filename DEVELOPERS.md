@@ -8,20 +8,13 @@
 
 ### A note about the examples below
 
-The examples below are for the 2.44 release. Modify the version
-number for the actual release. The example commits were cherry-picked
-from different releases since mistakes were made during the 2.44
-release (and all other previous releases as well).
+The examples below are for the 2.44.1 release. Modify the version
+number for the actual release.
 
 ### Using a fork or a clone of the original repo
 
-The instructions below assume that the actions are performed from a
-fork and that the orignal repository has been added as a remote with:
-
-`git remote add graphviz https://gitlab.com/graphviz/graphviz.git`
-
-If the actions instead are performed from a clone of the orignal repo,
-`git push graphviz` should be replaced with `git push origin`.
+The instructions below can be used from a fork (recommended) or from a
+clone of the master repo.
 
 ### Deciding the release version number
 
@@ -45,6 +38,7 @@ Release version examples:
 - 2.42.3
 - 2.42.4
 - 2.44.0
+- 2.44.1
 
 Development version examples:
 
@@ -57,60 +51,210 @@ Development version examples:
 [master pipeline](https://gitlab.com/graphviz/graphviz/-/pipelines?ref=master)
 is green
 
+1. Create a local branch and name it e.g. `stable-release-<version>`
+
+   Example: `stable-release-2.44.1`
+
 1. Edit `autogen.sh`:
 
-   Incement patch version with 1 *or* minor version to the next *even* number.
+   * Comment 4 lines after the line ` dnl uncomment the next 4 lines for
+   development releases, minor version must be odd ` by adding `dnl `.
+   * Uncomment 4 lines below ` dnl uncomment the next 4 lines for stable
+   releases, minor version must be even` by removing `dnl `.
+   * Increment the patch version with 1 *or* minor version to the next *even*
+   number.
 
-   Example: 466402bb70105dd74282cd9da6bbde9da02a9b3c
-   and 2cc6ed876212ec65fccd4a90028335b338d3ccc0 (for release 2.42.4).
+   Example (from
+   https://gitlab.com/graphviz/graphviz/-/commit/5e0d3b1841b7e358274c916b52276d251eabef3d#152c3993c79ed609cfec1b4276c2eb31f4d518b3):
 
-1. Edit `CHANGELOG.md` (provided that !1394 is merged)
+    ```diff
+     dnl uncomment the next 4 lines for development releases, minor version must be odd
+    -m4_define([graphviz_version_major],[2])
+    -m4_define([graphviz_version_minor],[45])
+    -m4_define([graphviz_version_micro],[$GRAPHVIZ_VERSION_DATE])
+    -m4_define([graphviz_collection],[development])
+    +dnl m4_define([graphviz_version_major],[2])
+    +dnl m4_define([graphviz_version_minor],[45])
+    +dnl m4_define([graphviz_version_micro],[$GRAPHVIZ_VERSION_DATE])
+    +dnl m4_define([graphviz_collection],[development])
 
-   Add the new version between `[Unreleased]` and the previous
-   version.
+     dnl uncomment the next 4 lines for stable releases, minor version must be even
+    -dnl m4_define([graphviz_version_major],[2])
+    -dnl m4_define([graphviz_version_minor],[44])
+    -dnl m4_define([graphviz_version_micro],[0])
+    -dnl m4_define([graphviz_collection],[stable])
+    +m4_define([graphviz_version_major],[2])
+    +m4_define([graphviz_version_minor],[44])
+    +m4_define([graphviz_version_micro],[1])
+    +m4_define([graphviz_collection],[stable])
+    ```
 
-   At the bottom of the file, add an entry for the new version. These
-   entries are not visible in the rendered page, but are essential for
-   the version links to the GitLab commit comparisons to work.
+1. Edit `windows/include/builddate.h` (if https://gitlab.com/graphviz/graphviz/-/issues/1745 isn't fixed)
 
-   Updating the `CHANGELOG.md` has never yet been done for the
-   Graphviz project, but [this
-   example](https://github.com/magjac/d3-graphviz/commit/59f515686a3fdb4da2a04d02665abfb2e583d898#diff-4ac32a78649ca5bdd8e0ba38b7006a1e)
-   shows how it's done for another project.
+   Set version, date and time in UTC. Time will be approximate and the
+   minutes part should be `00` to not indicate any exactness.
+
+   Example (from
+   https://gitlab.com/graphviz/graphviz/-/commit/5e0d3b1841b7e358274c916b52276d251eabef3d#2dcbe62b02ff1b46c3e5dc995a0a86f993cb6eca):
+
+    ```diff
+    -#define BUILDDATE "20090106.0545"
+    +#define BUILDDATE "20200629.0800"
+    ```
+
+1. Edit `windows/include/config.h` (if https://gitlab.com/graphviz/graphviz/-/issues/1745 isn't fixed)
+
+   Set version, date and time in UTC. Time will be approximate and the
+   minutes part should be `00` to not indicate any exactness.
+
+   Example (from
+   https://gitlab.com/graphviz/graphviz/-/commit/5e0d3b1841b7e358274c916b52276d251eabef3d#5299703d1b79f96afe7c4bf2fc8bd368da39d5e2):
+
+    ```diff
+     /* Define to the full name and version of this package. */
+    -#define PACKAGE_STRING "graphviz 2.39.20160612.1140"
+    +#define PACKAGE_STRING "graphviz 2.44.1 (20200629.0800)" /* 08:00
+    is approximate */
+    ```
+    ```diff
+     /* Define to the version of this package. */
+    -#define PACKAGE_VERSION "2.39.20160612.1140"
+    +#define PACKAGE_VERSION "2.44.1"
+    ```
+
+1. Edit `CHANGELOG.md`
+
+    Add the new version between `[Unreleased]` and the previous
+    version.
+
+    At the bottom of the file, add an entry for the new version. These
+    entries are not visible in the rendered page, but are essential
+    for the version links to the GitLab commit comparisons to work.
+
+    Example (from
+    https://gitlab.com/graphviz/graphviz/-/commit/5e0d3b1841b7e358274c916b52276d251eabef3d#ab09011fa121d0a2bb9fa4ca76094f2482b902b7):
+
+    ```diff
+     ## [Unreleased]
+     
+    +## [2.44.1] - 2020-06-29
+    +
+    ```
+    ```diff
+    -[Unreleased]: https://gitlab.com/graphviz/graphviz/compare/2.44.0...master
+    +[Unreleased]: https://gitlab.com/graphviz/graphviz/compare/2.44.1...master
+    +[2.44.1]: https://gitlab.com/graphviz/graphviz/compare/2.44.0...2.44.1
+     [2.44.0]: https://gitlab.com/graphviz/graphviz/compare/2.42.4...2.44.0
+     [2.42.4]: https://gitlab.com/graphviz/graphviz/compare/2.42.3...2.42.4
+     [2.42.3]: https://gitlab.com/graphviz/graphviz/compare/2.42.2...2.42.3
+    ```
 
 1. Commit:
 
    `git add -p`
 
-   `git commit -m "Stable Release 2.44.0"`
+   `git commit -m "Stable Release 2.44.1"`
 
 1. Push:
 
-   `git push graphviz master`
+   Example: `git push origin stable-release-2.44.1`
+
+1. Wait until the pipeline has run for your branch and check that it's green
+
+1. Create a merge request
+
+1. Merge the merge request
 
 1. Wait for the
 [master pipeline](https://gitlab.com/graphviz/graphviz/-/pipelines?ref=master)
-to run for the new commit and check that it succeeds
-
-1. Tag release:
-
-   `git tag -a -m "Stable Release 2.44.0" stable_release_2.44.0`
-
-1. Push tag:
-
-   `git push graphviz stable_release_2.44.0`
+  to run for the new commit and check that it's green
 
 1. Create a release at [GitHub releases](https://gitlab.com/graphviz/graphviz/-/releases)
 
-   Create a new tag *without* the `stable_release_` prefix: `2.44.0`
+   Fill in the `Tag name`, `Message` and `Release notes` fields. The
+   `Tag name` shall be a pure numeric new tag on the form
+   `<major>.<minor>.<patch>`. The `Message` field shall have the text
+   `Stable Release <major>.<minor>.<patch>`. The `Release Notes` field
+   shall have the text `See the [CHANGELOG.md](<link to version in
+   CHANGELOG.md>)`.
 
-1. Edit `autogen.sh`:
+   Example:
+   * **Tag name:** `2.44.1`
+   * **Message:** `Stable Release 2.44.1`
+   * **Release notes:** `See the [CHANGELOG](https://gitlab.com/graphviz/graphviz/-/blob/master/CHANGELOG.md#2441-2020-06-29).`
 
-   Update the release again for the next devevelopment series. If
-   minor release, increment minor version to the next odd number and
-   zero the patch version, *otherwise* increment the patch
-   version. See e.g.  28e09c876c4c01e979b5801c89f6f59855c8b4ca and
-   fa40209b378c8435fd1c8d6c74ff0ff95c9f45b2
+1. Create a new local branch and name it e.g. `return-to-<version>-dev`
+
+   Example: `return-to-2.45-dev`
+
+1. Edit `autogen.sh` again:
+
+   * Uncomment 4 lines after the line ` dnl uncomment the next 4 lines for
+   development releases, minor version must be odd ` by removing `dnl `.
+   * Comment 4 lines below ` dnl uncomment the next 4 lines for stable
+   releases, minor version must be even` by adding `dnl `.
+   * If a minor release was made, increment the minor version to the
+   next odd number and zero the patch version, *otherwise* increment
+   the patch version.
+
+   Example (from
+   https://gitlab.com/graphviz/graphviz/-/commit/2bd021b3ef38ddcc7e7f9445f26026fadf441a52#152c3993c79ed609cfec1b4276c2eb31f4d518b3):
+
+    ```diff
+    dnl uncomment the next 4 lines for development releases, minor version must be odd
+    -dnl m4_define([graphviz_version_major],[2])
+    -dnl m4_define([graphviz_version_minor],[45])
+    -dnl m4_define([graphviz_version_micro],[$GRAPHVIZ_VERSION_DATE])
+    -dnl m4_define([graphviz_collection],[development])
+    +m4_define([graphviz_version_major],[2])
+    +m4_define([graphviz_version_minor],[45])
+    +m4_define([graphviz_version_micro],[$GRAPHVIZ_VERSION_DATE])
+    +m4_define([graphviz_collection],[development])
+
+     dnl uncomment the next 4 lines for stable releases, minor version must be even
+    -m4_define([graphviz_version_major],[2])
+    -m4_define([graphviz_version_minor],[44])
+    -m4_define([graphviz_version_micro],[1])
+    -m4_define([graphviz_collection],[stable])
+    +dnl m4_define([graphviz_version_major],[2])
+    +dnl m4_define([graphviz_version_minor],[44])
+    +dnl m4_define([graphviz_version_micro],[1])
+    +dnl m4_define([graphviz_collection],[stable])
+    ```
+
+1. Edit `windows/include/builddate.h` again (if https://gitlab.com/graphviz/graphviz/-/issues/1745 isn't fixed)
+
+    Set version, date and time. Date and time will be fixed for every
+    build and everything except the year should be question marks (`?´)
+    to not indicate any exactness.
+
+    Example (from
+    https://gitlab.com/graphviz/graphviz/-/commit/2bd021b3ef38ddcc7e7f9445f26026fadf441a52#2dcbe62b02ff1b46c3e5dc995a0a86f993cb6eca):
+
+    ```diff
+     /* Define to the full name and version of this package. */
+    -#define PACKAGE_STRING "graphviz 2.44.1 (20200629.0800)" /* 08:00 is approximate */
+    +#define PACKAGE_STRING "graphviz 2.45.2020????.???? (2020????.????)" /* FIXME: https://gitlab.com/graphviz/graphviz/-/issues/1745 */
+    ```
+    ```diff
+     /* Define to the version of this package. */
+    -#define PACKAGE_VERSION "2.44.1"
+    +#define PACKAGE_VERSION "2.45.2020????.????" /* FIXME: https://gitlab.com/graphviz/graphviz/-/issues/1745 */
+    ```
+
+1. Edit `windows/include/config.h` again (if https://gitlab.com/graphviz/graphviz/-/issues/1745 isn't fixed)
+
+    Set version, date and time. Date and time will be fixed for every
+    build and everything except the year should be question marks
+    (`?´) to not indicate any exactness.
+
+    Example (from
+    https://gitlab.com/graphviz/graphviz/-/commit/2bd021b3ef38ddcc7e7f9445f26026fadf441a52#5299703d1b79f96afe7c4bf2fc8bd368da39d5e2)
+
+    ```diff
+    -#define BUILDDATE "20200629.0800"
+    +#define BUILDDATE "2020????.????"  /* FIXME: https://gitlab.com/graphviz/graphviz/-/issues/1745 */
+    ```
 
 1. Commit:
 
@@ -118,42 +262,21 @@ to run for the new commit and check that it succeeds
 
     If patch version was incremented:
 
-    `git commit -m "Move back to 2.43 development series"`
+    Example: `git commit -m "Move back to 2.45 development series"`
 
     else (if major or minor version was incremented):
 
-    `git commit -m "Start 2.45 development series"`
+    Example: `git commit -m "Start 2.47 development series"`
 
 1. Push:
 
-    `git push graphviz master`
+   Example: `git push origin return-to-2.45-dev`
 
-1. Update the links to the released source code package files on the
-**Sources** web page through [Edit this
-page](https://gitlab.com/graphviz/graphviz.gitlab.io/-/edit/master/download/source/index.md):
-   - Visit the
-   [portable_source](https://www2.graphviz.org/Packages/stable/portable_source/)
-   directory
-   and find the URL's to the `tar.gz` and the `tar.gz.md5` files.
-   - In the **current stable release** column in the **graphviz** table:
-     - Update the text with the new version number.
-     - Update the links with the new URL's.
+1. Wait until the pipeline has run for your new branch and check that it's green
 
-### TODO (with these release instructions)
+1. Create a merge request
 
-- Update the example commits above after next release (provided that
-  we manage to get it right the first time) and remove the note about
-  it at the top and the reference to "another project".
-
-- Add an example commit for the **Sources** page after the next release.
-
-- Investigate if the tagging can be simplifed when making the next
-  release. The current approach using dual tags is based on that we
-  wanted to tag before push and then make a GitLab release. It didn't
-  seem possible to create a GitLab release for an existing tag, hence
-  to need to create another tag without the `stable_release_` prefix
-  (This seemed to be a good idea at the time but might have been the
-  wrong conclusion).
+1. Merge the merge request
 
 ## How to update this guide
 
