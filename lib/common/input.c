@@ -298,8 +298,16 @@ int dotneato_args_initialize(GVC_t * gvc, int argc, char **argv)
 		}
 		v = gvjobs_output_langname(gvc, val);
 		if (!v) {
-		    fprintf(stderr, "Format: \"%s\" not recognized. Use one of:%s\n",
-			val, gvplugin_list(gvc, API_device, val));
+		    /* TODO: Detect empty results from gvplugin_list() and prompt to configure with '-c' */
+		    char *fmts;
+		    fprintf(stderr, "Format: \"%s\" not recognized.", val);
+		    fmts = gvplugin_list(gvc, API_device, val);
+		    if (strlen(fmts) > 1) {
+			fprintf(stderr, " Use one of:%s\n", fmts);
+		    } else {
+			/* Q: Should 'dot -c' be suggested generally or only when val = "dot"? */
+			fprintf(stderr, " No formats found.\nPerhaps \"dot -c\" needs to be run (with installer's privileges) to register the plugins?\n");
+		    }
 		    if (GvExitOnUsage) exit(1);
 		    return(2);
 		}
@@ -317,8 +325,16 @@ int dotneato_args_initialize(GVC_t * gvc, int argc, char **argv)
                         fprintf(stderr, "Perhaps \"dot -c\" needs to be run (with installer's privileges) to register the plugins?\n");
                     }
 		    else {
-                        fprintf(stderr, "Use one of:%s\n",
-				gvplugin_list(gvc, API_layout, val));
+			/* TODO: Detect empty results from gvplugin_list() and prompt to configure with '-c' /*
+			/* fprintf(stderr, "Use one of:%s\n", gvplugin_list(gvc, API_layout, val)); */
+			char *lyts;
+			lyts = gvplugin_list(gvc, API_layout, val);
+			if (strlen(lyts) > 1) {
+			    fprintf(stderr, " Use one of:%s\n", lyts);
+			} else {
+			    /* Q: Should 'dot -c' be suggested generally or only when val = "dot"? */
+			    fprintf(stderr, " No layouts found.\nPerhaps \"dot -c\" needs to be run (with installer's privileges) to register the plugins?\n");
+			}
 		    }
 		    if (GvExitOnUsage) exit(1);
 		    return(2);
@@ -412,10 +428,20 @@ int dotneato_args_initialize(GVC_t * gvc, int argc, char **argv)
 	i = gvlayout_select(gvc, layout);
 	if (i == NO_SUPPORT) {
 	    fprintf(stderr, "There is no layout engine support for \"%s\"\n", layout);
-            if (streq(layout, "dot"))
+            if (streq(layout, "dot")) {
 		fprintf(stderr, "Perhaps \"dot -c\" needs to be run (with installer's privileges) to register the plugins?\n");
-	    else 
-		fprintf(stderr, "Use one of:%s\n", gvplugin_list(gvc, API_layout, ""));
+	    } else {
+		/* TODO: Detect empty results from gvplugin_list() and prompt to configure with '-c' */
+		/* fprintf(stderr, "Use one of:%s\n", gvplugin_list(gvc, API_layout, "")); */
+		char *lyts;
+		lyts = gvplugin_list(gvc, API_layout, "");
+		if (strlen(lyts) > 1) {
+                    fprintf(stderr, " Use one of:%s\n", lyts);
+		} else {
+		    /* Q: Should 'dot -c' be suggested generally or only when val = "dot"? */
+		    fprintf(stderr, " No layouts found.\nPerhaps \"dot -c\" needs to be run (with installer's privileges) to register the plugins?\n");
+		}
+	    }
 
 	    if (GvExitOnUsage) exit(1);
 	    return(2);
