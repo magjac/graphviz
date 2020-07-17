@@ -12,11 +12,10 @@
 #include "vmalloc.h"
 #include <stdlib.h>
 
-/*	Opening a new region of allocation.
-**
-**	Written by Kiem-Phong Vo, kpv@research.att.com, 01/16/94.
-*/
-
+/** Open a new region of allocation.
+ *
+ * @returns A newly allocated Vmalloc or NULL on failure
+ */
 Vmalloc_t *vmopen(void) {
   Vmalloc_t *vm;
 

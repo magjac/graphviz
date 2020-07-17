@@ -12,10 +12,11 @@
 #include "vmalloc.h"
 #include <stdlib.h>
 
-/*	Close down a region.
-**
-**	Written by Kiem-Phong Vo, kpv@research.att.com, 01/16/94.
-*/
+/** Close down a region.
+ *
+ * @param vm Vmalloc to operate on
+ * @returns 0 on success
+ */
 int vmclose(Vmalloc_t *vm) {
   int r;
 
