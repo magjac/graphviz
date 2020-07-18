@@ -12,10 +12,14 @@
 #include "vmalloc.h"
 #include <stdlib.h>
 
-/*	Clear out all allocated space.
-**
-**	Written by Kiem-Phong Vo, kpv@research.att.com, 01/16/94.
-*/
+/** Clear out all allocated space.
+ *
+ * Note that this leaves the allocation region itself usable, but just frees all
+ * previous allocations made within this region.
+ *
+ * @param vm Vmalloc to operate on
+ * @returns 0 on success
+ */
 int vmclear(Vmalloc_t *vm) {
   size_t i;
 
