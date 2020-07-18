@@ -52,7 +52,7 @@ static char *caseStr(case_t cs)
 /* eol:
  * Eat characters until eol.
  */
-static int eol (Sfio_t * str, Sfio_t * ostr)
+static int eol (Sfio_t * str)
 {
     int c;
     while ((c = sfgetc(str)) != '\n') {
@@ -61,8 +61,6 @@ static int eol (Sfio_t * str, Sfio_t * ostr)
     }
     lineno++;
     col0 = 1;
-    if (ostr)
-	sfputc(ostr, c);
     return c;
 }
 
@@ -85,7 +83,7 @@ static int readc(Sfio_t * str, Sfio_t * ostr)
 	break;
     case '#':
 	if (col0) { /* shell comment */
-	    c = eol (str, ostr);
+	    c = eol (str);
 	}
 	else col0 = 0;
 	break;
@@ -122,7 +120,7 @@ static int readc(Sfio_t * str, Sfio_t * ostr)
 	    }
 	    break;
 	case '/':		/* in C++ comment */
-	    c = eol (str, ostr);
+	    c = eol (str);
 	    break;
 	default:		/* not a comment  */
 	    if (cc >= '\0')
