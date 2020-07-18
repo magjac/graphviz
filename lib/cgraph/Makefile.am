@@ -55,7 +55,7 @@ cgraph.3.ps: $(srcdir)/cgraph.3
 	@GROFF@ -Tps -man $< >$@
 
 EXTRA_DIST = $(man_MANS) $(pdf_DATA) cmpnd.c \
-	main.c tester.c grammar.c grammar.h scan.c \
+	grammar.c grammar.h scan.c \
 	y.tab.c y.tab.h y.output cgraph.vcxproj*
 
 DISTCLEANFILES = $(pdf_DATA) grammar.[ch] scan.c y.output y.tab.[ch] cgraph.3.ps
