@@ -55,6 +55,28 @@ def test_165():
     assert r'hello \\\" world' in ldraw.group('value'), \
       'unexpected ldraw contents'
 
+def test_165_2():
+    '''
+    variant of test_165() that checks a similar problem for edges
+    https://gitlab.com/graphviz/graphviz/-/issues/165
+    '''
+
+    # locate our associated test case in this directory
+    input = os.path.join(os.path.dirname(__file__), '165_2.dot')
+    assert os.path.exists(input), 'unexpectedly missing test case'
+
+    # ask Graphviz to translate it to xdot
+    output = subprocess.check_output(['dot', '-Txdot', input],
+      universal_newlines=True)
+
+    # find the lines containing _ldraw_ attributes
+    ldraw = re.findall(r'^\s*_ldraw_\s*=(.*?)$', output, re.MULTILINE)
+    assert ldraw is not None, 'no _ldraw_ attributes in graph'
+
+    # one of these should contain the label correctly escaped
+    assert any(r'hello \\\" world' in l for l in ldraw), \
+      'unexpected ldraw contents'
+
 def test_1436():
     '''
     test a segfault from https://gitlab.com/graphviz/graphviz/-/issues/1436 has

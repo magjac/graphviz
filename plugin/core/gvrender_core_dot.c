@@ -304,7 +304,7 @@ static void xdot_end_edge(GVJ_t* job)
     if (agxblen(xbufs[EMIT_HDRAW]))
 	agxset(e, xd->h_draw, agxbuse(xbufs[EMIT_HDRAW]));
     if (agxblen(xbufs[EMIT_ELABEL]))
-	agxset(e, xd->e_l_draw,agxbuse(xbufs[EMIT_ELABEL]));
+	put_escaping_backslashes(e, xd->e_l_draw, agxbuse(xbufs[EMIT_ELABEL]));
     if (agxblen(xbufs[EMIT_TLABEL]))
 	agxset(e, xd->tl_draw, agxbuse(xbufs[EMIT_TLABEL]));
     if (agxblen(xbufs[EMIT_HLABEL]))
