@@ -245,13 +245,48 @@ static void xdot_style (GVJ_t *job)
 
 }
 
+/** set the value of a symbol within a node, escaping backslashes
+ *
+ * The back ends that output certain text-based formats, e.g. xdot, assume that
+ * all characters that have special meaning within a string have already been
+ * escaped, with the exception of double quote ("). Hence, any string being
+ * constructed from user-provided input needs to be escaped for other
+ * problematic characters (namely \) beforehand. This is a little utility
+ * function to do such.
+ *
+ * @param n Node to operate on
+ * @param sym Symbol to set
+ * @param value Unescaped string
+ */
+static void put_escaping_backslashes(Agnode_t* n, Agsym_t *sym, const char *value)
+{
+    agxbuf buf;
+
+    /* create a temporary buffer */
+    agxbinit(&buf, 0, NULL);
+
+    /* print the given string to the buffer, escaping as we go */
+    for (; *value != '\0'; ++value) {
+        if (*value == '\\') {
+            agxbputc(&buf, '\\');
+        }
+        agxbputc(&buf, *value);
+    }
+
+    /* update the node's symbol to the escaped text */
+    agxset(n, sym, agxbuse(&buf));
+
+    /* discard the buffer */
+    agxbfree(&buf);
+}
+
 static void xdot_end_node(GVJ_t* job)
 {
     Agnode_t* n = job->obj->u.n; 
     if (agxblen(xbufs[EMIT_NDRAW]))
 	agxset(n, xd->n_draw, agxbuse(xbufs[EMIT_NDRAW]));
     if (agxblen(xbufs[EMIT_NLABEL]))
-	agxset(n, xd->n_l_draw, agxbuse(xbufs[EMIT_NLABEL]));
+	put_escaping_backslashes(n, xd->n_l_draw, agxbuse(xbufs[EMIT_NLABEL]));
     penwidth[EMIT_NDRAW] = 1;
     penwidth[EMIT_NLABEL] = 1;
     textflags[EMIT_NDRAW] = 0;

@@ -1,5 +1,6 @@
 import subprocess
 import os
+import re
 
 # The terminology used in rtest.sh is a little inconsistent. At the
 # end it reports the total number of tests, the number of "failures"
@@ -31,6 +32,28 @@ def test_regression_failure():
     assert "Layout failures: 0" in str(text)
 # FIXME: re-enable when all tests pass on all platforms
 #    assert result.returncode == 0
+
+def test_165():
+    '''
+    dot should be able to produce properly escaped xdot output
+    https://gitlab.com/graphviz/graphviz/-/issues/165
+    '''
+
+    # locate our associated test case in this directory
+    input = os.path.join(os.path.dirname(__file__), '165.dot')
+    assert os.path.exists(input), 'unexpectedly missing test case'
+
+    # ask Graphviz to translate it to xdot
+    output = subprocess.check_output(['dot', '-Txdot', input],
+      universal_newlines=True)
+
+    # find the line containing the _ldraw_ attribute
+    ldraw = re.search(r'^\s*_ldraw_\s*=(?P<value>.*?)$', output, re.MULTILINE)
+    assert ldraw is not None, 'no _ldraw_ attribute in graph'
+
+    # this should contain the label correctly escaped
+    assert r'hello \\\" world' in ldraw.group('value'), \
+      'unexpected ldraw contents'
 
 def test_1436():
     '''
