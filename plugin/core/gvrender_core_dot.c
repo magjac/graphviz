@@ -516,7 +516,7 @@ static void xdot_end_graph(graph_t* g)
 	agxset(g, xd->g_draw, agxbuse(xbufs[EMIT_GDRAW]));
     }
     if (GD_label(g))
-	agxset(g, xd->g_l_draw, agxbuse(xbufs[EMIT_GLABEL]));
+	put_escaping_backslashes(g, xd->g_l_draw, agxbuse(xbufs[EMIT_GLABEL]));
     agsafeset (g, "xdotversion", xd->version_s, "");
 
     for (i = 0; i < NUMXBUFS; i++)
