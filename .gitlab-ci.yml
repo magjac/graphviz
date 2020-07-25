@@ -11,6 +11,7 @@ portable-source:
     image: "graphviz/graphviz:ubuntu-18.04"
     script:
         - ./autogen.sh
+        - ./configure
         - make dist
     artifacts:
         when: on_success
