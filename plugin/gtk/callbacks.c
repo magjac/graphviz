@@ -187,7 +187,7 @@ on_about1_activate                     (GtkMenuItem     *menuitem,
 		"version", "0.1",
 		"copyright", "(C) 2011 AT&T Intellectual Procerty.",
 		"license", "Eclipse Public License v1.0.",
-		"website", "http://www.graphviz.org",
+		"website", "https://graphviz.org",
 		"comments", "Visualize and edit graphs of nodes and edges",
 		"authors", authors,
 		NULL);

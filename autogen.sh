@@ -63,10 +63,3 @@ autoreconf -v --install --force || exit 1
 # ensure config/depcomp exists even if still using automake-1.4
 # otherwise "make dist" fails.
 touch config/depcomp
-
-# suppress automatic ./configure  if "./autogen.sh NOCONFIG"
-if test "$1" != "NOCONFIG"; then
-    # don't use any old cache, but create a new one
-    rm -f config.cache
-    ./configure -C "$@"
-fi

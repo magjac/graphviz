@@ -12,11 +12,11 @@
  *************************************************************************/
 
 #include "config.h"
+#include "overlap.h"
 
 #if ((defined(HAVE_GTS) || defined(HAVE_TRIANGLE)) && defined(SFDP))
 
 #include "SparseMatrix.h"
-#include "overlap.h"
 #include "call_tri.h"
 #include "red_black_tree.h"
 #include "types.h"
@@ -683,9 +683,23 @@ void remove_overlap(int dim, SparseMatrix A, real *x, real *label_sizes, int ntr
 #else
 #include "types.h"
 #include "SparseMatrix.h"
-void remove_overlap(int dim, SparseMatrix A, int m, real *x, real *label_sizes, int ntry, real initial_scaling, int do_shrinking, int *flag)
+void remove_overlap(int dim, SparseMatrix A, real *x, real *label_sizes, int ntry, real initial_scaling,
+		    int edge_labeling_scheme, int n_constr_nodes, int *constr_nodes, SparseMatrix A_constr, int do_shrinking, int *flag)
 {
     static int once;
+
+    (void)dim;
+    (void)A;
+    (void)x;
+    (void)label_sizes;
+    (void)ntry;
+    (void)initial_scaling;
+    (void)edge_labeling_scheme;
+    (void)n_constr_nodes;
+    (void)constr_nodes;
+    (void)A_constr;
+    (void)do_shrinking;
+    (void)flag;
 
     if (once == 0) {
 	once = 1;
