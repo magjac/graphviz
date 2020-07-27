@@ -99,9 +99,7 @@
     <ClCompile Include="vmbest.c" />
     <ClCompile Include="vmclear.c" />
     <ClCompile Include="vmclose.c" />
-    <ClCompile Include="vmdcheap.c" />
     <ClCompile Include="vmopen.c" />
-    <ClCompile Include="vmprivate.c" />
     <ClCompile Include="vmstrdup.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

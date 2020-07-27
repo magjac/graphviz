@@ -377,7 +377,6 @@ CGRAPH_API void *agalloc(Agraph_t * g, size_t size);
 CGRAPH_API void *agrealloc(Agraph_t * g, void *ptr, size_t oldsize,
 		       size_t size);
 CGRAPH_API void agfree(Agraph_t * g, void *ptr);
-CGRAPH_API struct _vmalloc_s *agheap(Agraph_t * g);
 
 /* an engineering compromise is a joy forever */
 CGRAPH_API void aginternalmapclearlocalnames(Agraph_t * g);

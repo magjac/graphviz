@@ -12,6 +12,7 @@
  *************************************************************************/
 
 
+#include <string.h>
 #include	"vmhdr.h"
 /*
  * return a copy of s using vmalloc

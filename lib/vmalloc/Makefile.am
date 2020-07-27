@@ -4,8 +4,8 @@
 noinst_HEADERS = vmalloc.h vmhdr.h
 noinst_LTLIBRARIES = libvmalloc_C.la
 
-libvmalloc_C_la_SOURCES = vmbest.c vmclear.c vmclose.c vmdcheap.c \
-	vmopen.c vmprivate.c \
+libvmalloc_C_la_SOURCES = vmbest.c vmclear.c vmclose.c \
+	vmopen.c \
 	vmstrdup.c
 
-EXTRA_DIST = README vmalloc.vcxproj*
+EXTRA_DIST = vmalloc.vcxproj*

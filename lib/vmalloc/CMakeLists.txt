@@ -9,8 +9,6 @@ add_library(vmalloc STATIC
     vmbest.c
     vmclear.c
     vmclose.c
-    vmdcheap.c
     vmopen.c
-    vmprivate.c
     vmstrdup.c
 )

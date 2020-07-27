@@ -42,8 +42,8 @@ exopen(register Exdisc_t* disc)
 	program->symdisc.key = offsetof(Exid_t, name);
 	if (!(program->symbols = dtopen(&program->symdisc, Dtset)) ||
 	    !(program->tmp = sfstropen()) ||
-	    !(program->vm = vmopen(Vmdcheap, Vmbest, 0)) ||
-	    !(program->ve = vmopen(Vmdcheap, Vmbest, 0)))
+	    !(program->vm = vmopen()) ||
+	    !(program->ve = vmopen()))
 	{
 		exclose(program, 1);
 		return 0;
